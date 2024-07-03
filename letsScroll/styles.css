@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+
+:root {
+	--size: 30rem;
+	--bg-color: #45474b;
+	--card-color: rgb(55 151 119 / 70%);
+	--txt-color: #f4ce14;
+	--highlight: #f5f7f8;
+}
+::-webkit-scrollbar {
+	display: none;
+}
+body {
+	font-family: "Oswald", sans-serif;
+	background: var(--bg-color);
+	font-optical-sizing: auto;
+	overflow: auto;
+	font-style: normal;
+	display: flex;
+	flex-direction: column;
+	place-items: center;
+	font-weight: 200;
+	width: 100%;
+	min-height: 50em;
+	max-height: 100vw;
+	padding-top: 2em;
+}
+
+aside {
+	z-index: 1;
+	background: rgb(55 151 119);
+	padding-top: 5em;
+	width: 100%;
+	max-height: var(--size);
+	max-width: var(--size);
+	border-radius: 2em;
+	overflow: hidden;
+	border: 2px solid var(--highlight);
+	box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+#text {
+	/* 	border:2px solid red; */
+	/* 	position:relative; */
+	top: 0;
+	overflow: scroll;
+	max-height: 0em;
+	max-height: var(--size);
+	max-width: var(--size);
+	z-index: 5;
+	color: var(--txt-color);
+	background: var(--card-color);
+	width: 100%;
+	font-size: 2em;
+	padding: 20rem 0rem 100rem 0rem;
+}
+h1 {
+	position: relative;
+	font-size: 1.8em;
+	top: 0;
+	left: 50%;
+	min-width: fit-content;
+	text-align: center;
+	transform: translate(-50%, -200%);
+	text-shadow: 0.07rem 0 var(--txt-color), 0 0.07rem var(--txt-color),
+		-0.07rem 0 var(--txt-color), 0 -0.07rem var(--txt-color);
+}
+
+img {
+	filter: grayscale(80%);
+	filter: saturate(400%);
+	opacity: 0.3;
+	z-index: 1;
+	position: relative;
+	transform: translate(-5%, -15%);
+	opacity: 2em;
+}
+
+p {
+	max-width: 30rem;
+	text-align: center;
+	font-size: 2em;
+	padding: 0;
+	letter-spacing: 0.5rem;
+	text-shadow: 0.07rem 0 black, 0 0.07rem black, -0.07rem 0 black,
+		0 -0.07rem black;
+}
+p:last-of-type() {
+	height: 200em;
+	width: var(--size);
+}
+
+#info {
+	--color: #9bec00;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	display: flex;
+	flex-direction: column;
+	color: var(--color);
+	text-shadow: 0 0 7px var(--color), 0 0 10px var(--color), 0 0 21px var(--color);
+	font-size: 1.5em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	p {
+		animation: bounce 1200ms;
+		animation: scrollin linear;
+		animation-timeline: view();
+	}
+
+	@keyframes scrollin {
+		from {
+			scale: 0.1;
+		}
+		to {
+			scale: 1;
+		}
+	}
+}
