@@ -1,0 +1,108 @@
+:root {
+	--size: 30rem;
+	--bg-color: #45474b;
+	--card-color: rgba(55, 151, 119, 0.7);
+	--piece-color:aqua;
+}
+#pieces {
+    display: grid;
+    gap: 10px;
+    border: 2px solid black;
+    padding: 1em;
+}
+
+#pieces .piece {
+    width: 5em;
+    height: 5em;
+    border: 2px solid red;
+    position: relative;
+}
+
+#pieces .inner-piece {
+    border-radius: 50%;
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    border: 2px solid green;
+}
+
+.inner-piece.top-add {
+    top: -0.5em;
+    left: 50%;
+    transform: translateX(-50%);
+	background-color: var(--piece-color);
+}
+
+.inner-piece.top-remove {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+	background-color: var(--bg-color);
+}
+
+.inner-piece.right-add {
+    top: 50%;
+    right: -0.5em;
+    transform: translateY(-50%);
+	background-color: var(--piece-color);
+}
+
+.inner-piece.right-remove {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+	background-color: var(--bg-color);
+}
+
+.inner-piece.bottom-add {
+    bottom: -0.5em;
+    left: 50%;
+    transform: translateX(-50%);
+	background-color: var(--piece-color);
+}
+
+.inner-piece.bottom-remove {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+	background-color: var(--bg-color);
+}
+
+.inner-piece.left-add {
+    top: 50%;
+    left: -0.5em;
+    transform: translateY(-50%);
+	background-color: var(--piece-color);
+}
+
+.inner-piece.left-remove {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+	background-color: var(--bg-color);
+}
+
+
+body {
+	/* background-color: var(--bg-color); */
+	background-color: gray;
+	color: var(--txt-color);
+	font-family: 'Arial', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+#info {
+	--color: yellow;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	display: flex;
+	flex-direction: column;
+	color: var(--color);
+	text-shadow: 0 0 7px var(--color), 0 0 10px var(--color), 0 0 21px var(--color);
+	font-size: 1.5em;
+}
