@@ -1,36 +1,98 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
-
 :root {
 	--size: 30rem;
 	--bg-color: #45474b;
-	--card-color: rgb(55 151 119 / 70%);
+	--card-color: rgba(55, 151, 119, 0.7);
 	--txt-color: #f4ce14;
 	--highlight: #f5f7f8;
+    --button-bg: #f4ce14;
+    --button-txt: #45474b;
+    --button-disabled-bg: #ddd;
+    --button-disabled-txt: #aaa;
 }
-main {
-	border: 2px solid red;
-	width: 100vw;
+
+body {
+	background-color: var(--bg-color);
+	color: var(--txt-color);
+	font-family: 'Arial', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	height: 100vh;
+	margin: 0;
 }
+
+main {
+	background-color: var(--card-color);
+	border-radius: 1rem;
+	box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+	padding: 2rem;
+	text-align: center;
+	width: var(--size);
+}
+
 #goal-letters {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 1rem;
 }
+
 .goal-letter {
-	font-size: 3em;
-	width: 2em;
-	height: 2em;
-	border-radius: .1em;
-	text-align: center;
-	vertical-align: middle;
-	line-height: 2em;
-	border: 2px solid var(--txt-color);
-	margin: 0.5em;
-	color: var(--txt-color);
-	text-shadow: 0 0 7px var(--txt-color), 0 0 10px var(--txt-color), 0 0 21px var(--txt-color);
+	font-size: 2rem;
+	margin: 0 0.5rem;
+	border-bottom: 2px solid var(--highlight);
 }
-.not-found {
+
+#letter-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.letter-button {
+	background-color: var(--button-bg);
+	color: var(--button-txt);
+	border: none;
+	border-radius: 0.5rem;
+	padding: 0.5rem 1rem;
+	margin: 0.2rem;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.letter-button:hover {
+	background-color: var(--highlight);
+}
+
+.letter-button:disabled {
+	background-color: var(--button-disabled-bg);
+	color: var(--button-disabled-txt);
+	cursor: not-allowed;
+}
+
+#remaining-guesses {
+	margin-top: 1rem;
+	font-size: 1.2rem;
+}
+
+#game-over {
+	margin-top: 1rem;
+	font-size: 1.2rem;
+	color: var(--highlight);
+}
+
+#reset-button {
+	background-color: var(--highlight);
+	color: var(--bg-color);
+	border: none;
+	border-radius: 0.5rem;
+	padding: 0.5rem 1rem;
+	margin-top: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+#reset-button:hover {
 	background-color: var(--txt-color);
 }
 

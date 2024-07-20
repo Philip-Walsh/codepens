@@ -10,11 +10,15 @@
   <body>
     <main>
       <section id="goal-letters"></section>
-      <section id="game-text">
-        Guess the word!
-      </section>
+      <section id="game-text">Guess the word!</section>
       <div id="letter-buttons"></div>
+      <section id="remaining-guesses">
+        Guesses remaining: <span id="guesses-left"></span>
+      </section>
+      <div id="game-over"></div>
+      <button id="reset-button" onclick="resetGame()">Reset Game</button>
     </main>
+
     <div id="info">
       <span>#CodePenChallenge</span>
       <span>#cpc-word-puzzles</span>
