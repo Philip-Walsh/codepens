@@ -1,0 +1,59 @@
+:root {
+	--bg-color: #45474b;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	background-color: var(--bg-color);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+}
+
+.container {
+	display: flex;
+	width: 80%;
+	height: 80%;
+}
+
+.game {
+	flex: 2;
+	padding: 10px;
+}
+
+.outcome {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #ccc;
+	overflow-y: auto;
+}
+
+.instructions {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #ccc;
+	overflow-y: auto;
+}
+
+canvas {
+	width: 100%;
+	height: auto;
+	border: 1px solid #000;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	font-size: 1.2em;
+}
+
+li.win {
+	color: green;
+}
+
+li.die {
+	color: red;
+}
