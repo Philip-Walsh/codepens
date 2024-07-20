@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+
+:root {
+	--size: 30rem;
+	--bg-color: #45474b;
+	--card-color: rgb(55 151 119 / 70%);
+	--txt-color: #f4ce14;
+	--highlight: #f5f7f8;
+}
+main {
+	border: 2px solid red;
+	width: 100vw;
+	height: 100vh;
+}
+#goal-letters {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.goal-letter {
+	font-size: 3em;
+	width: 2em;
+	height: 2em;
+	border-radius: .1em;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 2em;
+	border: 2px solid var(--txt-color);
+	margin: 0.5em;
+	color: var(--txt-color);
+	text-shadow: 0 0 7px var(--txt-color), 0 0 10px var(--txt-color), 0 0 21px var(--txt-color);
+}
+.not-found {
+	background-color: var(--txt-color);
+}
+
+#info {
+	--color: #9bec00;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	display: flex;
+	flex-direction: column;
+	color: var(--color);
+	text-shadow: 0 0 7px var(--color), 0 0 10px var(--color), 0 0 21px var(--color);
+	font-size: 1.5em;
+}
