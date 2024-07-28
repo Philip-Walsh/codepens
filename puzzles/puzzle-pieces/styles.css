@@ -8,8 +8,10 @@
 	--remove-position-adjust: -5px
 }
 #pieces {
+	width: calc(var(--piece-size) * 5);
+	height: calc(var(--piece-size) * 5);
     display: grid;
-    gap: 5px;
+    /* gap: 5px; */
     border: 2px solid black;
     padding: 1em;
 }
