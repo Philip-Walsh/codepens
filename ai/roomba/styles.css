@@ -1,0 +1,24 @@
+:root {
+	--size: 30rem;
+	--bg-color: #45474b;
+	--card-color: rgba(55, 151, 119, 0.7);
+	--piece-color:aqua;
+	--piece-size: 5em;
+	--inner-piece-size: 2em;
+	--remove-position-adjust: -5px
+}
+
+body {
+	background-color: var(--bg-color);
+	color: var(--txt-color);
+	font-family: 'Arial', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+canvas {
+	border: var(--card-color) 1px solid;
+}
