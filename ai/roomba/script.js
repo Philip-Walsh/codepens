@@ -7,6 +7,52 @@ let debug = false;
 const obstacles = [];
 const numObstacles = 5;
 
+let defaultRoombaOutlineColor = "#155263";
+let defaultRoombaFillColor = "#ff6f3c";
+let defaultRoombaRayColor = "#ff9a3c";
+let floorColor = "#282c34";
+let obstacleColor = "#ffc93c";
+
+function setup() {
+    canvas = document.getElementById("roomba");
+    width = canvas.width;
+    height = canvas.height;
+
+    if (canvas.getContext) {
+        ctx = canvas.getContext("2d");
+        roomba = new Roomba(width / 2, height / 2);
+        draw();
+    }
+
+    document.getElementById("toggleDebug").addEventListener("click", toggleDebug);
+    document.getElementById("addObstacle").addEventListener("click", addObstacle);
+    document.getElementById("speedControl").addEventListener("input", updateSpeed);
+    // document.getElementById("resetSimulation").addEventListener("click", resetSimulation);
+
+    // document.getElementById("floorColor").addEventListener("input", updateFloorColor);
+    // document.getElementById("obstacleColor").addEventListener("input", updateObstacleColor);
+
+    // document.getElementById("fillColor").addEventListener("input", () => updateRoombaColor("fillColor"));
+    // document.getElementById("outlineColor").addEventListener("input", () => updateRoombaColor("outlineColor"));
+    // document.getElementById("rayColor").addEventListener("input", () => updateRoombaColor("rayColor"));
+}
+
+function updateFloorColor() {
+    floorColor = document.getElementById("floorColor").value;
+    draw(); // Redraw to apply the new floor color
+}
+
+function updateObstacleColor() {
+    obstacleColor = document.getElementById("obstacleColor").value;
+}
+
+function updateRoombaColor(property) {
+    const colorValue = document.getElementById(property).value;
+    if (roomba) {
+        roomba.colors[property] = colorValue;
+    }
+}
+
 class Obstacle {
     constructor(x, y, type) {
         this.x = x;
@@ -21,7 +67,7 @@ class Obstacle {
     }
 
     draw() {
-        ctx.fillStyle = "#000000"; // Black obstacles
+        ctx.fillStyle = obstacleColor;
         if (this.type === "circle") {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -43,6 +89,20 @@ class Obstacle {
             );
         }
     }
+
+    isCollision(x, y, radius) {
+        if (this.type === "circle") {
+            const dx = x - this.x;
+            const dy = y - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            return distance < this.radius + radius;
+        } else {
+            return (
+                x + radius > this.x && x - radius < this.x + this.width &&
+                y + radius > this.y && y - radius < this.y + this.height
+            );
+        }
+    }
 }
 
 class Roomba {
@@ -51,14 +111,22 @@ class Roomba {
         this.y = y;
         this.speed = 2;
         this.angle = Math.random() * (Math.PI * 2);
+        this.radius = 20;
         this.sensors = [0, Math.PI / 4, -Math.PI / 4];
-        this.sensorLength = 50;
+        this.sensorLength = 30;
         this.followingWall = false;
+
+        this.colors = {
+            outlineColor: defaultRoombaOutlineColor,
+            fillColor: defaultRoombaFillColor,
+            rayColor: defaultRoombaRayColor
+        }
     }
 
     update() {
         this.updateVelocity();
         this.updatePosition();
+        this.checkCollisions();
         this.makeDecision();
     }
 
@@ -72,6 +140,16 @@ class Roomba {
         this.y += this.velocityY;
 
         this.avoidWalls();
+    }
+
+    checkCollisions() {
+        obstacles.forEach(obstacle => {
+            if (obstacle.isCollision(this.x, this.y, this.radius)) {
+                const newAngle = Math.atan2(this.y - obstacle.y, this.x - obstacle.x);
+                this.angle = newAngle + Math.PI / 2;
+                this.updateVelocity();
+            }
+        });
     }
 
     makeDecision() {
@@ -124,22 +202,21 @@ class Roomba {
     }
 
     draw() {
-        
         ctx.save();
         ctx.translate(this.x, this.y);
+
         if (debug) {
             this.drawDebugInfo();
         }
 
-        ctx.strokeStyle = "#FF0000";
-        ctx.fillStyle = "#00FF00";
+        ctx.strokeStyle = this.colors.outlineColor;
+        ctx.fillStyle = this.colors.fillColor;
         ctx.lineWidth = 2;
 
         ctx.beginPath();
-        ctx.arc(0, 0, 30, 0, Math.PI * 2);
+        ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
         ctx.stroke();
         ctx.fill();
-
 
         ctx.restore();
     }
@@ -152,37 +229,24 @@ class Roomba {
             ctx.beginPath();
             ctx.moveTo(0, 0);
             ctx.lineTo(rayX, rayY);
-            ctx.strokeStyle = "#FF0000";
+            ctx.strokeStyle = this.colors.rayColor;
             ctx.lineWidth = 1;
             ctx.stroke();
         });
     }
 }
 
-function setup() {
-    canvas = document.getElementById("roomba");
-    width = canvas.width;
-    height = canvas.height;
-
-    if (canvas.getContext) {
-        ctx = canvas.getContext("2d");
-        roomba = new Roomba(width / 2, height / 2);
-        draw();
-    }
-    document.getElementById("toggleDebug").addEventListener("click", toggleDebug);
-    document.getElementById("addObstacle").addEventListener("click", addObstacle);
-}
-
 function addObstacle() {
-        const x = Math.random() * width;
-        const y = Math.random() * height;
-        const type = Math.random() > 0.5 ? "circle" : "rectangle";
-        obstacles.push(new Obstacle(x, y, type));
+    const x = Math.random() * width;
+    const y = Math.random() * height;
+    const type = Math.random() > 0.5 ? "circle" : "rectangle";
+    obstacles.push(new Obstacle(x, y, type));
 }
 
 function draw() {
     if (!debug) {
-        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = floorColor;
+        ctx.fillRect(0, 0, width, height);
     }
 
     roomba.draw();
@@ -190,6 +254,19 @@ function draw() {
     drawObstacles();
 
     requestAnimationFrame(draw);
+}
+
+function resetSimulation() {
+    ctx.clearRect(0, 0, width, height);
+    obstacles.length = 0;
+    roomba = new Roomba(width / 2, height / 2);
+    draw();
+}
+
+function updateSpeed(event) {
+    const speed = parseFloat(event.target.value);
+    document.getElementById("speedValue").textContent = speed;
+    roomba.speed = speed;
 }
 
 function drawObstacles() {

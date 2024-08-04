@@ -3,14 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Roomba 🤖🧹</title>
     <link rel="stylesheet" href="./styles.css" />
     <script src="./script.js" defer></script>
   </head>
   <body>
     <main>
-      <button id="toggleDebug">Toggle Debug 🛠️</button>
-      <button id="addObstacle">Add Obstacle 🚧</button>
+      <h1>Roomba</h1>
+      <div class="controls">
+        <!-- <label for="outlineColor"
+          >Roomba Outline Color 🖍️:
+          <input type="color" id="outlineColor" value="#FF0000" />
+        </label>
+
+        <label for="fillColor"
+          >Roomba Fill Color 🎨:
+          <input type="color" id="fillColor" value="#00FF00" />
+        </label>
+
+        <label for="floorColor"
+          >Floor Color 🏠:
+          <input type="color" id="floorColor" value="#FFFFFF" />
+        </label>
+
+        <label for="obstacleColor"
+          >Obstacle Color 🚧:
+          <input type="color" id="obstacleColor" value="#000000" />
+        </label>
+
+        <label for="rayColor"
+          >Ray Color 🔦:
+          <input type="color" id="rayColor" value="#FF0000" />
+        </label> -->
+
+        <label for="speedControl"
+          >Speed 🚀:
+          <input
+            type="range"
+            id="speedControl"
+            min="1"
+            max="10"
+            step="0.1"
+            value="2"
+          />
+          <span id="speedValue">2</span>
+        </label>
+
+        <button id="toggleDebug">Toggle Debug 🛠️</button>
+        <button id="addObstacle">Add Obstacle 🚧</button>
+        <!-- <button id="reset">Reset 🔄</button> -->
+      </div>
       <canvas id="roomba" width="512" height="512"></canvas>
     </main>
   </body>
