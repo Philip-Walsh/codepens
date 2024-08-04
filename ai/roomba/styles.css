@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Color+Emoji&family=Oswald:wght@200..700&display=swap');
+
 :root {
 	--size: 30rem;
 	--bg-color: #20232a;
@@ -11,7 +13,15 @@
 	--border-color: rgba(255, 255, 255, 0.1);
 }
 
+span {
+	font-family: "Noto Color Emoji", sans-serif;
+
+}
+
 body {
+	font-family: "Bebas Neue", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 	background-color: var(--bg-color);
 	color: var(--txt-color);
 	font-family: 'Orbitron', sans-serif;
@@ -20,6 +30,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	text-align: center;
 	height: 100vh;
 	margin: 0;
 	padding: 20px;

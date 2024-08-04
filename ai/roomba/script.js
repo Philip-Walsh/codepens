@@ -39,7 +39,7 @@ function setup() {
 
 function updateFloorColor() {
     floorColor = document.getElementById("floorColor").value;
-    draw(); // Redraw to apply the new floor color
+    draw();
 }
 
 function updateObstacleColor() {
