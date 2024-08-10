@@ -9,6 +9,7 @@ CodePen Challenges are a fantastic way to level up your skills by building uniqu
 - Fork and modify the pens to suit your own projects and learning goals.
 - Explore the code and techniques used to gain new insights and skills.
 
+
 ## Stay Connected 🌐
 
 Follow my CodePen profile to stay updated on new challenges and projects. Feel free to leave comments, share your creations, and join the community of fellow developers. Happy coding! 🚀👩‍💻👨‍💻
