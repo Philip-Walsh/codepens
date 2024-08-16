@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Color+Emoji&family=Oswald:wght@200..700&display=swap");
+
+:root {
+	--size: 30rem;
+	--bg-color: #20232a;
+	--txt-color: #ffffff;
+	--color: #f6b73c;
+}
+
+body {
+	font-family: "Bebas Neue", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	background-color: var(--bg-color);
+	color: var(--txt-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	margin: 0;
+	padding: 20px;
+}
+
+form {
+	display: flex;
+	/* 	flex-direction:column; */
+	flex-wrap: wrap;
+	/* 	align-items:center; */
+	width: 14em;
+	gap: 1em;
+}
+label,
+input {
+	flex: 50%;
+	width: 7em;
+}
+
+#info {
+	font-family: "Arial", sans-serif;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	display: flex;
+	flex-direction: column;
+	color: var(--color);
+	text-shadow: 0 0 7px var(--color), 0 0 10px var(--color), 0 0 21px var(--color);
+	font-size: 1.5em;
+}

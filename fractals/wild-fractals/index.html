@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wild Fractals</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <form>
+	<label for="iteration">Iterations:</label>
+	<input type="range" id="iteration" min="1" max="16" value="8">
+	<br />
+	<label for="angle">Magic Angle:</label>
+	<input type="range" id="angle" min="1" max="865" value="1">
+	<br />
+	<label for="size">Size:</label>
+	<input type="range" id="size" min="1" max="200" value="90">
+	<br />
+	<label for="body">Color: </label>
+	<input type="color" id="color" name="color" value="#f6b73c" />
+
+</form>
+<canvas id="canvas"></canvas>
+
+<div id="info">
+	<span>#CodePenChallenge</span>
+	<span>#cpc-sierpinski-fractals</span>
+</div>
+  </body>
+</html>
