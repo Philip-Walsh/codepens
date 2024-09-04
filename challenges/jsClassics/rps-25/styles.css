@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&family=Noto+Color+Emoji&display=swap');
+body {
+	
+	background: radial-gradient(
+		rgb(65, 176, 110) 0%,
+		rgb(255, 245, 224) 5%,
+		rgb(141, 236, 180) 50%,
+		rgb(65, 176, 110) 100%
+	);
+}
+main {
+  display: flex;
+	flex-direction:column;
+	place-content:center;
+  font-family: "Nerko One", cursive;
+  font-weight: 200;
+  font-style: normal;
+	
+}
+
+.project p {
+	font-size:2em;
+	max-width:30em;
+}
+.card {
+  margin: 50px auto;
+	width: fit-content;
+}
+
+.front,
+.back {
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00000033;
+}
+
+.back {
+  padding: 0;
+  overflow: hidden;
+}
+
+h1 {
+  text-align: center;
+  padding-bottom: .5em;
+}
+
+
+.project ol {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.project ol li {
+  margin: 5px 0;
+}
+
+.project ol li:before {
+  margin-right: 5px;
+}
+
+.info-text {
+  padding-top: 1em;
+  font-size: 2em;
+}
+
+
+#rps-game #game {
+  height: fit-content;
+  padding: .5em;
+}
+
+#rules {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+}
+
+#rules  h2 {
+	font-size: 4em;
+}
+
+#rules span {
+  display: flex;
+  margin: .2em;
+  margin-top: .5em;
+}
+
+#rules span p {
+  padding-right: .1em;
+  text-transform: capitalize;
+  white-space: pre-line;
+}
+
+button {
+	font-size:1.5em;
+  font-family: "Nerko One", cursive;
+}
+
+#game-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-size: 1.5em;
+	gap:.5em;
+	padding:.5em;
+}
+#game-buttons button {
+	background:#41B06E;
+}
+#game section button {
+  padding: .1em;
+	margin:.05em;
+	border-radius:.1em;
+	width: 2em;
+	background:#41B06E;
+}
+#game-buttons button:hover, 
+#game section button:hover {
+	background: #FFF5E0;
+}
+
+#rounds {
+  display: flex;
+  flex-direction: row;
+
+}
+
+#game-buttons button {
+  min-width: 10em;
+  padding: 1rem;
+  border-radius: 2em;
+}
+
+#rps-game #game button {
+  font-size: 2em;
+}
+
+#rps-game #game {
+  font-size: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#rps-game #game section {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+	max-width:30em;
+}
+
+
+#info {
+	--color:#674188;
+	--highlight-color:rgba(103, 65, 136, .7);
+  font-family: "Nerko One", cursive;
+	position: sticky;
+	bottom: 10px;
+	left: 0px;
+	display: flex;
+	flex-direction: column;
+	color: var(--color);
+	text-shadow: 0 0 7px var(--highlight-color), 0 0 10px var(--highlight-color), 0 0 21px var(--highlight-color);
+	font-size: 1.5em;
+}

@@ -1,0 +1,68 @@
+:root {
+  --inch-w: 7;
+  --convert-px-inch: 100px; /* actual is 300px */ 
+  --aspect-ratio: 4 / 3;
+}
+
+body {
+  background: #1d1e22;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#tv {
+  width:100px;
+  width: calc(var(--inch-w) * var(--convert-px-inch) * 1.1);
+  aspect-ratio: var(--aspect-ratio);
+/*   background-color:grey; */
+}
+
+
+#screen-behind {
+  z-index: 0;
+  background: #000;
+  background-image: url('https://freesvg.org/img/1291143713.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  filter: blur(1px);
+}
+
+.screen {
+  z-index: 1;
+  width: calc(var(--inch-w) * var(--convert-px-inch));
+  aspect-ratio: var(--aspect-ratio);
+  position: absolute;
+  background: black;
+  border-radius: 1em;
+}
+#screen-front {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0,
+    rgba(255, 255, 255, 0.1) 1px,
+    rgba(0, 0, 0, 0.1) 2px
+  );
+  animation: crt-flicker 0.08s infinite, crt-scan 0.1s linear infinite;
+  box-shadow: 0 0 0 white;
+}
+
+
+@keyframes crt-flicker {
+  0%, 100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes crt-scan {
+  0% {
+    background-position: 0 100%;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
