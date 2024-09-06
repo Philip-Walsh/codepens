@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap");
+:root {
+  --bg-color: #20232a;
+
+  --text-em: #61dafb;
+  --text: #ffffff;
+}
+body {
+  background: var(--bg-color);
+  color: var(--text);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: "SUSE", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+canvas {
+  border: 1px solid black;
+}
+.controls {
+  margin-top: 20px;
+  text-align: center;
+}
+.controls p {
+  font-size: 18px;
+  margin: 5px 0;
+}
+.controls span {
+  font-weight: bold;
+  color: var(--text-em);
+}
+
+button {
+  background-color: #ff204e;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #a0153e;
+}
+
+button:focus {
+  outline: none;
+}
