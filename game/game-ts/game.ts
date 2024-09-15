@@ -18,8 +18,10 @@ let moveUp: boolean = false;
 let moveDown: boolean = false;
 let attack: boolean = false;
 
+let enemies: Entity[] = [];
+
 let tileSize: number = 32;
-let gameMap: Map;
+let gameMap: GameMap;
 
 const MAP_MULTIPLIER = 3;
 let MAP_WIDTH;
@@ -41,7 +43,7 @@ function resetGame(): void {
     0,
     0
   );
-  gameMap = new Map(col, row, tileSize);
+  gameMap = new GameMap(col, row, tileSize);
   createChests();
 }
 
@@ -65,11 +67,31 @@ function init(): void {
     0,
     0
   );
+  enemies.push(
+    new Enemy(
+      1000,
+      200,
+      7,
+      20,
+      20,
+      // 'aggressive'
+    )
+  )
+  enemies.push(
+    new Enemy(
+      1000,
+      100,
+      9,
+      20,
+      20,
+      // 'aggressive'
+    )
+  )
   camera = new Camera(width, height);
 
   window.addEventListener("keydown", activate, false);
   window.addEventListener("keyup", deactivate, false);
-  gameMap = new Map(col, row, tileSize);
+  gameMap = new GameMap(col, row, tileSize);
 
   createChests();
   requestAnimationFrame(gameLoop);
@@ -92,6 +114,10 @@ function game(deltaTime: number): void {
   gameMap.draw(camera);
 
   chests.forEach((c) => c.draw());
+  enemies.forEach((e) => {
+    e.move(deltaTime);
+    e.draw()
+  }  );
   player.updateTimers(deltaTime * 1000);
   player.move(deltaTime);
   player.draw();
@@ -185,12 +211,39 @@ function getRandomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-class Player {
+class Entity {
   x: number;
   y: number;
   size: number;
   speed: number;
   health: number;
+  colors: Record<string, string> = {
+    base: "#390",
+    attack: "#F00",
+  };
+
+  constructor(
+    x: number,
+    y: number,
+    size: number,
+    speed: number,
+    health: number
+  ) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.speed = speed;
+    this.health = health;
+  }
+
+  draw(): void {
+    ctx.fillStyle = attack ? this.colors.base : this.colors.attack;
+    ctx.beginPath();
+    ctx.arc(this.x + 16, this.y + 16, 16, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+class Player extends Entity {
   gold: number;
   direction: number;
   step: number;
@@ -214,31 +267,25 @@ class Player {
     direction: number,
     step: number
   ) {
-    this.x = x;
-    this.y = y;
-    this.size = size;
-    this.speed = speed;
-    this.health = health;
+    super(x, y, size, speed, health);
     this.gold = gold;
     this.direction = direction;
     this.step = step;
     this.attacked = false;
+    this.colors = {
+      base: "#A0153E",
+      attack: "#FF204E",
+    };
     this._dash = {
       isDashing: false,
       dashSpeed: 10,
       durationMs: 2000,
       cooldownMs: 10000,
       dashTime: 0,
-      cooldownTime: 0
+      cooldownTime: 0,
     };
   }
 
-  draw(): void {
-    ctx.fillStyle = attack ? "#A0153E" : "#FF204E";
-    ctx.beginPath();
-    ctx.arc(this.x + 16, this.y + 16, 16, 0, Math.PI * 2);
-    ctx.fill();
-  }
   dash(): void {
     if (!this._dash.isDashing && this._dash.cooldownTime <= 0) {
       this._dash.isDashing = true;
@@ -246,6 +293,7 @@ class Player {
       this._dash.cooldownTime = this._dash.cooldownMs;
     }
   }
+
   updateTimers(deltaTime: number): void {
     if (this._dash.isDashing) {
       this._dash.dashTime -= deltaTime;
@@ -260,7 +308,6 @@ class Player {
   }
 
   move(deltaTime: number): void {
-    // TODO: fix bug with holding down dash constant in one direction     
     let currentSpeed = this.speed;
     if (this._dash.isDashing) {
       currentSpeed = this._dash.dashSpeed * this.speed;
@@ -297,6 +344,44 @@ class Player {
     }
   }
 }
+type BehaviorEnum = "passive" | "aggressive";
+
+class Enemy extends Entity {
+  behaviorType: BehaviorEnum;
+  constructor(
+    x: number,
+    y: number,
+    size: number,
+    speed: number,
+    health: number,
+    behaviorType: BehaviorEnum = "passive"
+  ) {
+    super(x, y, size, speed, health);
+    this.behaviorType = behaviorType;
+    this.colors = {
+      base: "#900",
+      attack: "#C00",
+    };
+  }
+
+  move(playerX: number, playerY: number): void {
+    if (this.behaviorType === "aggressive") {
+      if (this.x < playerX) this.x += this.speed;
+      if (this.x > playerX) this.x -= this.speed;
+      if (this.y < playerY) this.y += this.speed;
+      if (this.y > playerY) this.y -= this.speed;
+    } else if (this.behaviorType === "passive") {
+      this.x += Math.random() < 0.5 ? -this.speed : this.speed;
+      this.y += Math.random() < 0.5 ? -this.speed : this.speed;
+    }
+
+    this.x = Math.max(0, Math.min(this.x, MAP_WIDTH - this.size));
+    this.y = Math.max(0, Math.min(this.y, MAP_HEIGHT - this.size));
+  }
+  attack(): void {
+    console.log("attack");
+  }
+}
 
 class Chest {
   x: number;
@@ -327,7 +412,7 @@ class Chest {
   }
 }
 
-class Map {
+class GameMap {
   col: number;
   row: number;
   tileSize: number;
@@ -421,3 +506,16 @@ class Camera {
     ctx.restore();
   }
 }
+
+
+// BUGS:
+
+// Enemy AI
+//  - aggressive hits wall and wont stop
+//  - passive too random
+//  - maybe switch modes based on line of sight
+
+//  Player
+//  - Cant attack enemies
+//  - chest / collision check could be moved / improved
+//  2 speed values when reset use consts or defaults
