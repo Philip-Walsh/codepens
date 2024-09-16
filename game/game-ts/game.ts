@@ -351,6 +351,8 @@ class Enemy extends Entity {
   private direction: number = 1; // 1 for right, -1 for left
   private attackPower: number;
   gold: number;
+  private attackCooldown: number = 0;
+  private attackCooldownTime: number = 30;
 
   constructor(
     x: number,
@@ -364,7 +366,7 @@ class Enemy extends Entity {
     this.colors = {
       Idle: "#6A5ACD",
       Chasing: "#FF6347",
-      Attacking: "#FF4500",
+      Attacking: "#FFf500",
       Pacing: "#4682B4",
     };
     this.attackPower = 5;
@@ -372,7 +374,10 @@ class Enemy extends Entity {
   }
 
   move(): void {
-    this.dontOverlap();
+    if (this.attackCooldown > 0) {
+      this.attackCooldown--;
+    }
+  
     switch (this.currentState) {
       case EnemyState.Idle:
         this.pace();
@@ -386,16 +391,19 @@ class Enemy extends Entity {
           this.currentState = EnemyState.Idle;
         } else if (this.isPlayerInRange(player.x, player.y)) {
           this.currentState = EnemyState.Attacking;
+          this.attackCooldown = this.attackCooldownTime; // Start cooldown
         }
         break;
       case EnemyState.Attacking:
-        this.attackPlayer();
-        if (!this.isPlayerInRange(player.x, player.y)) {
+        if (this.attackCooldown === this.attackCooldownTime) {
+          this.attackPlayer();
+        }
+        if (this.attackCooldown <= 0) {
           this.currentState = EnemyState.Chasing;
         }
         break;
     }
-
+    this.dontOverlap();
     this.x = Math.max(0, Math.min(this.x, MAP_WIDTH - this.size));
     this.y = Math.max(0, Math.min(this.y, MAP_HEIGHT - this.size));
   }
