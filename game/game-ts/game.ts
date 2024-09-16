@@ -18,7 +18,7 @@ let moveUp: boolean = false;
 let moveDown: boolean = false;
 let attack: boolean = false;
 
-let enemies: Entity[] = [];
+let enemies: Enemy[] = [];
 
 const tileSize: number = 32;
 let gameMap: GameMap;
@@ -33,7 +33,9 @@ document.addEventListener("DOMContentLoaded", init, false);
 function registerEventListeners() {
   window.addEventListener("keydown", activate, false);
   window.addEventListener("keyup", deactivate, false);
-  document.getElementById("resetButton")?.addEventListener("click", initGameState);
+  document
+    .getElementById("resetButton")
+    ?.addEventListener("click", initGameState);
 }
 function initGameState() {
   gameMap = new GameMap(col, row, tileSize);
@@ -48,18 +50,10 @@ function initGameState() {
     0,
     0
   );
-  enemies.push(
-    new Enemy(
-      1000,
-      200,
-    )
-  )
-  enemies.push(
-    new Enemy(
-      1000,
-      100,
-    )
-  )
+  enemies = [];
+  for (let i = 0; i < 5; i++) {
+    enemies.push(new Enemy(Math.random() * width, Math.random() * height));
+  }
   camera = new Camera(width, height);
 }
 
@@ -72,7 +66,7 @@ function init(): void {
   MAP_HEIGHT = MAP_MULTIPLIER * height;
   col = Math.floor(MAP_WIDTH / tileSize);
   row = Math.floor(MAP_HEIGHT / tileSize);
-  
+
   initGameState();
   registerEventListeners();
   requestAnimationFrame(gameLoop);
@@ -97,8 +91,8 @@ function game(deltaTime: number): void {
   chests.forEach((c) => c.draw());
   enemies.forEach((e) => {
     e.move(deltaTime);
-    e.draw()
-  }  );
+    e.draw();
+  });
   player.updateTimers(deltaTime * 1000);
   player.move(deltaTime);
   player.draw();
@@ -238,6 +232,7 @@ class Player extends Entity {
     dashTime: number;
     cooldownTime: number;
   };
+  attackPower = 10;
 
   constructor(
     x: number,
@@ -323,46 +318,150 @@ class Player extends Entity {
           this.gold += goldFound;
         }
       });
+      enemies.forEach((enemy) => {
+        const isColliding =
+          this.x < enemy.x + enemy.size &&
+          this.x + this.size > enemy.x &&
+          this.y < enemy.y + enemy.size &&
+          this.y + this.size > enemy.y;
+        if (isColliding) {
+          enemy.takeDamage(this.attackPower);
+          if (enemy.health <= 0) {
+            this.gold += enemy.gold;
+          }
+        }
+      });
     }
+  }
+  takeDamage(damage: number): void {
+    this.health -= damage;
   }
 }
 
-type BehaviorEnum = "passive" | "aggressive";
+enum EnemyState {
+  Idle,
+  Chasing,
+  Attacking,
+  Pacing,
+}
 
 class Enemy extends Entity {
-  behaviorType: BehaviorEnum;
+  private currentState: EnemyState = EnemyState.Idle;
+  private initialX: number;
+  private direction: number = 1; // 1 for right, -1 for left
+  private attackPower: number;
+  gold: number;
+
   constructor(
     x: number,
     y: number,
     size: number = 10,
     speed: number = 4,
-    health: number = 30,
-    behaviorType: BehaviorEnum = "passive"
+    health: number = 30
   ) {
     super(x, y, size, speed, health);
-    this.behaviorType = behaviorType;
+    this.initialX = x;
     this.colors = {
-      base: "#900",
-      attack: "#C00",
+      Idle: "#6A5ACD",
+      Chasing: "#FF6347",
+      Attacking: "#FF4500",
+      Pacing: "#4682B4",
     };
+    this.attackPower = 5;
+    this.gold = getRandomNumber(5, 10);
   }
 
-  move(playerX: number, playerY: number): void {
-    if (this.behaviorType === "aggressive") {
-      if (this.x < playerX) this.x += this.speed;
-      if (this.x > playerX) this.x -= this.speed;
-      if (this.y < playerY) this.y += this.speed;
-      if (this.y > playerY) this.y -= this.speed;
-    } else if (this.behaviorType === "passive") {
-      this.x += Math.random() < 0.5 ? -this.speed : this.speed;
-      this.y += Math.random() < 0.5 ? -this.speed : this.speed;
+  move(): void {
+    this.dontOverlap();
+    switch (this.currentState) {
+      case EnemyState.Idle:
+        this.pace();
+        if (this.isPlayerNearby(player.x, player.y)) {
+          this.currentState = EnemyState.Chasing;
+        }
+        break;
+      case EnemyState.Chasing:
+        this.chasePlayer(player.x, player.y);
+        if (!this.isPlayerNearby(player.x, player.y)) {
+          this.currentState = EnemyState.Idle;
+        } else if (this.isPlayerInRange(player.x, player.y)) {
+          this.currentState = EnemyState.Attacking;
+        }
+        break;
+      case EnemyState.Attacking:
+        this.attackPlayer();
+        if (!this.isPlayerInRange(player.x, player.y)) {
+          this.currentState = EnemyState.Chasing;
+        }
+        break;
     }
 
     this.x = Math.max(0, Math.min(this.x, MAP_WIDTH - this.size));
     this.y = Math.max(0, Math.min(this.y, MAP_HEIGHT - this.size));
   }
-  attack(): void {
-    console.log("attack");
+  dontOverlap(): void {
+    const separationDistance = 30;
+    let moveX = 0;
+    let moveY = 0;
+    enemies.forEach((enemy) => {
+      if (enemy !== this) {
+        const dx = this.x - enemy.x;
+        const dy = this.y - enemy.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < separationDistance && distance > 0) {
+          moveX += dx / distance;
+          moveY += dy / distance;
+        }
+      }
+    });
+    this.x += moveX * 0.5;
+    this.y += moveY * 0.5;
+  }
+  pace(): void {
+    const paceDistance = 50;
+    if (this.x <= this.initialX - paceDistance) {
+      this.direction = 1; // Move right
+    } else if (this.x >= this.initialX + paceDistance) {
+      this.direction = -1; // Move left
+    }
+    this.x += this.speed * this.direction;
+  }
+
+  chasePlayer(playerX: number, playerY: number): void {
+    if (this.x < playerX) this.x += this.speed;
+    if (this.x > playerX) this.x -= this.speed;
+    if (this.y < playerY) this.y += this.speed;
+    if (this.y > playerY) this.y -= this.speed;
+  }
+
+  attackPlayer(): void {
+    console.log("Enemy attacks the player!");
+    player.takeDamage(this.attackPower);
+  }
+
+  isPlayerNearby(playerX: number, playerY: number): boolean {
+    return Math.abs(this.x - playerX) < 200 && Math.abs(this.y - playerY) < 200;
+  }
+
+  isPlayerInRange(playerX: number, playerY: number): boolean {
+    return Math.abs(this.x - playerX) < 50 && Math.abs(this.y - playerY) < 50;
+  }
+  takeDamage(damage: number): void {
+    this.health -= damage;
+    if (this.health <= 0) {
+      this.kill();
+    }
+  }
+  kill(): void {
+    console.log("Enemy killed!");
+    enemies = enemies.filter((enemy) => enemy !== this);
+  }
+  draw(): void {
+    const stateColor = this.colors[EnemyState[this.currentState]];
+    ctx.fillStyle = stateColor || "#000";
+    ctx.beginPath();
+    ctx.arc(this.x + 16, this.y + 16, 16, 0, Math.PI * 2);
+    ctx.fill();
   }
 }
 
@@ -490,14 +589,12 @@ class Camera {
   }
 }
 
-
 // BUGS:
 
-// Enemy AI
-//  - aggressive hits wall and wont stop
-//  - passive too random
-//  - switch modes based on line of sight
+// Enemy
+//  - reset duplicates enemies
+//  - enemies cluster
+//  - color changes with player
 
 //  Player
-//  - Cant attack enemies
 //  - chest / collision check could be moved / improved
