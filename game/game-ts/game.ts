@@ -20,7 +20,7 @@ let attack: boolean = false;
 
 let enemies: Entity[] = [];
 
-let tileSize: number = 32;
+const tileSize: number = 32;
 let gameMap: GameMap;
 
 const MAP_MULTIPLIER = 3;
@@ -29,22 +29,38 @@ let MAP_HEIGHT;
 let lastRenderTime;
 
 document.addEventListener("DOMContentLoaded", init, false);
-document.getElementById("resetButton")?.addEventListener("click", resetGame);
 
-function resetGame(): void {
-  chests = [];
+function registerEventListeners() {
+  window.addEventListener("keydown", activate, false);
+  window.addEventListener("keyup", deactivate, false);
+  document.getElementById("resetButton")?.addEventListener("click", initGameState);
+}
+function initGameState() {
+  gameMap = new GameMap(col, row, tileSize);
+  createChests();
   player = new Player(
     Math.round(width / 2),
     Math.round(height / 2),
     32,
-    20, // SPEED
+    10,
     100,
-    20,
+    0,
     0,
     0
   );
-  gameMap = new GameMap(col, row, tileSize);
-  createChests();
+  enemies.push(
+    new Enemy(
+      1000,
+      200,
+    )
+  )
+  enemies.push(
+    new Enemy(
+      1000,
+      100,
+    )
+  )
+  camera = new Camera(width, height);
 }
 
 function init(): void {
@@ -56,44 +72,9 @@ function init(): void {
   MAP_HEIGHT = MAP_MULTIPLIER * height;
   col = Math.floor(MAP_WIDTH / tileSize);
   row = Math.floor(MAP_HEIGHT / tileSize);
-
-  player = new Player(
-    Math.round(width / 2),
-    Math.round(height / 2),
-    32,
-    6,
-    100,
-    0,
-    0,
-    0
-  );
-  enemies.push(
-    new Enemy(
-      1000,
-      200,
-      7,
-      20,
-      20,
-      // 'aggressive'
-    )
-  )
-  enemies.push(
-    new Enemy(
-      1000,
-      100,
-      9,
-      20,
-      20,
-      // 'aggressive'
-    )
-  )
-  camera = new Camera(width, height);
-
-  window.addEventListener("keydown", activate, false);
-  window.addEventListener("keyup", deactivate, false);
-  gameMap = new GameMap(col, row, tileSize);
-
-  createChests();
+  
+  initGameState();
+  registerEventListeners();
   requestAnimationFrame(gameLoop);
 }
 
@@ -147,6 +128,7 @@ function drawUI(): void {
 }
 
 function createChests(chestCount: number = 4): void {
+  chests = [];
   for (let i = 0; i < chestCount; i++) {
     chests.push(new Chest());
   }
@@ -344,6 +326,7 @@ class Player extends Entity {
     }
   }
 }
+
 type BehaviorEnum = "passive" | "aggressive";
 
 class Enemy extends Entity {
@@ -351,9 +334,9 @@ class Enemy extends Entity {
   constructor(
     x: number,
     y: number,
-    size: number,
-    speed: number,
-    health: number,
+    size: number = 10,
+    speed: number = 4,
+    health: number = 30,
     behaviorType: BehaviorEnum = "passive"
   ) {
     super(x, y, size, speed, health);
@@ -513,9 +496,8 @@ class Camera {
 // Enemy AI
 //  - aggressive hits wall and wont stop
 //  - passive too random
-//  - maybe switch modes based on line of sight
+//  - switch modes based on line of sight
 
 //  Player
 //  - Cant attack enemies
 //  - chest / collision check could be moved / improved
-//  2 speed values when reset use consts or defaults
