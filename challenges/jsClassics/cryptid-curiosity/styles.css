@@ -1,0 +1,89 @@
+body {
+	background-color: black;
+	color: white;
+	font-family: "Creepster", cursive;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+article {
+	background-color: rgba(0, 0, 0, 0.8);
+	display: flex;
+	flex-direction: column;
+	border: 3px solid red;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 15px red;
+}
+
+h1 {
+	font-size: 3rem;
+	text-shadow: 0 0 10px red;
+}
+
+p {
+	font-size: 1.2rem;
+}
+
+fieldset,
+.success,
+.failure {
+	border: none;
+	width: 45em;
+	height: 25em;
+	margin: 10px 0;
+	padding: 10px;
+}
+.success,
+.failure {
+	font-weight: bold;
+}
+.success {
+	color: #ffffff;
+	background-color: #28a745;
+	box-shadow: 0 0 10px #28a745;
+}
+
+.failure {
+	color: #ffffff;
+	background-color: red;
+	box-shadow: 0 0 10px #dc3545;
+}
+
+label {
+	display: flex;
+	margin: 5px 0;
+}
+
+input[type="radio"] {
+	margin-right: 10px;
+}
+
+button {
+	background-color: red;
+	color: black;
+	font-size: 1.2rem;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+button:hover {
+	background-color: darkred;
+}
+
+#restart {
+	margin-top: 20px;
+	background-color: transparent;
+	border: 2px solid red;
+	padding: 10px 20px;
+	color: white;
+}
