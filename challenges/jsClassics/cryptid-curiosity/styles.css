@@ -1,6 +1,15 @@
+:root {
+	--primary-color: #35374b;
+	--secondary-color: #344955;
+	--tertiary-color: #50727b;
+	--highlight: #78a083;
+	--lowlight: #a07895;
+	--white: #d6e2d9;
+}
+
 body {
-	background-color: black;
-	color: white;
+	background-color: var(--secondary-color);
+	color: var(--white);
 	font-family: "Creepster", cursive;
 	text-align: center;
 	margin: 0;
@@ -10,80 +19,145 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	background-image: url("https://raw.githubusercontent.com/Philip-Walsh/codepens/main/svg/question_mark.svg");
+	background-size: 200px 200px;
+	background-repeat: repeat;
+	background-position: center;
 }
 
 article {
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: var(--primary-color);
 	display: flex;
 	flex-direction: column;
-	border: 3px solid red;
+	border: 3px solid var(--highlight);
 	padding: 20px;
 	border-radius: 10px;
-	box-shadow: 0 0 15px red;
+	box-shadow: 0 0 15px var(--highlight);
 }
 
 h1 {
 	font-size: 3rem;
-	text-shadow: 0 0 10px red;
+	text-shadow: 0 0 10px var(--highlight);
 }
 
 p {
 	font-size: 1.2rem;
+}
+article p {
+	font-size: 1.5rem;
+	color: var(--white);
+	margin: 10px 0;
+}
+
+#score {
+	font-size: 2rem;
+	color: var(--highlight);
+	font-weight: bold;
+	margin-left: 5px;
+	transition: transform 0.3s ease-in-out;
 }
 
 fieldset,
 .success,
 .failure {
 	border: none;
-	width: 45em;
-	height: 25em;
+	width: 45rem;
+	height: 25rem;
 	margin: 10px 0;
 	padding: 10px;
 }
 .success,
 .failure {
 	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 5rem;
+	
 }
 .success {
-	color: #ffffff;
-	background-color: #28a745;
-	box-shadow: 0 0 10px #28a745;
+	color: var(--white);
+	background-color: var(--highlight);
+	box-shadow: 0 0 10px var(--highlight);
 }
 
 .failure {
-	color: #ffffff;
-	background-color: red;
-	box-shadow: 0 0 10px #dc3545;
+	color: var(--white);
+	background-color: var(--lowlight);
+	box-shadow: 0 0 10px var(--lowlight);
 }
 
 label {
 	display: flex;
 	margin: 5px 0;
+	padding-left:15em;
 }
 
 input[type="radio"] {
+	appearance: none;
+	background-color: var(--primary-color);
+	border: 2px solid var(--highlight);
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
 	margin-right: 10px;
+	position: relative;
+	cursor: pointer;
+	transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="radio"]:checked {
+	background-color: var(--highlight);
+	box-shadow: 0 0 5px var(--highlight);
+}
+
+input[type="radio"]::before {
+	content: "";
+	display: block;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background-color: var(--white);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+input[type="radio"]:checked::before {
+	opacity: 1;
+}
+
+label {
+	display: flex;
+	align-items: center;
+	color: var(--white);
+	font-size: 1.2rem;
+	cursor: pointer;
 }
 
 button {
-	background-color: red;
-	color: black;
+	background-color: var(--tertiary-color);
+	border: 2px solid var(--highlight);
+	color: var(--white);
+	font-weight: bold;
 	font-size: 1.2rem;
 	padding: 10px 20px;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-	transition: background-color 0.3s;
+	transition: background-color 0.3s ease, filter 0.3s ease;
+	font-family: "Creepster", cursive;
 }
 
 button:hover {
-	background-color: darkred;
+	background-color: var(--lowlight);
+	filter: drop-shadow(16px 16px 20px red) invert(75%);
 }
 
 #restart {
 	margin-top: 20px;
-	background-color: transparent;
-	border: 2px solid red;
 	padding: 10px 20px;
-	color: white;
 }

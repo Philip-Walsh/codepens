@@ -57,7 +57,7 @@ function addFailure() {
 	quiz.appendChild(failureDiv);
 	setTimeout(() => {
 		quiz.innerHTML = "";
-	}, 1000); // Briefly show the failure message before clearing
+	}, 1000);
 }
 function addGameOver() {
 	const quiz = document.querySelector("#quiz");
