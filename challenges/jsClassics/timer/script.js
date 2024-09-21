@@ -61,4 +61,13 @@ function init() {
 	document
 		.getElementById("reset")
 		.addEventListener("click", () => timer.reset());
+	timer.start();
+	const button = document.getElementById("start");
+
+	setTimeout(() => {
+		button.classList.add("active");
+	}, 100);
+	setTimeout(() => {
+		button.classList.remove("active");
+	}, 1000);
 }
