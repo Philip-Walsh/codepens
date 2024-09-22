@@ -20,6 +20,7 @@ Here's a peek at what's inside this repo:
     - [Guess the Word](https://codepen.io/Philip-Walsh/pen/ExBKoPM)
   - **[Let's Scroll!](https://codepen.io/challenges/2024/june)**
     - [Scrolling Ad](https://codepen.io/Philip-Walsh/pen/ExzzEVb)
+    - [Aliens Among Us](https://codepen.io/Philip-Walsh/pen/oNKvJNv)
 
 
 ## 🚀 How to Use This Repo

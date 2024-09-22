@@ -1,0 +1,121 @@
+:root {
+	--primary-color: #0d0221;
+	--secondary-color: #00ff99;
+	--highlight: #ff00ff;
+	--white: #00ff99;
+}
+
+@media (prefers-reduced-motion: no-preference) { 
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+body {
+	font-family: 'Orbitron', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: black;
+	color: var(--secondary-color);
+	display: grid;
+	grid-template-rows: auto auto 1fr;
+	height: 100vh;
+}
+
+header {
+	grid-row: 1;
+	text-align: center;
+	background: var(--primary-color);
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	color: var(--secondary-color);
+	text-shadow: 2px 2px 8px rgba(0, 255, 153, 0.7);
+}
+
+nav {
+	grid-row: 2;
+	background: var(--primary-color);
+	font-size: 2rem;
+	color: var(--secondary-color);
+	padding: 1rem 0;
+	position: fixed;
+	width: 100%;
+	top: 4rem;
+	left: 0;
+	z-index: 1000;
+}
+
+nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	place-content: center;
+	place-items:center;
+  text-align: center;
+}
+
+nav ul li {
+	border-radius: 5px;
+	margin: 0 1rem;
+	height:3em;
+	display:flex;
+	place-content: center;
+	place-items:center;
+}
+
+nav ul li a {
+	color: var(--secondary-color);
+	text-decoration: none;
+	transition: all 0.3s ease;
+	padding:.2em;
+  text-align: center;
+}
+
+nav ul li:hover {
+	color: var(--highlight);
+	background: rgba(0, 255, 153, 0.2); /* Light background on hover */
+}
+
+main {
+	grid-row: 3;
+	height: auto; 
+	padding-top: 6rem;
+}
+
+section {
+	height: 100vh;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: var(--secondary-color);
+	text-shadow: 2px 2px 8px rgba(0, 255, 153, 0.7);
+	font-size: 3rem;
+	font-weight: bold;
+	text-align: center;
+}
+#abductions {
+	background: linear-gradient(135deg, #1b1f32, #3a3f50);
+}
+
+#ufos {
+	background: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+
+#extraterrestrial-tech {
+	background: linear-gradient(135deg, #0f2027, #203a43);
+}
+
+#alien-species {
+	background: linear-gradient(135deg, #3e8e41, #a8c3b0);
+}
+
+#space-travel {
+	background: linear-gradient(135deg, #1c1c2f, #f2f2f2);
+}
