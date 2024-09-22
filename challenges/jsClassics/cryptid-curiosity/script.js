@@ -13,6 +13,12 @@ function init() {
 	document.getElementById("restart").addEventListener("click", setGameState);
 	document.getElementById("submit").addEventListener("click", submitAnswer);
 }
+function updateProgress() {
+	const progressBar = document.getElementById("progress-bar");
+	const progressValue =
+		((TOTAL_QUESTIONS - random_questions.length) / TOTAL_QUESTIONS) * 100;
+	progressBar.value = progressValue;
+}
 function submitAnswer() {
 	let answer = document.querySelector('input[name="question"]:checked').value;
 	if (!answer) {
@@ -26,6 +32,7 @@ function submitAnswer() {
 	} else {
 		addFailure();
 	}
+	updateProgress();
 	if (random_questions.length === 0) {
 		addGameOver();
 	} else {
@@ -112,8 +119,11 @@ function getRandomListItem(list) {
 
 function setGameState() {
 	score = 0;
+	updateScore();
 	setQuestions();
+	updateProgress();
 	addQuestion();
+	document.getElementById("submit").style.display = "block";
 }
 
 function shuffle(array) {
