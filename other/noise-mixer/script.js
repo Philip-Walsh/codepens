@@ -1,26 +1,26 @@
 const sliders = [
-  { id: "river", label: "River", emoji: "🚣‍♀️", value: 0, class: "water" },
-  { id: "waves", label: "Ocean Waves", emoji: "🌊", value: 30, class: "water" },
-  { id: "rain", label: "Rain", emoji: "🌧️", value: 0, class: "water" },
-  { id: "wind", label: "Wind", emoji: "🍃", value: 0, class: "air" },
-  { id: "clouds", label: "Clouds", emoji: "☁️", value: 20, class: "air" },
+  { id: "river", label: "River", emoji: "🚣‍♀️", value: 0, class: "water" ,asset: "river-water-flowing.wav"},
+  { id: "waves", label: "Ocean Waves", emoji: "🌊", value: 30, class: "water" ,asset: "small-waves-harbor-rocks.wav"},
+  { id: "rain", label: "Rain", emoji: "🌧️", value: 0, class: "water" ,asset: "light-rain-loop.wav"},
+  { id: "wind", label: "Wind", emoji: "🍃", value: 0, class: "air" ,asset: "blizzard-cold-winds.wav"},
+  { id: "thunder", label: "Thunder", emoji: "🌩️", value: 20, class: "air" ,asset: "thunder-deep-rumble.wav"},
   {
     id: "fireplace",
     label: "Fireplace",
     emoji: "🔥",
     value: 10,
-    class: "fire"
+    class: "fire",asset: "campfire-crackles.wav"
   },
-  { id: "campfire", label: "Campfire", emoji: "🏕️", value: 30, class: "fire" },
-  { id: "birds", label: "Birds", emoji: "🐦", value: 60, class: "nature" },
-  {
-    id: "chimes",
-    label: "Wind Chimes",
-    emoji: "🔔",
-    value: 0,
-    class: "nature"
-  },
-  { id: "crickets", label: "Crickets", emoji: "🐜", value: 50, class: "nature" }
+  { id: "campfire", label: "Campfire", emoji: "🏕️", value: 30, class: "fire" ,asset: "campfire-burning-crackles.wav"},
+  { id: "birds", label: "Birds", emoji: "🐦", value: 60, class: "nature" ,asset: "little-birds-singing-in-the-trees.wav"},
+  // {
+  //   id: "chimes",
+  //   label: "Wind Chimes",
+  //   emoji: "🔔",
+  //   value: 0,
+  //   class: "nature",asset: ""
+  // },
+  { id: "crickets", label: "Crickets", emoji: "🐜", value: 50, class: "nature" ,asset: "crickets-and-insects-in-the-wild-ambience.wav"}
 ];
 
 document.addEventListener("DOMContentLoaded", init, false);
@@ -63,8 +63,8 @@ function addMuteButton() {
       }
     });
 
-    muteIcon.textContent = isMuted ? "🔇": "🔊";
-    muteIcon.setAttribute("aria-label", isMuted ? "Mute": "Unmute");
+    muteIcon.textContent = isMuted ? "🔇" : "🔊";
+    muteIcon.setAttribute("aria-label", isMuted ? "Mute" : "Unmute");
   };
 
   document.body.appendChild(muteButton);
