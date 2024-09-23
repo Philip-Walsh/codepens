@@ -1,14 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
 :root {
-	--primary-color: #0d0221;
-	--secondary-color: #00ff99;
-	--highlight: #ff00ff;
-	--white: #00ff99;
+	--primary-color: #071952;
+	--secondary-color: #EBF4F6;
+	--highlight: #088395;
+	--white: #0B666A;
 }
 
-@media (prefers-reduced-motion: no-preference) { 
+@media (prefers-reduced-motion: no-preference) {
 	html {
 		scroll-behavior: smooth;
 	}
+}
+
+* {
+	font-optical-sizing: auto;
+	font-weight: 300;
+	font-style: normal;
 }
 
 body {
@@ -20,6 +28,7 @@ body {
 	display: grid;
 	grid-template-rows: auto auto 1fr;
 	height: 100vh;
+	font-family: "Space Grotesk", sans-serif;
 }
 
 header {
@@ -33,6 +42,11 @@ header {
 	z-index: 1000;
 	color: var(--secondary-color);
 	text-shadow: 2px 2px 8px rgba(0, 255, 153, 0.7);
+}
+
+h1 {
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 nav {
@@ -54,35 +68,36 @@ nav ul {
 	padding: 0;
 	display: flex;
 	place-content: center;
-	place-items:center;
-  text-align: center;
+	place-items: center;
+	text-align: center;
 }
 
 nav ul li {
 	border-radius: 5px;
 	margin: 0 1rem;
-	height:3em;
-	display:flex;
+	height: 3em;
+	display: flex;
 	place-content: center;
-	place-items:center;
+	place-items: center;
 }
 
 nav ul li a {
 	color: var(--secondary-color);
 	text-decoration: none;
 	transition: all 0.3s ease;
-	padding:.2em;
-  text-align: center;
+	padding: .2em;
+	text-align: center;
 }
 
 nav ul li:hover {
 	color: var(--highlight);
-	background: rgba(0, 255, 153, 0.2); /* Light background on hover */
+	background: rgba(0, 255, 153, 0.2);
+	/* Light background on hover */
 }
 
 main {
 	grid-row: 3;
-	height: auto; 
+	height: auto;
 	padding-top: 6rem;
 }
 
@@ -99,23 +114,52 @@ section {
 	font-size: 3rem;
 	font-weight: bold;
 	text-align: center;
+	background-size: 30px 30px, cover;
 }
+
 #abductions {
 	background: linear-gradient(135deg, #1b1f32, #3a3f50);
+	background: url("https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/alien.svg") repeat center center, linear-gradient(135deg, #1b1f32, #3a3f50);
 }
 
 #ufos {
 	background: linear-gradient(135deg, #1e3c72, #2a5298);
+	background: url("https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/flying_saucer.svg"), linear-gradient(135deg, #1e3c72, #2a5298);
+
 }
 
 #extraterrestrial-tech {
 	background: linear-gradient(135deg, #0f2027, #203a43);
+
+	background: url("https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/robot.svg"), linear-gradient(135deg, #0f2027, #203a43);
 }
 
 #alien-species {
 	background: linear-gradient(135deg, #3e8e41, #a8c3b0);
+	background: url("https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/alien.svg"), linear-gradient(135deg, #3e8e41, #a8c3b0);
 }
 
 #space-travel {
 	background: linear-gradient(135deg, #1c1c2f, #f2f2f2);
+	background: url("https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/rocket.svg"), linear-gradient(135deg, #3e8e41, #a8c3b0);
+}
+
+section {
+	position: relative;
+}
+
+section::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 1;
+}
+
+section>* {
+	position: relative;
+	z-index: 2;
 }
