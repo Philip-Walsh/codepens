@@ -6,16 +6,16 @@ def cli():
     "Click CLI for managing CodePens"
 
 @cli.command(name="get-collection")
-@click.argument("collection_name")
-def get_collection(collection_name):
+@click.option("--name", type=click.STRING)
+def get_collection(name):
     "Gets all CodePens in a collection"
-    click.echo(f"Fetching all CodePens in collection: {collection_name}")
+    click.echo(f"Fetching all CodePens in collection: {name}")
 
 @cli.command(name="get-codepen")
-@click.argument("codepen_id")
-def get_codepen(codepen_id):
+@click.option("--id", type=click.STRING)
+def get_codepen(id):
     "Gets a CodePen by ID"
-    click.echo(f"Fetching CodePen with ID: {codepen_id}")
+    click.echo(f"Fetching CodePen with ID: {id}")
 
 cli.add_command(get_collection)
 cli.add_command(get_codepen)
