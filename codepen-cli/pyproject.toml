@@ -1,16 +1,32 @@
-[project]
+[tool.poetry]
 name = "codepen-cli"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Philip-Walsh",email = "philipwalshpw@gmail.com"}
+    "Philip-Walsh <59885325+Philip-Walsh@users.noreply.github.com>"
 ]
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-]
+packages = [{ include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+click = "^8.1.7"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+pylint = "^3.1.0"
+flake8 = "^7.0.0"
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+test = "pytest:main"
+
+
+[virtualenvs]
+create = true
+in-project = true

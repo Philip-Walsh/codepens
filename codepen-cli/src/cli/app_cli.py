@@ -12,7 +12,7 @@ def get_collection(name):
     click.echo(f"Fetching all CodePens in collection: {name}")
 
 @cli.command(name="get-codepen")
-@click.option("--id", type=click.STRING)
+@click.option("--id", type=click.STRING, help="The ID of the codepen")
 def get_codepen(id):
     "Gets a CodePen by ID"
     click.echo(f"Fetching CodePen with ID: {id}")
