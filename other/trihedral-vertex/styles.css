@@ -1,0 +1,82 @@
+:root {
+  --debug: 1px solid;
+}
+
+body {
+  display: flex;
+  place-items: center;
+  place-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #1d1e22;
+  font-size: 16px;
+}
+#foo {
+  --width: 10rem;
+  --height: 15rem;
+  --depth: 5rem;
+  --color: 247, 207, 216; /* PINK */
+}
+
+.scene {
+  position: relative;
+  transform: rotateX(24deg) rotateY(32deg);
+  transform-style: preserve-3d;
+}
+#nox {
+  --width: 3rem;
+  --height: 4rem;
+  --depth: 3rem;
+  --color: 166, 241, 224; /* GREEN */
+}
+
+#bar {
+  --width: 1rem;
+  --height: 5rem;
+  --depth: 25rem;
+  --color: 244, 248, 211; /* YELLOW */
+  --x-offset: 1rem;
+  --y-offset: 1rem;
+  --z-offset: 1rem;
+}
+.trihedral-vertex {
+  
+  width: var(--width);
+  height: var(--height);
+  border: var(--debug) red;
+  background-color: rgba(var(--color), 1);
+  position: absolute;
+  transform-style: preserve-3d;
+  transform-origin: left;
+  transform: rotateY(180deg);
+}
+.trihedral-vertex:before {
+  content: "";
+  display: block;
+  width: var(--depth);
+  height: var(--height);
+  border: var(--debug) blue;
+  font-size: 19px;
+  position: absolute;
+  transform: rotateY(90deg)
+    translateZ(calc(-1 * var(--depth)))
+    translateX(var(--depth));
+  transform-style: preserve-3d;
+  transform-origin: right;
+  background-color: rgba(var(--color), 0.9);
+}
+
+.trihedral-vertex:after {
+  border: var(--debug) green;
+  content: "";
+  display: block;
+  width: var(--width);
+  height: var(--depth);
+  font-size: 19px;
+  color: black;
+  position: absolute;
+  transform: rotateX(90deg)
+    translateZ(var(--depth));
+  transform-origin: bottom;
+  background-color: rgba(var(--color), 0.9);
+}
