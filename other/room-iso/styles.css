@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Noto+Color+Emoji&display=swap");
+:root {
+  --rotate-speed: 50s;
+  --primary-col: #001f3f;
+  --secondary-col: #3a6d8c;
+  --tertiary-col: #6a9ab0;
+}
+div {
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+body {
+  font-family: "Noto Color Emoji", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1d1e22;
+  font-size: 16px;
+}
+span {
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 400;
+  font-style: normal;
+}
+.cube-container {
+  width: 200px;
+  height: 200px;
+  perspective: 600px;
+}
+
+.cube {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(-15deg) rotateY(45deg);
+}
+
+.cube > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #89A8B2;
+}
+#left-wall {
+  background:#89A8B2;
+}
+#right-wall {
+  background:#B3C8CF;
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(100px);
+  transform-origin: bottom;
+}
+.left {
+  transform: rotateY(180deg) translateZ(100px);
+  transform-origin: bottom;
+}
+
+#floor {
+  --grout-color: white;
+  --floor-color-a: #E5E1DA;
+  --floor-color-b: #F1F0E8;
+  transform: rotateX(-90deg) translateZ(102px);
+  box-shadow: 0 0 20em 50em rgba(0, 0, 0, 0.4);
+  z-index: -20;
+  background: repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 50px,
+      var(--grout-color) 50px,
+      var(--grout-color) 55px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 50px,
+      var(--grout-color) 50px,
+      var(--grout-color) 55px
+    ),
+    linear-gradient(45deg, var(--floor-color-a), var(--floor-color-b));
+}
+
+
+#right-window {
+  width:30%;
+  aspect-ratio:1/2;
+  border:2px solid red;
+  position:relative;
+  top:10%;
+  left:50%;
+  transform:translateX(-50%);
+  background:#1d1e22;
+  
+}
