@@ -1,5 +1,9 @@
 :root {
   --debug: 1px solid;
+  
+  /* --x-offset: 0rem;
+  --y-offset: 0rem;
+  --z-offset: 0rem; */
 }
 
 body {
@@ -16,6 +20,10 @@ body {
   --height: 15rem;
   --depth: 5rem;
   --color: 247, 207, 216; /* PINK */
+  
+  --x-offset: 2rem;
+  --y-offset: 1rem;
+  --z-offset: 1rem;
 }
 
 .scene {
@@ -28,6 +36,9 @@ body {
   --height: 4rem;
   --depth: 3rem;
   --color: 166, 241, 224; /* GREEN */
+  --x-offset: 2rem;
+  --y-offset: 1rem;
+  --z-offset: 1rem;
 }
 
 #bar {
@@ -35,11 +46,14 @@ body {
   --height: 5rem;
   --depth: 25rem;
   --color: 244, 248, 211; /* YELLOW */
-  --x-offset: 1rem;
+  --x-offset: 2rem;
   --y-offset: 1rem;
   --z-offset: 1rem;
 }
 .trihedral-vertex {
+  --x-offset: var(--x-offset, 1rem);
+  --y-offset: var(--y-offset, 1rem);
+  --z-offset: var(--z-offset, 1rem);
   
   width: var(--width);
   height: var(--height);
@@ -48,9 +62,15 @@ body {
   position: absolute;
   transform-style: preserve-3d;
   transform-origin: left;
-  transform: rotateY(180deg);
+  transform: rotateY(180deg)
+  translateX(var(--x-offset))
+  translateY(var(--y-offset))
+  translateZ(var(--z-offset));
 }
 .trihedral-vertex:before {
+  --x-offset: var(--x-offset, 1rem);
+  --y-offset: var(--y-offset, 1rem);
+  --z-offset: var(--z-offset, 1rem);
   content: "";
   display: block;
   width: var(--depth);
@@ -67,6 +87,9 @@ body {
 }
 
 .trihedral-vertex:after {
+  --x-offset: var(--x-offset, 1rem);
+  --y-offset: var(--y-offset, 1rem);
+  --z-offset: var(--z-offset, 1rem);
   border: var(--debug) green;
   content: "";
   display: block;
