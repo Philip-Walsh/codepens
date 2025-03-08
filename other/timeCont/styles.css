@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+body {
+  width:clamp(100vw,100vw,100vw);
+  display:grid;
+  grid-template-columns: auto auto;
+  
+}
+.time__container {
+  border:2px solid green;
+  padding:2rem;
+  background:var(--bg-color);
+  display:flex;
+  place-items:center;
+  place-content:center;
+  min-width:20rem;
+  height:100vh;
+  color:var(--text-color);
+  text-shadow:var(--text-shadow);
+   font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+  font-size:4rem;
+}
+@media (max-width: 768px) {
+  body {
+    display: grid;
+    grid-template-columns: 1fr; /* On smaller screens, switch to a single column */
+  }
+  .time__container {
+    height:50vh;
+  }
+}:root {
+  --yellow: #FFFF00;
+  --red: #440000;
+  --orange: #FF8800;
+  --blue: #003366;
+  --purple: #220044;
+  --black: #000000;
+  --white: #FFFFFF;
+  --light-text: var(--white);
+  --dark-text: var(--black);
+  --shadow-dark: rgba(0, 0, 0, 0.5);
+  --shadow-light: rgba(255, 255, 255, 0.5);
+}
+
+/* sunrise (top edge of the sun appears on the horizon) */
+.time__sunrise {
+  --bg-color: linear-gradient(to top, var(--yellow) 10%, var(--red));
+  --text-color: var(--dark-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* sunrise ends (bottom edge of the sun touches the horizon) */
+.time__sunriseEnd {
+  --bg-color: linear-gradient(to top, var(--orange), var(--yellow));
+  --text-color: var(--dark-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* morning golden hour (soft light, best time for photography) ends */
+.time__goldenHourEnd {
+  --bg-color: linear-gradient(to top, var(--yellow), var(--orange));
+  --text-color: var(--dark-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* solar noon (sun is in the highest position) */
+.time__solarNoon {
+  --bg-color: linear-gradient(to top, var(--yellow), var(--yellow));
+  --text-color: var(--dark-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* evening golden hour starts */
+.time__goldenHour {
+  --bg-color: linear-gradient(to top, var(--orange), var(--yellow));
+  --text-color: var(--dark-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* sunset starts (bottom edge of the sun touches the horizon) */
+.time__sunsetStart {
+  --bg-color: linear-gradient(to top, var(--red), var(--orange));
+  --text-color: var(--light-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* sunset (sun disappears below the horizon, evening civil twilight starts) */
+.time__sunset {
+  --bg-color: linear-gradient(to top, var(--red), var(--purple));
+  --text-color: var(--light-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* dusk (evening nautical twilight starts) */
+.time__dusk {
+  --bg-color: linear-gradient(to top, var(--purple), var(--blue));
+  --text-color: var(--light-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* nautical dusk (evening astronomical twilight starts) */
+.time__nauticalDusk {
+  --bg-color: linear-gradient(to top, var(--blue), var(--black));
+  --text-color: var(--light-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* night starts (dark enough for astronomical observations) */
+.time__night {
+  --bg-color: linear-gradient(to top, var(--black), var(--blue));
+  --text-color: var(--light-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* nadir (darkest moment of the night, sun is in the lowest position) */
+.time__nadir {
+  --bg-color: var(--black);
+  --text-color: var(--light-text);
+  --text-shadow: 1px 1px 3px var(--shadow-light);
+}
+
+/* night ends (morning astronomical twilight starts) */
+.time__nightEnd {
+  --bg-color: linear-gradient(to top, var(--black), var(--blue));
+  --text-color: var(--light-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* nautical dawn (morning nautical twilight starts) */
+.time__nauticalDawn {
+  --bg-color: linear-gradient(to top, var(--blue), var(--purple));
+  --text-color: var(--light-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}
+
+/* dawn (morning nautical twilight ends, morning civil twilight starts) */
+.time__dawn {
+  --bg-color: linear-gradient(to top, var(--purple), var(--red));
+  --text-color: var(--light-text);
+  --text-shadow: 1px 1px 3px var(--shadow-dark);
+}

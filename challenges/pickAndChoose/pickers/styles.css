@@ -1,0 +1,202 @@
+:root {
+  --w: 200px;
+  --h: 200px;
+
+  --light-color: 255, 200, 150;
+  --warmth-color: rgb(89, 83, 81);
+
+  --txt-color: #1d1e22;
+  --animation-speed: 1.5s;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: var(--txt-color);
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  place-items: center;
+  place-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.sphere {
+  z-index: -5;
+  height: var(--h);
+  position: relative;
+
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateX(65deg);
+}
+.sphere::before {
+  content: "";
+  width: calc(var(--w) * 3);
+  height: calc(var(--h) * 3);
+  position: relative;
+  transform: rotateX(120deg) translateZ(10rem);
+  background: radial-gradient(ellipse at top, rgba(var(--light-color)), transparent),
+    radial-gradient(ellipse at bottom, var(--warmth-color), transparent);
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  border-radius: 20%;
+  background-color: rgba(var(--light-color));
+
+  box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 0.2), inset 0 0 1rem 0 gray;
+}
+
+@keyframes rotate {
+  0%,
+  100% {
+    transform: rotateY(-45deg) rotateX(-10deg);
+  }
+  50% {
+    transform: rotateY(45deg) rotateX(10deg);
+  }
+}
+
+.sphere {
+  /*   animation: rotate 5s linear infinite; */
+}
+
+/* 😂 */
+
+#controls {
+  --contol-col: #4e515c;
+  color: var(--txt-color);
+  background: var(--contol-col);
+  width: 35rem;
+  padding: 0.1em;
+  border-radius: 0 3em 3em 0;
+  height: 100%;
+  box-shadow: 0.3rem 0 2em black;
+  transition-timing-function: ease-out;
+  position: absolute;
+  left: 0;
+  overflow: hidden;
+  border: 1rem solid var(--contol-col);
+  transition: width var(--animation-speed) ease-in-out,
+    box-shadow var(--animation-speed) ease-in-out;
+}
+#controls * {
+  transition: visibility var(--animation-speed),
+    opacity var(--animation-speed) linear,
+    transform var(--animation-speed) linear;
+}
+
+canvas {
+  height: 300px;
+  width: 500px;
+  border: 2px solid black;
+  border-radius: 1rem;
+}
+#output {
+  width: 10rem;
+  height: 10rem;
+  border: 2px solid black;
+  background: rgb(var(--light-color));
+}
+#title {
+  width: 100%;
+  display: flex;
+  place-items: center;
+  margin: 1rem;
+}
+#title h1 {
+  padding-right: 2rem;
+  white-space: nowrap;
+}
+#toggle-controls {
+  cursor: pointer;
+  width: 2rem;
+  position: absolute;
+  right: 0;
+  top: 1rem;
+}
+
+#toggle-controls:hover,
+#toggle-controls:active {
+  transform: scale(1.1);
+}
+#toggle-controls path {
+  fill: var(--txt-color);
+  transform-origin: center;
+  -webkit-animation: spin 2s linear;
+  -moz-animation: spin 2s linear;
+  animation: spin 2s linear;
+}
+
+.closed #toggle-controls path {
+  fill: var(--txt-color);
+}
+.closed {
+  width: 5rem !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.closed > *,
+.closed #title h1,
+.closed #marker {
+  visibility: hidden;
+  opacity: 0;
+}
+.closed #toggle-controls,
+.closed #title {
+  visibility: visible;
+  opacity: 1;
+  /*   animation-direction: reverse; */
+}
+
+.spin-animation {
+  --animation-speed: 2s;
+  --animation: spin var(--animation-speed) ease-in-out;
+  transform-origin: center;
+  -webkit-animation: var(--animation);
+  -moz-animation: var(--animation);
+  animation: var(--animation);
+}
+@-moz-keyframes spin {
+  to {
+    -moz-transform: rotate(var(--spin-deg));
+  }
+  from {
+    -moz-transform: 0;
+  }
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(var(--spin-deg));
+  }
+  from {
+    -webkit-transform: 0;
+    -webkit-transform: 0;
+  }
+}
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(var(--spin-deg));
+    transform: rotate(var(--spin-deg));
+  }
+  from {
+    -webkit-transform: 0;
+    transform: 0;
+  }
+}
