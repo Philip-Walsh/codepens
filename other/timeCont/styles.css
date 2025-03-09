@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
+:root {
+  --yellow: #FFF100;
+  --red: #fa625a;
+  --orange: #ff7200;
+  
+  --blue: #000eff;
+  --purple: #7200ff;
+  --black: #330000;
+  --white: #fff7f7;
+  --light-text: var(--white);
+  --dark-text: var(--black);
+  --shadow-dark: rgba(0, 0, 0, 0.5);
+  --shadow-light: rgba(255, 255, 255, 0.5);
+}
 *,
 *::before,
 *::after {
@@ -14,7 +27,7 @@ body {
   
 }
 .time__container {
-  border:2px solid green;
+/*   border:2px solid green; */
   padding:2rem;
   background:var(--bg-color);
   display:flex;
@@ -28,27 +41,19 @@ body {
   font-weight: 400;
   font-style: normal;
   font-size:4rem;
+  transition: all 0.5s ease-out;
+}
+.time__container time {
+
 }
 @media (max-width: 768px) {
   body {
     display: grid;
-    grid-template-columns: 1fr; /* On smaller screens, switch to a single column */
+    grid-template-columns: 1fr;
   }
   .time__container {
     height:50vh;
   }
-}:root {
-  --yellow: #FFFF00;
-  --red: #440000;
-  --orange: #FF8800;
-  --blue: #003366;
-  --purple: #220044;
-  --black: #000000;
-  --white: #FFFFFF;
-  --light-text: var(--white);
-  --dark-text: var(--black);
-  --shadow-dark: rgba(0, 0, 0, 0.5);
-  --shadow-light: rgba(255, 255, 255, 0.5);
 }
 
 /* sunrise (top edge of the sun appears on the horizon) */

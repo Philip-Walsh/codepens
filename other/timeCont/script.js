@@ -101,33 +101,38 @@ const getTime = (timezone) => {
   let timeObj = new Date(now.toLocaleString("en-US", { timeZone: timezone }));
   return [timeObj, formattedTime];
 };
-
 const updateTime = (id, timezone, lat, lon) => {
   console.log(id);
   let [timeParent, timeElement] = getTimeComponents(id);
   let [time, formattedTime] = getTime(timezone);
-  // console.log(time, formattedTime);
   timeElement.textContent = formattedTime;
 
-  if (!times[id]) {
-
-    let utcTimes = SunCalc.getTimes(time, lat, lon);
-    times[id] = Object.fromEntries(
-      Object.entries(utcTimes).map(([key, value]) => [
-        key,
-        new Date(value.toLocaleString("en-US", { timeZone: timezone })),
-      ])
-    );
-}
+  if (shouldUpdateTimes(id, time)) {
+    updateTimesCache(id, timezone, lat, lon, time);
+  }
 
   let newClassName = getTimeClass(time, times[id]);
-
   updateClassesIfChanged(timeParent, newClassName);
 };
+const shouldUpdateTimes = (id, currentTime) => {
+  let lastUpdated = times[id]?.lastUpdated;
+  return !lastUpdated || lastUpdated.toDateString() !== currentTime.toDateString();
+};
 
+const updateTimesCache = (id, timezone, lat, lon, time) => {
+  console.log("Updating stored times for", id);
+  let utcTimes = SunCalc.getTimes(time, lat, lon);
+  times[id] = Object.fromEntries(
+    Object.entries(utcTimes).map(([key, value]) => [
+      key,
+      new Date(value.toLocaleString("en-US", { timeZone: timezone })),
+    ])
+  );
+  times[id].lastUpdated = time;
+};
 const addTicker = (id, timezone, lat, lon) => {
   updateTime(id, timezone, lat, lon);
-  // setInterval(() => updateTime(id, timezone, lat, lon), 1000);
+  setInterval(() => updateTime(id, timezone, lat, lon), 1000);
 
 };
 
