@@ -1,0 +1,348 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap");
+
+:root {
+  --primary-bg: #1d1e22;
+  --secondary-bg: #532dcd;
+  --text-color: rgb(4, 31, 53);
+  --font-family: "Press Start 2P", system-ui;
+  --font-size: clamp(1rem, 2vw, 2rem);
+  --max-width: 60ch;
+  --aspect-ratio: 4 / 3;
+  --anim-speed: 0.08s;
+  --squishy-font-size: clamp(1.9rem, -0.975rem + 8.333vw, 3.5rem);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  max-width: 100vw;
+}
+
+html {
+  background: var(--secondary-bg);
+  background-image: linear-gradient(var(--secondary-bg), var(--primary-bg) 10%);
+  background-size: 100% 200%;
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  text-transform: uppercase;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+  max-width: var(--max-width);
+}
+
+body {
+  display: grid;
+  grid-template-areas: 'header' 'main' 'footer';
+  grid-template-rows: auto 1fr auto;
+}
+
+header,
+footer {
+  grid-area: header;
+  padding: 1em;
+  text-align: center;
+  background: var(--primary-bg);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  background: url("https://www.transparenttextures.com/patterns/textured-paper.png"), var(--secondary-bg);
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+img {
+  width: clamp(20em, 20vw, 40em);
+  position: relative;
+  display: block;
+  filter: contrast(1.2) brightness(1.1);
+}
+
+article:nth-of-type(2) {
+  min-height: 300vh;
+  width: 100vw;
+  text-align: justify;
+  background: url('https://publicdomainvectors.org/photos/ilmenskie-creature-purple.png') top center/cover no-repeat;
+}
+
+section,
+h1 {
+  padding: 1em 3em;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h4 {
+  width: 100%;
+  text-align: center;
+}
+
+section:nth-of-type(even) {
+  padding-top: 1em;
+  width: 100vw;
+  /* background: url('https://publicdomainvectors.org/photos/awesome-warn.png'); */
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#tv {
+  aspect-ratio: var(--aspect-ratio);
+  background: url("https://publicdomainvectors.org/photos/ilmenskie-flying-platform-1.png") center/30em no-repeat;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+#screen-behind {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Computer-screen-code-glitch-animation-gif-background-free.gif/1200px-Computer-screen-code-glitch-animation-gif-background-free.gif") center/cover no-repeat black;
+  filter: blur(1px) grayscale(60%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+@keyframes crt-flicker {
+
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes crt-scan {
+  0% {
+    background-position: 0 100%;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    line-height: 1.6;
+    max-width: 40ch;
+    padding: 0.5rem;
+  }
+}
+
+
+
+
+/* Glitch effect adapted from Glitch Text by zoite https://codepen.io/zoite/pen/gwRZzJ 🐛 */
+
+span {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  img {
+    animation: flicker 0.2s infinite alternate, scanlines 0.1s infinite linear;
+  }
+
+  @keyframes flicker {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes scanlines {
+    0% {
+      background-position: 0 100%;
+    }
+
+    100% {
+      background-position: 0 0;
+    }
+  }
+
+  span::after {
+    content: attr(data-text);
+    position: absolute;
+    transform: translateX(-100%);
+    /* left: 4px;
+    top: 2px; */
+    clip: rect(0, 900px, 0, 0);
+    background-color: #8981a4d9;
+    color: white;
+    animation: glitch var(--anim-timing) infinite alternate-reverse;
+    animation-delay: 1s;
+  }
+
+  span::before {
+    content: attr(data-text);
+    position: absolute;
+    transform: translateX(100%);
+    /* left: -3px;
+    top: -2px; */
+    clip: rect(0, 900px, 0, 0);
+    background-color: #8981a4d9;
+    color: #ff00ff;
+    animation: glitch2 var(--anim-speed) infinite alternate-reverse;
+  }
+
+  span::after,
+  span::before {
+    mix-blend-mode: difference;
+  }
+
+  @keyframes glitch-shift {
+    0% {
+      transform: translateX(2px);
+    }
+
+    50% {
+      transform: translateX(-2px);
+    }
+
+    100% {
+      transform: translateX(2px);
+    }
+  }
+
+  span {
+    animation: glitch-shift 0.1s infinite alternate;
+  }
+
+  @keyframes glitch2 {
+    0% {
+      clip: rect(20px, 9999px, 50px, 0);
+      transform: skewX(10deg);
+    }
+
+    10% {
+      clip: rect(10px, 9999px, 60px, 0);
+      transform: skewX(-10deg);
+    }
+
+    20% {
+      clip: rect(30px, 9999px, 70px, 0);
+      transform: skewX(5deg);
+    }
+
+    100% {
+      clip: rect(0, 9999px, 100px, 0);
+      transform: skewX(0deg);
+    }
+  }
+
+  @keyframes glitch {
+    0% {
+      clip: rect(50px, 9999px, 79px, 0);
+    }
+
+    5% {
+      clip: rect(65px, 9999px, 86px, 0);
+    }
+
+    10% {
+      clip: rect(22px, 9999px, 53px, 0);
+    }
+
+    15% {
+      clip: rect(87px, 9999px, 73px, 0);
+    }
+
+    20% {
+      clip: rect(93px, 9999px, 99px, 0);
+    }
+
+    25% {
+      clip: rect(6px, 9999px, 30px, 0);
+    }
+
+    30% {
+      clip: rect(25px, 9999px, 51px, 0);
+    }
+
+    35% {
+      clip: rect(10px, 9999px, 72px, 0);
+    }
+
+    40% {
+      clip: rect(55px, 9999px, 92px, 0);
+    }
+
+    45% {
+      clip: rect(57px, 9999px, 55px, 0);
+    }
+
+    50% {
+      clip: rect(31px, 9999px, 73px, 0);
+    }
+
+    55% {
+      clip: rect(47px, 9999px, 1px, 0);
+    }
+
+    60% {
+      clip: rect(83px, 9999px, 69px, 0);
+    }
+
+    65% {
+      clip: rect(32px, 9999px, 85px, 0);
+    }
+
+    70% {
+      clip: rect(21px, 9999px, 53px, 0);
+    }
+
+    75% {
+      clip: rect(85px, 9999px, 69px, 0);
+    }
+
+    80% {
+      clip: rect(54px, 9999px, 76px, 0);
+    }
+
+    85% {
+      clip: rect(56px, 9999px, 29px, 0);
+    }
+
+    90% {
+      clip: rect(36px, 9999px, 74px, 0);
+    }
+
+    95% {
+      clip: rect(76px, 9999px, 17px, 0);
+    }
+
+    100% {
+      clip: rect(33px, 9999px, 48px, 0);
+    }
+  }
+}

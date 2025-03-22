@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("span").forEach((span) => {
     span.setAttribute("data-text", span.textContent);
-    span.style.setProperty("--anim-timing", `${Math.random() * 3 + 1}s`);
-    span.style.color = "white"; // 💜
+    const randomTiming = (Math.random() * 3 + 1).toFixed(2);
+    span.style.setProperty("--anim-timing", `${randomTiming}s`);
+    span.style.color = "white";
   });
 
   const emojiRegex = /\p{Emoji}/gu;
