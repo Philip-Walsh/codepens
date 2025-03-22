@@ -1,0 +1,23 @@
+{
+  "name": "codepens",
+  "version": "1.0.0",
+  "description": "Philip-Walsh Codepens",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Philip-Walsh/codepens.git"
+  },
+  "keywords": [
+    "Codpen",
+    "challenges"
+  ],
+  "author": "Philip Walsh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Philip-Walsh/codepens/issues"
+  },
+  "homepage": "https://github.com/Philip-Walsh/codepens#readme"
+}

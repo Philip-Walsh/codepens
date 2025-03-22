@@ -1,0 +1,242 @@
+.
+├── README.md
+├── ai
+│   └── roomba
+│       ├── index.html
+│       ├── script.js
+│       └── styles.css
+├── animations
+│   └── crt-tv
+│       ├── index.html
+│       └── styles.css
+├── assets
+│   ├── cards
+│   │   ├── frostbite-yeti.png
+│   │   ├── lavafang-drake.png
+│   │   ├── mothlight.png
+│   │   ├── stonewing-gargoyle.png
+│   │   ├── the-howler.png
+│   │   ├── the-lake-guardian.png
+│   │   ├── the-swamp-creeper.png
+│   │   ├── thornback-behemoth.png
+│   │   ├── thornridge-beast.png
+│   │   └── wraith-of-the-mist.png
+│   ├── costumes
+│   │   ├── alien_visitor.png
+│   │   ├── army_commando.png
+│   │   ├── brave_knight.png
+│   │   ├── classic_vampire.png
+│   │   ├── cowboy_outlaw.png
+│   │   ├── creepy_clown.png
+│   │   ├── evil_sorceress.png
+│   │   ├── fearless_pirate.png
+│   │   ├── ghostly_ghoul.png
+│   │   ├── italian_plumber.png
+│   │   ├── jungle_explorer.png
+│   │   ├── mad_scientist.png
+│   │   ├── mysterious_wizard.png
+│   │   ├── robot_helper.png
+│   │   ├── roman_gladiator.png
+│   │   ├── royal_king.png
+│   │   ├── space_explorer.png
+│   │   ├── stealthy_ninja.png
+│   │   └── superhero_defender.png
+│   ├── drink-ad
+│   │   ├── drink-back.png
+│   │   ├── drink-can-2.png
+│   │   ├── drink-can.png
+│   │   └── drink-logo.svg
+│   ├── future-stories
+│   │   ├── the-dream-architects.png
+│   │   ├── the-eternal-library.png
+│   │   ├── the-quantum-courier.png
+│   │   ├── the-robo-pet-sanctuary.png
+│   │   ├── the-sentient-spaceship.png
+│   │   ├── the-star-engineer.png
+│   │   ├── the-timekeepers-vault.png
+│   │   └── the-whispering-ai.png
+│   ├── ghost-hunter.png
+│   ├── halloween
+│   │   ├── halloween_story_panel_1.5.png
+│   │   ├── halloween_story_panel_1.png
+│   │   ├── halloween_story_panel_2.png
+│   │   ├── halloween_story_panel_3.png
+│   │   ├── halloween_story_panel_4.png
+│   │   └── halloween_story_panel_5.png
+│   ├── restaurant.png
+│   └── sitcom
+│       ├── 1-end.gif
+│       ├── 2-end.gif
+│       ├── Binny-1.png
+│       ├── Binny-2.png
+│       ├── Binny-3.gif
+│       ├── Nibbles-1.png
+│       ├── Nibbles-2.png
+│       ├── Nibbles-3.gif
+│       ├── Rocky-1.png
+│       ├── Rocky-2.png
+│       ├── Rocky-3.gif
+│       ├── Scraps-1.png
+│       ├── Scraps-2.png
+│       └── Scraps-3.gif
+├── bugs
+│   └── glitches
+│       └── untitled
+│           ├── index.html
+│           ├── script copy.js
+│           ├── script.js
+│           └── styles.css
+├── challenges
+│   ├── bugs
+│   │   └── errors
+│   │       ├── 2.ts
+│   │       ├── errors-1.tsx
+│   │       ├── errors-2.tsx
+│   │       ├── index.html
+│   │       ├── script.js
+│   │       └── styles.css
+│   ├── fractals
+│   │   ├── sierpinski-fractal
+│   │   │   ├── index.html
+│   │   │   ├── script.js
+│   │   │   └── styles.css
+│   │   └── wild-fractals
+│   │       ├── index.html
+│   │       ├── script.js
+│   │       └── styles.css
+│   ├── jsClassics
+│   │   ├── cryptid-curiosity
+│   │   │   ├── index.html
+│   │   │   ├── script.js
+│   │   │   └── styles.css
+│   │   ├── rps-25
+│   │   │   ├── index.html
+│   │   │   ├── script.js
+│   │   │   └── styles.css
+│   │   └── timer
+│   │       ├── index.html
+│   │       ├── script.js
+│   │       └── styles.css
+│   ├── letsScroll
+│   │   ├── aliens-among-us
+│   │   │   ├── index.html
+│   │   │   ├── script.js
+│   │   │   └── styles.css
+│   │   ├── index.html
+│   │   └── styles.css
+│   ├── pickAndChoose
+│   │   └── pickers
+│   │       ├── index.html
+│   │       ├── script.js
+│   │       └── styles.css
+│   ├── puzzles
+│   │   ├── maze-puzzle
+│   │   │   ├── index.html
+│   │   │   ├── script.js
+│   │   │   └── styles.css
+│   │   ├── puzzle-pieces
+│   │   │   ├── index.html
+│   │   │   ├── script.js
+│   │   │   └── styles.css
+│   │   └── word-puzzle
+│   │       ├── dictionary.txt
+│   │       ├── index.html
+│   │       ├── script.js
+│   │       └── styles.css
+│   └── range
+│       ├── index.html
+│       ├── script.js
+│       └── styles.css
+├── codepen-cli
+│   ├── README.md
+│   ├── __main__.py
+│   ├── other.txt
+│   ├── poetry.lock
+│   ├── pyproject.toml
+│   ├── src
+│   │   ├── __init__.py
+│   │   ├── api
+│   │   │   ├── codepen.api.py
+│   │   │   └── crud.py
+│   │   ├── cli
+│   │   │   ├── __init__.py
+│   │   │   └── app_cli.py
+│   │   ├── core
+│   │   │   ├── __init__.py
+│   │   │   ├── formatter.py
+│   │   │   ├── get_codepen.py
+│   │   │   └── monads.py
+│   │   └── utils
+│   │       └── __init__.py
+│   └── test
+│       ├── __init__.py
+│       ├── __pycache__
+│       │   └── __init__.cpython-312.pyc
+│       ├── api
+│       │   ├── codepen.api.test.py
+│       │   └── crud.test.py
+│       ├── cli
+│       │   ├── __init__.py
+│       │   ├── __pycache__
+│       │   │   └── __init__.cpython-312.pyc
+│       │   └── app_cli.test.py
+│       ├── core
+│       │   ├── __init__.py
+│       │   ├── formatter.py
+│       │   └── get_codepen.py
+│       └── utils
+│           └── __init__.py
+├── codepen-stats.py
+├── download-pen.py
+├── game
+│   ├── game-base
+│   │   ├── index.html
+│   │   ├── script.js
+│   │   └── styles.css
+│   └── game-ts
+│       ├── game.ts
+│       ├── index.html
+│       ├── styles.css
+│       ├── typescript.compile.min.js
+│       └── typescript.min.js
+├── info.txt
+├── other
+│   ├── ngo-nav
+│   │   ├── index.html
+│   │   ├── script.js
+│   │   └── styles.css
+│   ├── noise-mixer
+│   │   ├── assets
+│   │   │   ├── blizzard-cold-winds.wav
+│   │   │   ├── campfire-burning-crackles.wav
+│   │   │   ├── campfire-crackles.wav
+│   │   │   ├── crickets-and-insects-in-the-wild-ambience.wav
+│   │   │   ├── light-rain-loop.wav
+│   │   │   ├── little-birds-singing-in-the-trees.wav
+│   │   │   ├── river-water-flowing.wav
+│   │   │   ├── small-waves-harbor-rocks.wav
+│   │   │   └── thunder-deep-rumble.wav
+│   │   ├── index.html
+│   │   ├── script.js
+│   │   └── styles.css
+│   ├── room-iso
+│   │   ├── index.html
+│   │   ├── script.js
+│   │   └── styles.css
+│   ├── timeCont
+│   │   ├── index.html
+│   │   ├── script.js
+│   │   └── styles.css
+│   └── trihedral-vertex
+│       ├── index.html
+│       ├── script.js
+│       └── styles.css
+├── package.json
+├── svg
+│   └── question_mark.svg
+└── ts_practice
+    ├── package-lock.json
+    ├── package.json
+    └── tsconfig.json
+
+59 directories, 181 files
