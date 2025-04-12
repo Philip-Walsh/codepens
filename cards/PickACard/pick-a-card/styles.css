@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Noto+Color+Emoji&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Color+Emoji&display=swap");
 
 :root {
   /* Card properties */
   --card-width: 100px;
   --card-height: 140px;
   --card-border-radius: 10px;
-  --card-border: 2px solid #000;
+  --card-border: 2px solid #1a1a1a;
   --card-bg: white;
   --card-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
   --card-font: "Arial";
@@ -26,14 +26,22 @@
   --center-font-size: 24px;
   --face-font-size: 48px;
   
-  /* Color palette - original charm */
-  --bg-color: #e0e0e0;
-  --text-color: #333;
-  --accent-color: #9c27b0;
-  --accent-light: #ba68c8;
-  --button-bg: rgba(156, 39, 176, 0.8);
-  --button-hover: rgba(156, 39, 176, 1);
-  --button-border: 1px solid #7b1fa2;
+  /* Color palette - classic casino */
+  --bg-color: #0c3b2e;
+  --bg-gradient: linear-gradient(135deg, #0c3b2e 0%, #145a44 100%);
+  --text-color: #f8f0e3;
+  --accent-color: #d4af37;
+  --accent-light: #f2d675;
+  --button-bg: rgba(212, 175, 55, 0.85);
+  --button-hover: rgba(212, 175, 55, 1);
+  --button-border: 1px solid #b4922c;
+  --header-bg: rgba(26, 26, 26, 0.9);
+  --footer-bg: rgba(26, 26, 26, 0.9);
+  --deck-bg: rgba(20, 90, 68, 0.7);
+  
+  /* Texture URLs */
+  --felt-texture: url('https://www.transparenttextures.com/patterns/felt.png');
+  --card-texture: url('https://www.transparenttextures.com/patterns/cardboard-flat.png');
 }
 
 /* Base styles */
@@ -45,8 +53,9 @@
 
 body {
   background: var(--bg-color);
-  font-family: "Charm", cursive;
-  font-weight: 700;
+  background-image: var(--bg-gradient), var(--felt-texture);
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
   font-style: normal;
   min-height: 100vh;
   color: var(--text-color);
@@ -56,7 +65,6 @@ body {
     "header"
     "main"
     "footer";
-  background-image: radial-gradient(circle at 50% 50%, #f5f5f5, #e0e0e0);
 }
 
 span {
@@ -65,25 +73,25 @@ span {
   font-style: normal;
 }
 
-/* Header styles - with charm */
+/* Header styles - classic casino */
 header {
   grid-area: header;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--header-bg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--accent-color);
 }
 
 h1 {
   font-size: 2.5rem;
   color: var(--accent-color);
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  font-family: "Charm", cursive;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: "Playfair Display", serif;
   letter-spacing: 1px;
+  font-weight: 700;
 }
 
 nav {
@@ -91,7 +99,7 @@ nav {
   gap: 1rem;
 }
 
-/* Main content - with charm */
+/* Main content - classic casino */
 main {
   grid-area: main;
   display: grid;
@@ -106,8 +114,8 @@ main::before {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C27B0' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.2;
   z-index: -1;
 }
 
@@ -116,44 +124,89 @@ main::before {
   max-width: 1200px;
   height: 70vh;
   display: grid;
+  grid-template-columns: 80px 1fr 80px;
   place-items: center;
   position: relative;
   overflow: visible;
 }
 
-/* Footer styles - with charm */
+/* Table decorations */
+.table-decoration {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.table-decoration::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-color);
+  border: 2px solid rgba(212, 175, 55, 0.5);
+}
+
+.table-decoration::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-color);
+}
+
+.table-decoration.left {
+  justify-self: end;
+}
+
+.table-decoration.right {
+  justify-self: start;
+}
+
+/* Footer styles - classic casino */
 footer {
   grid-area: footer;
   padding: 1rem;
   text-align: center;
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--footer-bg);
   color: var(--accent-color);
   font-size: 0.9rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid var(--accent-color);
 }
 
-/* Button styles - with charm */
+/* Button styles - classic casino */
 button {
   background: var(--button-bg);
-  color: white;
+  color: #1a1a1a;
   border: var(--button-border);
   padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-  font-family: "Charm", cursive;
-  font-size: 1.1rem;
+  border-radius: 4px;
+  font-family: "Playfair Display", serif;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 button:hover {
   background: var(--button-hover);
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.3);
 }
 
 button:active {
@@ -179,7 +232,7 @@ button:hover::after {
   opacity: 1;
 }
 
-/* Card deck - with charm */
+/* Card deck - classic casino */
 #deck {
   width: 100%;
   height: 100%;
@@ -188,15 +241,20 @@ button:hover::after {
   perspective: var(--deck-perspective);
   transform-style: preserve-3d;
   position: relative;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--deck-bg);
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 0 2px rgba(212, 175, 55, 0.3);
   padding: 20px;
   backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--accent-color);
+  /* Felt texture */
+  background-image: 
+    linear-gradient(rgba(20, 90, 68, 0.7), rgba(20, 90, 68, 0.7)),
+    var(--felt-texture),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23104a37' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 20L20 0L10 0L0 10M40 20L20 40L30 40L40 30'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Card styles - with charm */
+/* Card styles - classic casino */
 .card {
   width: var(--card-width);
   height: var(--card-height);
@@ -220,7 +278,35 @@ button:hover::after {
   transform-origin: center center;
   cursor: pointer;
   will-change: transform, box-shadow;
-  background-image: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+  background-image: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%), var(--card-texture);
+}
+
+/* Card back design */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: calc(var(--card-border-radius) - 2px);
+  background-color: white;
+  background-image: 
+    linear-gradient(45deg, var(--accent-color) 25%, transparent 25%, transparent 75%, var(--accent-color) 75%, var(--accent-color)),
+    linear-gradient(45deg, var(--accent-color) 25%, transparent 25%, transparent 75%, var(--accent-color) 75%, var(--accent-color));
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 5px;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.card.spread {
+  z-index: 3;
+}
+
+.card.selected {
+  z-index: 100;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 0 2px var(--accent-color);
 }
 
 .card:hover {
@@ -230,15 +316,6 @@ button:hover::after {
              rotateX(-2deg);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   z-index: 10;
-}
-
-.card.spread {
-  z-index: 3;
-}
-
-.card.selected {
-  z-index: 100;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .corner {
@@ -311,7 +388,7 @@ button:hover::after {
   font-size: var(--corner-font-size);
 }
 
-/* Charming animations */
+/* Classic animations */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -320,6 +397,121 @@ button:hover::after {
 
 h1 {
   animation: float 6s ease-in-out infinite;
+}
+
+/* Ambient light effect */
+@keyframes ambientLight {
+  0% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.1); }
+  50% { box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); }
+  100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.1); }
+}
+
+#deck {
+  animation: ambientLight 8s ease-in-out infinite;
+}
+
+/* Card dealing animation */
+@keyframes dealCard {
+  0% { 
+    transform: translate(-50%, -200%) rotate(10deg); 
+    opacity: 0;
+  }
+  100% { 
+    transform: translate(-50%, -50%) rotate(0deg); 
+    opacity: 1;
+  }
+}
+
+.card-dealing {
+  animation: dealCard 0.5s forwards;
+}
+
+/* Game controls */
+.game-controls {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(20, 90, 68, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 0 2px rgba(212, 175, 55, 0.3);
+  border: 1px solid var(--accent-color);
+  width: 80%;
+  max-width: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  background-image: 
+    linear-gradient(rgba(20, 90, 68, 0.85), rgba(20, 90, 68, 0.85)),
+    var(--felt-texture);
+}
+
+.game-controls.active {
+  display: flex;
+}
+
+.score-display {
+  font-size: 1.5rem;
+  color: var(--accent-color);
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.current-card {
+  width: 120px;
+  height: 168px;
+  position: relative;
+  perspective: 1000px;
+}
+
+#current-card-display {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.game-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.game-btn {
+  min-width: 100px;
+}
+
+.game-message {
+  min-height: 1.5rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+/* Game result animations */
+@keyframes correct {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes incorrect {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.correct {
+  animation: correct 0.5s;
+  color: #4CAF50;
+}
+
+.incorrect {
+  animation: incorrect 0.5s;
+  color: #F44336;
 }
 
 /* Responsive adjustments */

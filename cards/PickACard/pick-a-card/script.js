@@ -37,6 +37,13 @@ const CardData = {
     11: { letter: "J", face: "🤴", name: "Jack" },
     12: { letter: "Q", face: "👸", name: "Queen" },
     13: { letter: "K", face: "👑", name: "King" }
+  },
+  // Card colors for classic look
+  colors: {
+    hearts: "#d40000",
+    diamonds: "#d40000",
+    clubs: "#000000",
+    spades: "#000000"
   }
 };
 
@@ -50,6 +57,17 @@ class CardDeck {
     this.cardElements = [];
     this.selectedCard = null;
     this.isSpread = false;
+    this.audioContext = null;
+    this.gameMode = false;
+    
+    // Game state
+    this.gameState = {
+      active: false,
+      score: 0,
+      currentCard: null,
+      nextCard: null,
+      cardsPlayed: 0
+    };
     
     // Initialize the deck
     this.initialize();
@@ -63,6 +81,7 @@ class CardDeck {
     this.shuffleDeck();
     this.renderDeck(true);
     this.setupEventListeners();
+    this.setupGameControls();
   }
   
   /**
@@ -85,6 +104,9 @@ class CardDeck {
     if (this.isSpread) {
       this.toggleSpread(false);
     }
+    
+    // Play shuffle sound
+    this.playShuffleSound();
     
     // Gather all cards to center first
     this.cardElements.forEach(card => {
@@ -142,6 +164,13 @@ class CardDeck {
       card.style.transform = 'translate(-50%, -50%)';
       card.style.transition = 'none';
       
+      // Add dealing animation class if animating
+      if (animate) {
+        card.classList.add('card-dealing');
+        // Stagger the animation for each card
+        card.style.animationDelay = `${index * 0.05}s`;
+      }
+      
       this.deckElement.appendChild(card);
       this.cardElements.push(card);
     });
@@ -155,6 +184,11 @@ class CardDeck {
         const position = this.isSpread 
           ? this.calculateSpreadPosition(index, this.cardElements.length) 
           : this.calculateStackPosition(index, this.cardElements.length);
+        
+        // Remove the dealing animation class after it's complete
+        setTimeout(() => {
+          card.classList.remove('card-dealing');
+        }, 500);
         
         this.applyCardPosition(card, position, animate);
       }, animate ? CardConfig.animation.staggerDelay * index : 0);
@@ -209,17 +243,20 @@ class CardDeck {
    * @returns {string} - The HTML for the card
    */
   generateCardHTML(letter, face, value, suit) {
+    // Apply classic card coloring
+    const color = CardData.colors[suit];
+    
     return `
-      <span class="corner top-left">
+      <span class="corner top-left" style="color: ${color}">
         <div>${letter}</div>
         <div>${face ? CardData.suits[suit] : ""}</div>
       </span>
 
-      <span class="center ${!face ? "num num-" + value : "face"}">
+      <span class="center ${!face ? "num num-" + value : "face"}" style="color: ${color}">
         ${face || Array(value).fill(`<span>${CardData.suits[suit]}</span>`).join("")}
       </span>
 
-      <div class="corner bottom-right">
+      <div class="corner bottom-right" style="color: ${color}">
         <div>${letter}</div>
         <span>${face ? CardData.suits[suit] : ""}</span>
       </div>
@@ -266,13 +303,18 @@ class CardDeck {
     
     // Calculate position based on angle
     const xOffset = Math.sin(angle * Math.PI / 180) * spreadDistance;
+    const yOffset = Math.cos(angle * Math.PI / 180) * (spreadDistance * 0.1) + CardConfig.spread.yOffset;
+    
+    // Add slight rotation for a more natural fan effect
+    const rotation = angle * 0.8;
     
     return {
       transform: `
         translate(-50%, -50%)
         translateX(${xOffset}px)
-        translateY(${CardConfig.spread.yOffset}px)
+        translateY(${yOffset}px)
         translateZ(${index * 0.2}px)
+        rotateZ(${rotation}deg)
         rotateY(${angle * 0.2}deg)
       `,
       zIndex: index
@@ -332,6 +374,9 @@ class CardDeck {
       this.selectedCard = card;
       card.classList.add('selected');
       
+      // Add a subtle sound effect for card selection
+      this.playCardSound();
+      
       // Bring selected card forward
       const selectedPosition = {
         transform: `
@@ -345,6 +390,62 @@ class CardDeck {
       };
       
       this.applyCardPosition(card, selectedPosition);
+    }
+  }
+  
+  /**
+   * Play a subtle card sound effect
+   */
+  playCardSound() {
+    // Create audio context on first interaction
+    if (!this.audioContext) {
+      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    
+    const oscillator = this.audioContext.createOscillator();
+    const gainNode = this.audioContext.createGain();
+    
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(1200, this.audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(600, this.audioContext.currentTime + 0.2);
+    
+    gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.2);
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(this.audioContext.destination);
+    
+    oscillator.start();
+    oscillator.stop(this.audioContext.currentTime + 0.2);
+  }
+  
+  /**
+   * Play a shuffle sound effect
+   */
+  playShuffleSound() {
+    // Create audio context on first interaction
+    if (!this.audioContext) {
+      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    
+    // Create multiple short sounds for shuffling effect
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.type = 'triangle';
+        oscillator.frequency.setValueAtTime(800 + Math.random() * 400, this.audioContext.currentTime);
+        
+        gainNode.gain.setValueAtTime(0.03, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(this.audioContext.currentTime + 0.1);
+      }, i * 60);
     }
   }
   
@@ -383,6 +484,266 @@ class CardDeck {
   setupEventListeners() {
     document.getElementById('shuffle-btn').addEventListener('click', () => this.shuffleDeck());
     document.getElementById('spread-btn').addEventListener('click', () => this.toggleSpread());
+    document.getElementById('game-btn').addEventListener('click', () => this.toggleGameMode());
+  }
+  
+  /**
+   * Set up game control event listeners
+   */
+  setupGameControls() {
+    document.getElementById('higher-btn').addEventListener('click', () => this.makeGuess('higher'));
+    document.getElementById('lower-btn').addEventListener('click', () => this.makeGuess('lower'));
+  }
+  
+  /**
+   * Toggle game mode on/off
+   */
+  toggleGameMode() {
+    this.gameMode = !this.gameMode;
+    const gameControls = document.getElementById('game-controls');
+    
+    if (this.gameMode) {
+      // Start game
+      gameControls.classList.add('active');
+      document.getElementById('game-btn').textContent = 'Exit Game';
+      this.startGame();
+    } else {
+      // End game
+      gameControls.classList.remove('active');
+      document.getElementById('game-btn').textContent = 'Play High-Low';
+      this.endGame();
+    }
+  }
+  
+  /**
+   * Start a new High-Low game
+   */
+  startGame() {
+    // Reset game state
+    this.gameState = {
+      active: true,
+      score: 0,
+      currentCard: null,
+      nextCard: null,
+      cardsPlayed: 0
+    };
+    
+    // Update score display
+    document.getElementById('score').textContent = '0';
+    document.getElementById('game-message').textContent = '';
+    document.getElementById('game-message').className = 'game-message';
+    
+    // Shuffle deck and deal first card
+    this.shuffleDeck();
+    
+    // Deal first card
+    setTimeout(() => {
+      this.dealNextCard();
+    }, 1000);
+  }
+  
+  /**
+   * End the current game
+   */
+  endGame() {
+    this.gameState.active = false;
+    
+    // Clear the current card display
+    const currentCardDisplay = document.getElementById('current-card-display');
+    currentCardDisplay.innerHTML = '';
+    
+    // Show final score
+    const finalScore = this.gameState.score;
+    const message = `Game Over! Final Score: ${finalScore}`;
+    this.showGameMessage(message, 'neutral');
+  }
+  
+  /**
+   * Deal the next card in the game
+   */
+  dealNextCard() {
+    if (!this.gameState.active) return;
+    
+    // Get the next card from the deck
+    if (this.gameState.currentCard === null) {
+      // First card
+      this.gameState.currentCard = this.cards.pop();
+      this.displayGameCard(this.gameState.currentCard);
+      this.showGameMessage('Higher or Lower?', 'neutral');
+    } else {
+      // Move next card to current
+      this.gameState.currentCard = this.gameState.nextCard;
+      this.displayGameCard(this.gameState.currentCard);
+    }
+    
+    // Prepare next card
+    if (this.cards.length > 0) {
+      this.gameState.nextCard = this.cards.pop();
+    } else {
+      // End game if no more cards
+      this.showGameMessage('No more cards! Game Over.', 'neutral');
+      setTimeout(() => this.endGame(), 2000);
+    }
+    
+    this.gameState.cardsPlayed++;
+  }
+  
+  /**
+   * Display a card in the game area
+   * @param {Object} cardData - The card data to display
+   */
+  displayGameCard(cardData) {
+    const cardDisplay = document.getElementById('current-card-display');
+    cardDisplay.innerHTML = '';
+    
+    const cardElement = this.createCardElement(cardData.suit, cardData.value);
+    cardElement.style.position = 'absolute';
+    cardElement.style.transform = 'translate(-50%, -50%)';
+    cardElement.style.left = '50%';
+    cardElement.style.top = '50%';
+    cardElement.classList.add('game-card');
+    cardElement.style.cursor = 'default';
+    
+    // Remove click event
+    const newCard = cardElement.cloneNode(true);
+    cardDisplay.appendChild(newCard);
+    
+    // Play card sound
+    this.playCardSound();
+  }
+  
+  /**
+   * Make a guess in the High-Low game
+   * @param {string} guess - The player's guess ('higher' or 'lower')
+   */
+  makeGuess(guess) {
+    if (!this.gameState.active || !this.gameState.nextCard) return;
+    
+    // Disable buttons during animation
+    const higherBtn = document.getElementById('higher-btn');
+    const lowerBtn = document.getElementById('lower-btn');
+    higherBtn.disabled = true;
+    lowerBtn.disabled = true;
+    
+    const currentValue = this.getCardValue(this.gameState.currentCard);
+    const nextValue = this.getCardValue(this.gameState.nextCard);
+    
+    let correct = false;
+    if (guess === 'higher' && nextValue > currentValue) {
+      correct = true;
+    } else if (guess === 'lower' && nextValue < currentValue) {
+      correct = true;
+    } else if (nextValue === currentValue) {
+      // Tie - no points
+      this.showGameMessage("It's a tie! No points.", 'neutral');
+      setTimeout(() => {
+        this.dealNextCard();
+        higherBtn.disabled = false;
+        lowerBtn.disabled = false;
+      }, 1500);
+      return;
+    }
+    
+    if (correct) {
+      this.gameState.score++;
+      document.getElementById('score').textContent = this.gameState.score;
+      this.showGameMessage('Correct! +1 point', 'correct');
+      this.playCorrectSound();
+    } else {
+      // Wrong guess - no "try again" message, just show the result and continue
+      this.showGameMessage('Incorrect', 'incorrect');
+      this.playIncorrectSound();
+    }
+    
+    // Deal next card after a delay
+    setTimeout(() => {
+      this.dealNextCard();
+      
+      // Re-enable buttons
+      higherBtn.disabled = false;
+      lowerBtn.disabled = false;
+      
+      // Show prompt for next guess
+      if (this.gameState.active && this.cards.length > 0) {
+        setTimeout(() => {
+          this.showGameMessage('Higher or Lower?', 'neutral');
+        }, 500);
+      }
+    }, 1500);
+  }
+  
+  /**
+   * Get the numeric value of a card for comparison
+   * @param {Object} card - The card object
+   * @returns {number} - The numeric value (Ace = 1, J = 11, Q = 12, K = 13)
+   */
+  getCardValue(card) {
+    return card.value;
+  }
+  
+  /**
+   * Display a message in the game message area
+   * @param {string} message - The message to display
+   * @param {string} type - The type of message ('correct', 'incorrect', or 'neutral')
+   */
+  showGameMessage(message, type) {
+    const messageElement = document.getElementById('game-message');
+    messageElement.textContent = message;
+    messageElement.className = 'game-message';
+    
+    if (type !== 'neutral') {
+      messageElement.classList.add(type);
+    }
+  }
+  
+  /**
+   * Play a sound effect for correct guess
+   */
+  playCorrectSound() {
+    if (!this.audioContext) {
+      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    
+    const oscillator = this.audioContext.createOscillator();
+    const gainNode = this.audioContext.createGain();
+    
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(440, this.audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(880, this.audioContext.currentTime + 0.2);
+    
+    gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.3);
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(this.audioContext.destination);
+    
+    oscillator.start();
+    oscillator.stop(this.audioContext.currentTime + 0.3);
+  }
+  
+  /**
+   * Play a sound effect for incorrect guess
+   */
+  playIncorrectSound() {
+    if (!this.audioContext) {
+      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    
+    const oscillator = this.audioContext.createOscillator();
+    const gainNode = this.audioContext.createGain();
+    
+    oscillator.type = 'sawtooth';
+    oscillator.frequency.setValueAtTime(220, this.audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(110, this.audioContext.currentTime + 0.2);
+    
+    gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.3);
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(this.audioContext.destination);
+    
+    oscillator.start();
+    oscillator.stop(this.audioContext.currentTime + 0.3);
   }
 }
 
