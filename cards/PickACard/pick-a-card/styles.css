@@ -1,42 +1,249 @@
-@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Noto+Color+Emoji&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Noto+Color+Emoji&display=swap");
+
+:root {
+  /* Card properties */
+  --card-width: 100px;
+  --card-height: 140px;
+  --card-border-radius: 10px;
+  --card-border: 2px solid #000;
+  --card-bg: white;
+  --card-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
+  --card-font: "Arial";
+  --card-transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* 3D properties */
+  --deck-perspective: 2000px;
+  --hover-scale: 1.1;
+  --hover-rotate-y: 5deg;
+  --hover-rotate-x: -5deg;
+  --hover-z: 50px;
+  --hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  --spread-distance: 250px;
+  --spread-angle: 60deg;
+  
+  /* Font sizes */
+  --corner-font-size: 16px;
+  --center-font-size: 24px;
+  --face-font-size: 48px;
+  
+  /* Color palette - original charm */
+  --bg-color: #e0e0e0;
+  --text-color: #333;
+  --accent-color: #9c27b0;
+  --accent-light: #ba68c8;
+  --button-bg: rgba(156, 39, 176, 0.8);
+  --button-hover: rgba(156, 39, 176, 1);
+  --button-border: 1px solid #7b1fa2;
+}
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  background:#e0e0e0;
-  
+  background: var(--bg-color);
   font-family: "Charm", cursive;
   font-weight: 700;
   font-style: normal;
+  min-height: 100vh;
+  color: var(--text-color);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  background-image: radial-gradient(circle at 50% 50%, #f5f5f5, #e0e0e0);
 }
+
 span {
-  
   font-family: "Noto Color Emoji", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
-#deck {
-  display:flex;
-  flex-wrap:wrap;
-  width:80vw;
-  margin:auto;
+
+/* Header styles - with charm */
+header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-.card {
-  width: 100px;
-  height: 140px;
-  border: 2px solid #000;
-  border-radius: 10px;
-  background: white;
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  font-family: "Charm", cursive;
+  letter-spacing: 1px;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Main content - with charm */
+main {
+  grid-area: main;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
   position: relative;
+  overflow: hidden;
+}
+
+main::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C27B0' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.deck-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 70vh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: visible;
+}
+
+/* Footer styles - with charm */
+footer {
+  grid-area: footer;
+  padding: 1rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Button styles - with charm */
+button {
+  background: var(--button-bg);
+  color: white;
+  border: var(--button-border);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-family: "Charm", cursive;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 1px;
+}
+
+button:hover {
+  background: var(--button-hover);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.3s;
+}
+
+button:hover::after {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Card deck - with charm */
+#deck {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  perspective: var(--deck-perspective);
+  transform-style: preserve-3d;
+  position: relative;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Card styles - with charm */
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+  border: var(--card-border);
+  border-radius: var(--card-border-radius);
+  background: var(--card-bg);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   margin: 5px;
-  font-family: 'Arial';
+  font-family: var(--card-font);
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 2px 2px 8px #0004;
+  box-shadow: var(--card-shadow);
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  backface-visibility: hidden;
+  transform-origin: center center;
+  cursor: pointer;
+  will-change: transform, box-shadow;
+  background-image: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+.card:hover {
+  transform: translate(-50%, -50%)
+             scale(1.05) 
+             translateZ(15px)
+             rotateX(-2deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.card.spread {
+  z-index: 3;
+}
+
+.card.selected {
+  z-index: 100;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .corner {
   position: absolute;
-  font-size: 16px;
+  font-size: var(--corner-font-size);
   text-align: center;
 }
 
@@ -52,9 +259,19 @@ span {
 }
 
 .center {
-  font-size: 24px;
+  font-size: var(--center-font-size);
   text-align: center;
 }
+
+.face {
+  font-size: var(--face-font-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Card number layouts */
 .num {
   display: grid;
   place-items: center;
@@ -62,23 +279,97 @@ span {
   height: 100%;
 }
 
-.num-2 { grid-template-areas: "a" "b"; }
-.num-3 { grid-template-areas: "a" "b" "c"; }
-.num-4 { grid-template-areas: "a b" "c d"; }
-.num-5 { grid-template-areas: "a b" "c x" "d e"; }
-.num-6 { grid-template-areas: "a b" "c d" "e f"; }
-.num-7 { grid-template-areas: "a b" "c x" "d e" "f g"; }
-.num-8 { grid-template-areas: "a b" "c d" "e f" "g h"; }
-.num-9 { grid-template-areas: "a b c" "d e f" "g h i"; }
-.num-10 { grid-template-areas: "a b c x" "d e f x" "g h i j"; }
+.num-2 {
+  grid-template-areas: "a" "b";
+}
+.num-3 {
+  grid-template-areas: "a" "b" "c";
+}
+.num-4 {
+  grid-template-areas: "a b" "c d";
+}
+.num-5 {
+  grid-template-areas: "a b" "c x" "d e";
+}
+.num-6 {
+  grid-template-areas: "a b" "c d" "e f";
+}
+.num-7 {
+  grid-template-areas: "a b" "c x" "d e" "f g";
+}
+.num-8 {
+  grid-template-areas: "a b" "c d" "e f" "g h";
+}
+.num-9 {
+  grid-template-areas: "a b c" "d e f" "g h i";
+}
+.num-10 {
+  grid-template-areas: "a b c x" "d e f x" "g h i j";
+}
 
 .num span {
-  font-size: 16px;
+  font-size: var(--corner-font-size);
 }
-.face {
-  font-size: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+
+/* Charming animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+h1 {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Responsive adjustments */
+@media (min-width: 1200px) {
+  :root {
+    --spread-distance: 350px;
+    --spread-angle: 70deg;
+  }
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --spread-distance: 450px;
+    --spread-angle: 80deg;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  nav {
+    justify-content: center;
+  }
+  
+  :root {
+    --card-width: 80px;
+    --card-height: 112px;
+    --spread-distance: 180px;
+    --spread-angle: 50deg;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --card-width: 60px;
+    --card-height: 84px;
+    --corner-font-size: 12px;
+    --center-font-size: 18px;
+    --face-font-size: 36px;
+    --spread-distance: 120px;
+    --spread-angle: 40deg;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
 }
