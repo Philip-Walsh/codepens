@@ -34,7 +34,7 @@ function getTimeComponents(id) {
 }
 
 function getTimeClass(time, timeRanges) {
-  console.log('getTimeClass', time);
+  console.log("getTimeClass", time);
   const ranges = [
     {
       range: [timeRanges.sunrise, timeRanges.sunriseEnd],
@@ -80,7 +80,9 @@ function getTimeClass(time, timeRanges) {
   ];
   for (const { range, className } of ranges) {
     if (time >= range[0] && time < range[1]) {
-      console.log(`Picked ${className} as the time: {${time}} is between [${range[0]}] and [${range[1]}]`);
+      console.log(
+        `Picked ${className} as the time: {${time}} is between [${range[0]}] and [${range[1]}]`
+      );
       return `time__${className}`;
     }
   }
@@ -116,7 +118,9 @@ const updateTime = (id, timezone, lat, lon) => {
 };
 const shouldUpdateTimes = (id, currentTime) => {
   let lastUpdated = times[id]?.lastUpdated;
-  return !lastUpdated || lastUpdated.toDateString() !== currentTime.toDateString();
+  return (
+    !lastUpdated || lastUpdated.toDateString() !== currentTime.toDateString()
+  );
 };
 
 const updateTimesCache = (id, timezone, lat, lon, time) => {
@@ -133,7 +137,6 @@ const updateTimesCache = (id, timezone, lat, lon, time) => {
 const addTicker = (id, timezone, lat, lon) => {
   updateTime(id, timezone, lat, lon);
   setInterval(() => updateTime(id, timezone, lat, lon), 1000);
-
 };
 
 addTicker("indiana", "America/Kentucky/Louisville", 39.7684, -86.1581);
