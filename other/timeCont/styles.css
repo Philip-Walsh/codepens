@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
 :root {
   --yellow: #FFF100;
   --red: #fa625a;
   --orange: #ff7200;
-  
   --blue: #000eff;
   --purple: #7200ff;
   --black: #330000;
@@ -13,46 +13,50 @@
   --shadow-dark: rgba(0, 0, 0, 0.5);
   --shadow-light: rgba(255, 255, 255, 0.5);
 }
+
 *,
 *::before,
 *::after {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
+
 body {
-  width:clamp(100vw,100vw,100vw);
-  display:grid;
+  width: clamp(100vw, 100vw, 100vw);
+  display: grid;
   grid-template-columns: auto auto;
-  
-}
-.time__container {
-/*   border:2px solid green; */
-  padding:2rem;
-  background:var(--bg-color);
-  display:flex;
-  place-items:center;
-  place-content:center;
-  min-width:20rem;
-  height:100vh;
-  color:var(--text-color);
-  text-shadow:var(--text-shadow);
-   font-family: "Share Tech Mono", monospace;
-  font-weight: 400;
-  font-style: normal;
-  font-size:4rem;
-  transition: all 0.5s ease-out;
-}
-.time__container time {
 
 }
+
+.time__container {
+  /*   border:2px solid green; */
+  padding: 2rem;
+  background: var(--bg-color);
+  display: flex;
+  place-items: center;
+  place-content: center;
+  min-width: 20rem;
+  height: 100vh;
+  color: var(--text-color);
+  text-shadow: var(--text-shadow);
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 4rem;
+  transition: all 0.5s ease-out;
+}
+
+.time__container time {}
+
 @media (max-width: 768px) {
   body {
     display: grid;
     grid-template-columns: 1fr;
   }
+
   .time__container {
-    height:50vh;
+    height: 50vh;
   }
 }
 
