@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>한국식 바베큐 타이머 - Korean BBQ Timer</title>
+    <meta name="description" content="한국식 바베큐 타이머로 음식을 구워보세요!">
+    <link rel="stylesheet" href="./styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <div class="bbq-table">
+        <h1 class="invitation">한국식 바베큐 타이머</h1>
+        <p class="subtitle">음식을 구워보세요! 준비 시간이 표시됩니다.</p>
+        
+        <article class="grill-container" role="application" aria-label="한국식 바베큐">
+          <div class="grill" role="region" aria-label="바베큐 그릴">
+            <div class="food-container" aria-label="음식 아이템">
+              <span class="food" data-name="한우 스테이크" data-cook-time="120">🥩</span>
+              <span class="food" data-name="삼겹살" data-cook-time="90">🍖</span>
+              <span class="food" data-name="소시지" data-cook-time="60">🌭</span>
+              <span class="food" data-name="새우" data-cook-time="45">🦐</span>
+              <span class="food" data-name="양배추" data-cook-time="30">🥬</span>
+              <span class="food" data-name="양파" data-cook-time="45">🧅</span>
+              <span class="food" data-name="오징어" data-cook-time="60">🦑</span>
+            </div>
+            <div class="panel" aria-label="숯불"></div>
+            <div class="panel" aria-label="불꽃 1"></div>
+            <div class="panel" aria-label="불꽃 2"></div>
+            <div class="panel" aria-label="불꽃 3"></div>
+            <div class="panel" aria-label="그릴 막대"></div>
+          </div>
+        </article>
+
+        <div class="food-info">
+          <div class="food-labels">
+            <span class="food-label">한우 스테이크: 2분</span>
+            <span class="food-label">삼겹살: 1분 30초</span>
+            <span class="food-label">소시지: 1분</span>
+            <span class="food-label">새우: 45초</span>
+            <span class="food-label">양배추: 30초</span>
+            <span class="food-label">양파: 45초</span>
+            <span class="food-label">오징어: 1분</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="ignite-btn" class="btn" aria-label="불을 켜거나 끕니다">🔥 불 켜기</button>
+          <button id="toggle-labels" class="btn" aria-label="음식 레이블 표시/숨기기">👁️ 레이블 표시</button>
+          <button id="add-food" class="btn" aria-label="랜덤 음식 추가">➕ 음식 추가</button>
+          <button id="reset" class="btn" aria-label="모든 음식 초기화">🔄 초기화</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
