@@ -1,255 +1,602 @@
-$(document).ready(function () {
-  // Korean BBQ food items with cooking times and bilingual names
-  const foods = [
-    { emoji: '🥩', name: { ko: '한우 스테이크', en: 'Hanwoo Steak' }, time: 120 },
-    { emoji: '🍖', name: { ko: '삼겹살', en: 'Samgyeopsal' }, time: 90 },
-    { emoji: '🌭', name: { ko: '소시지', en: 'Sausage' }, time: 60 },
-    { emoji: '🦐', name: { ko: '새우', en: 'Shrimp' }, time: 45 },
-    { emoji: '🥬', name: { ko: '양배추', en: 'Cabbage' }, time: 30 },
-    { emoji: '🧅', name: { ko: '양파', en: 'Onion' }, time: 45 },
-    { emoji: '🦑', name: { ko: '오징어', en: 'Squid' }, time: 60 }
-  ];
-
-  // UI text translations
-  const translations = {
-    ko: {
-      ignite: '🔥 불붙이기',
-      extinguish: '💧 끄기',
-      hideLabels: '👁️ 라벨 숨기기',
-      showLabels: '👁️ 라벨 보기',
-      addFood: '➕ 음식 추가',
-      cooking: '조리 중',
-      done: '완성!',
-      minutes: '분',
-      seconds: '초',
-      dragToGrill: '그릴로 드래그하세요'
+$(function () {
+  // State management
+  let state = {
+    currentLanguage: 'en',
+    showLabels: true,
+    isGrillOn: false,
+    menuData: null,
+    speedMultiplier: 1,
+    counters: {
+      meat: 0,
+      vegan: 0,
+      seafood: 0,
+      drinks: 0,
+      sauces: 0
     },
-    en: {
-      ignite: '🔥 Ignite',
-      extinguish: '💧 Extinguish',
-      hideLabels: '👁️ Hide Labels',
-      showLabels: '👁️ Show Labels',
-      addFood: '➕ Add Food',
-      cooking: 'Cooking',
-      done: 'Done!',
-      minutes: 'm',
-      seconds: 's',
-      dragToGrill: 'Drag to grill'
+    totalBill: {
+      krw: 0,
+      usd: 0
+    },
+    maxCollectionItems: 4,
+    translations: {
+      en: {
+        ignite: 'Ignite Grill',
+        extinguish: 'Extinguish',
+        toggleLabels: 'Toggle Labels',
+        switchLang: '한국어',
+        sauces: 'Sauces',
+        drinks: 'Drinks',
+        orderHistory: 'Order History',
+        sauceOrders: 'Sauce Orders',
+        loading: 'Loading menu...',
+        error: 'Error loading menu',
+        collectionFull: 'Collection area is full!',
+        pleaseCollect: 'Please collect items first',
+        grillOff: 'Please ignite the grill first!',
+        speedControl: 'Speed Control'
+      },
+      ko: {
+        ignite: '불 붙이기',
+        extinguish: '불 끄기',
+        toggleLabels: '라벨 표시',
+        switchLang: 'English',
+        sauces: '소스',
+        drinks: '음료',
+        orderHistory: '주문 내역',
+        sauceOrders: '소스 주문',
+        loading: '메뉴 로딩 중...',
+        error: '메뉴 로딩 오류',
+        collectionFull: '수집 영역이 가득 찼습니다!',
+        pleaseCollect: '먼저 아이템을 수집해주세요',
+        grillOff: '먼저 불을 붙여주세요!',
+        speedControl: '속도 조절'
+      }
     }
   };
 
-  let isIgnited = false;
-  let labelsVisible = true;
-  let currentLanguage = 'ko';
-  let cookingTimers = {};
-  let draggedFood = null;
-  let dragOffset = { x: 0, y: 0 };
+  // Load menu data
+  async function loadMenuData() {
+    try {
+      const response = await fetch('menu.json');
+      if (!response.ok) throw new Error('Failed to load menu data');
+      state.menuData = await response.json();
+      renderMenu(state.menuData);
+      initGrillPanels();
+      initDraggables();
+      initCollectionAreas();
+    } catch (error) {
+      console.error('Error loading menu:', error);
+      showNotification(state.translations[state.currentLanguage].error, 'error');
+    }
+  }
 
-  // Initialize UI
-  function initializeUI() {
-    // Add language toggle
-    $('.controls').prepend(`
-      <button id="toggle-language" class="btn">
-        🌐 ${currentLanguage === 'ko' ? 'English' : '한국어'}
-      </button>
+  // Show notification
+  function showNotification(message, type = 'info') {
+    const $notification = $('<div>')
+      .addClass('notification')
+      .addClass(type)
+      .text(message)
+      .appendTo('body');
+
+    setTimeout(() => {
+      $notification.addClass('show');
+    }, 100);
+
+    setTimeout(() => {
+      $notification.removeClass('show');
+      setTimeout(() => $notification.remove(), 300);
+    }, 3000);
+  }
+
+  // Render menu items
+  function renderMenu() {
+    const { meat, vegan, sides, sauces, drinks } = state.menuData;
+
+    // Render meat items
+    const $meatGrid = $('.meat-section .menu-items').empty();
+    meat.forEach(item => createFoodItem(item, $meatGrid));
+
+    // Render vegan items
+    const $veganGrid = $('.vegan-section .menu-items').empty();
+    vegan.forEach(item => createFoodItem(item, $veganGrid));
+
+    // Render sides
+    const $sidesGrid = $('.sides-section .menu-items').empty();
+    sides.forEach(item => createFoodItem(item, $sidesGrid));
+
+    // Render sauces
+    const $saucesGrid = $('.sauces-section .menu-items').empty();
+    sauces.forEach(item => createSauceItem(item, $saucesGrid));
+
+    // Render drinks
+    const $drinksGrid = $('.drinks-section .menu-items').empty();
+    drinks.forEach(item => createDrinkItem(item, $drinksGrid));
+  }
+
+  // Create food item element
+  function createFoodItem(item, container) {
+    const $item = $(`
+      <div class="food-item" 
+           data-kr="${item.kr}" 
+           data-en="${item.en}" 
+           data-time="${item.time}" 
+           data-category="${item.category}"
+           data-price-krw="${item.price.krw}" 
+           data-price-usd="${item.price.usd}">
+        <div class="food-icon">${item.icon}</div>
+        <div class="food-info">
+          <span class="food-name">${item[state.currentLanguage]}</span>
+          <span class="food-time">${formatTime(item.time)}</span>
+          <span class="food-price">${formatPrice(item.price, state.currentLanguage)}</span>
+        </div>
+      </div>
     `);
-
-    // Initialize menu
-    const menuContainer = $('<div>').addClass('menu-container');
-    foods.forEach(food => {
-      menuContainer.append(createFoodElement(food));
-    });
-    $('.bbq-table').prepend(menuContainer);
-
-    // Set initial button text
-    updateButtonText();
+    container.append($item);
   }
 
-  function createFoodElement(foodData) {
-    const food = $('<div>')
-      .addClass('food-item')
-      .attr('data-name-ko', foodData.name.ko)
-      .attr('data-name-en', foodData.name.en)
-      .attr('data-cooking-time', foodData.time)
-      .attr('data-cooked', '0')
-      .attr('draggable', 'true');
-
-    const emoji = $('<span>').addClass('food-emoji').text(foodData.emoji);
-    const name = $('<span>').addClass('food-name').text(foodData.name[currentLanguage]);
-
-    food.append(emoji, name);
-    return food;
+  // Create sauce item element
+  function createSauceItem(item, container) {
+    const $item = $(`
+      <div class="sauce-item" 
+           data-kr="${item.kr}" 
+           data-en="${item.en}"
+           data-category="sauces"
+           data-price-krw="${item.price.krw}" 
+           data-price-usd="${item.price.usd}">
+        <div class="sauce-icon">${item.icon}</div>
+        <span class="sauce-name">${item[state.currentLanguage]}</span>
+        <span class="sauce-price">${formatPrice(item.price, state.currentLanguage)}</span>
+      </div>
+    `);
+    container.append($item);
   }
 
+  // Create drink item element
+  function createDrinkItem(item, container) {
+    const $item = $(`
+      <div class="drink-item" 
+           data-kr="${item.kr}" 
+           data-en="${item.en}"
+           data-category="drinks"
+           data-price-krw="${item.price.krw}" 
+           data-price-usd="${item.price.usd}">
+        <div class="drink-icon">${item.icon}</div>
+        <span class="drink-name">${item[state.currentLanguage]}</span>
+        <span class="drink-price">${formatPrice(item.price, state.currentLanguage)}</span>
+      </div>
+    `);
+    container.append($item);
+  }
+
+  // Format time in minutes:seconds
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return currentLanguage === 'ko'
-      ? `${minutes}${translations.ko.minutes} ${remainingSeconds}${translations.ko.seconds}`
-      : `${minutes}${translations.en.minutes} ${remainingSeconds}${translations.en.seconds}`;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   }
 
-  function updateButtonText() {
-    $('#ignite-btn').text(isIgnited ? translations[currentLanguage].extinguish : translations[currentLanguage].ignite);
-    $('#toggle-labels').text(labelsVisible ? translations[currentLanguage].hideLabels : translations[currentLanguage].showLabels);
-    $('#add-food').text(translations[currentLanguage].addFood);
+  // Format price based on language
+  function formatPrice(price, language) {
+    if (price.krw === 0 && price.usd === 0) return '';
+    return language === 'en' ?
+      `$${price.usd}` :
+      `${price.krw.toLocaleString()}원`;
   }
 
-  // Language toggle
-  $('#toggle-language').on('click', function () {
-    currentLanguage = currentLanguage === 'ko' ? 'en' : 'ko';
-    $(this).text(`🌐 ${currentLanguage === 'ko' ? 'English' : '한국어'}`);
-    updateButtonText();
-    $('.food-name').each(function () {
-      const $food = $(this).parent();
-      $(this).text($food.attr(`data-name-${currentLanguage}`));
+  // Initialize grill panels
+  function initGrillPanels() {
+    const $grill = $('.grill').empty();
+    for (let i = 0; i < 9; i++) {
+      const $panel = $('<div>')
+        .addClass('panel')
+        .attr('data-position', i + 1);
+
+      // Add circular grill marks
+      if (i % 2 === 0) {
+        $panel.append('<div class="grill-mark"></div>');
+      }
+
+      $grill.append($panel);
+    }
+    initGrillDroppables();
+  }
+
+  // Initialize draggables for grill items only
+  function initDraggables() {
+    $('.meat-section .food-item, .vegan-section .food-item').draggable({
+      helper: 'clone',
+      appendTo: 'body',
+      zIndex: 1000,
+      start: function (event, ui) {
+        $(this).addClass('dragging');
+        ui.helper.css({
+          'width': $(this).width(),
+          'height': $(this).height(),
+          'opacity': 0.9,
+          'transform': 'scale(1.2)',
+          'box-shadow': '0 4px 20px rgba(0, 0, 0, 0.3)'
+        });
+      },
+      stop: function (event, ui) {
+        $(this).removeClass('dragging');
+        // Remove helper if not dropped on panel
+        if (!$(ui.helper).closest('.panel').length) {
+          $(ui.helper).remove();
+        }
+      }
     });
-  });
+  }
 
-  // Ignite button
-  $('#ignite-btn').on('click', function () {
-    isIgnited = !isIgnited;
-    const layers = $('.grill .panel');
+  // Initialize droppables for grill
+  function initGrillDroppables() {
+    $('.panel').droppable({
+      accept: '.food-item',
+      drop: function (event, ui) {
+        if (!state.isGrillOn) {
+          showNotification(state.translations[state.currentLanguage].grillOff, 'error');
+          return;
+        }
 
-    if (isIgnited) {
-      layers.eq(2).addClass('lift1');
-      setTimeout(() => layers.eq(3).addClass('lift2'), 200);
-      setTimeout(() => layers.eq(4).addClass('lift3'), 400);
-      const fireSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-fire-crackling-ambience-168.mp3');
-      fireSound.loop = true;
-      fireSound.play();
-    } else {
-      layers.removeClass('lift1 lift2 lift3');
-      const fireSound = document.querySelector('audio');
-      if (fireSound) fireSound.pause();
-    }
+        const $panel = $(this);
+        if ($panel.find('.grilled').length >= 4) {
+          showNotification(state.translations[state.currentLanguage].collectionFull, 'error');
+          return;
+        }
 
-    updateButtonText();
-  });
+        if ($panel.find('.cooking-timer').length > 0) {
+          showNotification('Wait for current item to finish cooking!', 'warning');
+          return;
+        }
 
-  // Toggle labels
-  $('#toggle-labels').on('click', function () {
-    labelsVisible = !labelsVisible;
-    $('.food-name').css('opacity', labelsVisible ? '1' : '0');
-    updateButtonText();
-  });
+        const $foodItem = ui.draggable;
+        const cookingTime = parseInt($foodItem.data('time'));
+        const foodName = $foodItem.find('.food-name').text();
+        const category = $foodItem.data('category');
+        const priceKrw = parseInt($foodItem.data('price-krw'));
+        const priceUsd = parseInt($foodItem.data('price-usd'));
+        const icon = $foodItem.find('.food-icon').html();
+        const kr = $foodItem.data('kr');
+        const en = $foodItem.data('en');
 
-  // Drag and drop functionality
-  $(document).on('mousedown touchstart', '.food-item', function (e) {
-    if (!isIgnited) return;
+        // Create grilled item
+        const $grilledItem = $('<div>')
+          .addClass('grilled')
+          .data('category', category)
+          .data('price-krw', priceKrw)
+          .data('price-usd', priceUsd)
+          .html(`
+            <div class="food-icon">${icon}</div>
+            <div class="food-info">
+              <div class="food-name">${foodName}</div>
+              <div class="timer-display">${formatTime(cookingTime)}</div>
+            </div>
+          `);
 
-    draggedFood = $(this);
-    draggedFood.addClass('dragging');
+        // Add to panel and start cooking
+        $panel.append($grilledItem);
+        startCookingTimer($grilledItem, cookingTime);
 
-    const rect = draggedFood[0].getBoundingClientRect();
-    dragOffset = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    };
+        // Remove original item and create a new one
+        $foodItem.fadeOut(300, function () {
+          $(this).remove();
 
-    // Add drag hint
-    const hint = $('<div>').addClass('drag-hint').text(translations[currentLanguage].dragToGrill);
-    draggedFood.append(hint);
+          // Create new item with same data
+          const newItem = {
+            kr: kr,
+            en: en,
+            icon: icon,
+            time: cookingTime,
+            category: category,
+            price: {
+              krw: priceKrw,
+              usd: priceUsd
+            }
+          };
 
-    // Add sizzle sound
-    const sizzleSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-cooking-sizzle-168.mp3');
-    sizzleSound.play();
-  });
+          // Add to appropriate section
+          const $section = category === 'meat' ? '.meat-section' : '.vegan-section';
+          createFoodItem(newItem, $($section + ' .menu-items'));
 
-  $(document).on('mousemove touchmove', function (e) {
-    if (!draggedFood) return;
-    e.preventDefault();
-
-    const x = (e.clientX || e.touches[0].clientX) - dragOffset.x;
-    const y = (e.clientY || e.touches[0].clientY) - dragOffset.y;
-
-    draggedFood.css({
-      position: 'fixed',
-      left: x + 'px',
-      top: y + 'px',
-      zIndex: 1000
+          // Reinitialize draggable for the new item
+          $($section + ' .menu-items .food-item:last').draggable({
+            helper: 'clone',
+            appendTo: 'body',
+            zIndex: 1000,
+            start: function (event, ui) {
+              $(this).addClass('dragging');
+              ui.helper.css({
+                'width': $(this).width(),
+                'height': $(this).height(),
+                'opacity': 0.9,
+                'transform': 'scale(1.2)',
+                'box-shadow': '0 4px 20px rgba(0, 0, 0, 0.3)'
+              });
+            },
+            stop: function (event, ui) {
+              $(this).removeClass('dragging');
+              if (!$(ui.helper).closest('.panel').length) {
+                $(ui.helper).remove();
+              }
+            }
+          });
+        });
+      }
     });
-  });
+  }
 
-  $(document).on('mouseup touchend', function (e) {
-    if (!draggedFood) return;
+  // Initialize collection areas
+  function initCollectionAreas() {
+    // Add click handlers for sauce items
+    $('.sauce-item').on('click', function () {
+      if (!$(this).hasClass('collecting')) {
+        const $collectionArea = $('.sauces-section .collection-area');
+        if ($collectionArea.find('.collection-item').length >= state.maxCollectionItems) {
+          showNotification(state.translations[state.currentLanguage].collectionFull, 'error');
+          return;
+        }
+        startCollection($(this), $collectionArea, 2);
+      }
+    });
 
-    const grillRect = $('.grill-container')[0].getBoundingClientRect();
-    const foodRect = draggedFood[0].getBoundingClientRect();
+    // Add click handlers for drink items
+    $('.drink-item').on('click', function () {
+      if (!$(this).hasClass('collecting')) {
+        const $collectionArea = $('.drinks-section .collection-area');
+        if ($collectionArea.find('.collection-item').length >= state.maxCollectionItems) {
+          showNotification(state.translations[state.currentLanguage].collectionFull, 'error');
+          return;
+        }
+        startCollection($(this), $collectionArea, 3);
+      }
+    });
 
-    // Check if food is dropped on the grill
-    if (isIgnited &&
-      foodRect.left >= grillRect.left &&
-      foodRect.right <= grillRect.right &&
-      foodRect.top >= grillRect.top &&
-      foodRect.bottom <= grillRect.bottom) {
+    // Add click handlers for side items
+    $('.sides-section .food-item').on('click', function () {
+      if (!$(this).hasClass('collecting')) {
+        const $collectionArea = $('.sides-section .collection-area');
+        if ($collectionArea.find('.collection-item').length >= state.maxCollectionItems) {
+          showNotification(state.translations[state.currentLanguage].collectionFull, 'error');
+          return;
+        }
+        startCollection($(this), $collectionArea, 1);
+      }
+    });
+  }
 
-      // Add to grill with animation
-      draggedFood.css({
-        position: 'absolute',
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)'
-      });
+  // Initialize speed control
+  function initSpeedControl() {
+    const $speedControl = $('<div>')
+      .addClass('speed-control')
+      .html(`
+        <span class="speed-control-label">${state.translations[state.currentLanguage].speedControl}</span>
+        <input type="range" class="speed-slider" min="1" max="10" value="1" step="1">
+        <span class="speed-value">1x</span>
+      `)
+      .appendTo('body');
 
-      $('.grill-container').append(draggedFood);
-      startCooking(draggedFood);
-    } else {
-      // Return to menu with animation
-      draggedFood.css({
-        position: 'relative',
-        left: 'auto',
-        top: 'auto',
-        transform: 'none'
-      });
-      $('.menu-container').append(draggedFood);
-    }
+    $speedControl.find('.speed-slider').on('input', function () {
+      state.speedMultiplier = parseInt($(this).val());
+      $speedControl.find('.speed-value').text(state.speedMultiplier + 'x');
+    });
+  }
 
-    draggedFood.removeClass('dragging');
-    draggedFood.find('.drag-hint').remove();
-    draggedFood = null;
-  });
+  // Initialize grill timer
+  function initGrill() {
+    const $grill = $('.grill');
+    const $igniteBtn = $('.ignite-btn');
 
-  function startCooking($food) {
-    const foodId = $food.attr('data-name-ko');
-    const cookingTime = parseInt($food.attr('data-cooking-time'));
-    const cookedLevel = parseInt($food.attr('data-cooked') || '0');
+    $igniteBtn.on('click', function () {
+      const isActive = $grill.hasClass('active');
+      if (isActive) {
+        $grill.removeClass('active');
+        $igniteBtn.removeClass('active');
+        $igniteBtn.find('.ignite-text').text('Ignite Grill');
+        state.isGrillOn = false;
+        showNotification('Grill turned off', 'info');
+      } else {
+        $grill.addClass('active');
+        $igniteBtn.addClass('active');
+        $igniteBtn.find('.ignite-text').text('Turn Off');
+        state.isGrillOn = true;
+        showNotification('Grill ignited! Ready to cook', 'success');
+      }
+    });
+  }
 
-    // If already cooking, stop it
-    if (cookingTimers[foodId]) {
-      clearInterval(cookingTimers[foodId]);
-      delete cookingTimers[foodId];
-      $food.find('.cooking-timer').remove();
-      $food.removeClass('cooking');
-      return;
-    }
+  // Start cooking timer for a single item
+  function startCookingTimer($item, duration) {
+    let timeLeft = duration;
+    const totalTime = duration;
 
-    // Start cooking
-    const newCookedLevel = Math.min(cookedLevel + 1, 3);
-    $food.attr('data-cooked', newCookedLevel);
-    $food.addClass('cooking');
+    // Create timer display with countdown
+    const $timer = $('<div>')
+      .addClass('cooking-timer')
+      .html(`
+            <div class="timer-content">
+                <span class="timer-emoji">🔥</span>
+                <span class="timer-countdown">${formatTime(timeLeft)}</span>
+            </div>
+        `);
 
-    // Add timer
-    const timer = $('<span>').addClass('cooking-timer').text(formatTime(cookingTime));
-    $food.append(timer);
+    // Create cooking effects
+    const $flame = $('<div>').addClass('flame-effect');
+    const $sizzle = $('<div>').addClass('sizzle-effect');
+    const $smoke = $('<div>').addClass('smoke');
 
-    let remainingTime = cookingTime;
-    cookingTimers[foodId] = setInterval(() => {
-      remainingTime--;
-      timer.text(formatTime(remainingTime));
+    // Add effects to item
+    $item.addClass('cooking')
+      .append($timer)
+      .append($flame)
+      .append($sizzle)
+      .append($smoke);
 
-      if (remainingTime <= 0) {
-        clearInterval(cookingTimers[foodId]);
-        delete cookingTimers[foodId];
-        timer.remove();
-        $food.removeClass('cooking').addClass('done');
-        $food.append($('<span>').addClass('done-badge').text(translations[currentLanguage].done));
-        const doneSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3');
-        doneSound.play();
+    // Start the timer
+    const timer = setInterval(() => {
+      timeLeft -= state.speedMultiplier;
+
+      // Update timer display
+      $timer.find('.timer-countdown').text(formatTime(timeLeft));
+      $item.find('.timer-display').text(formatTime(timeLeft));
+
+      // Update cooking progress
+      const progress = 1 - (timeLeft / totalTime);
+      const brightness = Math.max(0.3, 1 - (progress * 0.7));
+      $item.find('.food-icon').css('filter', `brightness(${brightness})`);
+
+      // Update flame intensity
+      $flame.css('opacity', 0.3 + (progress * 0.4));
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        finishCooking($item);
       }
     }, 1000);
   }
 
-  // Initialize the UI
-  initializeUI();
+  // Finish cooking process
+  function finishCooking($item) {
+    $item.removeClass('cooking')
+      .find('.cooking-timer, .flame-effect, .sizzle-effect, .smoke').remove();
+
+    // Add done indicator and collect button
+    $item.append(`
+      <div class="done-indicator">✓</div>
+      <button class="collect-btn">Collect</button>
+    `);
+
+    // Add sizzle effect when done
+    $item.append('<div class="sizzle-effect done"></div>');
+
+    // Handle collection
+    $item.find('.collect-btn').on('click', function () {
+      const name = $item.find('.food-name').text();
+      const icon = $item.find('.food-icon').html();
+      const category = $item.data('category');
+      const priceKrw = parseInt($item.data('price-krw'));
+      const priceUsd = parseInt($item.data('price-usd'));
+
+      $item.fadeOut(300, function () {
+        $(this).remove();
+        addToOrder(name, icon, priceKrw, priceUsd, category);
+      });
+    });
+  }
+
+  // Start collection process
+  function startCollection($item, $collectionArea, duration) {
+    $item.addClass('collecting');
+
+    const collectionEmojis = ['🔄', '⏳', '⌛', '✨'];
+    let timeLeft = duration;
+    let emojiIndex = 0;
+
+    const $timer = $('<div>')
+      .addClass('collection-timer')
+      .html(`<span class="timer-emoji">${collectionEmojis[emojiIndex]}</span>`);
+
+    $item.append($timer);
+
+    const timer = setInterval(() => {
+      timeLeft -= state.speedMultiplier;
+      emojiIndex = (emojiIndex + 1) % collectionEmojis.length;
+      $timer.find('.timer-emoji').text(collectionEmojis[emojiIndex]);
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        finishCollection($item, $collectionArea);
+      }
+    }, 1000);
+  }
+
+  // Finish collection process
+  function finishCollection($item, $collectionArea) {
+    $item.removeClass('collecting')
+      .find('.collection-timer').remove();
+
+    const name = $item.find('.food-name, .sauce-name, .drink-name').text();
+    const icon = $item.find('.food-icon, .sauce-icon, .drink-icon').html();
+    const category = $item.data('category');
+    const priceKrw = parseInt($item.data('price-krw'));
+    const priceUsd = parseInt($item.data('price-usd'));
+
+    const $collectionItem = $('<div>')
+      .addClass('collection-item')
+      .html(`
+        <span class="item-icon">${icon}</span>
+        <span class="item-name">${name}</span>
+        <span class="item-price">${formatPrice({ krw: priceKrw, usd: priceUsd }, state.currentLanguage)}</span>
+        <button class="collect-btn">Collect</button>
+      `);
+
+    $collectionArea.append($collectionItem);
+
+    // Add collect button handler
+    $collectionItem.find('.collect-btn').on('click', function () {
+      const $item = $(this).closest('.collection-item');
+      $item.addClass('removing');
+      setTimeout(() => {
+        addToOrder(name, icon, priceKrw, priceUsd, category);
+        $item.remove();
+      }, 300); // Match the animation duration
+    });
+  }
+
+  // Add item to order
+  function addToOrder(name, icon, priceKrw, priceUsd, category) {
+    const $orderItem = $('<div>')
+      .addClass('order-item')
+      .html(`
+        <span class="item-icon">${icon}</span>
+        <span class="item-name">${name}</span>
+        <span class="item-price">${formatPrice({ krw: priceKrw, usd: priceUsd }, state.currentLanguage)}</span>
+      `);
+
+    $('.order-history').prepend($orderItem);
+
+    // Update counters and total
+    updateCounter(category);
+    updateTotal(priceKrw, priceUsd);
+  }
+
+  // Update total bill
+  function updateTotal(priceKrw, priceUsd) {
+    state.totalBill.krw += priceKrw;
+    state.totalBill.usd += priceUsd;
+
+    $('.total-amount').text(formatPrice(state.totalBill, state.currentLanguage));
+  }
+
+  // Language switch
+  $('.language-btn').on('click', function () {
+    const lang = $(this).data('lang');
+    state.currentLanguage = lang;
+    $('.language-btn').removeClass('active');
+    $(this).addClass('active');
+    updateLanguage();
+  });
+
+  // Update language
+  function updateLanguage() {
+    // Update all item names and prices
+    $('.food-item, .sauce-item, .drink-item, .grilled, .collection-item, .order-item').each(function () {
+      const $item = $(this);
+      const name = $item.data(state.currentLanguage);
+      const priceKrw = parseInt($item.data('price-krw'));
+      const priceUsd = parseInt($item.data('price-usd'));
+
+      $item.find('.food-name, .sauce-name, .drink-name, .item-name').text(name);
+      $item.find('.food-price, .sauce-price, .drink-price, .item-price')
+        .text(formatPrice({ krw: priceKrw, usd: priceUsd }, state.currentLanguage));
+    });
+
+    // Update total
+    $('.total-amount').text(formatPrice(state.totalBill, state.currentLanguage));
+  }
+
+  // Initialize the application
+  $(document).ready(function () {
+    loadMenuData();
+    initGrill();
+    initSpeedControl();
+  });
 });

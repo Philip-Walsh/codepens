@@ -1,0 +1,205 @@
+{
+  "meat": [
+    {
+      "kr": "삼겹살",
+      "en": "Pork Belly",
+      "icon": "🥓",
+      "time": 180,
+      "category": "meat",
+      "price": {
+        "krw": 18000,
+        "usd": 15
+      }
+    },
+    {
+      "kr": "갈비",
+      "en": "Beef Ribs",
+      "icon": "🥩",
+      "time": 240,
+      "category": "meat",
+      "price": {
+        "krw": 22000,
+        "usd": 18
+      }
+    },
+    {
+      "kr": "목살",
+      "en": "Pork Neck",
+      "icon": "🥓",
+      "time": 200,
+      "category": "meat",
+      "price": {
+        "krw": 16000,
+        "usd": 13
+      }
+    },
+    {
+      "kr": "새우",
+      "en": "Shrimp",
+      "icon": "🦐",
+      "time": 120,
+      "category": "seafood",
+      "price": {
+        "krw": 15000,
+        "usd": 12
+      }
+    },
+    {
+      "kr": "오징어",
+      "en": "Squid",
+      "icon": "🦑",
+      "time": 90,
+      "category": "seafood",
+      "price": {
+        "krw": 12000,
+        "usd": 10
+      }
+    }
+  ],
+  "vegan": [
+    {
+      "kr": "버섯",
+      "en": "Mushroom Mix",
+      "icon": "🍄",
+      "time": 120,
+      "category": "vegan",
+      "price": {
+        "krw": 8000,
+        "usd": 7
+      }
+    },
+    {
+      "kr": "두부",
+      "en": "Tofu Steak",
+      "icon": "🧊",
+      "time": 180,
+      "category": "vegan",
+      "price": {
+        "krw": 7000,
+        "usd": 6
+      }
+    },
+    {
+      "kr": "가지",
+      "en": "Eggplant",
+      "icon": "🍆",
+      "time": 90,
+      "category": "vegan",
+      "price": {
+        "krw": 6000,
+        "usd": 5
+      }
+    }
+  ],
+  "sides": [
+    {
+      "kr": "공기밥",
+      "en": "Steamed Rice",
+      "icon": "🍚",
+      "time": 0,
+      "category": "sides",
+      "price": {
+        "krw": 2000,
+        "usd": 2
+      }
+    },
+    {
+      "kr": "김치찌개",
+      "en": "Kimchi Stew",
+      "icon": "🍲",
+      "time": 0,
+      "category": "sides",
+      "price": {
+        "krw": 8000,
+        "usd": 7
+      }
+    },
+    {
+      "kr": "된장찌개",
+      "en": "Soybean Stew",
+      "icon": "🍲",
+      "time": 0,
+      "category": "sides",
+      "price": {
+        "krw": 8000,
+        "usd": 7
+      }
+    }
+  ],
+  "sauces": [
+    {
+      "kr": "고추장",
+      "en": "Gochujang",
+      "icon": "🌶️",
+      "price": {
+        "krw": 2000,
+        "usd": 2
+      }
+    },
+    {
+      "kr": "쌈장",
+      "en": "Ssamjang",
+      "icon": "🥬",
+      "price": {
+        "krw": 2000,
+        "usd": 2
+      }
+    },
+    {
+      "kr": "소금",
+      "en": "Salt",
+      "icon": "🧂",
+      "price": {
+        "krw": 0,
+        "usd": 0
+      }
+    },
+    {
+      "kr": "참기름",
+      "en": "Sesame Oil",
+      "icon": "🫖",
+      "price": {
+        "krw": 0,
+        "usd": 0
+      }
+    }
+  ],
+  "drinks": [
+    {
+      "kr": "소주",
+      "en": "Soju",
+      "icon": "🍶",
+      "price": {
+        "krw": 4000,
+        "usd": 3
+      }
+    },
+    {
+      "kr": "맥주",
+      "en": "Beer",
+      "icon": "🍺",
+      "price": {
+        "krw": 5000,
+        "usd": 4
+      }
+    },
+    {
+      "kr": "콜라",
+      "en": "Cola",
+      "icon": "🥤",
+      "price": {
+        "krw": 3000,
+        "usd": 2
+      }
+    },
+    {
+      "kr": "사이다",
+      "en": "Sprite",
+      "icon": "🥤",
+      "price": {
+        "krw": 3000,
+        "usd": 2
+      }
+    }
+  ]
+} 

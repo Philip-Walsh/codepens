@@ -1,60 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>한국식 바베큐 타이머 - Korean BBQ Timer</title>
-    <meta name="description" content="한국식 바베큐 타이머로 음식을 구워보세요!">
-    <link rel="stylesheet" href="./styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="./script.js" defer></script>
-  </head>
-  <body>
-    <main>
-      <div class="bbq-table">
-        <h1 class="invitation">한국식 바베큐 타이머</h1>
-        <p class="subtitle">음식을 구워보세요! 준비 시간이 표시됩니다.</p>
-        
-        <article class="grill-container" role="application" aria-label="한국식 바베큐">
-          <div class="grill" role="region" aria-label="바베큐 그릴">
-            <div class="food-container" aria-label="음식 아이템">
-              <span class="food" data-name="한우 스테이크" data-cook-time="120">🥩</span>
-              <span class="food" data-name="삼겹살" data-cook-time="90">🍖</span>
-              <span class="food" data-name="소시지" data-cook-time="60">🌭</span>
-              <span class="food" data-name="새우" data-cook-time="45">🦐</span>
-              <span class="food" data-name="양배추" data-cook-time="30">🥬</span>
-              <span class="food" data-name="양파" data-cook-time="45">🧅</span>
-              <span class="food" data-name="오징어" data-cook-time="60">🦑</span>
-            </div>
-            <div class="panel" aria-label="숯불"></div>
-            <div class="panel" aria-label="불꽃 1"></div>
-            <div class="panel" aria-label="불꽃 2"></div>
-            <div class="panel" aria-label="불꽃 3"></div>
-            <div class="panel" aria-label="그릴 막대"></div>
-          </div>
-        </article>
-
-        <div class="food-info">
-          <div class="food-labels">
-            <span class="food-label">한우 스테이크: 2분</span>
-            <span class="food-label">삼겹살: 1분 30초</span>
-            <span class="food-label">소시지: 1분</span>
-            <span class="food-label">새우: 45초</span>
-            <span class="food-label">양배추: 30초</span>
-            <span class="food-label">양파: 45초</span>
-            <span class="food-label">오징어: 1분</span>
-          </div>
-        </div>
-
-        <div class="controls">
-          <button id="ignite-btn" class="btn" aria-label="불을 켜거나 끕니다">🔥 불 켜기</button>
-          <button id="toggle-labels" class="btn" aria-label="음식 레이블 표시/숨기기">👁️ 레이블 표시</button>
-          <button id="add-food" class="btn" aria-label="랜덤 음식 추가">➕ 음식 추가</button>
-          <button id="reset" class="btn" aria-label="모든 음식 초기화">🔄 초기화</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BBQ Grill Master</title>
+  <meta name="description" content="Interactive Korean BBQ experience with vegan options">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <div class="hero-section">
+    <div class="loading-animation"></div>
+    <div class="hero-content">
+      <div class="grill-icon">🔥</div>
+      <h1 class="hero-title">고기구이</h1>
+      <p class="hero-phonetic">(Go-gi-gu-i)</p>
+      <p class="hero-subtitle">Experience Authentic Korean BBQ</p>
+      <div class="hero-description">
+        <p class="hero-tagline">Master the art of Korean BBQ</p>
+        <div class="hero-features">
+          <span class="feature">Premium Meats</span>
+          <span class="feature">Vegan Options</span>
+          <span class="feature">Fresh Sides</span>
         </div>
       </div>
-    </main>
-  </body>
+    </div>
+  </div>
+
+  <div class="language-switch">
+    <button class="language-btn active" data-lang="en">EN</button>
+    <button class="language-btn" data-lang="kr">KR</button>
+  </div>
+
+  <div class="bbq-table">
+    <!-- Meat Section -->
+    <div class="menu-section meat-section">
+      <h2 class="section-title">Meat</h2>
+      <div class="menu-items"></div>
+    </div>
+
+    <!-- Grill Section -->
+    <div class="grill-section">
+      <button class="ignite-btn">
+        <span class="ignite-icon">🔥</span>
+        <span class="ignite-text">Ignite Grill</span>
+      </button>
+      <div class="grill">
+        <!-- Grill panels will be added here -->
+      </div>
+    </div>
+
+    <!-- Vegan Section -->
+    <div class="menu-section vegan-section">
+      <h2 class="section-title">Vegan</h2>
+      <div class="menu-items"></div>
+    </div>
+
+    <!-- Sides Section -->
+    <div class="menu-section sides-section">
+      <h2 class="section-title">Sides</h2>
+      <div class="menu-items"></div>
+      <div class="collection-area sides-collection"></div>
+    </div>
+
+    <!-- Drinks Section -->
+    <div class="menu-section drinks-section">
+      <h2 class="section-title">Drinks</h2>
+      <div class="menu-items"></div>
+      <div class="collection-area drinks-collection"></div>
+    </div>
+
+    <!-- Sauces Section -->
+    <div class="menu-section sauces-section">
+      <h2 class="section-title">Sauces</h2>
+      <div class="menu-items"></div>
+      <div class="collection-area sauces-collection"></div>
+    </div>
+
+    <!-- Order Section -->
+    <div class="order-section">
+      <h2 class="section-title">Order</h2>
+      <div class="order-history"></div>
+      <div class="total-bill">
+        <div class="total-label">Total:</div>
+        <div class="total-amount">$0</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About Korean BBQ</h3>
+        <p>Korean BBQ (고기구이) is a popular dining experience where diners grill their own meat at the table. The tradition dates back to the Goguryeo era (37 BCE–668 CE) and has evolved into a social dining experience that brings people together.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <div class="footer-links">
+          <a href="https://github.com/robo" class="footer-link">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+          </a>
+          <a href="https://twitter.com/robo" class="footer-link">
+            <i class="fab fa-twitter"></i>
+            <span>Twitter</span>
+          </a>
+          <a href="https://codepen.io/robo" class="footer-link">
+            <i class="fab fa-codepen"></i>
+            <span>CodePen</span>
+          </a>
+          <a href="https://philip-walsh.github.io/" class="footer-link">
+            <i class="fas fa-user"></i>
+            <span>Portfolio</span>
+          </a>
+          <a href="https://spaghettis.netlify.app/ramen" class="footer-link">
+            <i class="fas fa-utensils"></i>
+            <span>Ramen Site</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Powered by</h3>
+        <a href="https://www.cursor.com/features" class="cursor-link">
+          <img src="https://www.cursor.com/favicon.svg" alt="Cursor AI" class="cursor-icon">
+          <span>Cursor AI</span>
+        </a>
+        <p class="footer-credit">Built with ❤️ by Robo</p>
+      </div>
+    </div>
+  </footer>
+</body>
 </html>
