@@ -18,6 +18,13 @@
   --anim-time: 0.6s;
   --grill-size: min(300px, 80vw);
   --table-size: min(400px, 90vw);
+  /* Font sizes */
+  --font-size-title: clamp(2rem, 5vw, 3rem);
+  --font-size-subtitle: clamp(1.2rem, 3vw, 1.8rem);
+  --font-size-label-ko: clamp(0.9rem, 2.5vw, 1.2rem);
+  --font-size-label-en: clamp(0.8rem, 2vw, 1rem);
+  --font-size-button: clamp(0.9rem, 2.5vw, 1.1rem);
+  --font-size-timer: clamp(0.8rem, 2vw, 1rem);
   /* Texture URLs */
   --felt-texture: url('https://www.transparenttextures.com/patterns/felt.png');
   --card-texture: url('https://www.transparenttextures.com/patterns/cardboard-flat.png');
@@ -50,7 +57,7 @@ body {
   margin: 0;
   background-color: var(--color-background);
   color: var(--color-text);
-  font-family: "Noto Sans KR", "Playfair Display", serif;
+  font-family: 'Prompt', 'Noto Sans KR', sans-serif;
   font-weight: 400;
   font-style: normal;
   display: flex;
@@ -75,17 +82,22 @@ main {
 }
 
 .invitation {
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-family: 'Shojumaru', cursive;
+  font-size: var(--font-size-title);
   color: var(--color-text);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
 }
 
 .subtitle {
-  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  font-family: 'Prompt', sans-serif;
+  font-weight: 300;
+  font-size: var(--font-size-subtitle);
   color: var(--color-accent);
   margin-bottom: 1rem;
   padding: 0 1rem;
+  letter-spacing: 0.02em;
 }
 
 .grill-container {
@@ -218,17 +230,16 @@ main {
   bottom: -4rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  font-family: 'Prompt', sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-timer);
   color: var(--color-timer);
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   white-space: nowrap;
   background: rgba(255, 255, 255, 0.2);
   padding: 0.5rem 1rem;
   border-radius: 12px;
   pointer-events: none;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-weight: 700;
   backdrop-filter: blur(6px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -238,10 +249,11 @@ main {
   bottom: -2.5rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: clamp(0.8rem, 2vw, 1rem);
-  color: var(--color-cooked);
+  font-family: 'Prompt', sans-serif;
   font-weight: 700;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  font-size: var(--font-size-timer);
+  color: var(--color-cooked);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   white-space: nowrap;
   background: rgba(0, 0, 0, 0.1);
   padding: 0.3rem 0.6rem;
@@ -255,10 +267,12 @@ main {
     transform: translateX(-50%) scale(1);
     opacity: 1;
   }
+
   50% {
     transform: translateX(-50%) scale(1.1);
     opacity: 0.8;
   }
+
   100% {
     transform: translateX(-50%) scale(1);
     opacity: 1;
@@ -321,12 +335,14 @@ main {
 }
 
 .food::before {
-  content: attr(data-name);
+  content: attr(data-name-ko);
   position: absolute;
   bottom: -2.5rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: clamp(0.8rem, 2.5vw, 1rem);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-label-ko);
   color: var(--color-accent);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   white-space: nowrap;
@@ -336,21 +352,30 @@ main {
   padding: 0.4rem 0.8rem;
   border-radius: 8px;
   pointer-events: none;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-weight: 700;
   backdrop-filter: blur(4px);
+  letter-spacing: 0.02em;
 }
 
 .food::after {
-  content: '';
+  content: attr(data-name-en);
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, calc(var(--cooked-level) * 0.1));
-  border-radius: 8px;
+  bottom: -4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Prompt', sans-serif;
+  font-weight: 500;
+  font-size: var(--font-size-label-en);
+  color: var(--color-text);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  opacity: var(--label-opacity);
+  transition: opacity 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
   pointer-events: none;
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.01em;
 }
 
 /* Smoke effect */
@@ -537,14 +562,16 @@ main {
 
 .btn {
   padding: 0.6rem 1.2rem;
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-family: 'Prompt', sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-button);
+  letter-spacing: 0.02em;
   background: var(--color-button);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: inherit;
   display: flex;
   align-items: center;
   gap: 0.5rem;
