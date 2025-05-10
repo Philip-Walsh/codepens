@@ -40,9 +40,9 @@
   </div>
 
   <div class="bbq-table">
-    <!-- Meat Section -->
-    <div class="menu-section meat-section">
-      <h2 class="section-title">Meat</h2>
+    <!-- Vegan Section -->
+    <div class="menu-section vegan-section">
+      <h2 class="section-title">Vegan</h2>
       <div class="menu-items"></div>
     </div>
 
@@ -57,9 +57,9 @@
       </div>
     </div>
 
-    <!-- Vegan Section -->
-    <div class="menu-section vegan-section">
-      <h2 class="section-title">Vegan</h2>
+    <!-- Meat Section -->
+    <div class="menu-section meat-section">
+      <h2 class="section-title">Meat</h2>
       <div class="menu-items"></div>
     </div>
 
@@ -95,46 +95,48 @@
     </div>
   </div>
 
-  <footer class="site-footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>About Korean BBQ</h3>
-        <p>Korean BBQ (고기구이) is a popular dining experience where diners grill their own meat at the table. The tradition dates back to the Goguryeo era (37 BCE–668 CE) and has evolved into a social dining experience that brings people together.</p>
-      </div>
-      <div class="footer-section">
-        <h3>Connect</h3>
-        <div class="footer-links">
-          <a href="https://github.com/robo" class="footer-link">
-            <i class="fab fa-github"></i>
-            <span>GitHub</span>
-          </a>
-          <a href="https://twitter.com/robo" class="footer-link">
-            <i class="fab fa-twitter"></i>
-            <span>Twitter</span>
-          </a>
-          <a href="https://codepen.io/robo" class="footer-link">
-            <i class="fab fa-codepen"></i>
-            <span>CodePen</span>
-          </a>
-          <a href="https://philip-walsh.github.io/" class="footer-link">
-            <i class="fas fa-user"></i>
-            <span>Portfolio</span>
-          </a>
-          <a href="https://spaghettis.netlify.app/ramen" class="footer-link">
-            <i class="fas fa-utensils"></i>
-            <span>Ramen Site</span>
-          </a>
-        </div>
-      </div>
-      <div class="footer-section">
-        <h3>Powered by</h3>
-        <a href="https://www.cursor.com/features" class="cursor-link">
-          <img src="https://www.cursor.com/favicon.svg" alt="Cursor AI" class="cursor-icon">
-          <span>Cursor AI</span>
-        </a>
-        <p class="footer-credit">Built with ❤️ by Robo</p>
+  <section class="content-section">
+    <div class="content-container">
+      <h2 class="section-title">BBQ Culture & Traditions</h2>
+      <div class="articles-grid" id="articles-container">
+        <!-- Articles will be loaded here -->
       </div>
     </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-hero">
+        <div class="footer-arch"></div>
+        <div class="footer-content">
+            <div class="tip-container">
+                <div class="tip-header">
+                    <span class="reaction">😊</span>
+                    <span class="tip-amount" id="tip-amount">$5.00</span>
+                </div>
+                <input type="range" id="tip-slider" min="0" max="30" value="10" step="1">
+                <div class="tip-messages">
+                    <p class="current-message">Thanks for your support! 🌟</p>
+                </div>
+            </div>
+            <div class="footer-links" id="footer-links">
+                <a href="https://buymeacoffee.com/philipwalsf" target="_blank" class="footer-link">
+                    <span>Hows about some noodles ?</span>
+                    <span class="noodle-emoji">🍜</span>
+                </a>
+            </div>
+        </div>
+    </div>
   </footer>
+
+  <div class="speed-control">
+    <span class="speed-control-label">Speed Control</span>
+    <input type="range" class="speed-slider" min="1" max="10" value="1" step="1">
+    <span class="speed-value">1x</span>
+  </div>
+
+  <div class="jump-to-grill">
+    <i class="fas fa-fire"></i>
+    <span>Jump to Grill</span>
+  </div>
 </body>
 </html>

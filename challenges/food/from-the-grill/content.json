@@ -1,0 +1,57 @@
+{
+  "articles": [
+    {
+      "title": "Korean BBQ Basics",
+      "subtitle": "고기구이 (Go-gi-gu-i) - The Art of Korean BBQ",
+      "content": "Korean BBQ is more than just grilling meat - it's a social experience that brings people together. The term '고기구이' (Go-gi-gu-i) literally means 'grilled meat' in Korean. Learn the essential vocabulary: 고기 (go-gi) = meat, 구이 (gu-i) = grilled food, 불고기 (bul-go-gi) = marinated beef.",
+      "icon": "🔥",
+      "tags": ["Korean", "BBQ", "Language"]
+    },
+    {
+      "title": "Korean Dining Etiquette",
+      "subtitle": "식사 예절 (Sik-sa Ye-jeol) - Dining Manners",
+      "content": "In Korean culture, dining is a communal experience. Key phrases: 맛있게 드세요 (ma-sit-ge deu-se-yo) = 'Enjoy your meal', 잘 먹겠습니다 (jal meok-ge-sseum-ni-da) = 'I will eat well'. Remember to use both hands when receiving or giving items, and never stick your chopsticks upright in rice. Note: Korean restaurants often include a service fee (봉사료 - bong-sa-ryo) of about $5 per table.",
+      "icon": "🍽️",
+      "tags": ["Culture", "Etiquette", "Korean"]
+    },
+    {
+      "title": "Korean BBQ Side Dishes",
+      "subtitle": "반상 차림 (Ban-sang Cha-rim) - Table Setting",
+      "content": "Korean BBQ is served with various side dishes called 반찬 (ban-chan). Common sides include 김치 (kim-chi) = fermented vegetables, 쌈 (ssam) = lettuce wraps, and 소주 (so-ju) = Korean rice wine. Each dish has its own unique flavor and purpose in the meal. The service fee (봉사료) helps cover the cost of these complimentary side dishes.",
+      "icon": "🥬",
+      "tags": ["Sides", "Korean", "Food"]
+    },
+    {
+      "title": "BBQ Around the World",
+      "subtitle": "세계의 바베큐 (Se-gye-ui Ba-be-kyu)",
+      "content": "While Korean BBQ is unique, many cultures have their own grilling traditions. From American BBQ to Japanese Yakiniku, each style brings its own flavors and techniques. Learn how to say 'BBQ' in different languages: 바베큐 (Korean), バーベキュー (Japanese), 烧烤 (Chinese). In Korea, the service fee (봉사료) is a way to show appreciation for the attentive service and complimentary side dishes.",
+      "icon": "🌍",
+      "tags": ["Global", "BBQ", "Culture"]
+    }
+  ],
+  "footer": {
+    "about": "Experience the art of Korean BBQ with our interactive grill simulator. Master the perfect cook time, explore authentic flavors, and learn about Korean BBQ culture.",
+    "links": [
+      {
+        "name": "Portfolio",
+        "url": "https://philip-walsh.github.io/",
+        "icon": "fas fa-code"
+      },
+      {
+        "name": "Ramen Site",
+        "url": "https://spaghettis.netlify.app/ramen",
+        "icon": "fas fa-utensils"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/philip-walsh",
+        "icon": "fab fa-github"
+      },
+      {
+        "name": "Twitter",
+        "url": "https://twitter.com/philipwalsh",
+        "icon": "fab fa-twitter"
+      }
+    ]
+  }
+} 

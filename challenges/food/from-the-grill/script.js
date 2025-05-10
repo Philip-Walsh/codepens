@@ -51,7 +51,8 @@ $(function () {
         grillOff: '먼저 불을 붙여주세요!',
         speedControl: '속도 조절'
       }
-    }
+    },
+    interactionBonus: 0
   };
 
   // Load menu data
@@ -68,6 +69,65 @@ $(function () {
       console.error('Error loading menu:', error);
       showNotification(state.translations[state.currentLanguage].error, 'error');
     }
+  }
+
+  // Load content from JSON
+  async function loadContent() {
+    try {
+      const response = await fetch('content.json');
+      if (!response.ok) throw new Error('Failed to load content');
+      const data = await response.json();
+
+      // Load articles
+      const articlesContainer = document.getElementById('articles-container');
+      data.articles.forEach(article => {
+        const articleCard = createArticleCard(article);
+        articlesContainer.appendChild(articleCard);
+      });
+
+      // Load footer content
+      document.getElementById('footer-about').textContent = data.footer.about;
+
+      const footerLinks = document.getElementById('footer-links');
+      data.footer.links.forEach(link => {
+        const linkElement = createFooterLink(link);
+        footerLinks.appendChild(linkElement);
+      });
+    } catch (error) {
+      console.error('Error loading content:', error);
+      showNotification('Error loading content', 'error');
+    }
+  }
+
+  function createArticleCard(article) {
+    const card = document.createElement('div');
+    card.className = 'article-card';
+
+    // Store Korean text as data attributes
+    const title = article.title.split(' - ')[0];
+    const subtitle = article.subtitle.split(' - ')[0];
+
+    card.innerHTML = `
+      <div class="article-icon">${article.icon}</div>
+      <h3 class="article-title" data-kr="${title}">${article.title}</h3>
+      <h4 class="article-subtitle" data-kr="${subtitle}">${article.subtitle}</h4>
+      <p class="article-content">${article.content}</p>
+      <div class="article-tags">
+        ${article.tags.map(tag => `<span class="article-tag">${tag}</span>`).join('')}
+      </div>
+    `;
+    return card;
+  }
+
+  function createFooterLink(link) {
+    const linkElement = document.createElement('a');
+    linkElement.href = link.url;
+    linkElement.className = 'footer-link';
+    linkElement.innerHTML = `
+      <i class="${link.icon}"></i>
+      <span>${link.name}</span>
+    `;
+    return linkElement;
   }
 
   // Show notification
@@ -94,23 +154,38 @@ $(function () {
 
     // Render meat items
     const $meatGrid = $('.meat-section .menu-items').empty();
-    meat.forEach(item => createFoodItem(item, $meatGrid));
+    meat.forEach(item => {
+      item.category = 'meat'; // Explicitly set category
+      createFoodItem(item, $meatGrid);
+    });
 
     // Render vegan items
     const $veganGrid = $('.vegan-section .menu-items').empty();
-    vegan.forEach(item => createFoodItem(item, $veganGrid));
+    vegan.forEach(item => {
+      item.category = 'vegan'; // Explicitly set category
+      createFoodItem(item, $veganGrid);
+    });
 
     // Render sides
     const $sidesGrid = $('.sides-section .menu-items').empty();
-    sides.forEach(item => createFoodItem(item, $sidesGrid));
+    sides.forEach(item => {
+      item.category = 'sides'; // Explicitly set category
+      createFoodItem(item, $sidesGrid);
+    });
 
     // Render sauces
     const $saucesGrid = $('.sauces-section .menu-items').empty();
-    sauces.forEach(item => createSauceItem(item, $saucesGrid));
+    sauces.forEach(item => {
+      item.category = 'sauces'; // Explicitly set category
+      createSauceItem(item, $saucesGrid);
+    });
 
     // Render drinks
     const $drinksGrid = $('.drinks-section .menu-items').empty();
-    drinks.forEach(item => createDrinkItem(item, $drinksGrid));
+    drinks.forEach(item => {
+      item.category = 'drinks'; // Explicitly set category
+      createDrinkItem(item, $drinksGrid);
+    });
   }
 
   // Create food item element
@@ -573,6 +648,7 @@ $(function () {
     $('.language-btn').removeClass('active');
     $(this).addClass('active');
     updateLanguage();
+    reloadContent(); // Reload content when language changes
   });
 
   // Update language
@@ -591,12 +667,325 @@ $(function () {
 
     // Update total
     $('.total-amount').text(formatPrice(state.totalBill, state.currentLanguage));
+
+    // Update article content
+    $('.article-card').each(function () {
+      const $card = $(this);
+      const title = $card.find('.article-title');
+      const subtitle = $card.find('.article-subtitle');
+      const content = $card.find('.article-content');
+
+      // Add Korean pronunciation if in English mode
+      if (state.currentLanguage === 'en') {
+        const koreanTitle = title.data('kr');
+        const koreanSubtitle = subtitle.data('kr');
+        if (koreanTitle) {
+          title.html(`${title.text()} <span class="korean-pronunciation">${koreanTitle}</span>`);
+        }
+        if (koreanSubtitle) {
+          subtitle.html(`${subtitle.text()} <span class="korean-pronunciation">${koreanSubtitle}</span>`);
+        }
+      } else {
+        // Remove pronunciation in Korean mode
+        title.html(title.text().split(' <span')[0]);
+        subtitle.html(subtitle.text().split(' <span')[0]);
+      }
+    });
+  }
+
+  // Reload content
+  async function reloadContent() {
+    try {
+      const response = await fetch('content.json');
+      if (!response.ok) throw new Error('Failed to load content');
+      const data = await response.json();
+
+      // Update articles
+      const articlesContainer = document.getElementById('articles-container');
+      articlesContainer.innerHTML = ''; // Clear existing content
+      data.articles.forEach(article => {
+        const articleCard = createArticleCard(article);
+        articlesContainer.appendChild(articleCard);
+      });
+
+      // Update footer content
+      document.getElementById('footer-about').textContent = data.footer.about;
+
+      // Update footer links
+      const footerLinks = document.getElementById('footer-links');
+      footerLinks.innerHTML = ''; // Clear existing links
+      data.footer.links.forEach(link => {
+        const linkElement = createFooterLink(link);
+        footerLinks.appendChild(linkElement);
+      });
+
+      // Add Korean pronunciation styles
+      if (!document.getElementById('korean-styles')) {
+        const style = document.createElement('style');
+        style.id = 'korean-styles';
+        style.textContent = `
+          .korean-pronunciation {
+            font-size: 0.8em;
+            color: var(--accent);
+            margin-left: 0.5em;
+            font-style: italic;
+          }
+          .article-title, .article-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    } catch (error) {
+      console.error('Error reloading content:', error);
+      showNotification('Error reloading content', 'error');
+    }
+  }
+
+  // Initialize tip slider
+  function initTipSlider() {
+    const tipSlider = document.getElementById('tip-slider');
+    const tipAmount = document.getElementById('tip-amount');
+    const reaction = document.querySelector('.reaction');
+    const currentMessage = document.querySelector('.current-message');
+
+    if (!tipSlider || !tipAmount || !reaction || !currentMessage) {
+      console.error('Tip slider elements not found');
+      return;
+    }
+
+    // Base tip amount
+    const BASE_TIP = 5;
+    let interactionBonus = 0;
+
+    // Random messages for different tip ranges
+    const tipMessages = {
+      high: [
+        "You're absolutely amazing! 🍜",
+        "Wow! You're incredible! 🥢",
+        "This is beyond generous! 🥡",
+        "You're making our day! 🍲"
+      ],
+      medium: [
+        "Perfect! You're the best! 🍜",
+        "Thank you so much! 🥢",
+        "You're awesome! 🥡",
+        "Much appreciated! 🍲"
+      ],
+      low: [
+        "Every bit helps! Thank you! 🥄",
+        "Thanks for your support! 🍜",
+        "We appreciate it! 🥢",
+        "You're kind! 🥡"
+      ]
+    };
+
+    function getRandomMessage(category) {
+      const messages = tipMessages[category];
+      return messages[Math.floor(Math.random() * messages.length)];
+    }
+
+    function updateTipUI(value) {
+      const percentage = parseInt(value);
+      const orderAmount = state.totalBill.usd || 0;
+      const tipValue = (orderAmount * percentage / 100) + BASE_TIP + interactionBonus;
+
+      // Update tip amount display
+      tipAmount.textContent = `$${tipValue.toFixed(2)}`;
+
+      // Update reaction and message based on tip amount
+      let message, emoji;
+
+      if (tipValue >= 20) {
+        message = getRandomMessage('high');
+        emoji = "🍜";
+      } else if (tipValue >= 10) {
+        message = getRandomMessage('medium');
+        emoji = "🥢";
+      } else {
+        message = getRandomMessage('low');
+        emoji = "🥄";
+      }
+
+      // Special message for exactly $5
+      if (Math.abs(tipValue - 5) < 0.01) {
+        message = "Perfect! That's exactly what we needed! 🍜";
+        emoji = "🍜";
+      }
+
+      // Update reaction and message with animation
+      reaction.textContent = emoji;
+      currentMessage.textContent = message;
+
+      // Add animation class
+      reaction.classList.add('emoji-update');
+      currentMessage.classList.add('message-update');
+
+      // Remove animation classes after animation completes
+      setTimeout(() => {
+        reaction.classList.remove('emoji-update');
+        currentMessage.classList.remove('message-update');
+      }, 500);
+    }
+
+    // Track interactions to increase tip
+    function trackInteraction() {
+      interactionBonus += 0.5;
+      updateTipUI(tipSlider.value);
+    }
+
+    // Add interaction tracking
+    $('.food-item, .sauce-item, .drink-item').on('click', trackInteraction);
+    $('.panel').on('drop', trackInteraction);
+    $('.collect-btn').on('click', trackInteraction);
+
+    // Update on slider input
+    tipSlider.addEventListener('input', function () {
+      updateTipUI(this.value);
+    });
+
+    // Initialize tip UI
+    updateTipUI(tipSlider.value);
+
+    // Add random tip updates every 5 seconds
+    const randomTipInterval = setInterval(() => {
+      const randomTip = Math.floor(Math.random() * 30) + 1;
+      tipSlider.value = randomTip;
+      updateTipUI(randomTip);
+    }, 5000);
+
+    // Clean up interval when needed
+    return () => {
+      clearInterval(randomTipInterval);
+    };
+  }
+
+  // Jump to grill functionality
+  function initJumpToGrill() {
+    const jumpButton = document.querySelector('.jump-to-grill');
+    const grillSection = document.querySelector('.grill-section');
+
+    jumpButton.addEventListener('click', () => {
+      grillSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Add a highlight effect
+      grillSection.classList.add('highlight');
+      setTimeout(() => {
+        grillSection.classList.remove('highlight');
+      }, 2000);
+    });
   }
 
   // Initialize the application
   $(document).ready(function () {
     loadMenuData();
+    loadContent();
     initGrill();
     initSpeedControl();
+    initTipSlider();
+    initJumpToGrill();
   });
+
+  function handleCollection($item, collectionArea) {
+    const $collection = $(collectionArea);
+    const $collectionItem = $('<div class="collection-item"></div>');
+
+    // Clone the item's content
+    $collectionItem.html($item.find('.food-info').clone());
+
+    // Add to collection
+    $collection.append($collectionItem);
+
+    // Add remove functionality
+    $collectionItem.on('click', function () {
+      $(this).remove();
+      updateOrderHistory();
+    });
+
+    // Update order history
+    updateOrderHistory();
+  }
+
+  function updateOrderHistory() {
+    const $orderHistory = $('.order-history');
+    $orderHistory.empty();
+
+    // Get all collection items
+    $('.collection-item').each(function () {
+      const $item = $(this);
+      const $orderItem = $('<div class="order-item"></div>');
+      $orderItem.html($item.find('.food-info').clone());
+      $orderHistory.append($orderItem);
+    });
+
+    // Update total
+    updateTotal();
+  }
+
+  function toggleGrill() {
+    state.isGrillOn = !state.isGrillOn;
+    const grill = document.querySelector('.grill');
+    const igniteBtn = document.querySelector('.ignite-btn');
+    const alert = document.querySelector('.grill-state-alert');
+    const overlay = document.querySelector('.grill-off-overlay');
+    const body = document.body;
+
+    if (state.isGrillOn) {
+      grill.classList.add('active');
+      igniteBtn.classList.add('active');
+      body.classList.remove('grill-off');
+      body.classList.add('grill-on');
+      showAlert('Grill is ON! 🔥', 'success');
+      overlay.classList.remove('show');
+    } else {
+      grill.classList.remove('active');
+      igniteBtn.classList.remove('active');
+      body.classList.remove('grill-on');
+      body.classList.add('grill-off');
+      showAlert('Grill is OFF! ❄️', 'error');
+      overlay.classList.add('show');
+      // Stop all cooking timers
+      state.cookingTimers.forEach(timer => timer.stop());
+      state.cookingTimers = [];
+    }
+  }
 });
+
+class EventTimer {
+  constructor(duration, onTick, onComplete) {
+    this.duration = duration;
+    this.onTick = onTick;
+    this.onComplete = onComplete;
+    this.startTime = Date.now();
+    this.updateInterval = 100; // Update every 100ms
+    this.lastUpdate = 0;
+    this.timer = null;
+    this.tick();
+  }
+
+  tick() {
+    const now = Date.now();
+    const elapsed = now - this.startTime;
+    const remaining = Math.max(0, this.duration - elapsed);
+
+    // Only update display if enough time has passed
+    if (now - this.lastUpdate >= this.updateInterval) {
+      this.lastUpdate = now;
+      this.onTick(Math.ceil(remaining / 1000)); // Round up to nearest second
+    }
+
+    if (remaining > 0) {
+      this.timer = requestAnimationFrame(() => this.tick());
+    } else {
+      this.onComplete();
+    }
+  }
+
+  stop() {
+    if (this.timer) {
+      cancelAnimationFrame(this.timer);
+      this.timer = null;
+    }
+  }
+}

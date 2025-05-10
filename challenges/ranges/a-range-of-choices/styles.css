@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Doto:wght,ROND@815,100&family=Noto+Color+Emoji&family=Shojumaru&display=swap");
+:root {
+	--primary-color: #d72638;
+	--secondary-color-rgb: 255, 246, 224;
+	--background-color: #fdf3d1;
+	--text-color: #000;
+	--border-color: #d72638;
+	--shadow-color: rgba(0, 0, 0, 0.2);
+	--font-main: "Doto", serif;
+	--font-size: 16px;
+}
+html {
+	background: #1d1e22;
+	font-family: ;
+	font-optical-sizing: auto;
+	font-weight: 800;
+	font-style: normal;
+	font-variation-settings: "ROND" 100;
+}
+
+body {
+	font-family: var(--font-main);
+	max-width: 500px;
+	margin: auto;
+	padding: 20px;
+	background: url("https://www.transparenttextures.com/patterns/textured-paper.png"),
+		var(--background-color);
+	border: 5px solid var(--border-color);
+	border-radius: 10px;
+	box-shadow: 5px 5px 15px var(--shadow-color);
+}
+header {
+	position: relative;
+}
+#food-icon {
+	position: absolute;
+	left: 5%;
+	top: 0;
+	z-index: 7;
+	transform: rotate(-20deg);
+}
+#food-icon svg {
+	fill: var(--primary-color);
+	font-size: 3em;
+	filter: drop-shadow(2px 2px 0 var(--text-color));
+}
+h2 {
+	text-align: center;
+	font-size: 26px;
+	color: var(--primary-color);
+	text-shadow: 2px 2px 0px var(--text-color);
+	font-family: "Shojumaru", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.order {
+	margin-top: 20px;
+	padding: 12px;
+	border: 2px solid var(--border-color);
+	border-radius: 8px;
+	background-color: rgba(var(--secondary-color-rgb), 0.5);
+	box-shadow: 2px 2px 8px var(--shadow-color);
+}
+
+h3 {
+	color: var(--primary-color);
+	font-size: 20px;
+}
+
+.section {
+	font-weight: bold;
+	font-size: 18px;
+	border-bottom: 2px dashed var(--border-color);
+	padding-bottom: 5px;
+	color: var(--primary-color);
+}
+
+.bill-item {
+	display: flex;
+	justify-content: space-between;
+	font-size: var(--font-size);
+}
+
+.bill-item span {
+	transition: transform 0.2s ease-in-out;
+}
+#bill .bill-item span:nth-of-type(1) {
+	margin-left: 6rem;
+}
+
+.bill-item:hover span {
+	transform: scale(1.1);
+}
+
+.total {
+	font-weight: bold;
+	border-top: 3px solid var(--border-color);
+	padding-top: 5px;
+	font-size: 18px;
+}
+
+.tip-container,
+.split-container {
+	margin-top: 20px;
+	text-align: center;
+	background: var(--primary-color);
+	color: white;
+	padding: 15px;
+	border-radius: 10px;
+}
+
+#reaction {
+	font-size: 24px;
+	padding-top: 10rem;
+}
+
+span[role="img"] {
+	font-family: "Noto Color Emoji", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+/*            RANGE     */
+input[type="range"] {
+	accent-color: gold;
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 10px;
+	background: rgba(var(--secondary-color-rgb), 0.7);
+	border-radius: 5px;
+	outline: none;
+	transition: background 0.3s;
+	margin-bottom: 2rem;
+}
+
+input[type="range"]::-webkit-slider-runnable-track,
+input[type="range"]::-moz-range-track {
+	width: 100%;
+	height: 10px;
+	border-radius: 5px;
+	background: rgba(var(--secondary-color-rgb), 0.5);
+}
+
+input[type="range"]:focus {
+	background: rgba(var(--secondary-color-rgb), 0.9);
+}
+input[type="range"]::-webkit-slider-thumb,
+input[type="range"]::-moz-range-thumb {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: var(--primary-color);
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.3s;
+	box-shadow: 0 0 15px 2px rgba(var(--primary-color-rgb), 0.8);
+}
+
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:hover::-moz-range-thumb {
+	transform: scale(1.2);
+}
+
+input[type="range"]:focus::-webkit-slider-thumb,
+input[type="range"]:focus::-moz-range-thumb {
+	box-shadow: 0 0 20px 4px rgba(var(--primary-color-rgb), 1);
+}
