@@ -1,0 +1,213 @@
+:root {
+	--bg-light: #a8f1ff;
+	--text-light: #2d2d2d;
+
+	--info: #2196f3;
+	--success: #4caf50;
+	--warning: #ff9800;
+	--error: #f44336;
+
+	--toast-bg: #6fe6fc;
+	--button-color: #4ed7f1;
+
+	--bg-img: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+}
+
+body {
+	margin: 0;
+	font-family: sans-serif;
+	background: var(--bg-light);
+	box-shadow: inset 0 0 5em rgba(78, 215, 241, 0.9),
+		inset 0 0 10em rgba(78, 215, 241, 0.5),
+		inset 0 0 100em rgba(78, 215, 241, 0.5);
+	background-image: var(--bg-img);
+	color: var(--text-light);
+	height: 100vh;
+	display: grid;
+	place-items: center;
+	transition:all 5s;
+}
+
+body:has(.toast-btn:active) {
+	animation: wave-wash 20s ease-in-out;
+/* 	background: var(--bg-light); */
+/* 	background-image: radial-gradient(
+			circle at 40% 40%,
+			rgba(255, 255, 255, 0.2) 0%,
+			transparent 60%
+		),
+		radial-gradient(
+			circle at 60% 60%,
+			rgba(255, 255, 255, 0.15) 0%,
+			transparent 70%
+		); */
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	background-position: 50% 50%, 50% 50%, center;
+}
+
+@keyframes wave-wash {
+	0% {
+		background-position: 40% 40%, 60% 60%, center;
+	}
+	50% {
+		background-position: 50% 45%, 55% 65%, center;
+	}
+	100% {
+		background-position: 40% 40%, 60% 60%, center;
+	}
+}
+
+/* @keyframes ripple-bg {
+	0% {
+		background-position: center;
+		background-size: 0%;
+	}
+	50% {
+		background-size: 200%;
+	}
+	100% {
+		background-size: 100%;
+	}
+} */
+
+#toast-container {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	z-index: 999;
+}
+
+.toast {
+	min-width: 300;
+	max-width: 300px;
+	background: var(--toast-bg);
+	background-image: var(--bg-img);
+	padding: 1rem 1.5rem;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	animation: slideIn 0.3s ease-out;
+	position: relative;
+	padding-left: 3em;
+}
+
+.toast::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 3em;
+	height: 100%;
+	opacity: 0.9;
+	border-radius: 10px 0 0 10px;
+}
+
+.toast.info::before {
+	background: var(--info);
+}
+.toast.success::before {
+	background: var(--success);
+}
+.toast.warning::before {
+	background: var(--warning);
+}
+.toast.error::before {
+	background: var(--error);
+}
+
+.toast::after {
+	position: absolute;
+	top: 20%;
+	left: 2%;
+	font-size: 1.4rem;
+	text-shadow: 1px 1px rgba(255, 255, 255, 0.7),
+		-1px -1px rgba(255, 255, 255, 0.7);
+}
+
+.toast.info::after {
+	content: "🍳";
+}
+.toast.success::after {
+	content: "🍞";
+}
+.toast.warning::after {
+	content: "🥵";
+}
+.toast.error::after {
+	content: "🌶️";
+}
+
+.toast .message {
+	flex: 1;
+	padding: 0 0.5rem;
+}
+
+.toast .close {
+	background: none;
+	border: none;
+	font-size: 1.2rem;
+	cursor: pointer;
+	color: #444;
+}
+
+@keyframes slideIn {
+	from {
+		transform: translateY(50px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+/*  BUTTON */
+.toast-btn {
+	font-size: 1.2rem;
+	padding: 0.7rem 1.5rem;
+	border: none;
+	background: var(--button-color);
+	color: white;
+	border-radius: 8px;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+}
+
+.toast-btn::after {
+	content: "";
+	position: absolute;
+	border-radius: 50%;
+	transform: scale(0);
+	opacity: 0.6;
+	pointer-events: none;
+	background: rgba(255, 255, 255, 0.6);
+	transition: transform 0.4s ease, opacity 0.6s ease;
+}
+/* 
+.toast-btn:hover::after {
+	width: 80px;
+	height: 80px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1.2);
+	opacity: 0.2;
+}
+
+.toast-btn:active::after {
+	width: 150px;
+	height: 150px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1);
+	opacity: 0;
+	transition: transform 0.3s ease, opacity 0.4s ease;
+}
+ */
