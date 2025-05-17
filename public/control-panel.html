@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Control Panel</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/control-panel.css">
+</head>
+<body>
+    <div class="container">
+        <div class="toast-container" id="toastContainer"></div>
+        <header>
+            <h1>Project Control Panel</h1>
+            <nav class="control-nav">
+                <div class="nav-left">
+                    <a href="/" class="nav-link">← Back to Projects</a>
+                    <span class="username-display" id="usernameDisplay"></span>
+                </div>
+                <div class="nav-right">
+                    <a href="/control-panel" class="nav-link active">📊 Dashboard</a>
+                    <a href="/control-panel/codepen" class="nav-link">📥 CodePen</a>
+                    <a href="/control-panel/git" class="nav-link">🔄 Git</a>
+                    <button onclick="refreshStats()" class="refresh-btn">🔄 Refresh</button>
+                </div>
+            </nav>
+        </header>
+
+        <div class="control-panel">
+            <div class="panel-section">
+                <h2>Project Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Projects</h3>
+                        <div id="totalProjects" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Files</h3>
+                        <div id="totalFiles" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Size</h3>
+                        <div id="totalSize" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>File Types</h3>
+                        <div id="fileTypes" class="stat-value">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Project Management</h2>
+                <div class="management-controls">
+                    <div class="control-group">
+                        <label for="categoryFilter">Filter by Category:</label>
+                        <select id="categoryFilter" onchange="filterProjects()">
+                            <option value="all">All Categories</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="sortOrder">Sort Order:</label>
+                        <select id="sortOrder" onchange="filterProjects()">
+                            <option value="recency">Most Recent</option>
+                            <option value="name">Name</option>
+                            <option value="size">Size</option>
+                            <option value="files">Files</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="admin-actions">
+                    <button onclick="createNewCategory()" class="action-btn">📁 New Category</button>
+                    <button onclick="createNewProject()" class="action-btn">📝 New Project</button>
+                    <button onclick="bulkDeleteProjects()" class="action-btn danger">🗑️ Bulk Delete</button>
+                </div>
+                <div id="projectsList" class="projects-list">
+                    <!-- Projects will be loaded here -->
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>System Status</h2>
+                <div class="status-grid">
+                    <div class="status-card">
+                        <h3>Server Status</h3>
+                        <div id="serverStatus" class="status-value">Checking...</div>
+                    </div>
+                    <div class="status-card">
+                        <h3>Cache Status</h3>
+                        <div id="cacheStatus" class="status-value">Checking...</div>
+                    </div>
+                    <div class="status-card">
+                        <h3>Disk Usage</h3>
+                        <div id="diskUsage" class="status-value">Checking...</div>
+                    </div>
+                    <div class="status-card">
+                        <h3>Memory Usage</h3>
+                        <div id="memoryUsage" class="status-value">Checking...</div>
+                    </div>
+                </div>
+                <div class="admin-actions">
+                    <button onclick="clearCache()" class="action-btn warning">🗑️ Clear Cache</button>
+                    <button onclick="restartServer()" class="action-btn warning">🔄 Restart Server</button>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Configuration</h2>
+                <div class="config-grid">
+                    <div class="config-group">
+                        <label for="cacheDuration">Cache Duration (minutes):</label>
+                        <input type="number" id="cacheDuration" min="1" max="60" value="5">
+                        <button onclick="updateCacheDuration()" class="action-btn">Update</button>
+                    </div>
+                    <div class="config-group">
+                        <label for="scanInterval">Auto-Scan Interval (minutes):</label>
+                        <input type="number" id="scanInterval" min="0" max="60" value="0">
+                        <button onclick="updateScanInterval()" class="action-btn">Update</button>
+                    </div>
+                    <div class="config-group">
+                        <label for="logLevel">Log Level:</label>
+                        <select id="logLevel">
+                            <option value="error">Error</option>
+                            <option value="warn">Warning</option>
+                            <option value="info">Info</option>
+                            <option value="debug">Debug</option>
+                        </select>
+                        <button onclick="updateLogLevel()" class="action-btn">Update</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Logs</h2>
+                <div class="log-controls">
+                    <div class="control-group">
+                        <label for="logFilter">Filter Logs:</label>
+                        <select id="logFilter" onchange="filterLogs()">
+                            <option value="all">All</option>
+                            <option value="error">Errors</option>
+                            <option value="warn">Warnings</option>
+                            <option value="info">Info</option>
+                        </select>
+                    </div>
+                    <button onclick="clearLogs()" class="action-btn warning">Clear Logs</button>
+                </div>
+                <div id="logViewer" class="log-viewer">
+                    <!-- Logs will be loaded here -->
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>CodePen Integration</h2>
+                <div class="codepen-controls">
+                    <div class="control-group">
+                        <label for="codepenUsername">CodePen Username:</label>
+                        <input type="text" id="codepenUsername" placeholder="Enter CodePen username">
+                        <button onclick="updateCodePenUsername()" class="action-btn">Update</button>
+                    </div>
+                    <div class="control-group">
+                        <button onclick="syncCodePenStats()" class="action-btn">🔄 Sync CodePen Stats</button>
+                        <button onclick="exportStats()" class="action-btn">📊 Export Statistics</button>
+                    </div>
+                    <div class="git-status">
+                        <h3>Git Configuration</h3>
+                        <div id="gitConfigStatus" class="status-value">Checking...</div>
+                        <div class="git-config-actions">
+                            <button onclick="checkGitConfig()" class="action-btn">🔄 Refresh Git Status</button>
+                        </div>
+                    </div>
+                    <div class="checkout-controls">
+                        <h3>Checkout CodePen</h3>
+                        <div class="checkout-form">
+                            <div class="form-group">
+                                <label for="penId">Pen ID:</label>
+                                <input type="text" id="penId" placeholder="Enter CodePen ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="checkoutCategory">Category:</label>
+                                <select id="checkoutCategory">
+                                    <option value="">Select a category</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="customPath">Custom Path (optional):</label>
+                                <input type="text" id="customPath" placeholder="e.g., subfolder/pen-name">
+                                <small class="form-help">Leave empty to use default path. Path will be created under selected category.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="commitMessage">Commit Message (optional):</label>
+                                <input type="text" id="commitMessage" placeholder="e.g., Add new animation pen">
+                                <small class="form-help">Leave empty to use default commit message.</small>
+                            </div>
+                            <button onclick="checkoutCodePen()" class="action-btn">📥 Checkout Pen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let projectsData = {};
+
+        // Toast notification system
+        function showToast(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: '✅',
+                error: '❌',
+                warning: '⚠️',
+                info: 'ℹ️'
+            };
+            
+            toast.innerHTML = `
+                <span class="toast-icon">${icons[type]}</span>
+                <span class="toast-message">${message}</span>
+                <button class="toast-close">&times;</button>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Auto remove after duration
+            const timeout = setTimeout(() => {
+                removeToast(toast);
+            }, duration);
+            
+            // Close button handler
+            toast.querySelector('.toast-close').onclick = () => {
+                clearTimeout(timeout);
+                removeToast(toast);
+            };
+        }
+        
+        function removeToast(toast) {
+            toast.classList.add('hiding');
+            toast.addEventListener('animationend', () => {
+                toast.remove();
+            });
+        }
+
+        async function loadProjects() {
+            try {
+                const response = await fetch('/api/projects');
+                projectsData = await response.json();
+                updateStatistics();
+                populateCategoryFilter();
+                filterProjects();
+                await loadCodePenUsername();
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                showToast('Failed to load projects', 'error');
+            }
+        }
+
+        function updateStatistics() {
+            let totalProjects = 0;
+            let totalFiles = 0;
+            let totalSize = 0;
+            let fileTypes = {};
+
+            Object.values(projectsData).forEach(category => {
+                category.items.forEach(project => {
+                    totalProjects++;
+                    if (project.stats) {
+                        totalFiles += project.stats.files || 0;
+                        totalSize += project.stats.total_size || 0;
+                        
+                        // Aggregate file types
+                        Object.entries(project.stats.file_types || {}).forEach(([ext, count]) => {
+                            fileTypes[ext] = (fileTypes[ext] || 0) + count;
+                        });
+                    }
+                });
+            });
+
+            document.getElementById('totalProjects').textContent = totalProjects;
+            document.getElementById('totalFiles').textContent = totalFiles.toLocaleString();
+            document.getElementById('totalSize').textContent = formatSize(totalSize);
+            
+            // Calculate percentages and create shields
+            const totalFileCount = Object.values(fileTypes).reduce((a, b) => a + b, 0);
+            const fileTypeShields = Object.entries(fileTypes)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5)
+                .map(([ext, count]) => {
+                    const percentage = Math.round((count / totalFileCount) * 100);
+                    return `<span class="file-type-shield" title="${ext}: ${count} files">
+                        ${ext} | ${percentage}%
+                    </span>`;
+                })
+                .join(' ');
+            
+            document.getElementById('fileTypes').innerHTML = fileTypeShields;
+        }
+
+        function populateCategoryFilter() {
+            const filter = document.getElementById('categoryFilter');
+            const checkoutCategory = document.getElementById('checkoutCategory');
+            
+            const options = ['<option value="all">All Categories</option>'];
+            Object.keys(projectsData).forEach(category => {
+                options.push(`<option value="${category}">${projectsData[category].emoji} ${category}</option>`);
+            });
+            
+            filter.innerHTML = options.join('');
+            checkoutCategory.innerHTML = '<option value="">Select a category</option>' + options.slice(1).join('');
+        }
+
+        function filterProjects() {
+            const category = document.getElementById('categoryFilter').value;
+            const sortOrder = document.getElementById('sortOrder').value;
+            const projectsList = document.getElementById('projectsList');
+            
+            let filteredProjects = [];
+            Object.entries(projectsData).forEach(([cat, data]) => {
+                if (category === 'all' || cat === category) {
+                    filteredProjects.push(...data.items);
+                }
+            });
+
+            // Sort projects
+            filteredProjects.sort((a, b) => {
+                switch (sortOrder) {
+                    case 'views':
+                        return ((b.codepenStats?.views || 0) - (a.codepenStats?.views || 0));
+                    case 'hearts':
+                        return ((b.codepenStats?.hearts || 0) - (a.codepenStats?.hearts || 0));
+                    case 'comments':
+                        return ((b.codepenStats?.comments || 0) - (a.codepenStats?.comments || 0));
+                    default: // recency
+                        return new Date(b.lastUpdated) - new Date(a.lastUpdated);
+                }
+            });
+
+            // Render projects
+            projectsList.innerHTML = filteredProjects.map(project => `
+                <div class="project-item">
+                    <div class="project-info">
+                        <span class="project-emoji">${project.emoji}</span>
+                        <span class="project-name">${project.name}</span>
+                    </div>
+                    <div class="project-stats">
+                        ${project.stats ? `
+                            <span title="Files">📄 ${project.stats.files}</span>
+                            <span title="Size">💾 ${formatSize(project.stats.total_size)}</span>
+                            <span title="Last Modified">🕒 ${formatDate(project.stats.last_modified)}</span>
+                        ` : '<span class="no-stats">No stats available</span>'}
+                    </div>
+                    <div class="project-actions">
+                        <button onclick="viewProject('${project.path}')" class="action-btn">View</button>
+                        <button onclick="refreshProjectStats('${project.path}')" class="action-btn">🔄</button>
+                        <button onclick="showProjectDetails('${project.path}')" class="action-btn">📊</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function refreshStats() {
+            try {
+                await loadProjects();
+                showToast('Statistics refreshed successfully', 'success');
+            } catch (error) {
+                showToast('Failed to refresh statistics', 'error');
+            }
+        }
+
+        async function syncCodePenStats() {
+            try {
+                const response = await fetch('/api/sync-codepen', { method: 'POST' });
+                if (response.ok) {
+                    await loadProjects();
+                    showToast('CodePen stats synchronized successfully', 'success');
+                } else {
+                    throw new Error('Failed to sync stats');
+                }
+            } catch (error) {
+                console.error('Error syncing stats:', error);
+                showToast('Failed to sync CodePen stats', 'error');
+            }
+        }
+
+        async function loadCodePenUsername() {
+            try {
+                const response = await fetch('/api/codepen-username');
+                const data = await response.json();
+                const usernameInput = document.getElementById('codepenUsername');
+                const usernameDisplay = document.getElementById('usernameDisplay');
+                
+                usernameInput.value = data.username;
+                if (data.username) {
+                    usernameInput.placeholder = `Current: ${data.username}`;
+                    usernameDisplay.textContent = `👤 ${data.username}`;
+                } else {
+                    usernameDisplay.textContent = '';
+                }
+            } catch (error) {
+                console.error('Error loading CodePen username:', error);
+                showToast('Failed to load CodePen username', 'error');
+            }
+        }
+
+        async function updateCodePenUsername() {
+            const username = document.getElementById('codepenUsername').value.trim();
+            if (!username) {
+                showToast('Please enter a CodePen username', 'warning');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/codepen-username', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username })
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    showToast(`CodePen username updated to: ${data.username}`, 'success');
+                    document.getElementById('codepenUsername').placeholder = `Current: ${data.username}`;
+                    document.getElementById('usernameDisplay').textContent = `👤 ${data.username}`;
+                } else {
+                    throw new Error('Failed to update username');
+                }
+            } catch (error) {
+                console.error('Error updating username:', error);
+                showToast('Failed to update CodePen username', 'error');
+            }
+        }
+
+        function exportStats() {
+            const stats = {
+                totalProjects: document.getElementById('totalProjects').textContent,
+                totalFiles: document.getElementById('totalFiles').textContent,
+                totalSize: document.getElementById('totalSize').textContent,
+                fileTypes: document.getElementById('fileTypes').textContent,
+                projects: projectsData
+            };
+
+            const blob = new Blob([JSON.stringify(stats, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'project-stats.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function viewProject(path) {
+            window.open(path, '_blank');
+        }
+
+        async function refreshProjectStats(path) {
+            try {
+                const response = await fetch(`/api/refresh-stats${path}`, { method: 'POST' });
+                if (response.ok) {
+                    await loadProjects();
+                    showToast('Project stats refreshed successfully', 'success');
+                } else {
+                    throw new Error('Failed to refresh stats');
+                }
+            } catch (error) {
+                console.error('Error refreshing stats:', error);
+                showToast('Failed to refresh project stats', 'error');
+            }
+        }
+
+        function formatSize(bytes) {
+            const units = ['B', 'KB', 'MB', 'GB'];
+            let size = bytes;
+            let unitIndex = 0;
+            
+            while (size >= 1024 && unitIndex < units.length - 1) {
+                size /= 1024;
+                unitIndex++;
+            }
+            
+            return `${size.toFixed(1)} ${units[unitIndex]}`;
+        }
+
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        }
+
+        function showProjectDetails(path) {
+            const project = findProjectByPath(path);
+            if (!project || !project.stats) return;
+
+            const details = `
+                <h3>Project Details</h3>
+                <div class="project-details">
+                    <p><strong>Files:</strong> ${project.stats.files}</p>
+                    <p><strong>Total Size:</strong> ${formatSize(project.stats.total_size)}</p>
+                    <p><strong>Created:</strong> ${formatDate(project.stats.first_created)}</p>
+                    <p><strong>Last Modified:</strong> ${formatDate(project.stats.last_modified)}</p>
+                    <h4>File Types:</h4>
+                    <ul>
+                        ${Object.entries(project.stats.file_types)
+                            .sort((a, b) => b[1] - a[1])
+                            .map(([ext, count]) => `<li>${ext}: ${count}</li>`)
+                            .join('')}
+                    </ul>
+                </div>
+            `;
+
+            // Create and show modal
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    ${details}
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+
+            // Close modal when clicking the X or outside the modal
+            modal.querySelector('.close').onclick = () => modal.remove();
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.remove();
+            };
+        }
+
+        function findProjectByPath(path) {
+            for (const category of Object.values(projectsData)) {
+                const project = category.items.find(p => p.path === path);
+                if (project) return project;
+            }
+            return null;
+        }
+
+        // System Status Functions
+        async function checkSystemStatus() {
+            try {
+                const response = await fetch('/api/system-status');
+                const status = await response.json();
+                
+                document.getElementById('serverStatus').textContent = status.server ? '🟢 Running' : '🔴 Stopped';
+                document.getElementById('cacheStatus').textContent = status.cache ? '🟢 Active' : '🔴 Inactive';
+                document.getElementById('diskUsage').textContent = formatSize(status.diskUsage);
+                document.getElementById('memoryUsage').textContent = formatSize(status.memoryUsage);
+            } catch (error) {
+                console.error('Error checking system status:', error);
+                showToast('Failed to check system status', 'error');
+            }
+        }
+
+        // Project Management Functions
+        async function createNewCategory() {
+            const category = prompt('Enter new category name:');
+            if (!category) return;
+
+            try {
+                const response = await fetch('/api/categories', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: category })
+                });
+
+                if (response.ok) {
+                    showToast('Category created successfully', 'success');
+                    await loadProjects();
+                } else {
+                    throw new Error('Failed to create category');
+                }
+            } catch (error) {
+                console.error('Error creating category:', error);
+                showToast('Failed to create category', 'error');
+            }
+        }
+
+        async function createNewProject() {
+            const category = prompt('Enter category name:');
+            if (!category) return;
+
+            const project = prompt('Enter project name:');
+            if (!project) return;
+
+            try {
+                const response = await fetch('/api/projects', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ category, name: project })
+                });
+
+                if (response.ok) {
+                    showToast('Project created successfully', 'success');
+                    await loadProjects();
+                } else {
+                    throw new Error('Failed to create project');
+                }
+            } catch (error) {
+                console.error('Error creating project:', error);
+                showToast('Failed to create project', 'error');
+            }
+        }
+
+        async function bulkDeleteProjects() {
+            const selectedProjects = Array.from(document.querySelectorAll('.project-item input[type="checkbox"]:checked'))
+                .map(checkbox => checkbox.value);
+
+            if (selectedProjects.length === 0) {
+                showToast('No projects selected', 'warning');
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to delete ${selectedProjects.length} projects?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/projects/bulk-delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ projects: selectedProjects })
+                });
+
+                if (response.ok) {
+                    showToast('Projects deleted successfully', 'success');
+                    await loadProjects();
+                } else {
+                    throw new Error('Failed to delete projects');
+                }
+            } catch (error) {
+                console.error('Error deleting projects:', error);
+                showToast('Failed to delete projects', 'error');
+            }
+        }
+
+        // Configuration Functions
+        async function updateCacheDuration() {
+            const duration = document.getElementById('cacheDuration').value;
+            try {
+                const response = await fetch('/api/config/cache-duration', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ duration: parseInt(duration) })
+                });
+
+                if (response.ok) {
+                    showToast('Cache duration updated successfully', 'success');
+                } else {
+                    throw new Error('Failed to update cache duration');
+                }
+            } catch (error) {
+                console.error('Error updating cache duration:', error);
+                showToast('Failed to update cache duration', 'error');
+            }
+        }
+
+        async function updateScanInterval() {
+            const interval = document.getElementById('scanInterval').value;
+            try {
+                const response = await fetch('/api/config/scan-interval', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ interval: parseInt(interval) })
+                });
+
+                if (response.ok) {
+                    showToast('Scan interval updated successfully', 'success');
+                } else {
+                    throw new Error('Failed to update scan interval');
+                }
+            } catch (error) {
+                console.error('Error updating scan interval:', error);
+                showToast('Failed to update scan interval', 'error');
+            }
+        }
+
+        async function updateLogLevel() {
+            const level = document.getElementById('logLevel').value;
+            try {
+                const response = await fetch('/api/config/log-level', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ level })
+                });
+
+                if (response.ok) {
+                    showToast('Log level updated successfully', 'success');
+                } else {
+                    throw new Error('Failed to update log level');
+                }
+            } catch (error) {
+                console.error('Error updating log level:', error);
+                showToast('Failed to update log level', 'error');
+            }
+        }
+
+        // Log Functions
+        async function loadLogs() {
+            try {
+                const response = await fetch('/api/logs');
+                const logs = await response.json();
+                const logViewer = document.getElementById('logViewer');
+                
+                logViewer.innerHTML = logs.map(log => `
+                    <div class="log-entry ${log.level}">
+                        <span class="log-timestamp">${new Date(log.timestamp).toLocaleString()}</span>
+                        <span class="log-level">${log.level.toUpperCase()}</span>
+                        <span class="log-message">${log.message}</span>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading logs:', error);
+                showToast('Failed to load logs', 'error');
+            }
+        }
+
+        function filterLogs() {
+            const level = document.getElementById('logFilter').value;
+            const entries = document.querySelectorAll('.log-entry');
+            
+            entries.forEach(entry => {
+                if (level === 'all' || entry.classList.contains(level)) {
+                    entry.style.display = 'flex';
+                } else {
+                    entry.style.display = 'none';
+                }
+            });
+        }
+
+        async function clearLogs() {
+            if (!confirm('Are you sure you want to clear all logs?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/logs', { method: 'DELETE' });
+                if (response.ok) {
+                    showToast('Logs cleared successfully', 'success');
+                    loadLogs();
+                } else {
+                    throw new Error('Failed to clear logs');
+                }
+            } catch (error) {
+                console.error('Error clearing logs:', error);
+                showToast('Failed to clear logs', 'error');
+            }
+        }
+
+        // System Control Functions
+        async function clearCache() {
+            if (!confirm('Are you sure you want to clear the cache?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/cache/clear', { method: 'POST' });
+                if (response.ok) {
+                    showToast('Cache cleared successfully', 'success');
+                    await loadProjects();
+                } else {
+                    throw new Error('Failed to clear cache');
+                }
+            } catch (error) {
+                console.error('Error clearing cache:', error);
+                showToast('Failed to clear cache', 'error');
+            }
+        }
+
+        async function restartServer() {
+            if (!confirm('Are you sure you want to restart the server?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/server/restart', { method: 'POST' });
+                if (response.ok) {
+                    showToast('Server restarting...', 'info');
+                    setTimeout(() => window.location.reload(), 5000);
+                } else {
+                    throw new Error('Failed to restart server');
+                }
+            } catch (error) {
+                console.error('Error restarting server:', error);
+                showToast('Failed to restart server', 'error');
+            }
+        }
+
+        // Update checkGitConfig function
+        async function checkGitConfig() {
+            try {
+                const response = await fetch('/api/git-config');
+                const config = await response.json();
+                const statusElement = document.getElementById('gitConfigStatus');
+                
+                if (config.configured) {
+                    statusElement.innerHTML = `
+                        <div class="git-config-info">
+                            <div class="status-success">✅ Git Configured</div>
+                            <div class="git-user-info">
+                                <div><strong>User:</strong> ${config.username}</div>
+                                <div><strong>Email:</strong> ${config.email}</div>
+                                <div><strong>Remote:</strong> ${config.remote}</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    statusElement.innerHTML = `
+                        <div class="git-config-info">
+                            <div class="status-error">❌ Git Not Configured</div>
+                            <div class="git-error">
+                                <p>${config.error}</p>
+                                <p class="git-help">Please configure Git in your workspace using:</p>
+                                <pre class="git-commands">
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"</pre>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error checking Git config:', error);
+                document.getElementById('gitConfigStatus').innerHTML = `
+                    <div class="git-config-info">
+                        <div class="status-error">❌ Error checking configuration</div>
+                        <div class="git-error">Failed to check Git configuration</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Update checkoutCodePen function to include custom path and commit message
+        async function checkoutCodePen() {
+            const penId = document.getElementById('penId').value.trim();
+            const category = document.getElementById('checkoutCategory').value;
+            const customPath = document.getElementById('customPath').value.trim();
+            const commitMessage = document.getElementById('commitMessage').value.trim();
+
+            if (!penId) {
+                showToast('Please enter a CodePen ID', 'warning');
+                return;
+            }
+            if (!category) {
+                showToast('Please select a category', 'warning');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/checkout-codepen', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        penId, 
+                        category, 
+                        customPath, 
+                        commitMessage 
+                    })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    showToast(`Successfully checked out pen to ${result.project.checkout.path}`, 'success');
+                    // Clear form
+                    document.getElementById('penId').value = '';
+                    document.getElementById('customPath').value = '';
+                    document.getElementById('commitMessage').value = '';
+                    await loadProjects();
+                } else {
+                    if (result.error.includes('Git configuration')) {
+                        showToast('Git configuration error. Please check server logs.', 'error');
+                    } else if (result.error.includes('authentication')) {
+                        showToast('Git authentication failed. Please check your token.', 'error');
+                    } else if (result.error.includes('already exists')) {
+                        showToast('Project directory already exists. Please choose a different path.', 'error');
+                    } else {
+                        throw new Error(result.error || 'Failed to checkout pen');
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking out pen:', error);
+                showToast(error.message, 'error');
+            }
+        }
+
+        // Update initializeAdminPanel to include Git config check
+        async function initializeAdminPanel() {
+            await Promise.all([
+                loadProjects(),
+                checkSystemStatus(),
+                loadLogs(),
+                checkGitConfig()
+            ]);
+
+            // Set up periodic status checks
+            setInterval(checkSystemStatus, 30000); // Every 30 seconds
+            setInterval(checkGitConfig, 60000); // Every minute
+        }
+
+        // Start admin panel
+        initializeAdminPanel();
+    </script>
+</body>
+</html> 

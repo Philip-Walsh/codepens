@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Management - Control Panel</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/control-panel.css">
+</head>
+<body>
+    <div class="container">
+        <div class="toast-container" id="toastContainer"></div>
+        <header>
+            <h1>Git Management</h1>
+            <nav class="control-nav">
+                <div class="nav-left">
+                    <a href="/" class="nav-link">← Back to Projects</a>
+                    <span class="username-display" id="usernameDisplay">Git: <span id="currentGitUsername">Loading...</span></span>
+                </div>
+                <div class="nav-right">
+                    <a href="/control-panel" class="nav-link">📊 Dashboard</a>
+                    <a href="/control-panel/codepen" class="nav-link">📥 CodePen</a>
+                    <a href="/control-panel/git" class="nav-link active">🔄 Git</a>
+                    <button onclick="refreshGitStatus()" class="refresh-btn">🔄 Refresh</button>
+                </div>
+            </nav>
+        </header>
+
+        <div class="control-panel">
+            <div class="panel-section">
+                <h2>Git Configuration</h2>
+                <div class="git-status">
+                    <div id="gitConfigStatus" class="status-value">Checking...</div>
+                    <div class="git-config-actions">
+                        <button onclick="checkGitConfig()" class="action-btn">🔄 Refresh Git Status</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Repository Status</h2>
+                <div class="repo-status">
+                    <div class="status-grid">
+                        <div class="status-card">
+                            <h3>Current Branch</h3>
+                            <div id="currentBranch" class="status-value">Checking...</div>
+                        </div>
+                        <div class="status-card">
+                            <h3>Last Commit</h3>
+                            <div id="lastCommit" class="status-value">Checking...</div>
+                        </div>
+                        <div class="status-card">
+                            <h3>Remote Status</h3>
+                            <div id="remoteStatus" class="status-value">Checking...</div>
+                        </div>
+                        <div class="status-card">
+                            <h3>Changes</h3>
+                            <div id="changesStatus" class="status-value">Checking...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Git Workflows</h2>
+                <div class="workflow-controls">
+                    <div class="workflow-actions">
+                        <button onclick="createBranch()" class="action-btn">🌿 New Branch</button>
+                        <button onclick="createPullRequest()" class="action-btn">🔄 Create PR</button>
+                        <button onclick="mergeBranch()" class="action-btn">🔄 Merge Branch</button>
+                    </div>
+                    <div class="workflow-status">
+                        <h3>Active Workflows</h3>
+                        <div id="activeWorkflows" class="workflow-list">
+                            <!-- Active workflows will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>GitLab Integration</h2>
+                <div class="gitlab-controls">
+                    <div class="control-group">
+                        <label for="gitlabUrl">GitLab URL:</label>
+                        <input type="text" id="gitlabUrl" placeholder="https://gitlab.com/your-group/your-repo">
+                    </div>
+                    <div class="control-group">
+                        <label for="gitlabToken">Access Token:</label>
+                        <input type="password" id="gitlabToken" placeholder="Enter GitLab access token">
+                        <button onclick="updateGitLabConfig()" class="action-btn">Update</button>
+                    </div>
+                    <div class="gitlab-actions">
+                        <button onclick="syncGitLab()" class="action-btn">🔄 Sync with GitLab</button>
+                        <button onclick="viewGitLabPipelines()" class="action-btn">📊 View Pipelines</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Recent Activity</h2>
+                <div id="gitActivity" class="activity-list">
+                    <!-- Git activity will be loaded here -->
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Git Credentials</h2>
+                <div class="form-group">
+                    <label for="gitName">Name:</label>
+                    <input type="text" id="gitName" placeholder="Your Git username">
+                </div>
+                <div class="form-group">
+                    <label for="gitEmail">Email:</label>
+                    <input type="email" id="gitEmail" placeholder="Your Git email">
+                </div>
+                <div class="form-group">
+                    <label for="gitRemote">Remote URL:</label>
+                    <input type="text" id="gitRemote" placeholder="Git repository URL">
+                </div>
+                <div class="form-group">
+                    <label for="gitPassword">Password:</label>
+                    <input type="password" id="gitPassword" placeholder="Password to encrypt credentials">
+                </div>
+                <button onclick="saveGitCredentials()">Save Credentials</button>
+                <button onclick="configureGit()">Configure Git</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentGitUsername = '';
+
+        async function loadGitConfig() {
+            try {
+                const response = await fetch('/api/git-config');
+                const config = await response.json();
+                
+                if (config.configured) {
+                    currentGitUsername = config.username;
+                    document.getElementById('currentGitUsername').textContent = `${config.username} <${config.email}>`;
+                    if (config.remote) {
+                        document.getElementById('currentGitUsername').textContent += ` (${config.remote})`;
+                    }
+                } else {
+                    document.getElementById('currentGitUsername').textContent = 'Not configured';
+                }
+            } catch (error) {
+                console.error('Error loading Git config:', error);
+                showToast('Failed to load Git configuration', 'error');
+            }
+        }
+
+        // Git configuration functions
+        async function checkGitConfig() {
+            try {
+                const response = await fetch('/api/git-config');
+                const config = await response.json();
+                const statusElement = document.getElementById('gitConfigStatus');
+                
+                if (config.configured) {
+                    statusElement.innerHTML = `
+                        <div class="git-config-info">
+                            <div class="status-success">✅ Git Configured</div>
+                            <div class="git-user-info">
+                                <div><strong>User:</strong> ${config.username}</div>
+                                <div><strong>Email:</strong> ${config.email}</div>
+                                <div><strong>Remote:</strong> ${config.remote}</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    statusElement.innerHTML = `
+                        <div class="git-config-info">
+                            <div class="status-error">❌ Git Not Configured</div>
+                            <div class="git-error">
+                                <p>${config.error}</p>
+                                <p class="git-help">Please configure Git in your workspace using:</p>
+                                <pre class="git-commands">
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"</pre>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error checking Git config:', error);
+                showToast('Failed to check Git configuration', 'error');
+            }
+        }
+
+        // Repository status functions
+        async function refreshGitStatus() {
+            try {
+                const response = await fetch('/api/git-status');
+                const status = await response.json();
+                
+                document.getElementById('currentBranch').textContent = status.branch;
+                document.getElementById('lastCommit').textContent = status.lastCommit;
+                document.getElementById('remoteStatus').textContent = status.remoteStatus;
+                document.getElementById('changesStatus').textContent = status.changes;
+                
+                showToast('Git status refreshed', 'success');
+            } catch (error) {
+                console.error('Error refreshing Git status:', error);
+                showToast('Failed to refresh Git status', 'error');
+            }
+        }
+
+        // Workflow functions
+        async function createBranch() {
+            const branchName = prompt('Enter new branch name:');
+            if (!branchName) return;
+
+            try {
+                const response = await fetch('/api/git/branch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: branchName })
+                });
+
+                if (response.ok) {
+                    showToast('Branch created successfully', 'success');
+                    refreshGitStatus();
+                } else {
+                    throw new Error('Failed to create branch');
+                }
+            } catch (error) {
+                console.error('Error creating branch:', error);
+                showToast('Failed to create branch', 'error');
+            }
+        }
+
+        async function createPullRequest() {
+            const title = prompt('Enter PR title:');
+            if (!title) return;
+
+            try {
+                const response = await fetch('/api/git/pr', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title })
+                });
+
+                if (response.ok) {
+                    showToast('Pull request created successfully', 'success');
+                    loadActiveWorkflows();
+                } else {
+                    throw new Error('Failed to create pull request');
+                }
+            } catch (error) {
+                console.error('Error creating pull request:', error);
+                showToast('Failed to create pull request', 'error');
+            }
+        }
+
+        // GitLab integration functions
+        async function updateGitLabConfig() {
+            const url = document.getElementById('gitlabUrl').value;
+            const token = document.getElementById('gitlabToken').value;
+
+            try {
+                const response = await fetch('/api/gitlab/config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url, token })
+                });
+
+                if (response.ok) {
+                    showToast('GitLab configuration updated', 'success');
+                } else {
+                    throw new Error('Failed to update GitLab configuration');
+                }
+            } catch (error) {
+                console.error('Error updating GitLab config:', error);
+                showToast('Failed to update GitLab configuration', 'error');
+            }
+        }
+
+        async function loadActiveWorkflows() {
+            try {
+                const response = await fetch('/api/git/workflows');
+                const workflows = await response.json();
+                const container = document.getElementById('activeWorkflows');
+                
+                container.innerHTML = workflows.map(workflow => `
+                    <div class="workflow-item">
+                        <div class="workflow-info">
+                            <span class="workflow-type">${workflow.type}</span>
+                            <span class="workflow-title">${workflow.title}</span>
+                        </div>
+                        <div class="workflow-status ${workflow.status.toLowerCase()}">
+                            ${workflow.status}
+                        </div>
+                        <div class="workflow-actions">
+                            <button onclick="viewWorkflow('${workflow.id}')" class="action-btn">View</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading workflows:', error);
+                showToast('Failed to load workflows', 'error');
+            }
+        }
+
+        // Initialize the page
+        async function initializeGitPage() {
+            await Promise.all([
+                loadGitConfig(),
+                loadGitStatus(),
+                loadActiveWorkflows()
+            ]);
+        }
+
+        // Start the page
+        initializeGitPage();
+
+        async function saveGitCredentials() {
+            const name = document.getElementById('gitName').value;
+            const email = document.getElementById('gitEmail').value;
+            const remote = document.getElementById('gitRemote').value;
+            const password = document.getElementById('gitPassword').value;
+
+            if (!name || !email || !remote || !password) {
+                showNotification('All fields are required', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/git/credentials', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        credentials: { user: { name, email }, remote: { url: remote } },
+                        password
+                    })
+                });
+
+                const result = await response.json();
+                showNotification(result.message || result.error, result.success ? 'success' : 'error');
+                
+                if (result.success) {
+                    // Clear password field
+                    document.getElementById('gitPassword').value = '';
+                }
+            } catch (error) {
+                showNotification('Failed to save credentials', 'error');
+            }
+        }
+
+        async function configureGit() {
+            const password = document.getElementById('gitPassword').value;
+            if (!password) {
+                showNotification('Password is required', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/git/configure', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+
+                const result = await response.json();
+                showNotification(result.message || result.error, result.configured ? 'success' : 'error');
+                
+                if (result.configured) {
+                    // Clear password field
+                    document.getElementById('gitPassword').value = '';
+                    // Refresh Git status
+                    loadGitStatus();
+                }
+            } catch (error) {
+                showNotification('Failed to configure Git', 'error');
+            }
+        }
+    </script>
+</body>
+</html> 

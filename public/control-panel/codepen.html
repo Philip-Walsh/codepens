@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodePen Integration - Control Panel</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/control-panel.css">
+</head>
+<body>
+    <div class="container">
+        <div class="toast-container" id="toastContainer"></div>
+        <header>
+            <h1>CodePen Integration</h1>
+            <nav class="control-nav">
+                <div class="nav-left">
+                    <a href="/" class="nav-link">← Back to Projects</a>
+                    <span class="username-display" id="usernameDisplay">CodePen: <span id="currentCodePenUsername">Loading...</span></span>
+                </div>
+                <div class="nav-right">
+                    <a href="/control-panel" class="nav-link">📊 Dashboard</a>
+                    <a href="/control-panel/codepen" class="nav-link active">📥 CodePen</a>
+                    <a href="/control-panel/git" class="nav-link">🔄 Git</a>
+                    <button onclick="refreshStats()" class="refresh-btn">🔄 Refresh</button>
+                </div>
+            </nav>
+        </header>
+
+        <div class="control-panel">
+            <div class="panel-section">
+                <h2>CodePen Configuration</h2>
+                <div class="codepen-controls">
+                    <div class="control-group">
+                        <label for="codepenUsername">CodePen Username:</label>
+                        <input type="text" id="codepenUsername" placeholder="Enter CodePen username">
+                        <button onclick="updateCodePenUsername()" class="action-btn">Update</button>
+                    </div>
+                    <div class="control-group">
+                        <button onclick="syncCodePenStats()" class="action-btn">🔄 Sync CodePen Stats</button>
+                        <button onclick="exportStats()" class="action-btn">📊 Export Statistics</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Checkout CodePen</h2>
+                <div class="checkout-controls">
+                    <div class="checkout-form">
+                        <div class="form-group">
+                            <label for="penId">Pen ID:</label>
+                            <input type="text" id="penId" placeholder="Enter CodePen ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutCategory">Category:</label>
+                            <select id="checkoutCategory">
+                                <option value="">Select a category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="customPath">Custom Path (optional):</label>
+                            <input type="text" id="customPath" placeholder="e.g., subfolder/pen-name">
+                            <small class="form-help">Leave empty to use default path. Path will be created under selected category.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="commitMessage">Commit Message (optional):</label>
+                            <input type="text" id="commitMessage" placeholder="e.g., Add new animation pen">
+                            <small class="form-help">Leave empty to use default commit message.</small>
+                        </div>
+                        <button onclick="checkoutCodePen()" class="action-btn">📥 Checkout Pen</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Recent Checkouts</h2>
+                <div id="recentCheckouts" class="recent-checkouts">
+                    <!-- Recent checkouts will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentCodePenUsername = '';
+
+        async function loadCodePenUsername() {
+            try {
+                const response = await fetch('/api/codepen/username');
+                const data = await response.json();
+                if (data && typeof data === 'object') {
+                    currentCodePenUsername = data.username || 'Not set';
+                } else {
+                    currentCodePenUsername = 'Not set';
+                }
+                document.getElementById('currentCodePenUsername').textContent = currentCodePenUsername;
+                document.getElementById('codepenUsername').value = currentCodePenUsername;
+            } catch (error) {
+                console.error('Error loading CodePen username:', error);
+                showToast('Failed to load CodePen username', 'error');
+                document.getElementById('currentCodePenUsername').textContent = 'Error loading username';
+            }
+        }
+
+        async function updateCodePenUsername() {
+            const username = document.getElementById('codepenUsername').value.trim();
+            if (!username) {
+                showToast('Please enter a CodePen username', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/codepen/username', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username })
+                });
+
+                if (response.ok) {
+                    currentCodePenUsername = username;
+                    document.getElementById('currentCodePenUsername').textContent = username;
+                    showToast('CodePen username updated successfully', 'success');
+                } else {
+                    throw new Error('Failed to update username');
+                }
+            } catch (error) {
+                console.error('Error updating CodePen username:', error);
+                showToast('Failed to update CodePen username', 'error');
+            }
+        }
+
+        async function loadRecentCheckouts() {
+            try {
+                const response = await fetch('/api/recent-checkouts');
+                const checkouts = await response.json();
+                const container = document.getElementById('recentCheckouts');
+                
+                container.innerHTML = checkouts.map(checkout => `
+                    <div class="checkout-item">
+                        <div class="checkout-info">
+                            <span class="checkout-emoji">📥</span>
+                            <span class="checkout-name">${checkout.penName}</span>
+                        </div>
+                        <div class="checkout-details">
+                            <span>ID: ${checkout.penId}</span>
+                            <span>Path: ${checkout.path}</span>
+                            <span>Date: ${new Date(checkout.date).toLocaleString()}</span>
+                        </div>
+                        <div class="checkout-actions">
+                            <button onclick="viewProject('${checkout.path}')" class="action-btn">View</button>
+                            <button onclick="openInCodePen('${checkout.penId}')" class="action-btn">Open in CodePen</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading recent checkouts:', error);
+                showToast('Failed to load recent checkouts', 'error');
+            }
+        }
+
+        function openInCodePen(penId) {
+            window.open(`https://codepen.io/${currentCodePenUsername}/pen/${penId}`, '_blank');
+        }
+
+        async function initializeCodePenPage() {
+            await Promise.all([
+                loadCodePenUsername(),
+                loadRecentCheckouts(),
+                populateCategoryFilter()
+            ]);
+        }
+
+        initializeCodePenPage();
+    </script>
+</body>
+</html> 
