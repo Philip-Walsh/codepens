@@ -22,4 +22,3 @@ tmp
 ├── logs
 └── requirements.txt
 
-7 directories, 16 files
