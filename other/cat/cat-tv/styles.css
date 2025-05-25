@@ -1,0 +1,24 @@
+:root {
+  --cat-bg: yellow;
+  --creature-color: #00ff00;
+  --emoji-color: #ff0000;
+  --debug: 2px solid red;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--cat-bg);
+  overflow: hidden;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  border: var(--debug);
+}

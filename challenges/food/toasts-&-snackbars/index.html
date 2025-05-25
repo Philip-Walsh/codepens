@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,8 +8,58 @@
     <script src="./script.js" defer></script>
   </head>
   <body>
-    <button class="toast-btn" onclick="showRandomToast()">Show Toast</button>
+    <main class="container">
+      <section class="header">
+        <h1>🍞 Toasts & Snackbars</h1>
+        <p class="subtitle">Interactive notification components for your web applications</p>
+      </section>
 
-<div id="toast-container"></div>
+      <section class="explanation">
+        <div class="card toast-explanation">
+          <h2>🍳 Toasts 🍞</h2>
+          <p>Quick, non-intrusive notifications that typically appear in the top-right corner.<br/> Perfect for:</p>
+          <ul>
+            <li>✨ Success confirmations</li>
+            <li>ℹ️ Information updates</li>
+            <li>⚠️ Warning messages</li>
+            <li>❌ Error notifications</li>
+          </ul>
+          <button class="toast-btn" onclick="showRandomToast()">Show Toast 🍞</button>
+        </div>
+
+        <div class="card snackbar-explanation">
+          <h2>🍽️ Snackbars 🍫</h2>
+          <p>More prominent notifications that appear at the bottom of the screen. Great for:</p>
+          <ul>
+            <li>🎯 Important actions</li>
+            <li>🔄 Status updates</li>
+            <li>📱 Mobile-friendly alerts</li>
+            <li>👆 User interactions</li>
+          </ul>
+          <button class="snackbar-btn" onclick="showRandomSnackbar()">Show Snackbar 🍫</button>
+        </div>
+      </section>
+
+      <section class="keyboard-shortcuts">
+        <h2>⌨️ Keyboard Shortcuts</h2>
+        <div class="shortcuts-grid">
+          <div class="shortcut">
+            <kbd>Alt</kbd> + <kbd>T</kbd>
+            <span>Show random toast</span>
+          </div>
+          <div class="shortcut">
+            <kbd>Alt</kbd> + <kbd>S</kbd>
+            <span>Show random snackbar</span>
+          </div>
+          <div class="shortcut">
+            <kbd>Alt</kbd> + <kbd>C</kbd>
+            <span>Clear all notifications</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast-container"></div>
+    <div id="snackbar-container"></div>
   </body>
 </html>
