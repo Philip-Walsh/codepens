@@ -1,132 +1,213 @@
 class Treat {
-    constructor(name, emoji, calories) {
-        this.name = name;
-        this.emoji = emoji;
-        this.calories = calories;
-    }
+  constructor(name, emoji, calories) {
+    this.name = name;
+    this.emoji = emoji;
+    this.calories = calories;
+    this.remainingCalories = calories;
+  }
 
-    static getRandomTreat() {
-        const treats = [
-            new Treat("cake", "🍰", 300),
-            new Treat("cupcake", "🧁", 250),
-            new Treat("donut", "🍩", 280),
-            new Treat("ice cream", "🍦", 200),
-            new Treat("popsicle", "🍧", 150),
-            new Treat("pie", "🥧", 350),
-            new Treat("pizza", "🍕", 400),
-            new Treat("sandwich", "🥪", 320)
-        ];
-        return treats[Math.floor(Math.random() * treats.length)];
-    }
+  static getRandomTreat() {
+    const treats = [
+      new Treat("cake", "🍰", 300),
+      new Treat("cupcake", "🧁", 250),
+      new Treat("donut", "🍩", 280),
+      new Treat("ice cream", "🍦", 200),
+      new Treat("popsicle", "🍧", 150),
+      new Treat("pie", "🥧", 350),
+      new Treat("pizza", "🍕", 400),
+      new Treat("sandwich", "🥪", 320),
+    ];
+    return treats[Math.floor(Math.random() * treats.length)];
+  }
 }
 
 class TreatManager {
-    constructor(maxTreats = 5) {
-        this.maxTreats = maxTreats;
-        this.currentTreats = 0;
-        this.totalCalories = 0;
-        this.angryMessages = [
-            "That's enough treats! 😠",
-            "You're going to get a tummy ache! 🤢",
-            "No more treats for you! 😤",
-            "Stop being so greedy! 😡",
-            "You've had too many! 😫"
-        ];
+  constructor(maxTreats = 5) {
+    this.maxTreats = maxTreats;
+    this.currentTreats = 0;
+    this.totalCalories = 0;
+    this.treats = [];
+    this.angryMessages = [
+      "That's enough treats! 😠",
+      "You're going to get a tummy ache! 🤢",
+      "No more treats for you! 😤",
+      "Stop being so greedy! 😡",
+      "You've had too many! 😫",
+    ];
+    this.successMessages = [
+      "Yummy treat! 🍪",
+      "Delicious! 😋",
+      "Enjoy your treat! 🎉",
+      "Here's something sweet! 🍭",
+      "Treat time! 🍫",
+    ];
+  }
+
+  addTreat() {
+    if (this.currentTreats >= this.maxTreats) {
+      this.showMessage(
+        this.angryMessages[Math.floor(Math.random() * this.angryMessages.length)],
+        "error"
+      );
+      return false;
     }
 
-    addTreat() {
-        if (this.currentTreats >= this.maxTreats) {
-            this.showAngryMessage();
-            return false;
+    const treat = Treat.getRandomTreat();
+    this.currentTreats++;
+    this.totalCalories += treat.calories;
+    this.treats.push(treat);
+    this.showMessage(
+      this.successMessages[Math.floor(Math.random() * this.successMessages.length)],
+      "success"
+    );
+    return treat;
+  }
+
+  removeTreat(index) {
+    if (index >= 0 && index < this.treats.length) {
+      const treat = this.treats[index];
+      this.totalCalories -= treat.remainingCalories;
+      this.currentTreats--;
+      this.treats.splice(index, 1);
+      this.updateStats();
+    }
+  }
+
+  updateCalories() {
+    let hasChanges = false;
+    this.treats.forEach((treat, index) => {
+      if (treat.remainingCalories > 0) {
+        treat.remainingCalories = Math.max(0, treat.remainingCalories - 5);
+        hasChanges = true;
+
+        if (treat.remainingCalories === 0) {
+          const $treat = $(`.treat-item[data-index="${index}"]`);
+          if ($treat.length) {
+            $treat.addClass('fading');
+            setTimeout(() => {
+              $treat.remove();
+              this.removeTreat(index);
+            }, 1000);
+          }
         }
+      }
+    });
 
-        const treat = Treat.getRandomTreat();
-        this.currentTreats++;
-        this.totalCalories += treat.calories;
-        return treat;
+    if (hasChanges) {
+      this.updateStats();
+      this.updateTreatDisplay();
     }
+  }
 
-    showAngryMessage() {
-        const message = this.angryMessages[Math.floor(Math.random() * this.angryMessages.length)];
-        const $message = $("<div>")
-            .addClass("angry-message")
-            .text(message);
+  updateStats() {
+    $(".treat-count").text(this.currentTreats);
+    $(".calorie-count").text(this.totalCalories);
+    $(".remaining-count").text(this.maxTreats - this.currentTreats);
+  }
 
-        $("body").append($message);
-        setTimeout(() => $message.remove(), 2000);
-    }
+  updateTreatDisplay() {
+    this.treats.forEach((treat, index) => {
+      const $treat = $(`.treat-item[data-index="${index}"]`);
+      if ($treat.length) {
+        $treat.find('.treat-calories').text(`${Math.round(treat.remainingCalories)} cal`);
+        const burnedCalories = treat.calories - treat.remainingCalories;
+        $treat.find('.calorie-countdown').text(`-${Math.round(burnedCalories)} cal`);
+      }
+    });
+  }
 
-    getStats() {
-        return {
-            treats: this.currentTreats,
-            calories: this.totalCalories,
-            remaining: this.maxTreats - this.currentTreats
-        };
-    }
+  showMessage(message, type = "info") {
+    const $message = $("<section>").addClass(`treat-message ${type}`).html(`
+      <span class="message-icon">${type === "error" ? "⚠️" : "🎉"}</span>
+      <span class="message-text">${message}</span>
+      <button class="message-close" aria-label="Close message">×</button>
+    `);
+
+    $(".treat-messages").append($message);
+
+    $message.find(".message-close").on("click", () => {
+      $message.addClass("removing");
+      setTimeout(() => $message.remove(), 300);
+    });
+
+    setTimeout(() => {
+      if ($message.parent().length) {
+        $message.addClass("removing");
+        setTimeout(() => $message.remove(), 300);
+      }
+    }, 3000);
+  }
+
+  getStats() {
+    return {
+      treats: this.currentTreats,
+      calories: this.totalCalories,
+      remaining: this.maxTreats - this.currentTreats,
+    };
+  }
 }
 
 $(document).ready(() => {
-    const treatManager = new TreatManager(5);
+  const treatManager = new TreatManager(5);
+  let treatUpdateInterval;
 
-    // Add styles for animations
-    $("<style>")
-        .text(`
-            @keyframes shake {
-                0%, 100% { transform: translateX(-50%); }
-                25% { transform: translateX(-52%); }
-                75% { transform: translateX(-48%); }
-            }
-            .treat-item {
-                display: inline-block;
-                margin: 5px;
-                font-size: 2em;
-                transition: transform 0.3s;
-            }
-            .treat-item:hover {
-                transform: scale(1.2);
-            }
-            .stats {
-                margin: 10px 0;
-                padding: 10px;
-                background-color: #f0f0f0;
-                border-radius: 5px;
-            }
-        `)
-        .appendTo("head");
+  const $messageContainer = $("<section>")
+    .addClass("treat-messages")
+    .appendTo("body");
 
-    // Create treat button
-    const $button = $("<button>")
-        .addClass("treat-button")
-        .text("Get a Treat! 🍪");
+  const $button = $("<button>").addClass("treat-button").html(`
+    <span class="button-icon">🍪</span>
+    <span class="button-text">Get a Treat!</span>
+  `);
 
-    // Create stats display
-    const $stats = $("<div>")
-        .addClass("stats")
+  const $stats = $("<section>").addClass("stats").html(`
+    <section class="stats-item">
+      <span class="stats-label">Treats:</span>
+      <span class="treat-count">0</span>/5
+    </section>
+    <section class="stats-item">
+      <span class="stats-label">Calories:</span>
+      <span class="calorie-count">0</span>
+    </section>
+    <section class="stats-item">
+      <span class="stats-label">Remaining:</span>
+      <span class="remaining-count">5</span>
+    </section>
+  `);
+
+  const $treatContainer = $("<section>").addClass("treat-container");
+
+  $(".sweet-treats").append($button).append($stats).append($treatContainer);
+
+  function startCalorieCountdown() {
+    if (treatUpdateInterval) {
+      clearInterval(treatUpdateInterval);
+    }
+    treatUpdateInterval = setInterval(() => {
+      treatManager.updateCalories();
+    }, 1000);
+  }
+
+  $button.on("click", () => {
+    const treat = treatManager.addTreat();
+    if (treat) {
+      const $treat = $("<section>")
+        .addClass("treat-item")
+        .attr('data-index', treatManager.treats.length - 1)
         .html(`
-            <div>Treats: <span class="treat-count">0</span>/5</div>
-            <div>Calories: <span class="calorie-count">0</span></div>
-        `);
+          <span class="treat-emoji">${treat.emoji}</span>
+          <span class="treat-name">${treat.name}</span>
+          <span class="treat-calories">${treat.calories} cal</span>
+          <span class="calorie-countdown">0 cal</span>
+        `)
+        .css("animation", "pop 0.5s");
 
-    // Add elements to page
-    $(".sweet-treats")
-        .append($button)
-        .append($stats);
+      $treatContainer.append($treat);
+      treatManager.updateStats();
+      startCalorieCountdown();
+    }
+  });
 
-    // Handle treat button click
-    $button.on("click", () => {
-        const treat = treatManager.addTreat();
-        if (treat) {
-            const $treat = $("<span>")
-                .addClass("treat-item")
-                .text(treat.emoji)
-                .css("animation", "pop 0.5s");
-
-            $(".sweet-treats").append($treat);
-
-            // Update stats
-            const stats = treatManager.getStats();
-            $(".treat-count").text(stats.treats);
-            $(".calorie-count").text(stats.calories);
-        }
-    });
+  // Start the countdown immediately
+  startCalorieCountdown();
 });
