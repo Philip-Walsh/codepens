@@ -1,0 +1,123 @@
+:root {
+	/* Colors */
+	--color-background: PapayaWhip;
+	--color-primary: #4CAF50;
+	--color-primary-hover: #45a049;
+	--color-error: #ff4444;
+	--color-text: #333;
+	--color-text-light: white;
+	--color-stats-bg: #f0f0f0;
+
+	/* Spacing */
+	--spacing-xs: 5px;
+	--spacing-sm: 10px;
+	--spacing-md: 20px;
+	--spacing-lg: 30px;
+
+	/* Typography */
+	--font-size-base: 16px;
+	--font-size-large: 1.2em;
+	--font-size-xlarge: 2em;
+	--font-size-xxlarge: 5rem;
+
+	/* Border */
+	--border-radius: 5px;
+
+	/* Animation */
+	--transition-speed: 0.3s;
+	--animation-speed: 0.5s;
+}
+
+body {
+	height: 100vh;
+	margin: 0;
+	display: grid;
+	place-items: center;
+	background: var(--color-background);
+	color: var(--color-text);
+	font-size: var(--font-size-base);
+}
+
+.sweet-treats {
+	font-size: var(--font-size-xxlarge);
+	margin: auto;
+	text-align: center;
+}
+
+.treat-button {
+	padding: var(--spacing-sm) var(--spacing-md);
+	font-size: var(--font-size-large);
+	background-color: var(--color-primary);
+	color: var(--color-text-light);
+	border: none;
+	border-radius: var(--border-radius);
+	cursor: pointer;
+	margin: var(--spacing-sm) 0;
+	transition: background-color var(--transition-speed);
+}
+
+.treat-button:hover {
+	background-color: var(--color-primary-hover);
+}
+
+.treat-item {
+	display: inline-block;
+	margin: var(--spacing-xs);
+	font-size: var(--font-size-xlarge);
+	transition: transform var(--transition-speed);
+}
+
+.treat-item:hover {
+	transform: scale(1.2);
+}
+
+.stats {
+	margin: var(--spacing-sm) 0;
+	padding: var(--spacing-sm);
+	background-color: var(--color-stats-bg);
+	border-radius: var(--border-radius);
+	font-size: var(--font-size-large);
+}
+
+.angry-message {
+	position: fixed;
+	top: var(--spacing-md);
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: var(--color-error);
+	color: var(--color-text-light);
+	padding: var(--spacing-sm) var(--spacing-md);
+	border-radius: var(--border-radius);
+	z-index: 1000;
+	animation: shake var(--animation-speed);
+}
+
+@keyframes shake {
+
+	0%,
+	100% {
+		transform: translateX(-50%);
+	}
+
+	25% {
+		transform: translateX(-52%);
+	}
+
+	75% {
+		transform: translateX(-48%);
+	}
+}
+
+@keyframes pop {
+	0% {
+		transform: scale(0);
+	}
+
+	50% {
+		transform: scale(1.2);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
