@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Treats Slot Machine</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="slot-machine">
+            <div class="machine-top">
+                <div class="display-panel">
+                    <div class="credits">Credits: <span id="credits">1000</span></div>
+                    <div class="bet">Bet: <span id="bet">10</span></div>
+                    <div class="win-display" id="win-display">Ready to Play!</div>
+                </div>
+            </div>
+            <div class="machine-body">
+                <div class="reels-container">
+                    <div class="reel" id="reel1">
+                        <div class="symbol">🍰</div>
+                        <div class="symbol-name">Cake</div>
+                    </div>
+                    <div class="reel" id="reel2">
+                        <div class="symbol">🧁</div>
+                        <div class="symbol-name">Cupcake</div>
+                    </div>
+                    <div class="reel" id="reel3">
+                        <div class="symbol">🍩</div>
+                        <div class="symbol-name">Donut</div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="bet-controls">
+                        <button id="decrease-bet"><p>-</p></button>
+                        <button id="increase-bet"><p>+</p></button>
+                    </div>
+                    <button class="spin-button" id="spin-button"><p>SPIN!</p></button>
+                </div>
+            </div>
+            <div class="machine-bottom"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
