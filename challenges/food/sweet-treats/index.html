@@ -1,18 +1,41 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sweet Treats</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="./script.js" defer></script>
-  </head>
-  <body>
-    <p>
-	<span class="sweet-treats">🧁🍭🍩🥧</span>
-</p>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sweet Treats</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./script.js" defer></script>
+</head>
+
+<body>
+  <article class="slot-machine">
+    <section class="game-banner">Sweet Treats</section>
+    <section class="reels">
+      <section class="reel">
+        <span class="symbol">🍰</span>
+      </section>
+      <section class="reel">
+        <span class="symbol">🧁</span>
+      </section>
+      <section class="reel">
+        <span class="symbol">🍩</span>
+      </section>
+    </section>
+    <section class="controls">
+      <button class="spin-button">SPIN!</button>
+      <section class="balance">Balance: 100 coins</section>
+
+      <section class="bet-controls">
+        <button class="decrease-bet">-</button>
+        <section class="bet-amount">Bet: 10 coins</section>
+        <button class="increase-bet">+</button>
+      </section>
+    </section>
+  </article>
+</body>
+
 </html>

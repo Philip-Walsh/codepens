@@ -1,132 +1,142 @@
-class Treat {
-    constructor(name, emoji, calories) {
-        this.name = name;
-        this.emoji = emoji;
-        this.calories = calories;
-    }
+class SlotMachine {
+  constructor(initialBalance = 100) {
+    this.balance = initialBalance;
+    this.betAmount = 10;
+    this.isSpinning = false;
+    this.currentResults = [];
+    this.symbols = [
+      { name: "cake", emoji: "🍰", value: 3 },
+      { name: "cupcake", emoji: "🧁", value: 2 },
+      { name: "donut", emoji: "🍩", value: 2 },
+      { name: "ice cream", emoji: "🍦", value: 3 },
+      { name: "popsicle", emoji: "🍧", value: 1 },
+      { name: "pie", emoji: "🥧", value: 3 },
+      { name: "pizza", emoji: "🍕", value: 4 },
+      { name: "sandwich", emoji: "🥪", value: 2 }
+    ];
+  }
 
-    static getRandomTreat() {
-        const treats = [
-            new Treat("cake", "🍰", 300),
-            new Treat("cupcake", "🧁", 250),
-            new Treat("donut", "🍩", 280),
-            new Treat("ice cream", "🍦", 200),
-            new Treat("popsicle", "🍧", 150),
-            new Treat("pie", "🥧", 350),
-            new Treat("pizza", "🍕", 400),
-            new Treat("sandwich", "🥪", 320)
+  spin() {
+    if (this.isSpinning || this.balance < this.betAmount) return false;
+
+    this.isSpinning = true;
+    this.balance -= this.betAmount;
+    this.updateDisplay();
+
+    // Generate random results
+    this.currentResults = Array(3)
+      .fill()
+      .map(() => this.symbols[Math.floor(Math.random() * this.symbols.length)]);
+
+    // Animate each reel with random timing
+    const reels = document.querySelectorAll(".reel");
+    reels.forEach((reel, index) => {
+      const randomDelay = Math.random() * 500; // Random delay between 0-500ms
+      const randomDuration = 1500 + Math.random() * 1000; // Random duration between 1.5-2.5s
+      setTimeout(() => {
+        this.animateReel(reel, this.currentResults[index], randomDuration);
+      }, randomDelay);
+    });
+
+    return true;
+  }
+
+  animateReel(reel, result, duration) {
+    const symbols = reel.querySelectorAll(".symbol");
+
+    // Add spinning animation
+    reel.classList.add("spinning");
+
+    // Update symbols during spin
+    const spinInterval = setInterval(() => {
+      symbols.forEach((symbol) => {
+        const randomSymbol = this.symbols[
+          Math.floor(Math.random() * this.symbols.length)
         ];
-        return treats[Math.floor(Math.random() * treats.length)];
+        symbol.textContent = randomSymbol.emoji;
+      });
+    }, 50);
+
+    // Stop at final result
+    setTimeout(() => {
+      clearInterval(spinInterval);
+      reel.classList.remove("spinning");
+      symbols.forEach((symbol) => {
+        symbol.textContent = result.emoji;
+      });
+
+      const allStopped = Array.from(document.querySelectorAll(".reel")).every(
+        (reel) => !reel.classList.contains("spinning")
+      );
+
+      if (allStopped) {
+        this.checkWin();
+      }
+    }, duration);
+  }
+
+  checkWin() {
+    const isWin = this.currentResults.every(
+      (symbol) => symbol.emoji === this.currentResults[0].emoji
+    );
+    if (isWin) {
+      const winAmount = this.betAmount * this.currentResults[0].value;
+      this.balance += winAmount;
+      this.showWinMessage(winAmount);
     }
-}
+    this.isSpinning = false;
+    this.updateDisplay();
+  }
 
-class TreatManager {
-    constructor(maxTreats = 5) {
-        this.maxTreats = maxTreats;
-        this.currentTreats = 0;
-        this.totalCalories = 0;
-        this.angryMessages = [
-            "That's enough treats! 😠",
-            "You're going to get a tummy ache! 🤢",
-            "No more treats for you! 😤",
-            "Stop being so greedy! 😡",
-            "You've had too many! 😫"
-        ];
+  showWinMessage(amount) {
+    const message = $(
+      `<div class="win-message">You won ${amount} coins! 🎉</div>`
+    );
+    $(".slot-machine").append(message);
+    setTimeout(() => message.remove(), 3000);
+  }
+
+  updateDisplay() {
+    $(".balance").text(`Balance: ${this.balance} coins`);
+    $(".spin-button").prop(
+      "disabled",
+      this.isSpinning || this.balance < this.betAmount
+    );
+  }
+
+  increaseBet() {
+    if (this.betAmount < 50 && !this.isSpinning) {
+      this.betAmount += 10;
+      $(".bet-amount").text(`Bet: ${this.betAmount} coins`);
+      this.updateDisplay();
     }
+  }
 
-    addTreat() {
-        if (this.currentTreats >= this.maxTreats) {
-            this.showAngryMessage();
-            return false;
-        }
-
-        const treat = Treat.getRandomTreat();
-        this.currentTreats++;
-        this.totalCalories += treat.calories;
-        return treat;
+  decreaseBet() {
+    if (this.betAmount > 10 && !this.isSpinning) {
+      this.betAmount -= 10;
+      $(".bet-amount").text(`Bet: ${this.betAmount} coins`);
+      this.updateDisplay();
     }
-
-    showAngryMessage() {
-        const message = this.angryMessages[Math.floor(Math.random() * this.angryMessages.length)];
-        const $message = $("<div>")
-            .addClass("angry-message")
-            .text(message);
-
-        $("body").append($message);
-        setTimeout(() => $message.remove(), 2000);
-    }
-
-    getStats() {
-        return {
-            treats: this.currentTreats,
-            calories: this.totalCalories,
-            remaining: this.maxTreats - this.currentTreats
-        };
-    }
+  }
 }
 
 $(document).ready(() => {
-    const treatManager = new TreatManager(5);
+  const slotMachine = new SlotMachine();
+  const $slotMachine = $(`
+    `).appendTo("body");
 
-    // Add styles for animations
-    $("<style>")
-        .text(`
-            @keyframes shake {
-                0%, 100% { transform: translateX(-50%); }
-                25% { transform: translateX(-52%); }
-                75% { transform: translateX(-48%); }
-            }
-            .treat-item {
-                display: inline-block;
-                margin: 5px;
-                font-size: 2em;
-                transition: transform 0.3s;
-            }
-            .treat-item:hover {
-                transform: scale(1.2);
-            }
-            .stats {
-                margin: 10px 0;
-                padding: 10px;
-                background-color: #f0f0f0;
-                border-radius: 5px;
-            }
-        `)
-        .appendTo("head");
+  $(".spin-button").on("click", () => {
+    if (!slotMachine.isSpinning) {
+      slotMachine.spin();
+    }
+  });
 
-    // Create treat button
-    const $button = $("<button>")
-        .addClass("treat-button")
-        .text("Get a Treat! 🍪");
+  $(".increase-bet").on("click", () => {
+    slotMachine.increaseBet();
+  });
 
-    // Create stats display
-    const $stats = $("<div>")
-        .addClass("stats")
-        .html(`
-            <div>Treats: <span class="treat-count">0</span>/5</div>
-            <div>Calories: <span class="calorie-count">0</span></div>
-        `);
-
-    // Add elements to page
-    $(".sweet-treats")
-        .append($button)
-        .append($stats);
-
-    // Handle treat button click
-    $button.on("click", () => {
-        const treat = treatManager.addTreat();
-        if (treat) {
-            const $treat = $("<span>")
-                .addClass("treat-item")
-                .text(treat.emoji)
-                .css("animation", "pop 0.5s");
-
-            $(".sweet-treats").append($treat);
-
-            // Update stats
-            const stats = treatManager.getStats();
-            $(".treat-count").text(stats.treats);
-            $(".calorie-count").text(stats.calories);
-        }
-    });
+  $(".decrease-bet").on("click", () => {
+    slotMachine.decreaseBet();
+  });
 });
