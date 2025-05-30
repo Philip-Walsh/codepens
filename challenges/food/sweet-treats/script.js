@@ -24,7 +24,6 @@ class SlotMachine {
     this.balance -= this.betAmount;
     this.updateDisplay();
 
-    // Adjust animation speed based on reduced motion preference
     const animationSpeed = this.prefersReducedMotion() ? 200 : 50;
     this.lightController.startLightAnimation(true, animationSpeed);
 
@@ -88,20 +87,16 @@ class SlotMachine {
       this.balance += winAmount;
       this.showWinMessage(winAmount);
 
-      // Add win animation
       slotMachine.classList.add('win');
       this.lightController.showWinLights();
 
-      // Remove win class after animation
       setTimeout(() => {
         slotMachine.classList.remove('win');
       }, 500);
     } else {
-      // Add shake animation
       slotMachine.classList.add('shake');
       this.lightController.showFailLights();
 
-      // Remove shake class after animation
       setTimeout(() => {
         slotMachine.classList.remove('shake');
       }, 500);
@@ -143,7 +138,6 @@ class SlotMachine {
     }
   }
 
-  // Add method to check for reduced motion preference
   prefersReducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
@@ -159,14 +153,12 @@ class LightController {
   initializeLights() {
     const lightBands = document.querySelectorAll('.light-band');
     lightBands.forEach(band => {
-      // Create 20 lights per band
       for (let i = 0; i < 20; i++) {
         const light = document.createElement('div');
         light.className = 'light';
         band.appendChild(light);
       }
     });
-    // Start with slow animation
     this.startLightAnimation(false);
   }
 
@@ -179,16 +171,13 @@ class LightController {
       let currentIndex = 0;
 
       const interval = setInterval(() => {
-        // Remove active state from all lights
         lights.forEach(light => light.classList.remove('active'));
 
-        // Activate 3 consecutive lights with a trailing effect
         for (let i = 0; i < 3; i++) {
           const lightIndex = (currentIndex + i) % lights.length;
           const light = lights[lightIndex];
           light.classList.add('active');
 
-          // Add a subtle delay to create a trailing effect
           if (i > 0) {
             light.style.transitionDelay = `${i * 50}ms`;
           } else {
@@ -197,7 +186,7 @@ class LightController {
         }
 
         currentIndex = (currentIndex + 1) % lights.length;
-      }, isSpinning ? animationSpeed : 300); // Slower animation when not spinning
+      }, isSpinning ? animationSpeed : 300);
 
       this.lightIntervals.push(interval);
     });
@@ -214,12 +203,11 @@ class LightController {
     slotMachine.classList.add('win');
     slotMachine.classList.remove('fail');
 
-    // Flash all lights in sequence
     const lights = document.querySelectorAll('.light');
     lights.forEach((light, index) => {
       setTimeout(() => {
         light.classList.add('active');
-      }, index * 20); // Stagger the activation
+      }, index * 20);
     });
 
     setTimeout(() => {
@@ -234,12 +222,11 @@ class LightController {
     slotMachine.classList.add('fail');
     slotMachine.classList.remove('win');
 
-    // Flash all lights in sequence
     const lights = document.querySelectorAll('.light');
     lights.forEach((light, index) => {
       setTimeout(() => {
         light.classList.add('active');
-      }, index * 20); // Stagger the activation
+      }, index * 20);
     });
 
     setTimeout(() => {

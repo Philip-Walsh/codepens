@@ -55,12 +55,9 @@ body {
 	margin: 20px auto;
 	position: relative;
 	overflow: visible;
-
-	/* Restore 3D effects */
 	transform: perspective(1000px) rotateX(5deg);
 	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 10px rgba(0, 0, 0, 0.1),
 		0 0 0 20px rgba(0, 0, 0, 0.05);
-
 	transition: transform 0.3s ease;
 }
 
@@ -215,7 +212,6 @@ button:disabled {
 .sticker {
 	background: var(--tertiary);
 	background-image: url(https://www.transparenttextures.com/patterns/flowers.png);
-
 	border: 5px solid var(--accent);
 }
 
@@ -236,7 +232,6 @@ button:disabled {
 	left: 0;
 	right: 0;
 	transform: perspective(1000px) rotateX(5deg);
-	/* Match parent 3D effect */
 }
 
 .light-band {
@@ -293,7 +288,6 @@ button:disabled {
 	background: rgba(255, 255, 255, 0.3);
 }
 
-/* Win state */
 .slot-machine.win .light {
 	background: rgba(42, 42, 42, 0.8);
 	box-shadow:
@@ -309,7 +303,6 @@ button:disabled {
 		inset 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-/* Fail state */
 .slot-machine.fail .light {
 	background: rgba(42, 42, 42, 0.8);
 	box-shadow:
@@ -325,7 +318,6 @@ button:disabled {
 		inset 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-/* Add animation keyframes */
 @keyframes shake {
 
 	0%,
@@ -356,7 +348,6 @@ button:disabled {
 	}
 }
 
-/* Add reduced motion variants */
 @media (prefers-reduced-motion: reduce) {
 	@keyframes shake {
 
@@ -391,7 +382,6 @@ button:disabled {
 	animation: winPulse 0.5s ease-in-out;
 }
 
-/* Add reduced motion support for all animations */
 @media (prefers-reduced-motion: reduce) {
 
 	.slot-machine,
