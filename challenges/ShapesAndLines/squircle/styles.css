@@ -1,0 +1,135 @@
+:root {
+	--primary: #8e7ab5;
+	--secondary: #b784b7;
+	--tertiary: #e493b3;
+	--accent: #eea5a6;
+	--squircle-factor: 0.065;
+	--primary-dark: #6a5a8a;
+	--focus-outline: 3px solid var(--accent);
+}
+
+body {
+	height: 100vh;
+	margin: 0;
+	display: grid;
+	place-items: center;
+	background: var(--primary);
+	background-image:
+		radial-gradient(circle at center, transparent 30%, var(--primary-dark) 100%),
+		url(https://www.transparenttextures.com/patterns/axiom-pattern.png);
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.squircle {
+	--width: min(300px, 80vw);
+	width: var(--width);
+	height: var(--width);
+	border: 3px solid var(--secondary);
+	background-image:
+		linear-gradient(180deg, var(--secondary), var(--tertiary)),
+		url(https://www.transparenttextures.com/patterns/nice-snow.png);
+	background-blend-mode: overlay;
+	background-size: cover;
+	background-repeat: repeat;
+	border-radius: calc(var(--squircle-factor) * var(--width));
+	transition: border-radius 0.1s linear, transform 0.2s ease;
+	cursor: pointer;
+	box-shadow:
+		inset 0 4px 8px rgba(255, 255, 255, 0.2),
+		inset 0 -4px 8px rgba(0, 0, 0, 0.2),
+		0 8px 20px rgba(0, 0, 0, 0.3),
+		0 2px 6px rgba(0, 0, 0, 0.2);
+	filter: drop-shadow(0 0 4px var(--accent));
+	backdrop-filter: brightness(1.05);
+	display: flex;
+	place-content: center;
+	justify-content: center;
+	align-items: center;
+	will-change: transform;
+	transform: translateZ(0);
+}
+
+/* Focus styles for keyboard navigation */
+.squircle:focus {
+	outline: var(--focus-outline);
+	outline-offset: 4px;
+}
+
+.squircle:focus:not(:focus-visible) {
+	outline: none;
+}
+
+.squircle:focus-visible {
+	outline: var(--focus-outline);
+	outline-offset: 4px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+	.squircle {
+		animation: none;
+		transition: none;
+	}
+
+	.squircle svg {
+		animation: none;
+	}
+}
+
+.squircle svg {
+	width: 50%;
+	height: auto;
+	fill: var(--secondary);
+	transition: all 0.8s ease-in-out;
+	animation: svgAnim 2s linear reverse infinite;
+	will-change: filter;
+}
+
+@keyframes svgAnim {
+
+	0%,
+	100% {
+		filter: drop-shadow(0 0 .2em var(--accent));
+	}
+
+	50% {
+		filter: drop-shadow(0 0 1em var(--tertiary));
+	}
+}
+
+@media (hover: hover) {
+	.squircle:hover {
+		animation: rotate 2s linear reverse infinite;
+	}
+}
+
+@keyframes rotate {
+	50% {
+		transform: rotate(2deg);
+	}
+}
+
+/* iPhone-specific optimizations */
+@media screen and (max-width: 428px) {
+	.squircle {
+		--width: 85vw;
+	}
+
+	.squircle svg {
+		width: 60%;
+	}
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+	.squircle {
+		border: 3px solid CanvasText;
+	}
+
+	.squircle svg {
+		fill: CanvasText;
+	}
+}

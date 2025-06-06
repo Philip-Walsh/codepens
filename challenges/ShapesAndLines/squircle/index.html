@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="description" content="Interactive squircle design with animated effects" />
+	<title>Squircle</title>
+	<link rel="stylesheet" href="./styles.css" />
+	<script src="./script.js" defer></script>
+</head>
+
+<body>
+	<div class="squircle" role="button" tabindex="0" aria-label="Interactive squircle with glowing animation">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="100%" height="100%"
+			preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+			<defs>
+				<filter id="glow">
+					<feGaussianBlur in="SourceGraphic" stdDeviation="4">
+						<animate attributeName="stdDeviation" values="2;5;2" dur="2s" repeatCount="indefinite" />
+					</feGaussianBlur>
+					<feMerge>
+						<feMergeNode />
+						<feMergeNode in="SourceGraphic" />
+					</feMerge>
+				</filter>
+
+				<linearGradient id="sheen" x1="0%" y1="0%" x2="100%" y2="100%">
+					<stop offset="0%" stop-color="var(--accent)" stop-opacity="0.1" />
+					<stop offset="50%" stop-color="white" stop-opacity="0.6">
+						<animate attributeName="offset" values="-1;1.5" dur="3s" repeatCount="indefinite" />
+					</stop>
+					<stop offset="100%" stop-color="var(--tertiary)" stop-opacity="0.1" />
+				</linearGradient>
+
+				<mask id="mask-shimmer">
+					<rect x="0" y="0" width="100%" height="100%" fill="url(#sheen)" />
+				</mask>
+			</defs>
+
+			<path
+				d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"
+				fill="var(--primary)" filter="url(#glow)" mask="url(#mask-shimmer)" />
+		</svg>
+	</div>
+</body>
+
+</html>

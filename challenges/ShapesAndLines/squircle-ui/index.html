@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="SquircleNFT - Premium Digital Art Marketplace" />
+    <title class="light-content">SquircleNFT | Premium Digital Art Marketplace</title>
+    <title class="dark-content">SquircleNFT | Definitely Not a Bubble 💎</title>
+    <!-- FontAwesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <header class="header" role="banner">
+        <div class="header-content">
+            <div class="nav-brand">
+                <span class="emoji-icon" role="img" aria-label="SquircleNFT">🔷</span>
+                <h1>SquircleNFT</h1>
+            </div>
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <button class="nav-link active" href="#home" aria-current="page">Home</button>
+                <button class="nav-link" href="#marketplace">Marketplace</button>
+                <button class="nav-link" href="#categories">Categories</button>
+                <button class="nav-link" href="#how-it-works">How It Works</button>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Floating Navigation for Mobile -->
+    <div class="floating-nav" id="floating-nav" role="navigation" aria-label="Mobile navigation">
+        <button class="floating-nav-toggle" aria-label="Toggle navigation menu">
+            <span class="emoji-icon">🔷</span>
+        </button>
+        <div class="floating-nav-content">
+            <button class="floating-nav-link" href="#home">🏠 Home</button>
+            <button class="floating-nav-link" href="#marketplace">🛒 Marketplace</button>
+            <button class="floating-nav-link" href="#categories">📂 Categories</button>
+            <button class="floating-nav-link" href="#how-it-works">❓ How It Works</button>
+            <button class="theme-toggle floating-nav-link" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span> Theme
+            </button>
+        </div>
+    </div>
+
+    <main>
+        <section id="home" class="hero fade-in-up" aria-labelledby="hero-title">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <!-- Light Theme Content -->
+                    <div class="light-content">
+                        <h2 id="hero-title">Discover Premium Digital Art Collections</h2>
+                        <p class="hero-subtitle">
+                            The world's most trusted marketplace for authenticated digital art and collectibles.
+                            Join thousands of artists and collectors in the future of creative ownership.
+                        </p>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <span class="stat-value">2.5M+</span>
+                                <span class="stat-label">Artworks</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">150K+</span>
+                                <span class="stat-label">Artists</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">$2.1B</span>
+                                <span class="stat-label">Total Volume</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dark Theme Content -->
+                    <div class="dark-content">
+                        <h2 id="hero-title-dark">Turn Your Right-Click Into Right-Rich 💰</h2>
+                        <p class="hero-subtitle">
+                            The only marketplace where a JPEG of a squircle costs more than your car.
+                            But hey, at least you truly own that digital receipt! 🎨✨
+                        </p>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <span class="stat-value">420K</span>
+                                <span class="stat-label">Regretful Purchases</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">69</span>
+                                <span class="stat-label">Broke Artists</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">$∞</span>
+                                <span class="stat-label">Money Laundered</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="squircle-artwork">
+                        <span class="artwork-emoji light-content">🎨</span>
+                        <span class="artwork-emoji dark-content">💎</span>
+                        <div class="artwork-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="marketplace" class="marketplace section-gradient fade-in-up" aria-labelledby="marketplace-title">
+            <div class="marketplace-header">
+                <!-- Light Theme Header -->
+                <div class="light-content">
+                    <h2 id="marketplace-title" class="section-title">Featured Collections</h2>
+                    <div class="marketplace-filters">
+                        <button class="filter-btn active">All</button>
+                        <button class="filter-btn">Art</button>
+                        <button class="filter-btn">Photography</button>
+                        <button class="filter-btn">Gaming</button>
+                        <button class="filter-btn">Music</button>
+                    </div>
+                </div>
+
+                <!-- Dark Theme Header -->
+                <div class="dark-content">
+                    <h2 id="marketplace-title-dark" class="section-title">Overpriced Collections 🔥</h2>
+                    <div class="marketplace-filters">
+                        <button class="filter-btn active">All Scams</button>
+                        <button class="filter-btn">Pixel Art</button>
+                        <button class="filter-btn">AI Generated</button>
+                        <button class="filter-btn">Copy & Paste</button>
+                        <button class="filter-btn">Money Grabs</button>
+                    </div>
+                </div>
+            </div>
+            <div class="collections-grid">
+                <!-- Collection cards will be dynamically generated -->
+            </div>
+        </section>
+
+        <section id="trending" class="trending section-gradient fade-in-up" aria-labelledby="trending-title">
+            <div class="marketplace-header">
+                <h2 id="trending-title" class="section-title">Trending Bad Decisions 📈</h2>
+                <div class="marketplace-filters">
+                    <button class="filter-btn active">24h Losses</button>
+                    <button class="filter-btn">7d Regrets</button>
+                    <button class="filter-btn">30d FOMO</button>
+                </div>
+            </div>
+            <div class="collections-grid">
+                <!-- Trending items will be dynamically generated -->
+            </div>
+        </section>
+
+        <section id="categories" class="categories fade-in-up" aria-labelledby="categories-title">
+            <!-- Light Theme Categories -->
+            <div class="light-content">
+                <h2 id="categories-title" class="section-title">Explore by Category</h2>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <span class="category-icon">🎨</span>
+                        <h3>Digital Art</h3>
+                        <p>Curated digital masterpieces from renowned artists</p>
+                    </div>
+                    <div class="category-card">
+                        <span class="category-icon">📸</span>
+                        <h3>Photography</h3>
+                        <p>Stunning visual narratives captured in pixels</p>
+                    </div>
+                    <div class="category-card">
+                        <span class="category-icon">🎮</span>
+                        <h3>Gaming Assets</h3>
+                        <p>Collectible items from your favorite games</p>
+                    </div>
+                    <div class="category-card">
+                        <span class="category-icon">🎵</span>
+                        <h3>Music & Audio</h3>
+                        <p>Exclusive tracks and audio experiences</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dark Theme Categories -->
+            <div class="dark-content">
+                <h2 id="categories-title-dark" class="section-title">Browse by Disappointment Level 🎭</h2>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <span class="category-icon">🎨</span>
+                        <h3>Digital "Art"</h3>
+                        <p>MS Paint masterpieces that somehow cost $10k</p>
+                    </div>
+                    <div class="category-card">
+                        <span class="category-icon">🐵</span>
+                        <h3>Profile Pictures</h3>
+                        <p>Overpriced avatars for your midlife crisis</p>
+                    </div>
+                    <div class="category-card">
+                        <span class="category-icon">🎮</span>
+                        <h3>Gaming Items</h3>
+                        <p>Virtual swords worth more than real ones</p>
+                    </div>
+                    <div class="category-card">
+                        <span class="category-icon">🤖</span>
+                        <h3>AI Generated</h3>
+                        <p>Robot art that's somehow more creative than humans</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="how-it-works section-gradient fade-in-up"
+            aria-labelledby="how-it-works-title">
+            <!-- Light Theme How It Works -->
+            <div class="light-content">
+                <h2 id="how-it-works-title" class="section-title">How It Works</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <span class="step-number">1</span>
+                        <h3>Create Your Account</h3>
+                        <p>Join our community of artists and collectors</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">2</span>
+                        <h3>Discover Art</h3>
+                        <p>Browse curated collections from talented creators</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">3</span>
+                        <h3>Make Purchase</h3>
+                        <p>Securely acquire digital art with blockchain verification</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">4</span>
+                        <h3>Own & Trade</h3>
+                        <p>Build your collection and trade with other collectors</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dark Theme How It Works -->
+            <div class="dark-content">
+                <h2 id="how-it-works-title-dark" class="section-title">How to Lose Money in 4 Easy Steps 📋</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <span class="step-number">1</span>
+                        <h3>Connect Your Wallet</h3>
+                        <p>Give us access to your life savings 💸</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">2</span>
+                        <h3>Browse Overpriced JPEGs</h3>
+                        <p>Find something worth less than you'll pay for it 🖼️</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">3</span>
+                        <h3>Panic Buy</h3>
+                        <p>FOMO your way into financial ruin 🔥</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">4</span>
+                        <h3>Watch It Tank</h3>
+                        <p>Enjoy your $1000 receipt for a 64x64 pixel monkey 🐵</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta fade-in-up" aria-labelledby="cta-title">
+            <div class="cta-content">
+                <!-- Light Theme CTA -->
+                <div class="light-content">
+                    <h2 id="cta-title">Start Your Digital Art Journey</h2>
+                    <p>Join thousands of artists and collectors on SquircleNFT</p>
+                    <button class="primary-btn">Explore Collections</button>
+                </div>
+
+                <!-- Dark Theme CTA -->
+                <div class="dark-content">
+                    <h2 id="cta-title-dark">Ready to Question Your Life Choices? 🤔</h2>
+                    <p>Join thousands of people who definitely didn't think this through</p>
+                    <button class="primary-btn">Start Losing Money</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="emoji-icon">🔷</span>
+                <h2>SquircleNFT</h2>
+                <!-- Light Theme Tagline -->
+                <p class="light-content">"Where digital art meets authentic ownership"</p>
+                <!-- Dark Theme Tagline -->
+                <p class="dark-content">"Digital ownership that doesn't actually own anything!"</p>
+            </div>
+            <div class="footer-links">
+                <!-- Light Theme Footer -->
+                <div class="light-content">
+                    <div class="footer-section">
+                        <h3>Marketplace</h3>
+                        <a href="#">Browse Art</a>
+                        <a href="#">Create Collection</a>
+                        <a href="#">Market Stats</a>
+                        <a href="#">Artist Resources</a>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Support</h3>
+                        <a href="#">Help Center</a>
+                        <a href="#">Community Guidelines</a>
+                        <a href="#">Creator Tools</a>
+                        <a href="#">API Documentation</a>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Company</h3>
+                        <a href="#">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Press Kit</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Dark Theme Footer -->
+                <div class="dark-content">
+                    <div class="footer-section">
+                        <h3>Marketplace</h3>
+                        <a href="#">Browse Regrets</a>
+                        <a href="#">Create Mistakes</a>
+                        <a href="#">Loss Statistics</a>
+                        <a href="#">Therapy Resources</a>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Legal (LOL)</h3>
+                        <a href="#">Terms of Regret</a>
+                        <a href="#">Privacy? What Privacy</a>
+                        <a href="#">Not Financial Advice*</a>
+                        <a href="#">Definitely Not a Scam**</a>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Support</h3>
+                        <a href="#">Cry for Help</a>
+                        <a href="#">Why Did I Do This?</a>
+                        <a href="#">Refund Policy (Spoiler: No)</a>
+                        <a href="#">Bankruptcy Forms</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Philip Walsh Developer Credit -->
+        <div class="developer-credit">
+            <h4>Crafted with Passion & Code</h4>
+            <p>This beautiful, responsive NFT marketplace was designed and developed by <strong>Philip Walsh</strong> -
+                a passionate full-stack developer creating amazing digital experiences.</p>
+            <ul class="social-links">
+                <li>
+                    <a href="https://linkedin.com/in/philip-walsh-01" target="_blank" rel="noopener noreferrer"
+                        aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Philip-Walsh" target="_blank" rel="noopener noreferrer"
+                        aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://codepen.io/Philip-Walsh/" target="_blank" rel="noopener noreferrer"
+                        aria-label="Codepen">
+                        <i class="fab fa-codepen"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer-bottom">
+            <!-- Light Theme Copyright -->
+            <p class="light-content">&copy; 2024 SquircleNFT. All rights reserved.</p>
+            <!-- Dark Theme Copyright -->
+            <p class="dark-content">&copy; 2024 SquircleNFT. All regrets reserved. *Definitely financial advice
+                **Probably a scam</p>
+        </div>
+    </footer>
+
+    <div id="toast-container" role="status" aria-live="polite"></div>
+</body>
+
+</html>

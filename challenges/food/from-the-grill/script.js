@@ -1,5 +1,4 @@
 $(function () {
-  // State management
   let state = {
     currentLanguage: 'en',
     showLabels: true,
@@ -55,7 +54,6 @@ $(function () {
     interactionBonus: 0
   };
 
-  // Load menu data
   async function loadMenuData() {
     try {
       const response = await fetch('menu.json');
@@ -71,21 +69,18 @@ $(function () {
     }
   }
 
-  // Load content from JSON
   async function loadContent() {
     try {
       const response = await fetch('content.json');
       if (!response.ok) throw new Error('Failed to load content');
       const data = await response.json();
 
-      // Load articles
       const articlesContainer = document.getElementById('articles-container');
       data.articles.forEach(article => {
         const articleCard = createArticleCard(article);
         articlesContainer.appendChild(articleCard);
       });
 
-      // Load footer content
       document.getElementById('footer-about').textContent = data.footer.about;
 
       const footerLinks = document.getElementById('footer-links');
