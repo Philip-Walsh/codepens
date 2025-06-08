@@ -1,0 +1,249 @@
+{
+  "challenges/pickAndChoose/pickers": {
+    "title": "Pickers",
+    "description": "Interactive pickAndChoose project",
+    "path": "challenges/pickAndChoose/pickers",
+    "category": "Pickandchoose",
+    "technologies": [
+      "Canvas"
+    ],
+    "modified": "2025-03-01 14:54:59.768805",
+    "hash": "676f922dfdf287bd622ff45890e7ac32"
+  },
+  "challenges/jsClassics/timer": {
+    "title": "timer",
+    "description": "Interactive jsClassics project",
+    "path": "challenges/jsClassics/timer",
+    "category": "Jsclassics",
+    "technologies": [],
+    "modified": "2025-02-01 08:29:52.490119",
+    "hash": "da8fb8516eaca826db8d24ac9a5513f0"
+  },
+  "challenges/jsClassics/rps-25": {
+    "title": "RPS-25\ud83d\udd2b\ud83d\udc09\ud83c\udf19",
+    "description": "Interactive jsClassics project",
+    "path": "challenges/jsClassics/rps-25",
+    "category": "Jsclassics",
+    "technologies": [],
+    "modified": "2025-02-01 08:29:52.490119",
+    "hash": "07fbd29c6c7fb1e0e6fa825081c1be83"
+  },
+  "challenges/jsClassics/cryptid-curiosity": {
+    "title": "Cryptid Curiosity",
+    "description": "Interactive jsClassics project",
+    "path": "challenges/jsClassics/cryptid-curiosity",
+    "category": "Jsclassics",
+    "technologies": [],
+    "modified": "2025-02-01 08:29:52.490119",
+    "hash": "a758ff925228d182770fa92429d4a361"
+  },
+  "challenges/letsScroll/aliens-among-us": {
+    "title": "Aliens Among Us",
+    "description": "Interactive letsScroll project",
+    "path": "challenges/letsScroll/aliens-among-us",
+    "category": "Letsscroll",
+    "technologies": [],
+    "modified": "2025-02-01 08:29:52.490119",
+    "hash": "6f03f6a9e8ffd98080ff0b874ede5a90"
+  },
+  "challenges/ShapesAndLines/squircle-ui": {
+    "title": "SquircleNFT | Premium Digital Art Marketplace",
+    "description": "SquircleNFT - Premium Digital Art Marketplace",
+    "path": "challenges/ShapesAndLines/squircle-ui",
+    "category": "Shapesandlines",
+    "technologies": [
+      "Squircle UI"
+    ],
+    "modified": "2025-06-06 19:20:52.834135",
+    "hash": "3c8853394125a006cf51189dc7e6f20b"
+  },
+  "challenges/ShapesAndLines/squircle": {
+    "title": "Squircle",
+    "description": "Interactive squircle design with animated effects",
+    "path": "challenges/ShapesAndLines/squircle",
+    "category": "Shapesandlines",
+    "technologies": [
+      "Squircle UI"
+    ],
+    "modified": "2025-06-06 18:14:39.350794",
+    "hash": "51d35b94166ebbebcce65d3b4534bd15"
+  },
+  "challenges/bugs/errors": {
+    "title": "Sierpinski Fractal",
+    "description": "Interactive bugs project",
+    "path": "challenges/bugs/errors",
+    "category": "Bugs",
+    "technologies": [
+      "React"
+    ],
+    "modified": "2025-03-11 16:32:20.192808",
+    "hash": "af28bf2fb5a78ddd518888b48ea975a9"
+  },
+  "challenges/bugs/glitches": {
+    "title": "Untitled",
+    "description": "Interactive bugs project",
+    "path": "challenges/bugs/glitches",
+    "category": "Bugs",
+    "technologies": [],
+    "modified": "2025-03-22 15:16:53.245985",
+    "hash": "c13743c9d40aefbcc2ee6c47d30ff36f"
+  },
+  "challenges/puzzles/maze-puzzle": {
+    "title": "Document",
+    "description": "Interactive puzzles project",
+    "path": "challenges/puzzles/maze-puzzle",
+    "category": "Puzzles",
+    "technologies": [
+      "Canvas"
+    ],
+    "modified": "2025-02-01 08:29:52.490119",
+    "hash": "38a9bff1c4f9012a27a2a66d7bc71bd2"
+  },
+  "challenges/puzzles/puzzle-pieces": {
+    "title": "Document",
+    "description": "Interactive puzzles project",
+    "path": "challenges/puzzles/puzzle-pieces",
+    "category": "Puzzles",
+    "technologies": [],
+    "modified": "2025-02-01 08:29:52.490119",
+    "hash": "3223793e27371fc37645a978554dbc55"
+  },
+  "challenges/puzzles/word-puzzle": {
+    "title": "Document",
+    "description": "Interactive puzzles project",
+    "path": "challenges/puzzles/word-puzzle",
+    "category": "Puzzles",
+    "technologies": [],
+    "modified": "2025-02-01 08:29:52.490119",
+    "hash": "54f7d16ccbd76f870a5e77c981b9b2ba"
+  },
+  "challenges/ranges/a-range-of-choices": {
+    "title": "A Range of Choices",
+    "description": "Interactive ranges project",
+    "path": "challenges/ranges/a-range-of-choices",
+    "category": "Ranges",
+    "technologies": [
+      "React"
+    ],
+    "modified": "2025-05-10 00:40:43.488940",
+    "hash": "afbcbe8a86f74ad859374ed359296bf3"
+  },
+  "challenges/food/from-the-grill": {
+    "title": "BBQ Grill Master",
+    "description": "Interactive Korean BBQ experience with vegan options",
+    "path": "challenges/food/from-the-grill",
+    "category": "Food",
+    "technologies": [
+      "jQuery",
+      "React"
+    ],
+    "modified": "2025-05-10 02:08:33.940697",
+    "hash": "25651cac2c74aa86d5acde424167fc35"
+  },
+  "challenges/food/toasts-&-snackbars": {
+    "title": "Toasts & Snackbars",
+    "description": "Interactive food project",
+    "path": "challenges/food/toasts-&-snackbars",
+    "category": "Food",
+    "technologies": [],
+    "modified": "2025-05-17 08:34:03.879955",
+    "hash": "be2ff34a7cf8136c678271615ef561bf"
+  },
+  "challenges/food/sweet-treats": {
+    "title": "Sweet Treats",
+    "description": "Interactive food project",
+    "path": "challenges/food/sweet-treats",
+    "category": "Food",
+    "technologies": [
+      "jQuery"
+    ],
+    "modified": "2025-05-30 18:37:56.890374",
+    "hash": "3f106b014e5667059497db6dfe5219b6"
+  },
+  "challenges/fractals/sierpinski-fractal": {
+    "title": "Sierpinski Fractal",
+    "description": "Interactive fractals project",
+    "path": "challenges/fractals/sierpinski-fractal",
+    "category": "Fractals",
+    "technologies": [],
+    "modified": "2025-02-01 08:29:52.490119",
+    "hash": "b8038c444041fbe49e9b29e56187dd22"
+  },
+  "challenges/fractals/wild-fractals": {
+    "title": "Wild Fractals",
+    "description": "Interactive fractals project",
+    "path": "challenges/fractals/wild-fractals",
+    "category": "Fractals",
+    "technologies": [
+      "Canvas"
+    ],
+    "modified": "2025-02-01 08:29:52.490119",
+    "hash": "d4b4328c3d82fac10f5ecb078113c37e"
+  },
+  "challenges/cards/card-glow": {
+    "title": "Card Glow",
+    "description": "Interactive cards project",
+    "path": "challenges/cards/card-glow",
+    "category": "Cards",
+    "technologies": [],
+    "modified": "2025-04-20 10:56:21.304522",
+    "hash": "28e68bad823494c1195eda42582eddfe"
+  },
+  "other/slide": {
+    "title": "Squircle Sliding Puzzle",
+    "description": "Interactive experiments project",
+    "path": "other/slide",
+    "category": "Experiments",
+    "technologies": [
+      "jQuery",
+      "Squircle UI"
+    ],
+    "modified": "2025-06-07 21:44:49.775828",
+    "hash": "6544df2c8f6f47b9906f6689f066aacc"
+  },
+  "other/room-iso": {
+    "title": "Room Iso",
+    "description": "Interactive experiments project",
+    "path": "other/room-iso",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-02-15 12:45:49.102328",
+    "hash": "733701e094a50071a088dc4956f14d1a"
+  },
+  "other/ngo-nav": {
+    "title": "NGO Nav",
+    "description": "Interactive experiments project",
+    "path": "other/ngo-nav",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-02-19 19:39:42.848216",
+    "hash": "5cbccb4e74e305b8012c322252ee00ec"
+  },
+  "other/trihedral-vertex": {
+    "title": "Trihedral Vertex",
+    "description": "Interactive experiments project",
+    "path": "other/trihedral-vertex",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-04-20 11:02:45.470778",
+    "hash": "c46ad7f26a1fc2bb0bc7c77ce73c26cc"
+  },
+  "other/timeCont": {
+    "title": "Pickers",
+    "description": "Interactive experiments project",
+    "path": "other/timeCont",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-04-20 11:02:19.100622",
+    "hash": "e96d52e287146cf2f5dbc3757221dd09"
+  },
+  "other/noise-mixer": {
+    "title": "noise mixer",
+    "description": "Interactive experiments project",
+    "path": "other/noise-mixer",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-02-01 08:29:53.150119",
+    "hash": "eed8b6a7a35e9ce3629b4141098d99f8"
+  }
+}

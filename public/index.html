@@ -3,50 +3,610 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Coding Challenges</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>🌟 Project Portfolio - Interactive Creations</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #22c55e;
+            --tertiary: #06b6d4;
+            --accent: #ef4444;
+            --background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 50%, rgba(51, 65, 85, 0.95) 100%);
+            --surface: rgba(255, 255, 255, 0.08);
+            --surface-hover: rgba(255, 255, 255, 0.12);
+            --text: #ffffff;
+            --text-light: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --glass-background: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --squircle-factor: 0.08;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--glass-background);
+            backdrop-filter: blur(20px);
+            border-radius: calc(var(--squircle-factor) * 200px);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+        }
+        
+        .title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            background: var(--surface);
+            padding: 1rem 1.5rem;
+            border-radius: calc(var(--squircle-factor) * 80px);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .category {
+            margin-bottom: 3rem;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .project-card {
+            background: var(--glass-background);
+            backdrop-filter: blur(15px);
+            border-radius: calc(var(--squircle-factor) * 100px);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            background: var(--surface-hover);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .project-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        .project-technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-tag {
+            background: var(--surface);
+            color: var(--text);
+            padding: 0.25rem 0.75rem;
+            border-radius: calc(var(--squircle-factor) * 50px);
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--tertiary));
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: calc(var(--squircle-factor) * 60px);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .last-updated {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .stats { flex-direction: column; align-items: center; }
+        }
+        </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Interactive Coding Challenges</h1>
-            <p>Explore and interact with various coding challenges and demos</p>
-        </header>
-
-        <main>
-            <section class="challenges">
-                <h2>Food & Cooking</h2>
-                <div class="challenge-grid">
-                    <a href="/challenges/food/from-the-grill" class="challenge-card">
-                        <div class="challenge-icon">🍖</div>
-                        <h3>BBQ Grill</h3>
-                        <p>Interactive Korean BBQ cooking experience</p>
+        <div class="header">
+            <h1 class="title">🌟 Interactive Project Portfolio</h1>
+            <p class="subtitle">A collection of creative coding experiments and challenges</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">25</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">11</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Technologies</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🚀</span>
+                    <span>Bugs</span>
+                    <span>(2)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">Sierpinski Fractal</h3>
+                    <p class="project-description">Interactive bugs project</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">React</span>
+                    </div>
+                    <a href="/challenges/bugs/errors" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
                     </a>
-                    <!-- Add more food challenges here -->
                 </div>
-
-                <h2>Games & Entertainment</h2>
-                <div class="challenge-grid">
-                    <a href="/challenges/cat/cat-tv" class="challenge-card">
-                        <div class="challenge-icon">🐱</div>
-                        <h3>Cat TV</h3>
-                        <p>Interactive emoji animation with bouncing mice, chasing cats, and random emojis</p>
+                <div class="project-card">
+                    <h3 class="project-title">Untitled</h3>
+                    <p class="project-description">Interactive bugs project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/challenges/bugs/glitches" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
                     </a>
-                    <!-- Add more game challenges here -->
                 </div>
-
-                <h2>Art & Design</h2>
-                <div class="challenge-grid">
-                    <!-- Add art challenges here -->
                 </div>
-            </section>
-        </main>
-
-        <footer>
-            <p>Built with ❤️ for interactive coding</p>
-        </footer>
+            </div>
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🚀</span>
+                    <span>Cards</span>
+                    <span>(1)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">Card Glow</h3>
+                    <p class="project-description">Interactive cards project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/challenges/cards/card-glow" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🧪</span>
+                    <span>Experiments</span>
+                    <span>(6)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">NGO Nav</h3>
+                    <p class="project-description">Interactive experiments project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/other/ngo-nav" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Pickers</h3>
+                    <p class="project-description">Interactive experiments project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/other/timeCont" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Room Iso</h3>
+                    <p class="project-description">Interactive experiments project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/other/room-iso" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Squircle Sliding Puzzle</h3>
+                    <p class="project-description">Interactive experiments project</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">jQuery</span><span class="tech-tag">Squircle UI</span>
+                    </div>
+                    <a href="/other/slide" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Trihedral Vertex</h3>
+                    <p class="project-description">Interactive experiments project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/other/trihedral-vertex" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">noise mixer</h3>
+                    <p class="project-description">Interactive experiments project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/other/noise-mixer" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🚀</span>
+                    <span>Food</span>
+                    <span>(3)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">BBQ Grill Master</h3>
+                    <p class="project-description">Interactive Korean BBQ experience with vegan options</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">jQuery</span><span class="tech-tag">React</span>
+                    </div>
+                    <a href="/challenges/food/from-the-grill" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Sweet Treats</h3>
+                    <p class="project-description">Interactive food project</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">jQuery</span>
+                    </div>
+                    <a href="/challenges/food/sweet-treats" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Toasts & Snackbars</h3>
+                    <p class="project-description">Interactive food project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/challenges/food/toasts-&-snackbars" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🚀</span>
+                    <span>Fractals</span>
+                    <span>(2)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">Sierpinski Fractal</h3>
+                    <p class="project-description">Interactive fractals project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/challenges/fractals/sierpinski-fractal" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Wild Fractals</h3>
+                    <p class="project-description">Interactive fractals project</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Canvas</span>
+                    </div>
+                    <a href="/challenges/fractals/wild-fractals" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🚀</span>
+                    <span>Jsclassics</span>
+                    <span>(3)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">Cryptid Curiosity</h3>
+                    <p class="project-description">Interactive jsClassics project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/challenges/jsClassics/cryptid-curiosity" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">RPS-25🔫🐉🌙</h3>
+                    <p class="project-description">Interactive jsClassics project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/challenges/jsClassics/rps-25" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">timer</h3>
+                    <p class="project-description">Interactive jsClassics project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/challenges/jsClassics/timer" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🚀</span>
+                    <span>Letsscroll</span>
+                    <span>(1)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">Aliens Among Us</h3>
+                    <p class="project-description">Interactive letsScroll project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/challenges/letsScroll/aliens-among-us" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🚀</span>
+                    <span>Pickandchoose</span>
+                    <span>(1)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">Pickers</h3>
+                    <p class="project-description">Interactive pickAndChoose project</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Canvas</span>
+                    </div>
+                    <a href="/challenges/pickAndChoose/pickers" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🚀</span>
+                    <span>Puzzles</span>
+                    <span>(3)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">Document</h3>
+                    <p class="project-description">Interactive puzzles project</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Canvas</span>
+                    </div>
+                    <a href="/challenges/puzzles/maze-puzzle" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Document</h3>
+                    <p class="project-description">Interactive puzzles project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/challenges/puzzles/puzzle-pieces" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Document</h3>
+                    <p class="project-description">Interactive puzzles project</p>
+                    <div class="project-technologies">
+                        
+                    </div>
+                    <a href="/challenges/puzzles/word-puzzle" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🚀</span>
+                    <span>Ranges</span>
+                    <span>(1)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">A Range of Choices</h3>
+                    <p class="project-description">Interactive ranges project</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">React</span>
+                    </div>
+                    <a href="/challenges/ranges/a-range-of-choices" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+            <div class="category">
+                <h2 class="category-title">
+                    <span>🚀</span>
+                    <span>Shapesandlines</span>
+                    <span>(2)</span>
+                </h2>
+                <div class="projects-grid">
+                    
+                <div class="project-card">
+                    <h3 class="project-title">Squircle</h3>
+                    <p class="project-description">Interactive squircle design with animated effects</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Squircle UI</span>
+                    </div>
+                    <a href="/challenges/ShapesAndLines/squircle" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">SquircleNFT | Premium Digital Art Marketplace</h3>
+                    <p class="project-description">SquircleNFT - Premium Digital Art Marketplace</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">Squircle UI</span>
+                    </div>
+                    <a href="/challenges/ShapesAndLines/squircle-ui" class="project-link">
+                        <span>View Project</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="last-updated">
+            Last updated: June 07, 2025 at 09:46 PM
+        </div>
     </div>
-
-    <script src="/js/main.js"></script>
 </body>
-</html> 
+</html>

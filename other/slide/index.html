@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Garden - Zen Puzzle</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+    <!-- Energy Display -->
+    <div class="points-display">
+        <span class="points-icon">🌿</span>
+        <span class="points-value" id="points-value">0</span>
+    </div>
+
+    <!-- Garden Wisdom -->
+    <div class="debug-toggle" id="debug-toggle">
+        <span>🪷</span>
+        <span>Wisdom</span>
+    </div>
+
+    <!-- Debug Info -->
+    <div class="debug-info" id="debug-info">
+        <div>Board State: <span id="debug-board"></span></div>
+        <div>Empty Position: <span id="debug-empty"></span></div>
+        <div>Is Solvable: <span id="debug-solvable"></span></div>
+    </div>
+
+    <div class="game-container">
+        <div class="game-header">
+            <h1 class="game-title">🌸 Floating Garden</h1>
+            <p class="game-subtitle">"Simplicity is the ultimate sophistication"</p>
+            <div class="game-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">🍃</span>
+                    <span class="stat-label">Flows</span>
+                    <span class="stat-value" id="move-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">⏳</span>
+                    <span class="stat-label">Breeze</span>
+                    <span class="stat-value" id="timer">00:00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="puzzle-board" id="puzzle-board">
+            <!-- Tiles will be generated here -->
+        </div>
+
+        <div class="game-controls">
+            <button class="control-btn primary" id="new-game-btn">
+                <span class="btn-icon">🌱</span>
+                <span>New Garden</span>
+            </button>
+            <button class="control-btn secondary" id="shuffle-btn">
+                <span class="btn-icon">🌊</span>
+                <span>Ripple</span>
+            </button>
+            <button class="control-btn secondary" id="change-image-btn">
+                <span class="btn-icon">🦋</span>
+                <span>New Scene</span>
+            </button>
+            <button class="control-btn secondary" id="hint-btn">
+                <span class="btn-icon">💫</span>
+                <span>Gentle Glow</span>
+            </button>
+            <button class="control-btn secondary" id="rules-btn">
+                <span class="btn-icon">📜</span>
+                <span>Garden Way</span>
+            </button>
+        </div>
+
+        <div class="difficulty-selector">
+            <label class="difficulty-label">Difficulty:</label>
+            <div class="difficulty-options">
+                <button class="difficulty-btn" data-size="3">3×3</button>
+                <button class="difficulty-btn active" data-size="4">4×4</button>
+                <button class="difficulty-btn" data-size="5">5×5</button>
+            </div>
+        </div>
+
+        <!-- Garden Elements -->
+        <div class="shop-container">
+            <h3 class="shop-title">🌺 Garden Elements</h3>
+            <div class="shop-items" id="shop-items">
+                <!-- Garden elements will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="win-modal" id="win-modal">
+        <div class="modal-content">
+            <div class="win-icon">🌸</div>
+            <h2 class="win-title">Garden in Harmony!</h2>
+            <div class="win-stats">
+                <div class="win-stat">
+                    <span class="win-stat-value" id="final-moves">0</span>
+                    <span class="win-stat-label">Flows</span>
+                </div>
+                <div class="win-stat">
+                    <span class="win-stat-value" id="final-time">00:00</span>
+                    <span class="win-stat-label">Breeze</span>
+                </div>
+            </div>
+            <div class="win-actions">
+                <button class="control-btn primary" id="play-again-btn">
+                    <span class="btn-icon">🌱</span>
+                    <span>Plant Again</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Rules Modal -->
+    <div class="rules-modal" id="rules-modal">
+        <div class="rules-content">
+            <div class="rules-header">
+                <h2 class="rules-title">🌿 Floating Garden - The Garden Way</h2>
+                <button class="rules-close" id="rules-close">✕</button>
+            </div>
+
+            <div class="rules-sections">
+                <div class="rules-nav">
+                    <button class="rules-nav-btn active" data-section="basics">🌱 Essence</button>
+                    <button class="rules-nav-btn" data-section="controls">🍃 Flow</button>
+                    <button class="rules-nav-btn" data-section="powerups">🌺 Elements</button>
+                    <button class="rules-nav-btn" data-section="scoring">🌿 Energy</button>
+                    <button class="rules-nav-btn" data-section="tips">🪷 Wisdom</button>
+                </div>
+
+                <div class="rules-body">
+                    <!-- Basics Section -->
+                    <div class="rules-section active" id="section-basics">
+                        <h3>🎯 Game Basics</h3>
+                        <div class="rule-item">
+                            <h4>🎮 Objective</h4>
+                            <p>Arrange numbered tiles in order (1-15 for 4×4) by sliding them into the empty space. The
+                                final arrangement should have numbers 1-15 in sequence with the empty space in the
+                                bottom-right corner.</p>
+                        </div>
+
+                        <div class="rule-item">
+                            <h4>🧩 How to Move Tiles</h4>
+                            <ul>
+                                <li><strong>Click:</strong> Click any tile adjacent to the empty space</li>
+                                <li><strong>Keyboard:</strong> Use arrow keys to move tiles into the empty space</li>
+                                <li><strong>Touch:</strong> Tap or swipe tiles on mobile devices</li>
+                            </ul>
+                        </div>
+
+                        <div class="rule-item">
+                            <h4>🎲 Difficulty Levels</h4>
+                            <ul>
+                                <li><strong>3×3:</strong> Beginner (8 tiles) - Perfect for learning</li>
+                                <li><strong>4×4:</strong> Normal (15 tiles) - Standard challenge</li>
+                                <li><strong>5×5:</strong> Expert (24 tiles) - Advanced puzzle</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Controls Section -->
+                    <div class="rules-section" id="section-controls">
+                        <h3>🎮 Controls & Features</h3>
+
+                        <div class="rule-item">
+                            <h4>🔄 Game Controls</h4>
+                            <ul>
+                                <li><strong>New Game:</strong> Start fresh with a new shuffled puzzle</li>
+                                <li><strong>Shuffle:</strong> Re-shuffle current puzzle (+5 moves penalty)</li>
+                                <li><strong>New Image:</strong> Get a random scenic background image</li>
+                                <li><strong>Hint:</strong> Highlights tiles that can be moved</li>
+                                <li><strong>Rules:</strong> Opens this help guide</li>
+                            </ul>
+                        </div>
+
+                        <div class="rule-item">
+                            <h4>🎯 Visual Helpers</h4>
+                            <ul>
+                                <li><strong>Movable Tiles:</strong> Glow with special border when adjacent to empty
+                                    space</li>
+                                <li><strong>Numbers:</strong> Displayed over beautiful background images</li>
+                                <li><strong>Particle Effects:</strong> Colorful particles appear on successful moves
+                                </li>
+                                <li><strong>Animations:</strong> Smooth sliding transitions for better feedback</li>
+                            </ul>
+                        </div>
+
+                        <div class="rule-item">
+                            <h4>🐛 Debug Mode</h4>
+                            <p>Click the debug button (🐛) in the top-left to enable developer mode. This shows board
+                                state information and gives bonus points for testing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Power-ups Section -->
+                    <div class="rules-section" id="section-powerups">
+                        <h3>⚡ Power-Up Shop</h3>
+
+                        <div class="rule-item">
+                            <h4>⚡ Lightning Bolt</h4>
+                            <ul>
+                                <li><strong>Cost:</strong> 50 points</li>
+                                <li><strong>Effect:</strong> Move any tile to any empty position instantly</li>
+                                <li><strong>Penalty:</strong> +3 moves to your count</li>
+                                <li><strong>How to use:</strong> Buy → Click "Use" → Select tile → Click empty space
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="rule-item">
+                            <h4>🛒 Shop System</h4>
+                            <ul>
+                                <li><strong>Purchase:</strong> Buy power-ups with earned points</li>
+                                <li><strong>Ownership:</strong> Keep purchased items permanently</li>
+                                <li><strong>Usage:</strong> Use owned power-ups as many times as desired</li>
+                                <li><strong>Visual Feedback:</strong> Lightning mode changes cursor and highlights tiles
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Scoring Section -->
+                    <div class="rules-section" id="section-scoring">
+                        <h3>💎 Points & Scoring</h3>
+
+                        <div class="rule-item">
+                            <h4>💰 Earning Points</h4>
+                            <ul>
+                                <li><strong>Regular Moves:</strong> +1 point per move</li>
+                                <li><strong>Power-up Usage:</strong> +5 points when using lightning bolt</li>
+                                <li><strong>Completion Bonus:</strong> Large bonus based on speed and efficiency</li>
+                                <li><strong>Time Bonus:</strong> Up to 300 points for fast completion</li>
+                                <li><strong>Move Bonus:</strong> Up to 50 points for efficient solving</li>
+                            </ul>
+                        </div>
+
+                        <div class="rule-item">
+                            <h4>📊 Move Penalties</h4>
+                            <ul>
+                                <li><strong>Shuffle:</strong> +5 moves</li>
+                                <li><strong>Lightning Bolt:</strong> +3 moves</li>
+                                <li><strong>Debug Mode:</strong> +2 moves (original penalty)</li>
+                            </ul>
+                        </div>
+
+                        <div class="rule-item">
+                            <h4>🎯 Winning</h4>
+                            <p>Complete the puzzle to earn bonus points and see your final stats. The faster and more
+                                efficiently you solve it, the higher your bonus!</p>
+                        </div>
+                    </div>
+
+                    <!-- Tips Section -->
+                    <div class="rules-section" id="section-tips">
+                        <h3>💡 Pro Tips & Strategies</h3>
+
+                        <div class="rule-item">
+                            <h4>🧠 Solving Strategy</h4>
+                            <ul>
+                                <li><strong>Start with corners:</strong> Position corner pieces first</li>
+                                <li><strong>Work top-down:</strong> Complete the top row, then second row, etc.</li>
+                                <li><strong>Use the hint button:</strong> When stuck, see which tiles can move</li>
+                                <li><strong>Plan ahead:</strong> Think 2-3 moves in advance</li>
+                            </ul>
+                        </div>
+
+                        <div class="rule-item">
+                            <h4>⚡ Power-up Strategy</h4>
+                            <ul>
+                                <li><strong>Save for stuck moments:</strong> Use lightning bolt when truly stuck</li>
+                                <li><strong>Final positions:</strong> Great for placing the last few tiles</li>
+                                <li><strong>Point management:</strong> Earn points through regular play before spending
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="rule-item">
+                            <h4>🎮 Advanced Techniques</h4>
+                            <ul>
+                                <li><strong>Corner cycling:</strong> Move tiles around corners to position them</li>
+                                <li><strong>Empty space management:</strong> Keep the empty space where you need it</li>
+                                <li><strong>Pattern recognition:</strong> Learn common tile arrangements</li>
+                                <li><strong>Keyboard shortcuts:</strong> Arrow keys are faster than clicking</li>
+                            </ul>
+                        </div>
+
+                        <div class="rule-item">
+                            <h4>🏆 Mastery Goals</h4>
+                            <ul>
+                                <li><strong>Speed:</strong> Complete 4×4 puzzle under 2 minutes</li>
+                                <li><strong>Efficiency:</strong> Solve with minimal moves</li>
+                                <li><strong>Progression:</strong> Master 3×3, then 4×4, then 5×5</li>
+                                <li><strong>No power-ups:</strong> Challenge yourself without lightning bolt</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
