@@ -22,7 +22,6 @@ Here's a peek at what's inside this repo:
     - [Scrolling Ad](https://codepen.io/Philip-Walsh/pen/ExzzEVb)
     - [Aliens Among Us](https://codepen.io/Philip-Walsh/pen/oNKvJNv)
 
-
 ## 🚀 How to Use This Repo
 
 - Jump into any project by clicking the links above to view the CodePen live demo.
@@ -34,5 +33,3 @@ Here's a peek at what's inside this repo:
 Follow my [CodePen profile](https://codepen.io/Philip-Walsh) to keep up with my latest experiments and challenges. Let's connect, collaborate, and build something awesome together! 💥🎉
 
 Happy coding! 👨‍💻👩‍💻
-
-

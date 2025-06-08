@@ -52,13 +52,13 @@ your-project/
 ## 🎯 Technology Detection
 
 The script automatically detects these technologies in your HTML:
+
 - jQuery (`$()` or `jquery`)
 - React (`react`)
 - Vue (`vue`)
 - Canvas (`canvas`)
 - Three.js (`three.js` or `threejs`)
 - GSAP (`gsap`)
-- Squircle UI (`squircle`)
 
 ## 📈 Caching System
 
@@ -69,6 +69,7 @@ The script automatically detects these technologies in your HTML:
 ## ⚙️ Configuration
 
 Edit `.index-config.json` to customize:
+
 - Site title and subtitle
 - Category icons
 - Technology detection patterns
@@ -77,6 +78,7 @@ Edit `.index-config.json` to customize:
 ## 🌐 Generated Output
 
 Creates `public/index.html` with:
+
 - Project cards grouped by category
 - Technology tags for each project
 - Click-through links to projects
@@ -86,8 +88,7 @@ Creates `public/index.html` with:
 ## 📝 Examples
 
 Your sliding puzzle game will show up as:
+
 - **Category**: Experiments 🧪
 - **Technologies**: jQuery, Squircle UI
 - **Link**: `/other/slide`
-
-Perfect for showcasing your portfolio! 🎨✨ 
