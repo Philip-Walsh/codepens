@@ -190,16 +190,15 @@
     "hash": "28e68bad823494c1195eda42582eddfe"
   },
   "other/slide": {
-    "title": "Squircle Sliding Puzzle",
+    "title": "Floating Garden - Zen Puzzle",
     "description": "Interactive experiments project",
     "path": "other/slide",
     "category": "Experiments",
     "technologies": [
-      "jQuery",
-      "Squircle UI"
+      "jQuery"
     ],
-    "modified": "2025-06-07 21:44:49.775828",
-    "hash": "6544df2c8f6f47b9906f6689f066aacc"
+    "modified": "2025-06-10 20:57:28.670330",
+    "hash": "98a26ba852ecde0477dd8625d0bf8629"
   },
   "other/room-iso": {
     "title": "Room Iso",
@@ -245,5 +244,14 @@
     "technologies": [],
     "modified": "2025-02-01 08:29:53.150119",
     "hash": "eed8b6a7a35e9ce3629b4141098d99f8"
+  },
+  "challenges/ShapesAndLines/squiggles": {
+    "title": "Squiggles",
+    "description": "Interactive ShapesAndLines project",
+    "path": "challenges/ShapesAndLines/squiggles",
+    "category": "Shapesandlines",
+    "technologies": [],
+    "modified": "2025-06-10 21:01:52.660028",
+    "hash": "c073441abdb3c9044e245336888dd647"
   }
 }
