@@ -56,6 +56,7 @@ $(document).ready(function () {
         setupEventListeners();
         renderShop();
         updatePointsDisplay();
+        renderQuickPowerups();
         newGame();
         // Initial background update
         setTimeout(updateBackgroundImage, 100);
@@ -241,6 +242,7 @@ $(document).ready(function () {
         $tile.addClass('sliding');
 
         setTimeout(() => {
+            $tile.removeClass('sliding');
             swapWithEmpty(pos, true);
             renderBoard();
             updateDebugInfo();
@@ -249,7 +251,7 @@ $(document).ready(function () {
             if (checkWin()) {
                 gameComplete();
             }
-        }, 300);
+        }, 150);
     }
 
     // Lightning bolt power-up functionality
@@ -459,6 +461,7 @@ $(document).ready(function () {
     function updatePointsDisplay() {
         $('#points-value').text(gameState.points);
         renderShop(); // Update shop affordability
+        renderQuickPowerups(); // Update quick power-ups panel
     }
 
     // Shop system
@@ -507,6 +510,7 @@ $(document).ready(function () {
             gameState.powerUps[itemId].owned = item.owned;
             saveGameData();
             renderShop();
+            renderQuickPowerups();
             showNotification(`${item.name} purchased! 🛒`, 'success');
         } else {
             showNotification('Not enough points! 💎', 'error');
@@ -527,6 +531,57 @@ $(document).ready(function () {
             showNotification('Lotus flow awakened! Guide a tile to its destined place 🪷', 'success');
         }
     });
+
+    // Render quick power-ups panel
+    function renderQuickPowerups() {
+        const $quickPowerups = $('#quick-powerups');
+        $quickPowerups.empty();
+
+        // Get owned power-ups
+        const ownedPowerups = Object.values(shopItems).filter(item => item.owned > 0);
+
+        if (ownedPowerups.length === 0) {
+            $quickPowerups.removeClass('show');
+            return;
+        }
+
+        ownedPowerups.forEach(item => {
+            const isActive = gameState.lightningMode && item.id === 'lightning';
+
+            const $item = $(`
+                <div class="quick-powerup-item ${isActive ? 'active' : ''}" data-powerup="${item.id}">
+                    <span class="quick-powerup-icon">${item.icon}</span>
+                    <span class="quick-powerup-name">${item.name}</span>
+                </div>
+            `);
+
+            $item.on('click', function () {
+                handleQuickPowerupClick(item.id);
+            });
+
+            $quickPowerups.append($item);
+        });
+
+        $quickPowerups.addClass('show');
+    }
+
+    // Handle quick power-up click
+    function handleQuickPowerupClick(powerupId) {
+        if (powerupId === 'lightning') {
+            if (gameState.lightningMode) {
+                // Exit lightning mode
+                gameState.lightningMode = false;
+                $('body').removeClass('lightning-mode');
+                showNotification('Lightning mode deactivated', 'success');
+            } else {
+                // Enter lightning mode
+                gameState.lightningMode = true;
+                $('body').addClass('lightning-mode');
+                showNotification('Lightning mode activated! Click a tile, then click where to move it.', 'success');
+            }
+            renderQuickPowerups(); // Update active state
+        }
+    }
 
     // Debug mode
     function toggleDebugMode() {
@@ -647,13 +702,13 @@ $(document).ready(function () {
         }
     }
 
-    // Add particle effect on successful moves
-    $(document).on('click', '.puzzle-tile.movable', function (e) {
-        const rect = this.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-        createParticleEffect(x, y);
-    });
+    // Particle effects disabled for faster gameplay
+    // $(document).on('click', '.puzzle-tile.movable', function (e) {
+    //     const rect = this.getBoundingClientRect();
+    //     const x = rect.left + rect.width / 2;
+    //     const y = rect.top + rect.height / 2;
+    //     createParticleEffect(x, y);
+    // });
 
     // Initialize game when document is ready
     initGame();
