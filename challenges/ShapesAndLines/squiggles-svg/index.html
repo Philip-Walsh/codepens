@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SVG-based squiggle animations">
+    <title>SVG Squiggles</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="scroll-progress"></div>
+
+    <header class="header">
+        <div class="container">
+            <h1>SVG Squiggles</h1>
+            <p class="subtitle">Interactive SVG path animations</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="canvas-container">
+            <svg id="squiggle-svg" viewBox="0 0 800 600">
+                <defs>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                        <feMerge>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+
+                    <linearGradient id="squiggle-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" class="gradient-start" />
+                        <stop offset="100%" class="gradient-end" />
+                    </linearGradient>
+                </defs>
+                <g id="squiggles-container"></g>
+            </svg>
+            <div class="canvas-overlay">
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <i class="ri-sun-line"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="controls-panel">
+            <div class="control-group">
+                <h2>Path Properties</h2>
+                <div class="control">
+                    <label for="complexity">Path Complexity</label>
+                    <input type="range" id="complexity" min="3" max="20" value="8">
+                    <span class="value">8</span>
+                </div>
+                <div class="control">
+                    <label for="smoothness">Smoothness</label>
+                    <input type="range" id="smoothness" min="0.1" max="1" value="0.5" step="0.1">
+                    <span class="value">0.5</span>
+                </div>
+                <div class="control">
+                    <label for="speed">Animation Speed</label>
+                    <input type="range" id="speed" min="1" max="10" value="3" step="0.5">
+                    <span class="value">3</span>
+                </div>
+                <div class="control">
+                    <label for="stroke-width">Stroke Width</label>
+                    <input type="range" id="stroke-width" min="1" max="10" value="3" step="0.5">
+                    <span class="value">3</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h2>Style Settings</h2>
+                <div class="style-controls">
+                    <div class="color-picker">
+                        <label for="start-color">Start Color</label>
+                        <input type="color" id="start-color" value="#4ECDC4">
+                    </div>
+                    <div class="color-picker">
+                        <label for="end-color">End Color</label>
+                        <input type="color" id="end-color" value="#FF6B6B">
+                    </div>
+                    <div class="control">
+                        <label for="glow-intensity">Glow Intensity</label>
+                        <input type="range" id="glow-intensity" min="0" max="10" value="3" step="0.5">
+                        <span class="value">3</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="add-path" class="btn primary">
+                    <i class="ri-add-line"></i>
+                    Add Path
+                </button>
+                <button id="reset" class="btn secondary">
+                    <i class="ri-refresh-line"></i>
+                    Reset
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Created with <i class="ri-heart-fill"></i> by <a href="https://github.com/yourusername">Your Name</a></p>
+        </div>
+    </footer>
+</body>
+
+</html>
