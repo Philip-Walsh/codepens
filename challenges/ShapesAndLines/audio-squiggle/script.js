@@ -7,23 +7,10 @@ const closeMenu = document.querySelector('.close-menu');
 const bgColorInput = document.getElementById('bg-color');
 const squiggleColorInput = document.getElementById('squiggle-color');
 const glowIntensityInput = document.getElementById('glow-intensity');
-const audioFileInput = document.getElementById('audio-file');
+const speechBubble = document.querySelector('.speech-bubble');
 
-// Example Speech URLs
-const speechExamples = [
-    {
-        name: "Hello John (Male)",
-        url: "https://cdn.jsdelivr.net/gh/microsoft/edge-tts-js@main/examples/hello.mp3"
-    },
-    {
-        name: "Hello John (Female)",
-        url: "https://cdn.jsdelivr.net/gh/microsoft/edge-tts-js@main/examples/hello-female.mp3"
-    },
-    {
-        name: "Welcome Message",
-        url: "https://cdn.jsdelivr.net/gh/microsoft/edge-tts-js@main/examples/welcome.mp3"
-    }
-];
+// Audio URL - Using raw GitHub content URL
+const defaultAudioUrl = 'https://raw.githubusercontent.com/Philip-Walsh/codepens/main/challenges/ShapesAndLines/audio-squiggle/I-have-a-voice.m4a';
 
 // Audio Context
 let audioContext;
@@ -32,6 +19,10 @@ let dataArray;
 let source;
 let animationId;
 let isPlaying = false;
+let audioElement;
+let lastValues = []; // Store last values for smoothing
+let timeOffset = 0; // For wave movement
+let phaseOffset = 0; // For continuous phase
 
 // Initialize Audio Context
 function initAudio() {
@@ -41,8 +32,14 @@ function initAudio() {
         analyser.fftSize = 256;
         const bufferLength = analyser.frequencyBinCount;
         dataArray = new Uint8Array(bufferLength);
-        console.log('Audio context initialized');
+        // Initialize lastValues array
+        lastValues = new Array(bufferLength).fill(0);
     }
+}
+
+// Smooth value transition
+function smoothValue(current, target, smoothing = 0.2) {
+    return current + (target - current) * smoothing;
 }
 
 // Update Squiggle Path
@@ -51,33 +48,62 @@ function updateSquiggle() {
 
     analyser.getByteFrequencyData(dataArray);
 
-    // Calculate average frequency
-    const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
-    const normalizedAverage = average / 255; // Normalize to 0-1
+    // Get SVG dimensions
+    const svgWidth = svg.clientWidth;
+    const svgHeight = svg.clientHeight;
 
     // Generate path data
-    const width = 100;
-    const height = 20;
-    const segments = 20;
+    const width = svgWidth;
+    const height = svgHeight;
+    const segments = 200; // More segments for smoother wave
     const segmentWidth = width / segments;
+    const padding = height * 0.1; // 10% padding from top and bottom
 
-    let pathData = `M 0,${height / 2}`;
+    // Update phase offset for continuous movement
+    phaseOffset = (phaseOffset + 0.01) % (Math.PI * 2);
 
+    let pathData = '';
+    let points = [];
+
+    // First pass: collect all points
     for (let i = 0; i <= segments; i++) {
         const x = i * segmentWidth;
-        const frequency = dataArray[Math.floor(i * dataArray.length / segments)];
-        const normalizedFreq = frequency / 255;
-        const y = height / 2 + (normalizedFreq - 0.5) * height * 0.8;
 
-        if (i === 0) {
-            pathData += ` M ${x},${y}`;
-        } else {
-            const cp1x = x - segmentWidth / 2;
-            const cp1y = y;
-            const cp2x = x - segmentWidth / 2;
-            const cp2y = y;
-            pathData += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${x},${y}`;
-        }
+        // Calculate frequency index with phase offset
+        const frequencyIndex = Math.floor((i + phaseOffset * 20) % dataArray.length);
+        const frequency = dataArray[frequencyIndex];
+
+        // Smooth the frequency value
+        lastValues[frequencyIndex] = smoothValue(lastValues[frequencyIndex], frequency);
+        const smoothedFreq = lastValues[frequencyIndex];
+
+        // Calculate y position with padding and reduced amplitude
+        const amplitude = (height - padding * 2) * 0.4; // 40% of available height
+
+        // Add sine wave movement for smoother animation
+        const sineOffset = Math.sin(phaseOffset + i * 0.05) * 0.2;
+
+        // Center the wave around the middle and ensure it goes both up and down
+        const normalizedFreq = (smoothedFreq / 255) - 0.5; // Center around 0
+        const y = height / 2 + (normalizedFreq + sineOffset) * amplitude;
+
+        points.push({ x, y });
+    }
+
+    // Second pass: generate smooth path
+    pathData = `M ${points[0].x},${points[0].y}`;
+
+    for (let i = 1; i < points.length; i++) {
+        const current = points[i];
+        const previous = points[i - 1];
+
+        // Calculate control points for smooth curve
+        const cp1x = previous.x + (current.x - previous.x) * 0.5;
+        const cp1y = previous.y;
+        const cp2x = current.x - (current.x - previous.x) * 0.5;
+        const cp2y = current.y;
+
+        pathData += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${current.x},${current.y}`;
     }
 
     path.setAttribute('d', pathData);
@@ -87,73 +113,104 @@ function updateSquiggle() {
     }
 }
 
-// Handle Audio File
-function handleAudioFile(file) {
-    if (!audioContext) initAudio();
-
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        const arrayBuffer = e.target.result;
-        audioContext.decodeAudioData(arrayBuffer, function (buffer) {
-            if (source) source.disconnect();
-            source = audioContext.createBufferSource();
-            source.buffer = buffer;
-            source.connect(analyser);
-            analyser.connect(audioContext.destination);
-            source.start(0);
-            isPlaying = true;
-            if (!animationId) updateSquiggle();
-            console.log('Audio file playing');
-        });
-    };
-    reader.readAsArrayBuffer(file);
-}
-
 // Handle Audio URL
 async function handleAudioURL(url) {
     if (!audioContext) initAudio();
 
     try {
-        console.log('Fetching audio from:', url);
+        // Hide speech bubble when starting playback
+        if (speechBubble) {
+            speechBubble.style.opacity = '0';
+            setTimeout(() => {
+                speechBubble.style.display = 'none';
+            }, 500);
+        }
+
+        // Create new audio element each time
+        if (audioElement) {
+            audioElement.pause();
+            audioElement.remove();
+        }
+
+        audioElement = document.createElement('audio');
+        audioElement.crossOrigin = "anonymous";
+        document.body.appendChild(audioElement);
+
+        // First try to fetch the audio to ensure it's accessible
         const response = await fetch(url);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const arrayBuffer = await response.arrayBuffer();
 
-        audioContext.decodeAudioData(arrayBuffer, function (buffer) {
-            if (source) source.disconnect();
-            source = audioContext.createBufferSource();
-            source.buffer = buffer;
-            source.connect(analyser);
-            analyser.connect(audioContext.destination);
-            source.start(0);
-            isPlaying = true;
-            if (!animationId) updateSquiggle();
-            console.log('Audio URL playing');
+        // If fetch succeeds, set the audio source
+        audioElement.src = url;
+
+        // Wait for audio to be loaded
+        await new Promise((resolve, reject) => {
+            audioElement.oncanplaythrough = resolve;
+            audioElement.onerror = reject;
+            audioElement.load();
         });
+
+        // Create new media element source
+        if (source) {
+            source.disconnect();
+        }
+        source = audioContext.createMediaElementSource(audioElement);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        // Add ended event listener
+        audioElement.onended = () => {
+            isPlaying = false;
+            setTimeout(() => {
+                showResetButton();
+            }, 2000);
+        };
+
+        // Start playing
+        await audioElement.play();
+        isPlaying = true;
+        if (!animationId) updateSquiggle();
+
     } catch (error) {
         console.error('Error loading audio:', error);
-        alert('Error loading audio. Please try another URL or file.');
+        showResetButton();
     }
 }
 
-// Create Example Buttons
-function createExampleButtons() {
-    const examplesContainer = document.createElement('div');
-    examplesContainer.className = 'examples-container';
+// Show Reset Button
+function showResetButton() {
+    const resetContainer = document.createElement('div');
+    resetContainer.className = 'reset-container';
 
-    speechExamples.forEach(example => {
-        const button = document.createElement('button');
-        button.className = 'example-btn';
-        button.textContent = example.name;
-        button.addEventListener('click', () => {
-            console.log('Example button clicked:', example.name);
-            handleAudioURL(example.url);
-        });
-        examplesContainer.appendChild(button);
+    const resetButton = document.createElement('button');
+    resetButton.className = 'reset-btn';
+    resetButton.textContent = 'Play Again';
+    resetButton.addEventListener('click', () => {
+        resetContainer.remove();
+        handleAudioURL(defaultAudioUrl);
     });
 
-    // Insert after the audio file input
-    audioFileInput.parentNode.insertBefore(examplesContainer, audioFileInput.nextSibling);
+    const urlInput = document.createElement('input');
+    urlInput.type = 'text';
+    urlInput.placeholder = 'Or enter custom audio URL';
+    urlInput.className = 'url-input';
+
+    const playCustomButton = document.createElement('button');
+    playCustomButton.className = 'custom-btn';
+    playCustomButton.textContent = 'Play Custom';
+    playCustomButton.addEventListener('click', () => {
+        const url = urlInput.value.trim();
+        if (url) {
+            resetContainer.remove();
+            handleAudioURL(url);
+        }
+    });
+
+    resetContainer.appendChild(resetButton);
+    resetContainer.appendChild(urlInput);
+    resetContainer.appendChild(playCustomButton);
+
+    document.body.appendChild(resetContainer);
 }
 
 // Settings
@@ -184,23 +241,14 @@ bgColorInput.addEventListener('input', updateSettings);
 squiggleColorInput.addEventListener('input', updateSettings);
 glowIntensityInput.addEventListener('input', updateSettings);
 
-audioFileInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        console.log('File selected:', file.name);
-        handleAudioFile(file);
-    }
-});
-
 // Initialize
 updateSettings();
-createExampleButtons();
 
-// Add click handler to start audio context
+// Add click handler to start audio context and play default audio
 document.addEventListener('click', function initAudioOnClick() {
     if (!audioContext) {
         initAudio();
-        console.log('Audio context initialized on first click');
+        handleAudioURL(defaultAudioUrl);
     }
     document.removeEventListener('click', initAudioOnClick);
 }, { once: true });
@@ -209,4 +257,5 @@ document.addEventListener('click', function initAudioOnClick() {
 window.addEventListener('beforeunload', () => {
     if (animationId) cancelAnimationFrame(animationId);
     if (audioContext) audioContext.close();
+    if (audioElement) audioElement.remove();
 }); 
