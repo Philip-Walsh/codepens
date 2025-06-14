@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Syne+Mono&display=swap');
+
+html {
+  font-size: 16px;
+  font-size: 4em;
+  background: linear-gradient(#ffa55d, #ffdf88);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: 'Syne Mono', monospace;
+}
+
+.big-face {
+  --bg: radial-gradient(ellipse at center, rgba(255, 165, 93, 1), rgba(167, 101, 69, 1));
+  --size: 2em;
+
+  width: calc(var(--size) * 1.8);
+  height: calc(var(--size) * 1.2);
+
+  background-size: calc(var(--size) * 4) calc(var(--size) * 4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  /* Elliptical shape */
+  background: #ffdf88;
+  background-image: var(--bg);
+  animation: move 3s infinite ease-in-out;
+  position: relative;
+}
+
+.eye-l,
+.eye-r,
+.mouth {
+  animation: grow 3s infinite ease-in-out;
+  transition: all 0.8s;
+}
+
+.eye-l {
+  padding-right: .3em;
+}
+
+.eye-r {
+  padding-left: .3em;
+}
+
+.mouth {
+  padding-top: .5em;
+}
+
+@keyframes move {
+
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0.1em);
+  }
+
+  50% {
+    transform: rotate(2deg) translateY(-0.1em);
+    background-position: 0.1rem 0.1rem;
+  }
+}
+
+@keyframes grow {
+  50% {
+    font-size: 1.1em;
+  }
+}
