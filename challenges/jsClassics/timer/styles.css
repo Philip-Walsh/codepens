@@ -1,209 +1,212 @@
-@import url("https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap');
 
 :root {
-	--bg-color: #20232a;
+  --bg-color: #20232a;
 
-	--numbers-color: #ffc470;
-	--clock-base-color: #4793af;
-	--flap-color: #8b322c;
-	--button-color: #dd5746;
-	--button-base-color: #8b322c;
+  --numbers-color: #ffc470;
+  --clock-base-color: #4793af;
+  --flap-color: #8b322c;
+  --button-color: #dd5746;
+  --button-base-color: #8b322c;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-	background-color: var(--bg-color);
-	background-image: radial-gradient(#ffffff 0.5px, transparent 0.5px),
-		radial-gradient(#ffffff 0.5px, var(--bg-color) 0.5px);
-	background-size: 20px 20px;
-	background-position: 0 0, 10px 10px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	font-family: sans-serif;
-	font-family: "Cutive Mono", monospace;
-	font-weight: 400;
-	font-style: normal;
+  background-color: var(--bg-color);
+  background-image:
+    radial-gradient(#ffffff 0.5px, transparent 0.5px),
+    radial-gradient(#ffffff 0.5px, var(--bg-color) 0.5px);
+  background-size: 20px 20px;
+  background-position:
+    0 0,
+    10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: sans-serif;
+  font-family: 'Cutive Mono', monospace;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .stopwatch {
-	background: var(--clock-base-color);
-	background-color: #4793af;
-	background-size: 10px 10px;
-	background-image: repeating-linear-gradient(
-		45deg,
-		#ffc470 0,
-		#ffc470 1px,
-		#4793af 0,
-		#4793af 50%
-	);
-	padding: 1.2em;
-	border-radius: 1em;
+  background: var(--clock-base-color);
+  background-color: #4793af;
+  background-size: 10px 10px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ffc470 0,
+    #ffc470 1px,
+    #4793af 0,
+    #4793af 50%
+  );
+  padding: 1.2em;
+  border-radius: 1em;
 }
 
 #time-display {
-	font-size: 3rem;
-	font-weight: bold;
-	margin-bottom: 0.5vh;
-	border: 1px solid gray;
-	padding: 0;
-	background: black;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 0.5vh;
+  border: 1px solid gray;
+  padding: 0;
+  background: black;
 }
 
 #time-display span {
-	border: 1px solid black;
-	background: var(--flap-color);
-	color: var(--numbers-color);
-	padding: 0.1em;
-	margin: 0;
+  border: 1px solid black;
+  background: var(--flap-color);
+  color: var(--numbers-color);
+  padding: 0.1em;
+  margin: 0;
 }
 
 #time-display {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .flip {
-	position: relative;
-	display: inline-block;
-	width: 40px;
-	height: 80px;
-	margin: 0 5px;
-	perspective: 1000px;
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 80px;
+  margin: 0 5px;
+  perspective: 1000px;
 }
 
 .digit-top,
 .digit-bottom {
-	display: block;
-	width: 100%;
-	height: 50%;
-	backface-visibility: hidden;
-	font-size: 3rem;
-	font-family: monospace;
-	text-align: center;
+  display: block;
+  width: 100%;
+  height: 50%;
+  backface-visibility: hidden;
+  font-size: 3rem;
+  font-family: monospace;
+  text-align: center;
 }
 
 .digit-top {
-	position: absolute;
-	top: 0;
-	transform-origin: bottom;
-	background: #333;
-	color: white;
-	border-bottom: 2px solid #222;
-	border-radius: 4px 4px 0 0;
-	line-height: 80px;
+  position: absolute;
+  top: 0;
+  transform-origin: bottom;
+  background: #333;
+  color: white;
+  border-bottom: 2px solid #222;
+  border-radius: 4px 4px 0 0;
+  line-height: 80px;
 }
 
 .digit-bottom {
-	position: absolute;
-	bottom: 0;
-	transform-origin: top;
-	background: #333;
-	color: white;
-	border-radius: 0 0 4px 4px;
-	line-height: 0px;
+  position: absolute;
+  bottom: 0;
+  transform-origin: top;
+  background: #333;
+  color: white;
+  border-radius: 0 0 4px 4px;
+  line-height: 0px;
 }
 
 #colon {
-	font-size: 3rem;
-	padding: 0 10px;
-	color: white;
+  font-size: 3rem;
+  padding: 0 10px;
+  color: white;
 }
 
 .flip-change .digit-top {
-	animation: flip-top 0.4s ease-out forwards;
-	z-index: 1;
+  animation: flip-top 0.4s ease-out forwards;
+  z-index: 1;
 }
 
 .flip-change .digit-bottom {
-	animation: flip-bottom 0.5s ease-out forwards;
+  animation: flip-bottom 0.5s ease-out forwards;
 }
 
 @keyframes flip-top {
-	0% {
-		transform: rotateX(0);
-	}
+  0% {
+    transform: rotateX(0);
+  }
 
-	100% {
-		transform: rotateX(-360deg);
-	}
+  100% {
+    transform: rotateX(-360deg);
+  }
 }
 
 @keyframes flip-bottom {
-	0% {
-		transform: rotateX(90deg);
-	}
+  0% {
+    transform: rotateX(90deg);
+  }
 
-	100% {
-		transform: rotateX(0);
-	}
+  100% {
+    transform: rotateX(0);
+  }
 }
 
 .buttons {
-	text-align: center;
-	margin-top: 20px;
-	display: flex;
-	justify-content: space-evenly;
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 button {
-	margin: 0 10px;
-	font-size: 1rem;
-	border: none;
-	font-family: "Cutive Mono", monospace;
-	font-weight: bold;
-	border-radius: 0.1em;
-	border: none;
-	padding-bottom: 5px;
-	cursor: pointer;
-	outline-offset: 4px;
-	font-weight: bold;
-	background-color: var(--button-base-color);
+  margin: 0 10px;
+  font-size: 1rem;
+  border: none;
+  font-family: 'Cutive Mono', monospace;
+  font-weight: bold;
+  border-radius: 0.1em;
+  border: none;
+  padding-bottom: 5px;
+  cursor: pointer;
+  outline-offset: 4px;
+  font-weight: bold;
+  background-color: var(--button-base-color);
 }
 
 button p {
-	border-radius: 0.1em;
-	background: var(--button-color);
-	margin: 0;
-	font-size: 1rem;
-	color: white;
-	transform: translateY(-6px);
-	width: 100%;
-	padding: 0.5em;
+  border-radius: 0.1em;
+  background: var(--button-color);
+  margin: 0;
+  font-size: 1rem;
+  color: white;
+  transform: translateY(-6px);
+  width: 100%;
+  padding: 0.5em;
 }
 
 button:active p {
-	transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 #start.active p {
-	animation: click-animation 1.5s ease-in;
+  animation: click-animation 1.5s ease-in;
 }
 
 @keyframes click-animation {
-	0% {
-		transform: translateY(-6px);
-	}
-	20% {
-		transform: translateY(-2px);
-	}
-	40% {
-		transform: translateY(-6px);
-	}
-	60% {
-		transform: translateY(-2px);
-	}
-	80% {
-		transform: translateY(-6px);
-	}
-	100% {
-		transform: translateY(0);
-	}
+  0% {
+    transform: translateY(-6px);
+  }
+  20% {
+    transform: translateY(-2px);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+  60% {
+    transform: translateY(-2px);
+  }
+  80% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

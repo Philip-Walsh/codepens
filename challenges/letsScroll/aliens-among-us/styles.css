@@ -1,165 +1,177 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 
 :root {
-	--primary-color: #071952;
-	--secondary-color: #EBF4F6;
-	--highlight: #088395;
-	--white: #0B666A;
+  --primary-color: #071952;
+  --secondary-color: #ebf4f6;
+  --highlight: #088395;
+  --white: #0b666a;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-	html {
-		scroll-behavior: smooth;
-	}
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 * {
-	font-optical-sizing: auto;
-	font-weight: 300;
-	font-style: normal;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 body {
-	font-family: 'Orbitron', sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: black;
-	color: var(--secondary-color);
-	display: grid;
-	grid-template-rows: auto auto 1fr;
-	height: 100vh;
-	font-family: "Space Grotesk", sans-serif;
+  font-family: 'Orbitron', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: var(--secondary-color);
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  height: 100vh;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 header {
-	grid-row: 1;
-	text-align: center;
-	background: var(--primary-color);
-	position: fixed;
-	width: 100%;
-	top: 0;
-	left: 0;
-	z-index: 1000;
-	color: var(--secondary-color);
-	text-shadow: 2px 2px 8px rgba(0, 255, 153, 0.7);
+  grid-row: 1;
+  text-align: center;
+  background: var(--primary-color);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  color: var(--secondary-color);
+  text-shadow: 2px 2px 8px rgba(0, 255, 153, 0.7);
 }
 
 h1 {
-	font-weight: bold;
-	text-transform: uppercase;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 nav {
-	grid-row: 2;
-	background: var(--primary-color);
-	font-size: 2rem;
-	color: var(--secondary-color);
-	padding: 1rem 0;
-	position: fixed;
-	width: 100%;
-	top: 4rem;
-	left: 0;
-	z-index: 1000;
+  grid-row: 2;
+  background: var(--primary-color);
+  font-size: 2rem;
+  color: var(--secondary-color);
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  top: 4rem;
+  left: 0;
+  z-index: 1000;
 }
 
 nav ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	place-content: center;
-	place-items: center;
-	text-align: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  text-align: center;
 }
 
 nav ul li {
-	border-radius: 5px;
-	margin: 0 1rem;
-	height: 3em;
-	display: flex;
-	place-content: center;
-	place-items: center;
+  border-radius: 5px;
+  margin: 0 1rem;
+  height: 3em;
+  display: flex;
+  place-content: center;
+  place-items: center;
 }
 
 nav ul li a {
-	color: var(--secondary-color);
-	text-decoration: none;
-	transition: all 0.3s ease;
-	padding: .2em;
-	text-align: center;
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.2em;
+  text-align: center;
 }
 
 nav ul li:hover {
-	color: var(--highlight);
-	background: rgba(0, 255, 153, 0.2);
-	/* Light background on hover */
+  color: var(--highlight);
+  background: rgba(0, 255, 153, 0.2);
+  /* Light background on hover */
 }
 
 main {
-	grid-row: 3;
-	height: auto;
-	padding-top: 6rem;
+  grid-row: 3;
+  height: auto;
+  padding-top: 6rem;
 }
 
 section {
-	height: 100vh;
-	background-size: cover;
-	background-position: center;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	color: var(--secondary-color);
-	text-shadow: 2px 2px 8px rgba(0, 255, 153, 0.7);
-	font-size: 3rem;
-	font-weight: bold;
-	text-align: center;
-	background-size: 30px 30px, cover;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary-color);
+  text-shadow: 2px 2px 8px rgba(0, 255, 153, 0.7);
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  background-size:
+    30px 30px,
+    cover;
 }
 
 #abductions {
-	background: linear-gradient(135deg, #1b1f32, #3a3f50);
-	background: url("https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/alien.svg") repeat center center, linear-gradient(135deg, #1b1f32, #3a3f50);
+  background: linear-gradient(135deg, #1b1f32, #3a3f50);
+  background:
+    url('https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/alien.svg') repeat
+      center center,
+    linear-gradient(135deg, #1b1f32, #3a3f50);
 }
 
 #ufos {
-	background: linear-gradient(135deg, #1e3c72, #2a5298);
-	background: url("https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/flying_saucer.svg"), linear-gradient(135deg, #1e3c72, #2a5298);
-
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background:
+    url('https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/flying_saucer.svg'),
+    linear-gradient(135deg, #1e3c72, #2a5298);
 }
 
 #extraterrestrial-tech {
-	background: linear-gradient(135deg, #0f2027, #203a43);
+  background: linear-gradient(135deg, #0f2027, #203a43);
 
-	background: url("https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/robot.svg"), linear-gradient(135deg, #0f2027, #203a43);
+  background:
+    url('https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/robot.svg'),
+    linear-gradient(135deg, #0f2027, #203a43);
 }
 
 #alien-species {
-	background: linear-gradient(135deg, #3e8e41, #a8c3b0);
-	background: url("https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/alien.svg"), linear-gradient(135deg, #3e8e41, #a8c3b0);
+  background: linear-gradient(135deg, #3e8e41, #a8c3b0);
+  background:
+    url('https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/alien.svg'),
+    linear-gradient(135deg, #3e8e41, #a8c3b0);
 }
 
 #space-travel {
-	background: linear-gradient(135deg, #1c1c2f, #f2f2f2);
-	background: url("https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/rocket.svg"), linear-gradient(135deg, #3e8e41, #a8c3b0);
+  background: linear-gradient(135deg, #1c1c2f, #f2f2f2);
+  background:
+    url('https://raw.githubusercontent.com/Philip-Walsh/emojinomicon/main/src/rocket.svg'),
+    linear-gradient(135deg, #3e8e41, #a8c3b0);
 }
 
 section {
-	position: relative;
+  position: relative;
 }
 
 section::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(0, 0, 0, 0.5);
-	z-index: 1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
-section>* {
-	position: relative;
-	z-index: 2;
+section > * {
+  position: relative;
+  z-index: 2;
 }

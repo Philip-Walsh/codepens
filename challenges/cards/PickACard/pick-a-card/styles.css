@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Color+Emoji&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Color+Emoji&display=swap');
 
 :root {
   /* Card properties */
@@ -8,9 +8,9 @@
   --card-border: 2px solid #1a1a1a;
   --card-bg: white;
   --card-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
-  --card-font: "Arial";
+  --card-font: 'Arial';
   --card-transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   /* 3D properties */
   --deck-perspective: 2000px;
   --hover-scale: 1.1;
@@ -20,12 +20,12 @@
   --hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   --spread-distance: 250px;
   --spread-angle: 60deg;
-  
+
   /* Font sizes */
   --corner-font-size: 16px;
   --center-font-size: 24px;
   --face-font-size: 48px;
-  
+
   /* Color palette - classic casino */
   --bg-color: #0c3b2e;
   --bg-gradient: linear-gradient(135deg, #0c3b2e 0%, #145a44 100%);
@@ -38,7 +38,7 @@
   --header-bg: rgba(26, 26, 26, 0.9);
   --footer-bg: rgba(26, 26, 26, 0.9);
   --deck-bg: rgba(20, 90, 68, 0.7);
-  
+
   /* Texture URLs */
   --felt-texture: url('https://www.transparenttextures.com/patterns/felt.png');
   --card-texture: url('https://www.transparenttextures.com/patterns/cardboard-flat.png');
@@ -54,7 +54,7 @@
 body {
   background: var(--bg-color);
   background-image: var(--bg-gradient), var(--felt-texture);
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 400;
   font-style: normal;
   min-height: 100vh;
@@ -62,13 +62,13 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    "header"
-    "main"
-    "footer";
+    'header'
+    'main'
+    'footer';
 }
 
 span {
-  font-family: "Noto Color Emoji", sans-serif;
+  font-family: 'Noto Color Emoji', sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -89,7 +89,7 @@ h1 {
   font-size: 2.5rem;
   color: var(--accent-color);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   letter-spacing: 1px;
   font-weight: 700;
 }
@@ -191,7 +191,7 @@ button {
   border: var(--button-border);
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
@@ -221,10 +221,12 @@ button::after {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
   transform: scale(0);
   opacity: 0;
-  transition: transform 0.5s, opacity 0.3s;
+  transition:
+    transform 0.5s,
+    opacity 0.3s;
 }
 
 button:hover::after {
@@ -243,14 +245,15 @@ button:hover::after {
   position: relative;
   background: var(--deck-bg);
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 0 2px rgba(212, 175, 55, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 2px rgba(212, 175, 55, 0.3);
   padding: 20px;
   backdrop-filter: blur(5px);
   border: 1px solid var(--accent-color);
   /* Felt texture */
-  background-image: 
-    linear-gradient(rgba(20, 90, 68, 0.7), rgba(20, 90, 68, 0.7)),
-    var(--felt-texture),
+  background-image:
+    linear-gradient(rgba(20, 90, 68, 0.7), rgba(20, 90, 68, 0.7)), var(--felt-texture),
     url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23104a37' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 20L20 0L10 0L0 10M40 20L20 40L30 40L40 30'/%3E%3C/g%3E%3C/svg%3E");
 }
 
@@ -272,8 +275,9 @@ button:hover::after {
   align-items: center;
   box-shadow: var(--card-shadow);
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
-              box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
   backface-visibility: hidden;
   transform-origin: center center;
   cursor: pointer;
@@ -291,11 +295,27 @@ button:hover::after {
   bottom: 5px;
   border-radius: calc(var(--card-border-radius) - 2px);
   background-color: white;
-  background-image: 
-    linear-gradient(45deg, var(--accent-color) 25%, transparent 25%, transparent 75%, var(--accent-color) 75%, var(--accent-color)),
-    linear-gradient(45deg, var(--accent-color) 25%, transparent 25%, transparent 75%, var(--accent-color) 75%, var(--accent-color));
+  background-image:
+    linear-gradient(
+      45deg,
+      var(--accent-color) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--accent-color) 75%,
+      var(--accent-color)
+    ),
+    linear-gradient(
+      45deg,
+      var(--accent-color) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--accent-color) 75%,
+      var(--accent-color)
+    );
   background-size: 10px 10px;
-  background-position: 0 0, 5px 5px;
+  background-position:
+    0 0,
+    5px 5px;
   opacity: 0.1;
   z-index: -1;
 }
@@ -306,14 +326,13 @@ button:hover::after {
 
 .card.selected {
   z-index: 100;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 0 2px var(--accent-color);
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.3),
+    0 0 0 2px var(--accent-color);
 }
 
 .card:hover {
-  transform: translate(-50%, -50%)
-             scale(1.05) 
-             translateZ(15px)
-             rotateX(-2deg);
+  transform: translate(-50%, -50%) scale(1.05) translateZ(15px) rotateX(-2deg);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
@@ -357,31 +376,31 @@ button:hover::after {
 }
 
 .num-2 {
-  grid-template-areas: "a" "b";
+  grid-template-areas: 'a' 'b';
 }
 .num-3 {
-  grid-template-areas: "a" "b" "c";
+  grid-template-areas: 'a' 'b' 'c';
 }
 .num-4 {
-  grid-template-areas: "a b" "c d";
+  grid-template-areas: 'a b' 'c d';
 }
 .num-5 {
-  grid-template-areas: "a b" "c x" "d e";
+  grid-template-areas: 'a b' 'c x' 'd e';
 }
 .num-6 {
-  grid-template-areas: "a b" "c d" "e f";
+  grid-template-areas: 'a b' 'c d' 'e f';
 }
 .num-7 {
-  grid-template-areas: "a b" "c x" "d e" "f g";
+  grid-template-areas: 'a b' 'c x' 'd e' 'f g';
 }
 .num-8 {
-  grid-template-areas: "a b" "c d" "e f" "g h";
+  grid-template-areas: 'a b' 'c d' 'e f' 'g h';
 }
 .num-9 {
-  grid-template-areas: "a b c" "d e f" "g h i";
+  grid-template-areas: 'a b c' 'd e f' 'g h i';
 }
 .num-10 {
-  grid-template-areas: "a b c x" "d e f x" "g h i j";
+  grid-template-areas: 'a b c x' 'd e f x' 'g h i j';
 }
 
 .num span {
@@ -390,9 +409,15 @@ button:hover::after {
 
 /* Classic animations */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 h1 {
@@ -401,9 +426,15 @@ h1 {
 
 /* Ambient light effect */
 @keyframes ambientLight {
-  0% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.1); }
-  50% { box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); }
-  100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.1); }
+  0% {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+  }
 }
 
 #deck {
@@ -412,12 +443,12 @@ h1 {
 
 /* Card dealing animation */
 @keyframes dealCard {
-  0% { 
-    transform: translate(-50%, -200%) rotate(10deg); 
+  0% {
+    transform: translate(-50%, -200%) rotate(10deg);
     opacity: 0;
   }
-  100% { 
-    transform: translate(-50%, -50%) rotate(0deg); 
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
     opacity: 1;
   }
 }
@@ -435,7 +466,9 @@ h1 {
   padding: 1.5rem;
   background: rgba(20, 90, 68, 0.85);
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 0 2px rgba(212, 175, 55, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 2px rgba(212, 175, 55, 0.3);
   border: 1px solid var(--accent-color);
   width: 80%;
   max-width: 350px;
@@ -445,9 +478,8 @@ h1 {
   transform: translate(-50%, -50%);
   z-index: 1000;
   backdrop-filter: blur(5px);
-  background-image: 
-    linear-gradient(rgba(20, 90, 68, 0.85), rgba(20, 90, 68, 0.85)),
-    var(--felt-texture);
+  background-image:
+    linear-gradient(rgba(20, 90, 68, 0.85), rgba(20, 90, 68, 0.85)), var(--felt-texture);
 }
 
 .game-controls.active {
@@ -494,24 +526,38 @@ h1 {
 
 /* Game result animations */
 @keyframes correct {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 @keyframes incorrect {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-5px); }
-  40%, 80% { transform: translateX(5px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
 }
 
 .correct {
   animation: correct 0.5s;
-  color: #4CAF50;
+  color: #4caf50;
 }
 
 .incorrect {
   animation: incorrect 0.5s;
-  color: #F44336;
+  color: #f44336;
 }
 
 /* Responsive adjustments */
@@ -536,11 +582,11 @@ h1 {
     gap: 1rem;
     text-align: center;
   }
-  
+
   nav {
     justify-content: center;
   }
-  
+
   :root {
     --card-width: 80px;
     --card-height: 112px;
@@ -559,7 +605,7 @@ h1 {
     --spread-distance: 120px;
     --spread-angle: 40deg;
   }
-  
+
   button {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;

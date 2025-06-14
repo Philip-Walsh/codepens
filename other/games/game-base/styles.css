@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 :root {
   --bg: #23272e;
@@ -81,7 +81,9 @@ canvas {
   font-size: 1em;
   cursor: pointer;
   box-shadow: var(--ui-shadow);
-  transition: background 0.2s, transform 0.15s;
+  transition:
+    background 0.2s,
+    transform 0.15s;
 }
 
 .dashboard button:hover {

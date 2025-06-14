@@ -22,12 +22,12 @@ let tileSize = 32;
 let gameMap;
 
 document.addEventListener(
-  "DOMContentLoaded",
+  'DOMContentLoaded',
   () => {
     init();
-    const resetBtn = document.getElementById("resetButton");
+    const resetBtn = document.getElementById('resetButton');
     if (resetBtn) {
-      resetBtn.addEventListener("click", resetGame);
+      resetBtn.addEventListener('click', resetGame);
     }
   },
   false
@@ -35,44 +35,26 @@ document.addEventListener(
 
 function resetGame() {
   chests = [];
-  player = new Player(
-    Math.round(width / 2),
-    Math.round(height / 2),
-    32,
-    4,
-    100,
-    20,
-    0,
-    0
-  );
+  player = new Player(Math.round(width / 2), Math.round(height / 2), 32, 4, 100, 20, 0, 0);
   gameMap = new Map(col, row, tileSize);
   createChests();
 }
 
 function init() {
-  canvas = document.querySelector("canvas");
+  canvas = document.querySelector('canvas');
   if (!canvas) {
-    console.error("Canvas element not found!");
+    console.error('Canvas element not found!');
     return;
   }
-  ctx = canvas.getContext("2d");
+  ctx = canvas.getContext('2d');
   width = canvas.width;
   height = canvas.height;
-  player = new Player(
-    Math.round(width / 2),
-    Math.round(height / 2),
-    32,
-    4,
-    100,
-    20,
-    0,
-    0
-  );
+  player = new Player(Math.round(width / 2), Math.round(height / 2), 32, 4, 100, 20, 0, 0);
   col = Math.floor(width / tileSize);
   row = Math.floor(height / tileSize);
 
-  window.addEventListener("keydown", activate, false);
-  window.addEventListener("keyup", deactivate, false);
+  window.addEventListener('keydown', activate, false);
+  window.addEventListener('keyup', deactivate, false);
   gameMap = new Map(col, row, tileSize);
 
   createChests();
@@ -89,7 +71,7 @@ function game() {
 
   gameMap.draw();
 
-  chests.forEach((c) => {
+  chests.forEach(c => {
     c.draw();
   });
 
@@ -174,7 +156,7 @@ class Player {
   }
 
   draw() {
-    ctx.fillStyle = attack ? "#A0153E" : "#FF204E";
+    ctx.fillStyle = attack ? '#A0153E' : '#FF204E';
     ctx.beginPath();
     ctx.arc(this.x + 16, this.y + 16, 16, 0, Math.PI * 2);
     ctx.fill();
@@ -189,7 +171,7 @@ class Player {
   }
   interact() {
     if (attack) {
-      chests.forEach((chest) => {
+      chests.forEach(chest => {
         const isColliding =
           this.x < chest.x + tileSize &&
           this.x + this.size > chest.x &&
@@ -215,7 +197,7 @@ class Chest {
     this._open = false;
   }
   draw() {
-    ctx.fillStyle = this._open ? "#A04747" : "#EEDF7A";
+    ctx.fillStyle = this._open ? '#A04747' : '#EEDF7A';
     ctx.fillRect(this.x, this.y, 32, 32);
   }
   open() {
@@ -243,9 +225,9 @@ class Map {
       this.map[c] = [];
       for (let r = 0; r < this.row; r++) {
         if (c === 0 || r === 0 || c === this.col - 1 || r === this.row - 1) {
-          this.map[c][r] = "#BC9F8B";
+          this.map[c][r] = '#BC9F8B';
         } else {
-          let colors = ["#B5CFB7", "#CADABF", "#E7E8D8"];
+          let colors = ['#B5CFB7', '#CADABF', '#E7E8D8'];
           this.map[c][r] = colors[Math.floor(Math.random() * colors.length)];
         }
       }
@@ -256,12 +238,7 @@ class Map {
     for (let c = 0; c < this.col; c++) {
       for (let r = 0; r < this.row; r++) {
         ctx.fillStyle = this.map[c][r];
-        ctx.fillRect(
-          c * this.tileSize,
-          r * this.tileSize,
-          this.tileSize,
-          this.tileSize
-        );
+        ctx.fillRect(c * this.tileSize, r * this.tileSize, this.tileSize, this.tileSize);
       }
     }
   }

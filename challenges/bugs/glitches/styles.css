@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
 
 :root {
   --primary-bg: #1d1e22;
   --secondary-bg: #532dcd;
   --text-color: rgb(4, 31, 53);
-  --font-family: "Press Start 2P", system-ui;
+  --font-family: 'Press Start 2P', system-ui;
   --font-size: clamp(1rem, 2vw, 2rem);
   --max-width: 60ch;
   --aspect-ratio: 4 / 3;
@@ -60,7 +60,8 @@ main {
   align-items: center;
   justify-content: center;
   padding: 1em;
-  background: url("https://www.transparenttextures.com/patterns/textured-paper.png"), var(--secondary-bg);
+  background:
+    url('https://www.transparenttextures.com/patterns/textured-paper.png'), var(--secondary-bg);
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
@@ -75,7 +76,8 @@ article:nth-of-type(2) {
   min-height: 300vh;
   width: 100vw;
   text-align: justify;
-  background: url('https://publicdomainvectors.org/photos/ilmenskie-creature-purple.png') top center/cover no-repeat;
+  background: url('https://publicdomainvectors.org/photos/ilmenskie-creature-purple.png') top
+    center/cover no-repeat;
 }
 
 section,
@@ -104,7 +106,8 @@ section:nth-of-type(even) {
 
 #tv {
   aspect-ratio: var(--aspect-ratio);
-  background: url("https://publicdomainvectors.org/photos/ilmenskie-flying-platform-1.png") center/30em no-repeat;
+  background: url('https://publicdomainvectors.org/photos/ilmenskie-flying-platform-1.png')
+    center/30em no-repeat;
   position: sticky;
   top: 0;
   left: 0;
@@ -112,7 +115,8 @@ section:nth-of-type(even) {
 }
 
 #screen-behind {
-  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Computer-screen-code-glitch-animation-gif-background-free.gif/1200px-Computer-screen-code-glitch-animation-gif-background-free.gif") center/cover no-repeat black;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Computer-screen-code-glitch-animation-gif-background-free.gif/1200px-Computer-screen-code-glitch-animation-gif-background-free.gif')
+    center/cover no-repeat black;
   filter: blur(1px) grayscale(60%);
   position: fixed;
   top: 0;
@@ -124,7 +128,6 @@ section:nth-of-type(even) {
 }
 
 @keyframes crt-flicker {
-
   0%,
   100% {
     opacity: 0.85;
@@ -154,9 +157,6 @@ section:nth-of-type(even) {
   }
 }
 
-
-
-
 /* Glitch effect adapted from Glitch Text by zoite https://codepen.io/zoite/pen/gwRZzJ 🐛 */
 
 span {
@@ -165,11 +165,12 @@ span {
 
 @media (prefers-reduced-motion: no-preference) {
   img {
-    animation: flicker 0.2s infinite alternate, scanlines 0.1s infinite linear;
+    animation:
+      flicker 0.2s infinite alternate,
+      scanlines 0.1s infinite linear;
   }
 
   @keyframes flicker {
-
     0%,
     100% {
       opacity: 1;

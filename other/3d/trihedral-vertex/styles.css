@@ -64,14 +64,15 @@ body {
   position: absolute;
   transform-style: preserve-3d;
   transform-origin: left;
-  transform: rotateY(180deg) translateX(var(--x-offset)) translateY(var(--y-offset)) translateZ(var(--z-offset));
+  transform: rotateY(180deg) translateX(var(--x-offset)) translateY(var(--y-offset))
+    translateZ(var(--z-offset));
 }
 
 .trihedral-vertex:before {
   --x-offset: var(--x-offset, 1rem);
   --y-offset: var(--y-offset, 1rem);
   --z-offset: var(--z-offset, 1rem);
-  content: "";
+  content: '';
   display: block;
   width: var(--depth);
   height: var(--height);
@@ -89,7 +90,7 @@ body {
   --y-offset: var(--y-offset, 1rem);
   --z-offset: var(--z-offset, 1rem);
   border: var(--debug) green;
-  content: "";
+  content: '';
   display: block;
   width: var(--width);
   height: var(--depth);

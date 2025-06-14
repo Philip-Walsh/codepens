@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Sixtyfour&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Sixtyfour&display=swap');
 
 :root {
   --hsl-primary: 249, 31%, 26%;
@@ -14,18 +14,19 @@
   --quaternary: hsla(var(--hsl-quaternary), var(--default-opacity));
 }
 
-
 * {
   /* border: 2px solid rgba(0, 0, 0, .2); */
   min-width: 2rem;
   min-height: 2rem;
   padding: 0;
   margin: 0;
-  font-family: "Sixtyfour", sans-serif;
+  font-family: 'Sixtyfour', sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  font-variation-settings: "BLED" 0, "SCAN" 0;
+  font-variation-settings:
+    'BLED' 0,
+    'SCAN' 0;
   text-transform: uppercase;
 }
 
@@ -69,7 +70,7 @@ body {
   flex-direction: column;
   gap: 0.5em;
   color: hsl(var(--hsl-primary));
-  text-shadow: .1em .1em 0 hsla(var(--hsl-tertiary), 0.4);
+  text-shadow: 0.1em 0.1em 0 hsla(var(--hsl-tertiary), 0.4);
 }
 
 .calendar__weekdays {
@@ -89,7 +90,6 @@ body {
   display: flex;
   place-items: center;
   place-content: center;
-  ;
 }
 
 .calendar__week {

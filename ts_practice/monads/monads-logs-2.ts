@@ -1,4 +1,4 @@
-console.log("Hello, TypeScript!");
+console.log('Hello, TypeScript!');
 
 // function square(x: NumberWithLogs): NumberWithLogs {
 //   let result = x.result * x.result;
@@ -29,7 +29,7 @@ interface NumberWithLogs {
 }
 
 function square(x: number): NumberWithLogs {
-  let result = x * x;
+  const result = x * x;
   return {
     result,
     logs: [`Squared ${x} to get ${result}`],
@@ -37,7 +37,7 @@ function square(x: number): NumberWithLogs {
 }
 
 function addOne(x: number): NumberWithLogs {
-  let result = x + 1;
+  const result = x + 1;
   return {
     result,
     logs: [`Added 1 to ${x} to get ${result}`],

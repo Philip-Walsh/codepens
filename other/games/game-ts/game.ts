@@ -3,14 +3,14 @@ let width: number;
 let height: number;
 let ctx: CanvasRenderingContext2D;
 let interval_id: number;
-let step: number = 0;
+const step: number = 0;
 let player: Player;
 let camera: Camera;
 let chests: Chest[] = [];
 
 let col: number = 15;
 let row: number = 10;
-let map: string[][] = [];
+const map: string[][] = [];
 
 let moveLeft: boolean = false;
 let moveRight: boolean = false;
@@ -28,28 +28,17 @@ let MAP_WIDTH;
 let MAP_HEIGHT;
 let lastRenderTime;
 
-document.addEventListener("DOMContentLoaded", init, false);
+document.addEventListener('DOMContentLoaded', init, false);
 
 function registerEventListeners() {
-  window.addEventListener("keydown", activate, false);
-  window.addEventListener("keyup", deactivate, false);
-  document
-    .getElementById("resetButton")
-    ?.addEventListener("click", initGameState);
+  window.addEventListener('keydown', activate, false);
+  window.addEventListener('keyup', deactivate, false);
+  document.getElementById('resetButton')?.addEventListener('click', initGameState);
 }
 function initGameState() {
   gameMap = new GameMap(col, row, tileSize);
   createChests();
-  player = new Player(
-    Math.round(width / 2),
-    Math.round(height / 2),
-    32,
-    10,
-    100,
-    0,
-    0,
-    0
-  );
+  player = new Player(Math.round(width / 2), Math.round(height / 2), 32, 10, 100, 0, 0, 0);
   enemies = [];
   for (let i = 0; i < 5; i++) {
     enemies.push(new Enemy(Math.random() * width, Math.random() * height));
@@ -58,8 +47,8 @@ function initGameState() {
 }
 
 function init(): void {
-  canvas = document.querySelector("canvas") as HTMLCanvasElement;
-  ctx = canvas.getContext("2d")!;
+  canvas = document.querySelector('canvas') as HTMLCanvasElement;
+  ctx = canvas.getContext('2d')!;
   width = canvas.width;
   height = canvas.height;
   MAP_WIDTH = MAP_MULTIPLIER * width;
@@ -88,8 +77,8 @@ function game(deltaTime: number): void {
 
   gameMap.draw(camera);
 
-  chests.forEach((c) => c.draw());
-  enemies.forEach((e) => {
+  chests.forEach(c => c.draw());
+  enemies.forEach(e => {
     e.move(deltaTime);
     e.draw();
   });
@@ -103,21 +92,17 @@ function game(deltaTime: number): void {
 }
 
 function drawUI(): void {
-  ctx.font = "20px Arial";
-  ctx.fillStyle = "#000";
+  ctx.font = '20px Arial';
+  ctx.fillStyle = '#000';
 
   ctx.fillText(`Health: ${player.health}`, 20, 30);
 
   ctx.fillText(`Gold: ${player.gold}`, 20, 60);
 
   if (player._dash.cooldownTime > 0) {
-    ctx.fillText(
-      `Dash Cooldown: ${(player._dash.cooldownTime / 1000).toFixed(1)}s`,
-      20,
-      90
-    );
+    ctx.fillText(`Dash Cooldown: ${(player._dash.cooldownTime / 1000).toFixed(1)}s`, 20, 90);
   } else {
-    ctx.fillText("Dash Ready!", 20, 90);
+    ctx.fillText('Dash Ready!', 20, 90);
   }
 }
 
@@ -129,7 +114,7 @@ function createChests(chestCount: number = 4): void {
 }
 
 function activate(event: KeyboardEvent): void {
-  let keyCode: number = event.keyCode;
+  const keyCode: number = event.keyCode;
   switch (keyCode) {
     case 38:
     case 87:
@@ -158,7 +143,7 @@ function activate(event: KeyboardEvent): void {
 }
 
 function deactivate(event: KeyboardEvent): void {
-  let keyCode: number = event.keyCode;
+  const keyCode: number = event.keyCode;
   switch (keyCode) {
     case 38:
     case 87:
@@ -194,17 +179,11 @@ class Entity {
   speed: number;
   health: number;
   colors: Record<string, string> = {
-    base: "#390",
-    attack: "#F00",
+    base: '#390',
+    attack: '#F00',
   };
 
-  constructor(
-    x: number,
-    y: number,
-    size: number,
-    speed: number,
-    health: number
-  ) {
+  constructor(x: number, y: number, size: number, speed: number, health: number) {
     this.x = x;
     this.y = y;
     this.size = size;
@@ -250,8 +229,8 @@ class Player extends Entity {
     this.step = step;
     this.attacked = false;
     this.colors = {
-      base: "#A0153E",
-      attack: "#FF204E",
+      base: '#A0153E',
+      attack: '#FF204E',
     };
     this._dash = {
       isDashing: false,
@@ -294,11 +273,9 @@ class Player extends Entity {
     }
 
     if (moveLeft && this.x > 0) this.x -= currentSpeed * deltaTime;
-    if (moveRight && this.x + this.size < MAP_WIDTH)
-      this.x += currentSpeed * deltaTime;
+    if (moveRight && this.x + this.size < MAP_WIDTH) this.x += currentSpeed * deltaTime;
     if (moveUp && this.y > 0) this.y -= currentSpeed * deltaTime;
-    if (moveDown && this.y + this.size < MAP_HEIGHT)
-      this.y += currentSpeed * deltaTime;
+    if (moveDown && this.y + this.size < MAP_HEIGHT) this.y += currentSpeed * deltaTime;
 
     this.x = Math.max(0, Math.min(this.x, MAP_WIDTH - this.size));
     this.y = Math.max(0, Math.min(this.y, MAP_HEIGHT - this.size));
@@ -306,7 +283,7 @@ class Player extends Entity {
 
   interact(): void {
     if (attack) {
-      chests.forEach((chest) => {
+      chests.forEach(chest => {
         const isColliding =
           this.x < chest.x + tileSize &&
           this.x + this.size > chest.x &&
@@ -318,7 +295,7 @@ class Player extends Entity {
           this.gold += goldFound;
         }
       });
-      enemies.forEach((enemy) => {
+      enemies.forEach(enemy => {
         const isColliding =
           this.x < enemy.x + enemy.size &&
           this.x + this.size > enemy.x &&
@@ -354,20 +331,14 @@ class Enemy extends Entity {
   private attackCooldown: number = 0;
   private attackCooldownTime: number = 30;
 
-  constructor(
-    x: number,
-    y: number,
-    size: number = 10,
-    speed: number = 4,
-    health: number = 30
-  ) {
+  constructor(x: number, y: number, size: number = 10, speed: number = 4, health: number = 30) {
     super(x, y, size, speed, health);
     this.initialX = x;
     this.colors = {
-      Idle: "#6A5ACD",
-      Chasing: "#FF6347",
-      Attacking: "#FFf500",
-      Pacing: "#4682B4",
+      Idle: '#6A5ACD',
+      Chasing: '#FF6347',
+      Attacking: '#FFf500',
+      Pacing: '#4682B4',
     };
     this.attackPower = 5;
     this.gold = getRandomNumber(5, 10);
@@ -377,7 +348,7 @@ class Enemy extends Entity {
     if (this.attackCooldown > 0) {
       this.attackCooldown--;
     }
-  
+
     switch (this.currentState) {
       case EnemyState.Idle:
         this.pace();
@@ -411,7 +382,7 @@ class Enemy extends Entity {
     const separationDistance = 30;
     let moveX = 0;
     let moveY = 0;
-    enemies.forEach((enemy) => {
+    enemies.forEach(enemy => {
       if (enemy !== this) {
         const dx = this.x - enemy.x;
         const dy = this.y - enemy.y;
@@ -443,7 +414,7 @@ class Enemy extends Entity {
   }
 
   attackPlayer(): void {
-    console.log("Enemy attacks the player!");
+    console.log('Enemy attacks the player!');
     player.takeDamage(this.attackPower);
   }
 
@@ -461,12 +432,12 @@ class Enemy extends Entity {
     }
   }
   kill(): void {
-    console.log("Enemy killed!");
-    enemies = enemies.filter((enemy) => enemy !== this);
+    console.log('Enemy killed!');
+    enemies = enemies.filter(enemy => enemy !== this);
   }
   draw(): void {
     const stateColor = this.colors[EnemyState[this.currentState]];
-    ctx.fillStyle = stateColor || "#000";
+    ctx.fillStyle = stateColor || '#000';
     ctx.beginPath();
     ctx.arc(this.x + 16, this.y + 16, 16, 0, Math.PI * 2);
     ctx.fill();
@@ -487,7 +458,7 @@ class Chest {
   }
 
   draw(): void {
-    ctx.fillStyle = this._open ? "#A04747" : "#EEDF7A";
+    ctx.fillStyle = this._open ? '#A04747' : '#EEDF7A';
     ctx.fillRect(this.x, this.y, 32, 32);
   }
 
@@ -495,7 +466,7 @@ class Chest {
     if (this._open) {
       return 0;
     }
-    let gold = this._gold;
+    const gold = this._gold;
     this._gold = 0;
     this._open = true;
     return gold;
@@ -521,9 +492,9 @@ class GameMap {
       this.map[c] = [];
       for (let r = 0; r < this.row; r++) {
         if (c === 0 || r === 0 || c === this.col - 1 || r === this.row - 1) {
-          this.map[c][r] = "#BC9F8B";
+          this.map[c][r] = '#BC9F8B';
         } else {
-          let colors = ["#B5CFB7", "#CADABF", "#E7E8D8"];
+          const colors = ['#B5CFB7', '#CADABF', '#E7E8D8'];
           this.map[c][r] = colors[Math.floor(Math.random() * colors.length)];
         }
       }
@@ -531,16 +502,10 @@ class GameMap {
   }
   draw(camera: Camera): void {
     const startCol = Math.max(0, Math.floor(camera.x / this.tileSize));
-    const endCol = Math.min(
-      this.col,
-      Math.ceil((camera.x + camera.width) / this.tileSize)
-    );
+    const endCol = Math.min(this.col, Math.ceil((camera.x + camera.width) / this.tileSize));
 
     const startRow = Math.max(0, Math.floor(camera.y / this.tileSize));
-    const endRow = Math.min(
-      this.row,
-      Math.ceil((camera.y + camera.height) / this.tileSize)
-    );
+    const endRow = Math.min(this.row, Math.ceil((camera.y + camera.height) / this.tileSize));
 
     for (let c = startCol; c < endCol; c++) {
       for (let r = startRow; r < endRow; r++) {
@@ -566,22 +531,13 @@ class Camera {
     this.height = height;
   }
 
-  update(
-    targetX: number,
-    targetY: number,
-    mapWidth: number,
-    mapHeight: number
-  ): void {
+  update(targetX: number, targetY: number, mapWidth: number, mapHeight: number): void {
     const smoothing = 0.5;
     const targetXCenter = targetX - this.width / 2;
     const targetYCenter = targetY - this.height / 2;
 
-    this.x +=
-      (Math.max(0, Math.min(targetXCenter, mapWidth - this.width)) - this.x) *
-      smoothing;
-    this.y +=
-      (Math.max(0, Math.min(targetYCenter, mapHeight - this.height)) - this.y) *
-      smoothing;
+    this.x += (Math.max(0, Math.min(targetXCenter, mapWidth - this.width)) - this.x) * smoothing;
+    this.y += (Math.max(0, Math.min(targetYCenter, mapHeight - this.height)) - this.y) * smoothing;
 
     this.x = Math.floor(this.x);
     this.y = Math.floor(this.y);

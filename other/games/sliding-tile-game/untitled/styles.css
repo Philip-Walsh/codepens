@@ -1,27 +1,27 @@
 :root {
   --background-color: #210062;
   /* Deep navy background */
-  --primary-color: #009FBD;
+  --primary-color: #009fbd;
   /* Bright blue for primary elements */
-  --secondary-color: #77037B;
+  --secondary-color: #77037b;
   /* Rich purple for accents */
-  --accent-color: #F9E2AF;
+  --accent-color: #f9e2af;
   /* Warm beige for highlights */
-  --text-color: #F9E2AF;
+  --text-color: #f9e2af;
   /* Light beige for text */
   --transparent-bg: rgba(33, 0, 98, 0.4);
   /* Semi-transparent navy */
-  --tile-bg-color: #009FBD;
+  --tile-bg-color: #009fbd;
   /* Blue for tiles */
-  --tile-text-color: #F9E2AF;
+  --tile-text-color: #f9e2af;
   /* Beige for tile text */
   --shadow-color: rgba(0, 0, 0, 0.2);
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-shadow: rgba(0, 0, 0, 0.1);
-  --gradient-primary: linear-gradient(135deg, #009FBD, #77037B);
-  --gradient-secondary: linear-gradient(135deg, #F9E2AF, #009FBD);
-  --gradient-accent: linear-gradient(135deg, #77037B, #F9E2AF);
+  --gradient-primary: linear-gradient(135deg, #009fbd, #77037b);
+  --gradient-secondary: linear-gradient(135deg, #f9e2af, #009fbd);
+  --gradient-accent: linear-gradient(135deg, #77037b, #f9e2af);
 }
 
 /* Base Styles */
@@ -34,7 +34,7 @@ body {
   align-items: center;
   background: var(--background-color);
   background-image: url('https://www.transparenttextures.com/patterns/double-lined.png');
-  font-family: "Inter", "Segoe UI", sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   position: relative;
   color: var(--text-color);
 }
@@ -493,7 +493,7 @@ body {
   color: var(--text-color);
 }
 
-.color-picker input[type="color"] {
+.color-picker input[type='color'] {
   width: 2.5rem;
   height: 2.5rem;
   padding: 0;
@@ -503,11 +503,11 @@ body {
   background: var(--gradient-accent);
 }
 
-.color-picker input[type="color"]::-webkit-color-swatch-wrapper {
+.color-picker input[type='color']::-webkit-color-swatch-wrapper {
   padding: 0;
 }
 
-.color-picker input[type="color"]::-webkit-color-swatch {
+.color-picker input[type='color']::-webkit-color-swatch {
   border: none;
   border-radius: 0.3rem;
 }

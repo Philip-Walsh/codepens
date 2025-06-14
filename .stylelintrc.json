@@ -1,0 +1,27 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "indentation": 2,
+    "string-quotes": "single",
+    "no-duplicate-selectors": true,
+    "color-hex-case": "lower",
+    "color-hex-length": "short",
+    "selector-no-qualifying-type": null,
+    "selector-combinator-space-after": "always",
+    "selector-attribute-quotes": "always",
+    "declaration-block-trailing-semicolon": "always",
+    "declaration-colon-space-before": "never",
+    "declaration-colon-space-after": "always",
+    "property-no-vendor-prefix": null,
+    "value-no-vendor-prefix": null,
+    "number-leading-zero": "always",
+    "function-url-quotes": "always",
+    "font-family-no-missing-generic-family-keyword": null,
+    "no-descending-specificity": null,
+    "no-duplicate-at-import-rules": true,
+    "declaration-block-no-duplicate-properties": true,
+    "block-no-empty": true,
+    "at-rule-no-unknown": null
+  },
+  "ignoreFiles": ["node_modules/**/*", "dist/**/*", "build/**/*", "**/*.min.css"]
+}

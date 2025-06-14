@@ -1,409 +1,406 @@
 :root {
-    --bg-color: rgba(28, 20, 13, 0.85);
-    --text-color: #E8E0D8;
-    --highlight-color: #8B4513;
-    --energy-high: #8B5A2B;
-    --energy-low: #654321;
-    --hover-color: #5C4033;
-    --border-color: #8B5A2B;
-    --overlay-color: rgba(28, 20, 13, 0.95);
-    --glow-color: rgba(139, 90, 43, 0.3);
-    --button-bg: rgba(44, 24, 16, 0.95);
-    --button-border: #A67B5B;
-    --button-shadow: rgba(0, 0, 0, 0.4);
-    --button-text: #E8E0D8;
-    --button-hover: #8B5A2B;
-    --wood-texture: url('https://www.transparenttextures.com/patterns/dark-wood.png');
+  --bg-color: rgba(28, 20, 13, 0.85);
+  --text-color: #e8e0d8;
+  --highlight-color: #8b4513;
+  --energy-high: #8b5a2b;
+  --energy-low: #654321;
+  --hover-color: #5c4033;
+  --border-color: #8b5a2b;
+  --overlay-color: rgba(28, 20, 13, 0.95);
+  --glow-color: rgba(139, 90, 43, 0.3);
+  --button-bg: rgba(44, 24, 16, 0.95);
+  --button-border: #a67b5b;
+  --button-shadow: rgba(0, 0, 0, 0.4);
+  --button-text: #e8e0d8;
+  --button-hover: #8b5a2b;
+  --wood-texture: url('https://www.transparenttextures.com/patterns/dark-wood.png');
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background: transparent;
-    font-family: 'Times New Roman', serif;
-    color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  font-family: 'Times New Roman', serif;
+  color: var(--text-color);
 }
 
 #catCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
 }
 
 /* Add a subtle gradient overlay */
 #catCanvas::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg,
-            rgba(28, 20, 13, 0.85) 0%,
-            rgba(28, 20, 13, 0.75) 50%,
-            rgba(28, 20, 13, 0.85) 100%),
-        var(--wood-texture);
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(28, 20, 13, 0.85) 0%,
+      rgba(28, 20, 13, 0.75) 50%,
+      rgba(28, 20, 13, 0.85) 100%
+    ),
+    var(--wood-texture);
+  pointer-events: none;
 }
 
 .controls {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 15px;
-    z-index: 1000;
-    padding: 15px 30px;
-    background: var(--overlay-color);
-    border: 2px solid var(--button-border);
-    border-radius: 15px;
-    box-shadow: 0 8px 16px var(--button-shadow);
-    background-image: var(--wood-texture);
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 1000;
+  padding: 15px 30px;
+  background: var(--overlay-color);
+  border: 2px solid var(--button-border);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px var(--button-shadow);
+  background-image: var(--wood-texture);
 }
 
 .button {
-    padding: 12px 24px;
-    font-size: 16px;
-    font-family: 'Times New Roman', serif;
-    border: 2px solid var(--button-border);
-    border-radius: 8px;
-    background-color: var(--button-bg);
-    color: var(--button-text);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 6px var(--button-shadow);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    background-image: var(--wood-texture);
+  padding: 12px 24px;
+  font-size: 16px;
+  font-family: 'Times New Roman', serif;
+  border: 2px solid var(--button-border);
+  border-radius: 8px;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 6px var(--button-shadow);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  background-image: var(--wood-texture);
 }
 
 .button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent);
-    transition: 0.5s;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: 0.5s;
 }
 
 .button:hover::before {
-    left: 100%;
+  left: 100%;
 }
 
 .button:hover {
-    background-color: var(--button-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px var(--button-shadow);
-    border-color: var(--button-text);
-    color: var(--button-text);
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--button-shadow);
+  border-color: var(--button-text);
+  color: var(--button-text);
 }
 
 .button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px var(--button-shadow);
+  transform: translateY(0);
+  box-shadow: 0 2px 4px var(--button-shadow);
 }
 
 .button.active {
-    background-color: var(--button-hover);
-    border-color: var(--button-text);
-    box-shadow: inset 0 2px 4px var(--button-shadow);
-    color: var(--button-text);
+  background-color: var(--button-hover);
+  border-color: var(--button-text);
+  box-shadow: inset 0 2px 4px var(--button-shadow);
+  color: var(--button-text);
 }
 
 /* Add a subtle gradient overlay to make text more readable */
 .controls::before {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: -20px;
-    right: -20px;
-    height: 80px;
-    background: linear-gradient(to top, var(--overlay-color), transparent);
-    z-index: -1;
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  right: -20px;
+  height: 80px;
+  background: linear-gradient(to top, var(--overlay-color), transparent);
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* Game UI Container */
 .game-ui {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    display: flex;
-    gap: 12px;
-    z-index: 1000;
-    padding: 15px;
-    background: var(--overlay-color);
-    border: 2px solid var(--button-border);
-    border-radius: 15px;
-    box-shadow: 0 8px 16px var(--button-shadow);
-    background-image: var(--wood-texture);
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 12px;
+  z-index: 1000;
+  padding: 15px;
+  background: var(--overlay-color);
+  border: 2px solid var(--button-border);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px var(--button-shadow);
+  background-image: var(--wood-texture);
 }
 
 /* Points Display */
 .points-display {
-    background-color: var(--overlay-color);
-    border: 2px solid var(--button-border);
-    border-radius: 8px;
-    padding: 12px 18px;
-    color: var(--text-color);
-    font-size: 18px;
-    font-family: 'Times New Roman', serif;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 8px var(--button-shadow);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    background-image: var(--wood-texture);
+  background-color: var(--overlay-color);
+  border: 2px solid var(--button-border);
+  border-radius: 8px;
+  padding: 12px 18px;
+  color: var(--text-color);
+  font-size: 18px;
+  font-family: 'Times New Roman', serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 8px var(--button-shadow);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-image: var(--wood-texture);
 }
 
 .points-display .icon {
-    font-size: 20px;
-    animation: pulse 2s infinite;
+  font-size: 20px;
+  animation: pulse 2s infinite;
 }
 
 /* Shop Button */
 .shop-button {
-    background-color: var(--overlay-color);
-    border: 2px solid var(--button-border);
-    border-radius: 8px;
-    padding: 12px;
-    color: var(--text-color);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px var(--button-shadow);
-    font-family: 'Times New Roman', serif;
-    position: relative;
-    overflow: hidden;
-    background-image: var(--wood-texture);
+  background-color: var(--overlay-color);
+  border: 2px solid var(--button-border);
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px var(--button-shadow);
+  font-family: 'Times New Roman', serif;
+  position: relative;
+  overflow: hidden;
+  background-image: var(--wood-texture);
 }
 
 .shop-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent);
-    transition: 0.5s;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: 0.5s;
 }
 
 .shop-button:hover::before {
-    left: 100%;
+  left: 100%;
 }
 
 .shop-button:hover {
-    background-color: var(--button-hover);
-    transform: scale(1.05);
-    border-color: var(--button-text);
-    box-shadow: 0 6px 12px var(--button-shadow);
+  background-color: var(--button-hover);
+  transform: scale(1.05);
+  border-color: var(--button-text);
+  box-shadow: 0 6px 12px var(--button-shadow);
 }
 
 /* Snack Menu */
 .snack-menu {
-    position: fixed;
-    bottom: 80px;
-    left: 20px;
-    transform: translateY(100%);
-    background-color: var(--overlay-color);
-    border: 2px solid var(--button-border);
-    border-radius: 15px;
-    padding: 20px;
-    z-index: 1001;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 16px var(--button-shadow);
-    opacity: 0;
-    pointer-events: none;
-    background-image: var(--wood-texture);
+  position: fixed;
+  bottom: 80px;
+  left: 20px;
+  transform: translateY(100%);
+  background-color: var(--overlay-color);
+  border: 2px solid var(--button-border);
+  border-radius: 15px;
+  padding: 20px;
+  z-index: 1001;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 16px var(--button-shadow);
+  opacity: 0;
+  pointer-events: none;
+  background-image: var(--wood-texture);
 }
 
 .snack-menu.show {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: all;
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
 }
 
 .snack-item {
-    background: var(--button-bg);
-    border: 2px solid var(--button-border);
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 24px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-color);
-    font-family: 'Times New Roman', serif;
-    box-shadow: 0 4px 8px var(--button-shadow);
-    background-image: var(--wood-texture);
+  background: var(--button-bg);
+  border: 2px solid var(--button-border);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-color);
+  font-family: 'Times New Roman', serif;
+  box-shadow: 0 4px 8px var(--button-shadow);
+  background-image: var(--wood-texture);
 }
 
 .snack-item:hover {
-    background-color: var(--button-hover);
-    transform: scale(1.05);
-    border-color: var(--button-text);
-    box-shadow: 0 6px 12px var(--button-shadow);
+  background-color: var(--button-hover);
+  transform: scale(1.05);
+  border-color: var(--button-text);
+  box-shadow: 0 6px 12px var(--button-shadow);
 }
 
 .snack-item .cost {
-    font-size: 14px;
-    color: var(--text-color);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  font-size: 14px;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .snack-item .name {
-    font-size: 12px;
-    color: var(--text-color);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  font-size: 12px;
+  color: var(--text-color);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Points Popup */
 .points-popup {
-    position: absolute;
-    color: var(--text-color);
-    font-size: 18px;
-    font-weight: bold;
-    pointer-events: none;
-    animation: pointsFloat 0.8s ease-out forwards;
-    text-shadow: 0 0 10px var(--glow-color);
+  position: absolute;
+  color: var(--text-color);
+  font-size: 18px;
+  font-weight: bold;
+  pointer-events: none;
+  animation: pointsFloat 0.8s ease-out forwards;
+  text-shadow: 0 0 10px var(--glow-color);
 }
 
 @keyframes pointsFloat {
-    0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 
-    100% {
-        transform: translateY(-40px) scale(1.2);
-        opacity: 0;
-    }
+  100% {
+    transform: translateY(-40px) scale(1.2);
+    opacity: 0;
+  }
 }
 
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
 
-    50% {
-        transform: scale(1.1);
-    }
+  50% {
+    transform: scale(1.1);
+  }
 
-    100% {
-        transform: scale(1);
-    }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Color and Emoji Selectors */
 .selector-panel {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: var(--overlay-color);
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    padding: 15px;
-    z-index: 1000;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: var(--overlay-color);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 15px;
+  z-index: 1000;
 }
 
 .selector-title {
-    color: var(--text-color);
-    font-size: 16px;
-    margin-bottom: 10px;
-    text-align: center;
+  color: var(--text-color);
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .color-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
-    margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin-bottom: 15px;
 }
 
 .color-swatch {
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.2s ease;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
 }
 
 .color-swatch:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .color-swatch.active {
-    border-color: var(--text-color);
+  border-color: var(--text-color);
 }
 
 .emoji-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
 }
 
 .emoji-button {
-    font-size: 24px;
-    padding: 5px;
-    background: none;
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: var(--text-color);
+  font-size: 24px;
+  padding: 5px;
+  background: none;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-color);
 }
 
 .emoji-button:hover {
-    background-color: var(--hover-color);
-    transform: scale(1.1);
+  background-color: var(--hover-color);
+  transform: scale(1.1);
 }
 
 .emoji-button.active {
-    background-color: var(--hover-color);
-    border-color: var(--text-color);
+  background-color: var(--hover-color);
+  border-color: var(--text-color);
 }
 
 /* Toggle button for the selector panel */
 .toggle-selectors {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px;
-    background-color: var(--bg-color);
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-color);
-    cursor: pointer;
-    z-index: 1001;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: var(--bg-color);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-color);
+  cursor: pointer;
+  z-index: 1001;
 }
 
 .toggle-selectors:hover {
-    background-color: var(--hover-color);
+  background-color: var(--hover-color);
 }

@@ -10,11 +10,11 @@ $(function () {
       vegan: 0,
       seafood: 0,
       drinks: 0,
-      sauces: 0
+      sauces: 0,
     },
     totalBill: {
       krw: 0,
-      usd: 0
+      usd: 0,
     },
     maxCollectionItems: 4,
     translations: {
@@ -32,7 +32,7 @@ $(function () {
         collectionFull: 'Collection area is full!',
         pleaseCollect: 'Please collect items first',
         grillOff: 'Please ignite the grill first!',
-        speedControl: 'Speed Control'
+        speedControl: 'Speed Control',
       },
       ko: {
         ignite: '불 붙이기',
@@ -48,10 +48,10 @@ $(function () {
         collectionFull: '수집 영역이 가득 찼습니다!',
         pleaseCollect: '먼저 아이템을 수집해주세요',
         grillOff: '먼저 불을 붙여주세요!',
-        speedControl: '속도 조절'
-      }
+        speedControl: '속도 조절',
+      },
     },
-    interactionBonus: 0
+    interactionBonus: 0,
   };
 
   async function loadMenuData() {
@@ -248,9 +248,7 @@ $(function () {
   // Format price based on language
   function formatPrice(price, language) {
     if (price.krw === 0 && price.usd === 0) return '';
-    return language === 'en' ?
-      `$${price.usd}` :
-      `${price.krw.toLocaleString()}원`;
+    return language === 'en' ? `$${price.usd}` : `${price.krw.toLocaleString()}원`;
   }
 
   // Initialize grill panels
@@ -280,11 +278,11 @@ $(function () {
       start: function (event, ui) {
         $(this).addClass('dragging');
         ui.helper.css({
-          'width': $(this).width(),
-          'height': $(this).height(),
-          'opacity': 0.9,
-          'transform': 'scale(1.2)',
-          'box-shadow': '0 4px 20px rgba(0, 0, 0, 0.3)'
+          width: $(this).width(),
+          height: $(this).height(),
+          opacity: 0.9,
+          transform: 'scale(1.2)',
+          'box-shadow': '0 4px 20px rgba(0, 0, 0, 0.3)',
         });
       },
       stop: function (event, ui) {
@@ -293,7 +291,7 @@ $(function () {
         if (!$(ui.helper).closest('.panel').length) {
           $(ui.helper).remove();
         }
-      }
+      },
     });
   }
 
@@ -333,8 +331,7 @@ $(function () {
           .addClass('grilled')
           .data('category', category)
           .data('price-krw', priceKrw)
-          .data('price-usd', priceUsd)
-          .html(`
+          .data('price-usd', priceUsd).html(`
             <div class="food-icon">${icon}</div>
             <div class="food-info">
               <div class="food-name">${foodName}</div>
@@ -359,8 +356,8 @@ $(function () {
             category: category,
             price: {
               krw: priceKrw,
-              usd: priceUsd
-            }
+              usd: priceUsd,
+            },
           };
 
           // Add to appropriate section
@@ -375,11 +372,11 @@ $(function () {
             start: function (event, ui) {
               $(this).addClass('dragging');
               ui.helper.css({
-                'width': $(this).width(),
-                'height': $(this).height(),
-                'opacity': 0.9,
-                'transform': 'scale(1.2)',
-                'box-shadow': '0 4px 20px rgba(0, 0, 0, 0.3)'
+                width: $(this).width(),
+                height: $(this).height(),
+                opacity: 0.9,
+                transform: 'scale(1.2)',
+                'box-shadow': '0 4px 20px rgba(0, 0, 0, 0.3)',
               });
             },
             stop: function (event, ui) {
@@ -387,10 +384,10 @@ $(function () {
               if (!$(ui.helper).closest('.panel').length) {
                 $(ui.helper).remove();
               }
-            }
+            },
           });
         });
-      }
+      },
     });
   }
 
@@ -437,11 +434,13 @@ $(function () {
   function initSpeedControl() {
     const $speedControl = $('<div>')
       .addClass('speed-control')
-      .html(`
+      .html(
+        `
         <span class="speed-control-label">${state.translations[state.currentLanguage].speedControl}</span>
         <input type="range" class="speed-slider" min="1" max="10" value="1" step="1">
         <span class="speed-value">1x</span>
-      `)
+      `
+      )
       .appendTo('body');
 
     $speedControl.find('.speed-slider').on('input', function () {
@@ -479,9 +478,7 @@ $(function () {
     const totalTime = duration;
 
     // Create timer display with countdown
-    const $timer = $('<div>')
-      .addClass('cooking-timer')
-      .html(`
+    const $timer = $('<div>').addClass('cooking-timer').html(`
             <div class="timer-content">
                 <span class="timer-emoji">🔥</span>
                 <span class="timer-countdown">${formatTime(timeLeft)}</span>
@@ -494,11 +491,7 @@ $(function () {
     const $smoke = $('<div>').addClass('smoke');
 
     // Add effects to item
-    $item.addClass('cooking')
-      .append($timer)
-      .append($flame)
-      .append($sizzle)
-      .append($smoke);
+    $item.addClass('cooking').append($timer).append($flame).append($sizzle).append($smoke);
 
     // Start the timer
     const timer = setInterval(() => {
@@ -509,12 +502,12 @@ $(function () {
       $item.find('.timer-display').text(formatTime(timeLeft));
 
       // Update cooking progress
-      const progress = 1 - (timeLeft / totalTime);
-      const brightness = Math.max(0.3, 1 - (progress * 0.7));
+      const progress = 1 - timeLeft / totalTime;
+      const brightness = Math.max(0.3, 1 - progress * 0.7);
       $item.find('.food-icon').css('filter', `brightness(${brightness})`);
 
       // Update flame intensity
-      $flame.css('opacity', 0.3 + (progress * 0.4));
+      $flame.css('opacity', 0.3 + progress * 0.4);
 
       if (timeLeft <= 0) {
         clearInterval(timer);
@@ -525,8 +518,10 @@ $(function () {
 
   // Finish cooking process
   function finishCooking($item) {
-    $item.removeClass('cooking')
-      .find('.cooking-timer, .flame-effect, .sizzle-effect, .smoke').remove();
+    $item
+      .removeClass('cooking')
+      .find('.cooking-timer, .flame-effect, .sizzle-effect, .smoke')
+      .remove();
 
     // Add done indicator and collect button
     $item.append(`
@@ -580,8 +575,7 @@ $(function () {
 
   // Finish collection process
   function finishCollection($item, $collectionArea) {
-    $item.removeClass('collecting')
-      .find('.collection-timer').remove();
+    $item.removeClass('collecting').find('.collection-timer').remove();
 
     const name = $item.find('.food-name, .sauce-name, .drink-name').text();
     const icon = $item.find('.food-icon, .sauce-icon, .drink-icon').html();
@@ -589,9 +583,7 @@ $(function () {
     const priceKrw = parseInt($item.data('price-krw'));
     const priceUsd = parseInt($item.data('price-usd'));
 
-    const $collectionItem = $('<div>')
-      .addClass('collection-item')
-      .html(`
+    const $collectionItem = $('<div>').addClass('collection-item').html(`
         <span class="item-icon">${icon}</span>
         <span class="item-name">${name}</span>
         <span class="item-price">${formatPrice({ krw: priceKrw, usd: priceUsd }, state.currentLanguage)}</span>
@@ -613,9 +605,7 @@ $(function () {
 
   // Add item to order
   function addToOrder(name, icon, priceKrw, priceUsd, category) {
-    const $orderItem = $('<div>')
-      .addClass('order-item')
-      .html(`
+    const $orderItem = $('<div>').addClass('order-item').html(`
         <span class="item-icon">${icon}</span>
         <span class="item-name">${name}</span>
         <span class="item-price">${formatPrice({ krw: priceKrw, usd: priceUsd }, state.currentLanguage)}</span>
@@ -649,16 +639,19 @@ $(function () {
   // Update language
   function updateLanguage() {
     // Update all item names and prices
-    $('.food-item, .sauce-item, .drink-item, .grilled, .collection-item, .order-item').each(function () {
-      const $item = $(this);
-      const name = $item.data(state.currentLanguage);
-      const priceKrw = parseInt($item.data('price-krw'));
-      const priceUsd = parseInt($item.data('price-usd'));
+    $('.food-item, .sauce-item, .drink-item, .grilled, .collection-item, .order-item').each(
+      function () {
+        const $item = $(this);
+        const name = $item.data(state.currentLanguage);
+        const priceKrw = parseInt($item.data('price-krw'));
+        const priceUsd = parseInt($item.data('price-usd'));
 
-      $item.find('.food-name, .sauce-name, .drink-name, .item-name').text(name);
-      $item.find('.food-price, .sauce-price, .drink-price, .item-price')
-        .text(formatPrice({ krw: priceKrw, usd: priceUsd }, state.currentLanguage));
-    });
+        $item.find('.food-name, .sauce-name, .drink-name, .item-name').text(name);
+        $item
+          .find('.food-price, .sauce-price, .drink-price, .item-price')
+          .text(formatPrice({ krw: priceKrw, usd: priceUsd }, state.currentLanguage));
+      }
+    );
 
     // Update total
     $('.total-amount').text(formatPrice(state.totalBill, state.currentLanguage));
@@ -678,7 +671,9 @@ $(function () {
           title.html(`${title.text()} <span class="korean-pronunciation">${koreanTitle}</span>`);
         }
         if (koreanSubtitle) {
-          subtitle.html(`${subtitle.text()} <span class="korean-pronunciation">${koreanSubtitle}</span>`);
+          subtitle.html(
+            `${subtitle.text()} <span class="korean-pronunciation">${koreanSubtitle}</span>`
+          );
         }
       } else {
         // Remove pronunciation in Korean mode
@@ -760,21 +755,21 @@ $(function () {
       high: [
         "You're absolutely amazing! 🍜",
         "Wow! You're incredible! 🥢",
-        "This is beyond generous! 🥡",
-        "You're making our day! 🍲"
+        'This is beyond generous! 🥡',
+        "You're making our day! 🍲",
       ],
       medium: [
         "Perfect! You're the best! 🍜",
-        "Thank you so much! 🥢",
+        'Thank you so much! 🥢',
         "You're awesome! 🥡",
-        "Much appreciated! 🍲"
+        'Much appreciated! 🍲',
       ],
       low: [
-        "Every bit helps! Thank you! 🥄",
-        "Thanks for your support! 🍜",
-        "We appreciate it! 🥢",
-        "You're kind! 🥡"
-      ]
+        'Every bit helps! Thank you! 🥄',
+        'Thanks for your support! 🍜',
+        'We appreciate it! 🥢',
+        "You're kind! 🥡",
+      ],
     };
 
     function getRandomMessage(category) {
@@ -785,7 +780,7 @@ $(function () {
     function updateTipUI(value) {
       const percentage = parseInt(value);
       const orderAmount = state.totalBill.usd || 0;
-      const tipValue = (orderAmount * percentage / 100) + BASE_TIP + interactionBonus;
+      const tipValue = (orderAmount * percentage) / 100 + BASE_TIP + interactionBonus;
 
       // Update tip amount display
       tipAmount.textContent = `$${tipValue.toFixed(2)}`;
@@ -795,19 +790,19 @@ $(function () {
 
       if (tipValue >= 20) {
         message = getRandomMessage('high');
-        emoji = "🍜";
+        emoji = '🍜';
       } else if (tipValue >= 10) {
         message = getRandomMessage('medium');
-        emoji = "🥢";
+        emoji = '🥢';
       } else {
         message = getRandomMessage('low');
-        emoji = "🥄";
+        emoji = '🥄';
       }
 
       // Special message for exactly $5
       if (Math.abs(tipValue - 5) < 0.01) {
         message = "Perfect! That's exactly what we needed! 🍜";
-        emoji = "🍜";
+        emoji = '🍜';
       }
 
       // Update reaction and message with animation

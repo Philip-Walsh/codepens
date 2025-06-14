@@ -1,134 +1,136 @@
 :root {
-	--size: 30rem;
-	--bg-color: #45474b;
-	--card-color: rgba(55, 151, 119, 0.7);
-	--piece-color:aqua;
-	--piece-size: 5em;
-	--inner-piece-size: 2em;
-	--remove-position-adjust: -5px
+  --size: 30rem;
+  --bg-color: #45474b;
+  --card-color: rgba(55, 151, 119, 0.7);
+  --piece-color: aqua;
+  --piece-size: 5em;
+  --inner-piece-size: 2em;
+  --remove-position-adjust: -5px;
 }
 #pieces {
-	width: calc(var(--piece-size) * 5);
-	height: calc(var(--piece-size) * 5);
-    display: grid;
-    /* gap: 5px; */
-    border: 2px solid black;
-    padding: 1em;
+  width: calc(var(--piece-size) * 5);
+  height: calc(var(--piece-size) * 5);
+  display: grid;
+  /* gap: 5px; */
+  border: 2px solid black;
+  padding: 1em;
 }
 
 #pieces .piece {
-    width: var(--piece-size);
-	aspect-ratio: 1 / 1;
-    /* border: 2px solid red; */
-	background-color: var(--piece-color);
-    position: relative;
+  width: var(--piece-size);
+  aspect-ratio: 1 / 1;
+  /* border: 2px solid red; */
+  background-color: var(--piece-color);
+  position: relative;
 }
 
 #pieces .inner-piece {
-    border-radius: 50%;
-    position: absolute;
-    width: var(--inner-piece-size);
-	aspect-ratio: 1 / 1;
-    /* border: 2px solid green; */
+  border-radius: 50%;
+  position: absolute;
+  width: var(--inner-piece-size);
+  aspect-ratio: 1 / 1;
+  /* border: 2px solid green; */
 }
 
 .inner-piece.top-add {
-    top: calc(-1 * var(--inner-piece-size));
-    left: 50%;
-    transform: translateX(-50%);
-	background-color: var(--piece-color);
-	z-index: 4;
+  top: calc(-1 * var(--inner-piece-size));
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--piece-color);
+  z-index: 4;
 }
 
 .inner-piece.right-add {
-    top: 50%;
-    right: calc(-1 * var(--inner-piece-size));
-    transform: translateY(-50%);
-	background-color: var(--piece-color);
-	z-index: 4;
+  top: 50%;
+  right: calc(-1 * var(--inner-piece-size));
+  transform: translateY(-50%);
+  background-color: var(--piece-color);
+  z-index: 4;
 }
 
 .inner-piece.bottom-add {
-    bottom: calc(-1 * var(--inner-piece-size));
-    left: 50%;
-    transform: translateX(-50%);
-	background-color: var(--piece-color);
-	z-index: 4;
+  bottom: calc(-1 * var(--inner-piece-size));
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--piece-color);
+  z-index: 4;
 }
 
 .inner-piece.left-add {
-    top: 50%;
-    left:  calc(-1 * var(--inner-piece-size));
-    transform: translateY(-50%);
-	background-color: var(--piece-color);
-	z-index: 4;
+  top: 50%;
+  left: calc(-1 * var(--inner-piece-size));
+  transform: translateY(-50%);
+  background-color: var(--piece-color);
+  z-index: 4;
 }
 
 .inner-piece.top-remove {
-    top: var(--remove-position-adjust);;
-    left: 50%;
-    transform: translateX(-50%);
-	background-color: var(--bg-color);
-	z-index: 3;
+  top: var(--remove-position-adjust);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg-color);
+  z-index: 3;
 }
 
-
 .inner-piece.right-remove {
-    top: 50%;
-    right: var(--remove-position-adjust);;
-    transform: translateY(-50%);
-	background-color: var(--bg-color);
-	z-index: 3;
+  top: 50%;
+  right: var(--remove-position-adjust);
+  transform: translateY(-50%);
+  background-color: var(--bg-color);
+  z-index: 3;
 }
 
 .inner-piece.bottom-remove {
-    bottom: var(--remove-position-adjust);;
-    left: 50%;
-    transform: translateX(-50%);
-	background-color: var(--bg-color);
-	z-index: 3;
+  bottom: var(--remove-position-adjust);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg-color);
+  z-index: 3;
 }
 
 .inner-piece.left-remove {
-    top: 50%;
-    left: var(--remove-position-adjust);;
-    transform: translateY(-50%);
-	background-color: var(--bg-color);
-	z-index: 3;
+  top: 50%;
+  left: var(--remove-position-adjust);
+  transform: translateY(-50%);
+  background-color: var(--bg-color);
+  z-index: 3;
 }
 
 .piece {
-    cursor: grab;
+  cursor: grab;
 }
 
 .piece.dragging {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .piece.placeholder {
-    border: 2px dashed blue;
+  border: 2px dashed blue;
 }
 
 body {
-	/* background-color: var(--bg-color); */
-	background-color: gray;
-	color: var(--txt-color);
-	font-family: 'Arial', sans-serif;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	margin: 0;
+  /* background-color: var(--bg-color); */
+  background-color: gray;
+  color: var(--txt-color);
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
 #info {
-	--color: yellow;
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-	display: flex;
-	flex-direction: column;
-	color: var(--color);
-	text-shadow: 0 0 7px var(--color), 0 0 10px var(--color), 0 0 21px var(--color);
-	font-size: 1.5em;
+  --color: yellow;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  color: var(--color);
+  text-shadow:
+    0 0 7px var(--color),
+    0 0 10px var(--color),
+    0 0 21px var(--color);
+  font-size: 1.5em;
 }

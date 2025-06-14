@@ -3,17 +3,19 @@
 :root {
   --bg-color: #20232a;
   --slide-size: 6em;
-  --slider-color: #ECDFCC;
+  --slider-color: #ecdfcc;
   --slider-color-rgb: 236, 223, 204;
 }
 
 body {
-
   background-color: var(--bg-color);
-  background-image: radial-gradient(#ffffff 0.5px, transparent 0.5px),
+  background-image:
+    radial-gradient(#ffffff 0.5px, transparent 0.5px),
     radial-gradient(#ffffff 0.5px, var(--bg-color) 0.5px);
   background-size: 20px 20px;
-  background-position: 0 0, 10px 10px;
+  background-position:
+    0 0,
+    10px 10px;
 
   display: flex;
   place-content: center;
@@ -22,25 +24,22 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-
-
 }
 
 .fire {
-  --accent-color: #CD5C08;
+  --accent-color: #cd5c08;
 }
 
 .air {
-  --accent-color: #FFF5E4;
+  --accent-color: #fff5e4;
 }
 
 .water {
-  --accent-color: #C0D7D6;
+  --accent-color: #c0d7d6;
 }
 
 .nature {
-  --accent-color: #C1D8C3;
-
+  --accent-color: #c1d8c3;
 }
 
 .slider {
@@ -56,20 +55,19 @@ body {
 }
 
 span {
-  font-family: "Noto Color Emoji", sans-serif;
+  font-family: 'Noto Color Emoji', sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
 input {
-
   writing-mode: vertical-lr;
   direction: rtl;
   vertical-align: middle;
 }
 
 /*  */
-input[type=range] {
+input[type='range'] {
   -webkit-appearance: none;
   margin: 18px 0;
   width: 100%;
@@ -79,15 +77,17 @@ input[type=range] {
   place-content: center;
 }
 
-input[type=range]::-webkit-slider-runnable-track {
+input[type='range']::-webkit-slider-runnable-track {
   width: 100%;
   height: 8.4px;
   cursor: pointer;
   border-radius: 1.3px;
 }
 
-input[type=range]::-webkit-slider-thumb {
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+input[type='range']::-webkit-slider-thumb {
+  box-shadow:
+    1px 1px 1px #000000,
+    0px 0px 1px #0d0d0d;
   height: 36px;
   width: 20px;
   border-radius: 3px;
@@ -124,7 +124,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .start-button:hover {
-  background-color: #CD5C08;
+  background-color: #cd5c08;
   color: white;
 }
 

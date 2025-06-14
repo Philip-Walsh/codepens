@@ -21,22 +21,22 @@ app.use('/other', express.static(path.join(__dirname, 'other')));
 
 // Main route
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Challenge routes
 app.get('/challenges/:category/:name', (req, res) => {
-    const { category, name } = req.params;
-    res.sendFile(path.join(__dirname, 'challenges', category, name, 'index.html'));
+  const { category, name } = req.params;
+  res.sendFile(path.join(__dirname, 'challenges', category, name, 'index.html'));
 });
 
 // Other project routes
 app.get('/other/:name', (req, res) => {
-    const { name } = req.params;
-    res.sendFile(path.join(__dirname, 'other', name, 'index.html'));
+  const { name } = req.params;
+  res.sendFile(path.join(__dirname, 'other', name, 'index.html'));
 });
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-}); 
+  console.log(`Server running at http://localhost:${PORT}`);
+});

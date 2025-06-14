@@ -5,14 +5,14 @@ class SlotMachine {
     this.isSpinning = false;
     this.currentResults = [];
     this.symbols = [
-      { name: "cake", emoji: "🍰", weight: 3 },
-      { name: "cupcake", emoji: "🧁", weight: 2 },
-      { name: "donut", emoji: "🍩", weight: 2 },
-      { name: "ice cream", emoji: "🍦", weight: 3 },
-      { name: "popsicle", emoji: "🍧", weight: 1 },
-      { name: "pie", emoji: "🥧", weight: 3 },
-      { name: "pizza", emoji: "🍕", weight: 4 },
-      { name: "sandwich", emoji: "🥪", weight: 2 }
+      { name: 'cake', emoji: '🍰', weight: 3 },
+      { name: 'cupcake', emoji: '🧁', weight: 2 },
+      { name: 'donut', emoji: '🍩', weight: 2 },
+      { name: 'ice cream', emoji: '🍦', weight: 3 },
+      { name: 'popsicle', emoji: '🍧', weight: 1 },
+      { name: 'pie', emoji: '🥧', weight: 3 },
+      { name: 'pizza', emoji: '🍕', weight: 4 },
+      { name: 'sandwich', emoji: '🥪', weight: 2 },
     ];
     this.lightController = new LightController(this);
   }
@@ -31,7 +31,7 @@ class SlotMachine {
       .fill()
       .map(() => this.symbols[Math.floor(Math.random() * this.symbols.length)]);
 
-    const reels = document.querySelectorAll(".reel");
+    const reels = document.querySelectorAll('.reel');
     reels.forEach((reel, index) => {
       const randomDelay = this.prefersReducedMotion() ? 0 : Math.random() * 500;
       const randomDuration = this.prefersReducedMotion() ? 1000 : 1500 + Math.random() * 1000;
@@ -45,28 +45,26 @@ class SlotMachine {
   }
 
   animateReel(reel, result, duration) {
-    const symbols = reel.querySelectorAll(".symbol");
+    const symbols = reel.querySelectorAll('.symbol');
 
-    reel.classList.add("spinning");
+    reel.classList.add('spinning');
 
     const spinInterval = setInterval(() => {
-      symbols.forEach((symbol) => {
-        const randomSymbol = this.symbols[
-          Math.floor(Math.random() * this.symbols.length)
-        ];
+      symbols.forEach(symbol => {
+        const randomSymbol = this.symbols[Math.floor(Math.random() * this.symbols.length)];
         symbol.textContent = randomSymbol.emoji;
       });
     }, 50);
 
     setTimeout(() => {
       clearInterval(spinInterval);
-      reel.classList.remove("spinning");
-      symbols.forEach((symbol) => {
+      reel.classList.remove('spinning');
+      symbols.forEach(symbol => {
         symbol.textContent = result.emoji;
       });
 
-      const allStopped = Array.from(document.querySelectorAll(".reel")).every(
-        (reel) => !reel.classList.contains("spinning")
+      const allStopped = Array.from(document.querySelectorAll('.reel')).every(
+        reel => !reel.classList.contains('spinning')
       );
 
       if (allStopped) {
@@ -77,7 +75,7 @@ class SlotMachine {
 
   checkWin() {
     const isWin = this.currentResults.every(
-      (symbol) => symbol.emoji === this.currentResults[0].emoji
+      symbol => symbol.emoji === this.currentResults[0].emoji
     );
 
     const slotMachine = document.querySelector('.slot-machine');
@@ -107,25 +105,20 @@ class SlotMachine {
   }
 
   showWinMessage(amount) {
-    const message = $(
-      `<div class="win-message">You won ${amount} coins! 🎉</div>`
-    );
-    $(".slot-machine").append(message);
+    const message = $(`<div class="win-message">You won ${amount} coins! 🎉</div>`);
+    $('.slot-machine').append(message);
     setTimeout(() => message.remove(), 3000);
   }
 
   updateDisplay() {
-    $(".balance").text(`Balance: ${this.balance} coins`);
-    $(".spin-button").prop(
-      "disabled",
-      this.isSpinning || this.balance < this.betAmount
-    );
+    $('.balance').text(`Balance: ${this.balance} coins`);
+    $('.spin-button').prop('disabled', this.isSpinning || this.balance < this.betAmount);
   }
 
   increaseBet() {
     if (this.betAmount < 50 && !this.isSpinning) {
       this.betAmount += 10;
-      $(".bet-amount").text(`Bet: ${this.betAmount} coins`);
+      $('.bet-amount').text(`Bet: ${this.betAmount} coins`);
       this.updateDisplay();
     }
   }
@@ -133,7 +126,7 @@ class SlotMachine {
   decreaseBet() {
     if (this.betAmount > 10 && !this.isSpinning) {
       this.betAmount -= 10;
-      $(".bet-amount").text(`Bet: ${this.betAmount} coins`);
+      $('.bet-amount').text(`Bet: ${this.betAmount} coins`);
       this.updateDisplay();
     }
   }
@@ -170,23 +163,26 @@ class LightController {
       const lights = band.querySelectorAll('.light');
       let currentIndex = 0;
 
-      const interval = setInterval(() => {
-        lights.forEach(light => light.classList.remove('active'));
+      const interval = setInterval(
+        () => {
+          lights.forEach(light => light.classList.remove('active'));
 
-        for (let i = 0; i < 3; i++) {
-          const lightIndex = (currentIndex + i) % lights.length;
-          const light = lights[lightIndex];
-          light.classList.add('active');
+          for (let i = 0; i < 3; i++) {
+            const lightIndex = (currentIndex + i) % lights.length;
+            const light = lights[lightIndex];
+            light.classList.add('active');
 
-          if (i > 0) {
-            light.style.transitionDelay = `${i * 50}ms`;
-          } else {
-            light.style.transitionDelay = '0ms';
+            if (i > 0) {
+              light.style.transitionDelay = `${i * 50}ms`;
+            } else {
+              light.style.transitionDelay = '0ms';
+            }
           }
-        }
 
-        currentIndex = (currentIndex + 1) % lights.length;
-      }, isSpinning ? animationSpeed : 300);
+          currentIndex = (currentIndex + 1) % lights.length;
+        },
+        isSpinning ? animationSpeed : 300
+      );
 
       this.lightIntervals.push(interval);
     });
@@ -239,21 +235,21 @@ class LightController {
 $(document).ready(() => {
   const slotMachine = new SlotMachine();
   const $slotMachine = $(`
-    `).appendTo("body");
+    `).appendTo('body');
 
-  $(".game-banner").css("text-shadow", generateTextShadow());
+  $('.game-banner').css('text-shadow', generateTextShadow());
 
-  $(".spin-button").on("click", () => {
+  $('.spin-button').on('click', () => {
     if (!slotMachine.isSpinning) {
       slotMachine.spin();
     }
   });
 
-  $(".increase-bet").on("click", () => {
+  $('.increase-bet').on('click', () => {
     slotMachine.increaseBet();
   });
 
-  $(".decrease-bet").on("click", () => {
+  $('.decrease-bet').on('click', () => {
     slotMachine.decreaseBet();
   });
 });
@@ -261,34 +257,25 @@ $(document).ready(() => {
 function hexToRgb(hex) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
-    ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(
-      result[3],
-      16
-    )}`
-    : "127, 85, 177";
+    ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
+    : '127, 85, 177';
 }
 
-function generateTextShadow(
-  numLayers = 20,
-  baseColor = "#7f55b1",
-  startOpacity = 0.9
-) {
+function generateTextShadow(numLayers = 20, baseColor = '#7f55b1', startOpacity = 0.9) {
   const shadows = [
-    "-1px -1px var(--primary)",
-    "1px -1px var(--primary)",
-    "-1px 1px var(--primary)",
-    "1px 1px var(--primary)",
-    "-2px -2px var(--primary)",
-    "2px -2px var(--primary)",
-    "-2px 2px var(--primary)",
-    "2px 2px var(--primary)"
+    '-1px -1px var(--primary)',
+    '1px -1px var(--primary)',
+    '-1px 1px var(--primary)',
+    '1px 1px var(--primary)',
+    '-2px -2px var(--primary)',
+    '2px -2px var(--primary)',
+    '-2px 2px var(--primary)',
+    '2px 2px var(--primary)',
   ];
   for (let i = 0; i < numLayers; i++) {
     const offset = i + 1;
     const opacity = startOpacity - i * (startOpacity / numLayers);
-    shadows.push(
-      `${offset}px ${offset}px rgba(${hexToRgb(baseColor)}, ${opacity})`
-    );
+    shadows.push(`${offset}px ${offset}px rgba(${hexToRgb(baseColor)}, ${opacity})`);
   }
-  return shadows.join(", ");
+  return shadows.join(', ');
 }

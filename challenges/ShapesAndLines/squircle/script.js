@@ -7,8 +7,8 @@ const ANIMATION_CONFIG = {
   phases: [
     { from: 0.0, to: 0.05, dur: 500 },
     { from: 0.05, to: 0.1, dur: 1000 },
-    { from: 0.1, to: 0.065, dur: 1500 }
-  ]
+    { from: 0.1, to: 0.065, dur: 1500 },
+  ],
 };
 
 // Utility function for linear interpolation
@@ -38,7 +38,7 @@ class SquircleAnimation {
     this.squircle.addEventListener('mouseenter', () => this.triggerAnimation());
 
     // Keyboard accessibility
-    this.squircle.addEventListener('keydown', (e) => {
+    this.squircle.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         this.triggerAnimation();
@@ -46,17 +46,21 @@ class SquircleAnimation {
     });
 
     // Touch events for mobile
-    this.squircle.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      this.triggerAnimation();
-    }, { passive: false });
+    this.squircle.addEventListener(
+      'touchstart',
+      e => {
+        e.preventDefault();
+        this.triggerAnimation();
+      },
+      { passive: false }
+    );
 
     // Reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (prefersReducedMotion.matches) {
       this.disableAnimations();
     }
-    prefersReducedMotion.addEventListener('change', (e) => {
+    prefersReducedMotion.addEventListener('change', e => {
       if (e.matches) {
         this.disableAnimations();
       }
@@ -81,7 +85,7 @@ class SquircleAnimation {
     let currentPhase = 0;
     let phaseStart = 0;
 
-    const step = (timestamp) => {
+    const step = timestamp => {
       if (!start) start = timestamp;
       const elapsed = timestamp - start;
       const localElapsed = elapsed - phaseStart;

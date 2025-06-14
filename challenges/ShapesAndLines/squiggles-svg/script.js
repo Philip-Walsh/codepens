@@ -52,73 +52,73 @@ feMergeNode2.setAttribute('in', 'SourceGraphic');
 feMerge.appendChild(feMergeNode2);
 
 class SquigglePath {
-    constructor() {
-        this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        this.path.classList.add('squiggle-path');
-        svg.appendChild(this.path);
+  constructor() {
+    this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    this.path.classList.add('squiggle-path');
+    svg.appendChild(this.path);
 
-        this.complexity = parseInt(complexityInput.value);
-        this.smoothness = parseInt(smoothnessInput.value);
-        this.speed = parseInt(speedInput.value);
-        this.strokeWidth = parseInt(strokeWidthInput.value);
+    this.complexity = parseInt(complexityInput.value);
+    this.smoothness = parseInt(smoothnessInput.value);
+    this.speed = parseInt(speedInput.value);
+    this.strokeWidth = parseInt(strokeWidthInput.value);
 
-        this.updatePath();
-        this.animate();
+    this.updatePath();
+    this.animate();
+  }
+
+  generatePoints() {
+    const points = [];
+    const width = svg.clientWidth;
+    const height = svg.clientHeight;
+    const segments = Math.floor(width / this.smoothness);
+
+    for (let i = 0; i <= segments; i++) {
+      const x = (i / segments) * width;
+      const y = height / 2 + Math.sin(i * this.complexity) * (height / 4);
+      points.push([x, y]);
     }
 
-    generatePoints() {
-        const points = [];
-        const width = svg.clientWidth;
-        const height = svg.clientHeight;
-        const segments = Math.floor(width / this.smoothness);
+    return points;
+  }
 
-        for (let i = 0; i <= segments; i++) {
-            const x = (i / segments) * width;
-            const y = height / 2 + Math.sin(i * this.complexity) * (height / 4);
-            points.push([x, y]);
-        }
+  generatePath(points) {
+    let pathData = `M ${points[0][0]},${points[0][1]}`;
 
-        return points;
+    for (let i = 1; i < points.length; i++) {
+      const [x, y] = points[i];
+      const [prevX, prevY] = points[i - 1];
+      const cp1x = (prevX + x) / 2;
+      const cp1y = prevY;
+      const cp2x = (prevX + x) / 2;
+      const cp2y = y;
+
+      pathData += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${x},${y}`;
     }
 
-    generatePath(points) {
-        let pathData = `M ${points[0][0]},${points[0][1]}`;
+    return pathData;
+  }
 
-        for (let i = 1; i < points.length; i++) {
-            const [x, y] = points[i];
-            const [prevX, prevY] = points[i - 1];
-            const cp1x = (prevX + x) / 2;
-            const cp1y = prevY;
-            const cp2x = (prevX + x) / 2;
-            const cp2y = y;
+  updatePath() {
+    const points = this.generatePoints();
+    const pathData = this.generatePath(points);
+    this.path.setAttribute('d', pathData);
+    this.path.setAttribute('stroke-width', this.strokeWidth);
+  }
 
-            pathData += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${x},${y}`;
-        }
+  animate() {
+    const duration = 10000 / this.speed;
+    this.path.style.animationDuration = `${duration}ms`;
+  }
 
-        return pathData;
-    }
+  updateProperties() {
+    this.complexity = parseInt(complexityInput.value);
+    this.smoothness = parseInt(smoothnessInput.value);
+    this.speed = parseInt(speedInput.value);
+    this.strokeWidth = parseInt(strokeWidthInput.value);
 
-    updatePath() {
-        const points = this.generatePoints();
-        const pathData = this.generatePath(points);
-        this.path.setAttribute('d', pathData);
-        this.path.setAttribute('stroke-width', this.strokeWidth);
-    }
-
-    animate() {
-        const duration = 10000 / this.speed;
-        this.path.style.animationDuration = `${duration}ms`;
-    }
-
-    updateProperties() {
-        this.complexity = parseInt(complexityInput.value);
-        this.smoothness = parseInt(smoothnessInput.value);
-        this.speed = parseInt(speedInput.value);
-        this.strokeWidth = parseInt(strokeWidthInput.value);
-
-        this.updatePath();
-        this.animate();
-    }
+    this.updatePath();
+    this.animate();
+  }
 }
 
 // State
@@ -127,66 +127,67 @@ let isDarkTheme = false;
 
 // Functions
 function updateGradient() {
-    const startColor = startColorInput.value;
-    const endColor = endColorInput.value;
+  const startColor = startColorInput.value;
+  const endColor = endColorInput.value;
 
-    const startStop = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-    startStop.setAttribute('offset', '0%');
-    startStop.setAttribute('stop-color', startColor);
+  const startStop = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+  startStop.setAttribute('offset', '0%');
+  startStop.setAttribute('stop-color', startColor);
 
-    const endStop = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-    endStop.setAttribute('offset', '100%');
-    endStop.setAttribute('stop-color', endColor);
+  const endStop = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+  endStop.setAttribute('offset', '100%');
+  endStop.setAttribute('stop-color', endColor);
 
-    gradient.innerHTML = '';
-    gradient.appendChild(startStop);
-    gradient.appendChild(endStop);
+  gradient.innerHTML = '';
+  gradient.appendChild(startStop);
+  gradient.appendChild(endStop);
 }
 
 function addPath() {
-    const path = new SquigglePath();
-    paths.push(path);
+  const path = new SquigglePath();
+  paths.push(path);
 }
 
 function resetPaths() {
-    paths.forEach(path => path.path.remove());
-    paths = [];
+  paths.forEach(path => path.path.remove());
+  paths = [];
 }
 
 function updateAllPaths() {
-    paths.forEach(path => path.updateProperties());
+  paths.forEach(path => path.updateProperties());
 }
 
 function toggleTheme() {
-    isDarkTheme = !isDarkTheme;
-    document.body.classList.toggle('dark-theme');
-    themeToggle.innerHTML = isDarkTheme ? '☀️' : '🌙';
+  isDarkTheme = !isDarkTheme;
+  document.body.classList.toggle('dark-theme');
+  themeToggle.innerHTML = isDarkTheme ? '☀️' : '🌙';
 }
 
 function updateScrollProgress() {
-    const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-    scrollProgress.style.transform = `scaleX(${scrollPercent / 100})`;
+  const scrollPercent =
+    (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  scrollProgress.style.transform = `scaleX(${scrollPercent / 100})`;
 }
 
 // Event Listeners
 complexityInput.addEventListener('input', () => {
-    complexityInput.nextElementSibling.textContent = complexityInput.value;
-    updateAllPaths();
+  complexityInput.nextElementSibling.textContent = complexityInput.value;
+  updateAllPaths();
 });
 
 smoothnessInput.addEventListener('input', () => {
-    smoothnessInput.nextElementSibling.textContent = smoothnessInput.value;
-    updateAllPaths();
+  smoothnessInput.nextElementSibling.textContent = smoothnessInput.value;
+  updateAllPaths();
 });
 
 speedInput.addEventListener('input', () => {
-    speedInput.nextElementSibling.textContent = speedInput.value;
-    updateAllPaths();
+  speedInput.nextElementSibling.textContent = speedInput.value;
+  updateAllPaths();
 });
 
 strokeWidthInput.addEventListener('input', () => {
-    strokeWidthInput.nextElementSibling.textContent = strokeWidthInput.value;
-    updateAllPaths();
+  strokeWidthInput.nextElementSibling.textContent = strokeWidthInput.value;
+  updateAllPaths();
 });
 
 startColorInput.addEventListener('input', updateGradient);
@@ -203,4 +204,4 @@ window.addEventListener('resize', updateAllPaths);
 updateGradient();
 addPath();
 addPath();
-addPath(); 
+addPath();

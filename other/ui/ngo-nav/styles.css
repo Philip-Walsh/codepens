@@ -1,17 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&family=Sigmar&display=swap');
 
-
 :root {
-  --primary: #FFF5E4;
-  --txt-color: #4D3000;
-  --secondary: #FFE3E1;
-  --tertiary: #FF9494;
-  --accent: #FFD1D1;
+  --primary: #fff5e4;
+  --txt-color: #4d3000;
+  --secondary: #ffe3e1;
+  --tertiary: #ff9494;
+  --accent: #ffd1d1;
 }
 
 h1,
 h2 {
-  font-family: "Sigmar", serif;
+  font-family: 'Sigmar', serif;
   font-weight: 400;
   font-style: normal;
   width: 100%;
@@ -23,7 +22,7 @@ h2 {
 
 strong,
 button {
-  font-family: "Sigmar", serif;
+  font-family: 'Sigmar', serif;
   font-weight: 200;
   font-style: normal;
 }
@@ -31,7 +30,7 @@ button {
 p,
 a,
 blockquote {
-  font-family: "Atkinson Hyperlegible Next", serif;
+  font-family: 'Atkinson Hyperlegible Next', serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -42,7 +41,6 @@ blockquote {
   font-weight: bold;
 }
 
-
 body {
   font-size: 1.2rem;
   color: var(--txt-color);
@@ -51,11 +49,10 @@ body {
   margin: 0;
   display: grid;
   grid-template-areas:
-    "header"
-    "main"
-    "footer";
+    'header'
+    'main'
+    'footer';
   position: relative;
-
 }
 
 header {
@@ -82,7 +79,7 @@ nav {
 }
 
 nav::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -91,7 +88,7 @@ nav::before {
   background: var(--secondary);
   transition: height 0.5s ease;
   border-radius: 2em;
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 nav:has(.show)::before {
@@ -120,7 +117,6 @@ nav #toggle-nav {
   fill: var(--tertiaty);
 
   transition: all 0.3s ease;
-
 }
 
 nav ul {
@@ -140,8 +136,6 @@ nav ul li {
   width: var(--nav-w);
   padding: 0;
   margin: 0;
-
-
 }
 
 nav a {
@@ -150,11 +144,10 @@ nav a {
   font-weight: bold;
   width: 100%;
   height: var(--nav-h);
-  padding: 0 .5em;
+  padding: 0 0.5em;
   text-decoration: none;
-  margin: .5rem 0;
+  margin: 0.5rem 0;
   font-size: 2rem;
-
 }
 
 nav a:hover {
@@ -162,28 +155,23 @@ nav a:hover {
   background: linear-gradient(90deg, transparent, var(--primary));
   color: var(--txt-color);
   transition: all 0.3s ease;
-
 }
 
 nav a:link,
 nav a:visited,
 nav a:active {
   color: var(--txt-color);
-
 }
 
 nav ul {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-
 }
 
 nav ul.show {
   opacity: 1;
   pointer-events: auto;
-
-
 }
 
 nav ul li {
@@ -223,7 +211,6 @@ nav ul.show li:nth-child(7) {
   transition-delay: 0.7s;
 }
 
-
 main {
   grid-area: main;
   display: flex;
@@ -232,10 +219,9 @@ main {
   align-items: center;
   gap: 1em;
   width: 100vw;
-
 }
 
-main>section {
+main > section {
   width: 90%;
   display: flex;
   flex-direction: column;

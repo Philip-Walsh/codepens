@@ -1,16 +1,16 @@
 let container;
 let currentMonth;
 let currentYear;
-const DAYS_OF_WEEK = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const DAYS_OF_WEEK = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-document.addEventListener("DOMContentLoaded", () => {
-  container = document.getElementById("calendar");
+document.addEventListener('DOMContentLoaded', () => {
+  container = document.getElementById('calendar');
   const now = new Date();
   currentMonth = now.getMonth();
   currentYear = now.getFullYear();
   renderCalendar(currentMonth, currentYear);
 
-  document.querySelector("#prev-month").addEventListener("click", () => {
+  document.querySelector('#prev-month').addEventListener('click', () => {
     if (currentMonth === 0) {
       currentMonth = 11;
       currentYear--;
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCalendar(currentMonth, currentYear);
   });
 
-  document.querySelector("#next-month").addEventListener("click", () => {
+  document.querySelector('#next-month').addEventListener('click', () => {
     if (currentMonth === 11) {
       currentMonth = 0;
       currentYear++;
@@ -33,11 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setDateDisplay(month, year) {
   // TODO: fix date jank
-  const date = document.getElementById("date");
+  const date = document.getElementById('date');
   function numberToMonth(number) {
-    if (number < 1 || number > 12) return "Jan";
+    if (number < 1 || number > 12) return 'Jan';
     let date = new Date(0, number);
-    return date.toLocaleString("default", { month: "short" });
+    return date.toLocaleString('default', { month: 'short' });
   }
 
   date.innerHTML = `${numberToMonth(month)} ${year}`;
@@ -45,14 +45,14 @@ function setDateDisplay(month, year) {
 function renderCalendar(month, year) {
   const data = generateCalendar(month, year);
   setDateDisplay(month, year);
-  container.innerHTML = "";
+  container.innerHTML = '';
 
-  const weekdayRow = document.createElement("div");
-  weekdayRow.className = "calendar__weekdays";
+  const weekdayRow = document.createElement('div');
+  weekdayRow.className = 'calendar__weekdays';
 
   for (const dayName of data.daysOfWeek) {
-    const label = document.createElement("div");
-    label.className = "calendar__dayname";
+    const label = document.createElement('div');
+    label.className = 'calendar__dayname';
     label.textContent = dayName;
     weekdayRow.appendChild(label);
   }
@@ -60,18 +60,18 @@ function renderCalendar(month, year) {
   container.appendChild(weekdayRow);
 
   for (const week of data.days) {
-    const weekRow = document.createElement("div");
-    weekRow.className = "calendar__week";
+    const weekRow = document.createElement('div');
+    weekRow.className = 'calendar__week';
 
     for (const dayObj of week) {
-      const p = document.createElement("p");
+      const p = document.createElement('p');
       p.className = `calendar__day ${dayObj.className}`;
       p.textContent = dayObj.day;
 
       const dayIndex = data.daysOfWeek.indexOf(dayObj.weekday);
       // TODO: handle weekend style better
       if (dayIndex === 5 || dayIndex === 6) {
-        p.classList.add("weekend");
+        p.classList.add('weekend');
       }
 
       weekRow.appendChild(p);
@@ -107,22 +107,21 @@ function getPrevMonthDays(startDay, month, year) {
   return Array.from({ length: startDay }, (_, i) => {
     const day = prevMonthTotal - startDay + i + 1;
     const weekday = DAYS_OF_WEEK[i % 7];
-    return { day, className: "prev-month", weekday };
+    return { day, className: 'prev-month', weekday };
   });
 }
 
 function getMonthDays(daysInMonth, month, year) {
   const today = new Date();
-  const isCurrentMonth =
-    month === today.getMonth() && year === today.getFullYear();
+  const isCurrentMonth = month === today.getMonth() && year === today.getFullYear();
 
   return Array.from({ length: daysInMonth }, (_, i) => {
     const day = i + 1;
     const date = new Date(year, month, day);
     const weekday = DAYS_OF_WEEK[(date.getDay() + 6) % 7];
-    let className = "current-month";
+    let className = 'current-month';
     if (isCurrentMonth && day === today.getDate()) {
-      className += " today";
+      className += ' today';
     }
     return { day, className, weekday };
   });
@@ -135,7 +134,7 @@ function getNextMonthDays(startDay, daysInMonth) {
 
   return Array.from({ length: fill }, (_, i) => {
     const weekday = DAYS_OF_WEEK[(i + startDay + daysInMonth) % 7];
-    return { day: i + 1, className: "next-month", weekday };
+    return { day: i + 1, className: 'next-month', weekday };
   });
 }
 

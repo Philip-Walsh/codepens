@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
 :root {
-  --yellow: #FFF100;
+  --yellow: #fff100;
   --red: #fa625a;
   --orange: #ff7200;
   --blue: #000eff;
@@ -26,7 +26,6 @@ body {
   width: clamp(100vw, 100vw, 100vw);
   display: grid;
   grid-template-columns: auto auto;
-
 }
 
 .time__container {
@@ -40,14 +39,15 @@ body {
   height: 100vh;
   color: var(--text-color);
   text-shadow: var(--text-shadow);
-  font-family: "Share Tech Mono", monospace;
+  font-family: 'Share Tech Mono', monospace;
   font-weight: 400;
   font-style: normal;
   font-size: 4rem;
   transition: all 0.5s ease-out;
 }
 
-.time__container time {}
+.time__container time {
+}
 
 @media (max-width: 768px) {
   body {

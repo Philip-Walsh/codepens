@@ -46,12 +46,13 @@ body {
   transform: rotateX(65deg);
 }
 .sphere::before {
-  content: "";
+  content: '';
   width: calc(var(--w) * 3);
   height: calc(var(--h) * 3);
   position: relative;
   transform: rotateX(120deg) translateZ(10rem);
-  background: radial-gradient(ellipse at top, rgba(var(--light-color)), transparent),
+  background:
+    radial-gradient(ellipse at top, rgba(var(--light-color)), transparent),
     radial-gradient(ellipse at bottom, var(--warmth-color), transparent);
 }
 
@@ -61,7 +62,9 @@ body {
   border-radius: 20%;
   background-color: rgba(var(--light-color));
 
-  box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 0.2), inset 0 0 1rem 0 gray;
+  box-shadow:
+    0 0 1rem 0 rgba(255, 255, 255, 0.2),
+    inset 0 0 1rem 0 gray;
 }
 
 @keyframes rotate {
@@ -94,11 +97,13 @@ body {
   left: 0;
   overflow: hidden;
   border: 1rem solid var(--contol-col);
-  transition: width var(--animation-speed) ease-in-out,
+  transition:
+    width var(--animation-speed) ease-in-out,
     box-shadow var(--animation-speed) ease-in-out;
 }
 #controls * {
-  transition: visibility var(--animation-speed),
+  transition:
+    visibility var(--animation-speed),
     opacity var(--animation-speed) linear,
     transform var(--animation-speed) linear;
 }

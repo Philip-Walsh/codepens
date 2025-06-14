@@ -1,41 +1,44 @@
 body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	background-color: #282c34;
-	margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #282c34;
+  margin: 0;
 }
 
 #sierpinski-container {
-	position: relative;
-	width: 600px;
-	height: 520px;
+  position: relative;
+  width: 600px;
+  height: 520px;
 }
 
 .triangle {
-	position: absolute;
-	width: 0;
-	height: 0;
-	border-left: 100px solid transparent;
-	border-right: 100px solid transparent;
-	border-bottom: 173.2px solid white;
-	transition: transform 5s ease-in-out;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 173.2px solid white;
+  transition: transform 5s ease-in-out;
 }
 
 #sierpinski-container:hover .triangle {
-	transform: rotate(540deg);
+  transform: rotate(540deg);
 }
 
 #info {
-	--color: white;
-	font-family: "Arial", sans-serif;
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-	display: flex;
-	flex-direction: column;
-	color: var(--color);
-	text-shadow: 0 0 7px var(--color), 0 0 10px var(--color), 0 0 21px var(--color);
-	font-size: 1.5em;
+  --color: white;
+  font-family: 'Arial', sans-serif;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  color: var(--color);
+  text-shadow:
+    0 0 7px var(--color),
+    0 0 10px var(--color),
+    0 0 21px var(--color);
+  font-size: 1.5em;
 }

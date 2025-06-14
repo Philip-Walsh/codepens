@@ -457,7 +457,7 @@ class ProjectIndexBuilder:
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="title">🌟 Interactive Project Portfolio</h1>
+            <h1 class="title">🌟 Philip Walsh Codepen Sauce 🍝</h1>
             <p class="subtitle">A collection of creative coding experiments and challenges</p>
             <div class="stats">
                 <div class="stat">

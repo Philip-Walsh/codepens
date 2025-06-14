@@ -1,89 +1,90 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Color+Emoji&family=Oswald:wght@200..700&display=swap');
 
 :root {
-	--size: 30rem;
-	--bg-color: #20232a;
-	--piece-size: 5em;
-	--inner-piece-size: 2em;
-	--remove-position-adjust: -5px;
-	--button-bg: #282c34;
-	--button-hover-bg: #61dafb;
-	--button-text: #ffffff;
-	--txt-color: #ffffff;
-	--border-color: rgba(255, 255, 255, 0.1);
+  --size: 30rem;
+  --bg-color: #20232a;
+  --piece-size: 5em;
+  --inner-piece-size: 2em;
+  --remove-position-adjust: -5px;
+  --button-bg: #282c34;
+  --button-hover-bg: #61dafb;
+  --button-text: #ffffff;
+  --txt-color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.1);
 }
 
 span {
-	font-family: "Noto Color Emoji", sans-serif;
-
+  font-family: 'Noto Color Emoji', sans-serif;
 }
 
 body {
-	font-family: "Bebas Neue", sans-serif;
-	font-weight: 400;
-	font-style: normal;
-	background-color: var(--bg-color);
-	color: var(--txt-color);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	height: 100vh;
-	margin: 0;
-	padding: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: var(--bg-color);
+  color: var(--txt-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
 }
 
 canvas {
-	border: 1px solid var(--border-color);
-	background-color: #282c34;
+  border: 1px solid var(--border-color);
+  background-color: #282c34;
 }
 
 h1 {
-	margin-bottom: 20px;
-	font-size: 2rem;
+  margin-bottom: 20px;
+  font-size: 2rem;
 }
 
 .controls {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .controls label {
-	display: block;
-	margin-top: 10px;
-	color: var(--txt-color);
+  display: block;
+  margin-top: 10px;
+  color: var(--txt-color);
 }
 
-.controls input[type="color"],
-.controls input[type="range"] {
-	margin-left: 10px;
-	background-color: var(--bg-color);
-	border: 1px solid var(--border-color);
-	color: var(--txt-color);
+.controls input[type='color'],
+.controls input[type='range'] {
+  margin-left: 10px;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--txt-color);
 }
 
 #speedValue {
-	font-weight: bold;
-	color: var(--txt-color);
+  font-weight: bold;
+  color: var(--txt-color);
 }
 
 button {
-	margin: 5px;
-	padding: 10px 20px;
-	font-size: 16px;
-	cursor: pointer;
-	border: 2px solid var(--button-bg);
-	background-color: var(--button-bg);
-	color: var(--button-text);
-	border-radius: 8px;
-	transition: background-color 0.3s, transform 0.2s;
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid var(--button-bg);
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border-radius: 8px;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
 }
 
 button:hover {
-	background-color: var(--button-hover-bg);
-	transform: scale(1.05);
+  background-color: var(--button-hover-bg);
+  transform: scale(1.05);
 }
 
 button:active {
-	transform: scale(0.95);
+  transform: scale(0.95);
 }

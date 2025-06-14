@@ -1,1091 +1,1090 @@
 .control-panel {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 .control-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background: var(--card-bg);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-left,
 .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .nav-link {
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .nav-link:hover {
-    background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-link.active {
-    background: var(--accent);
-    color: var(--bg-color);
+  background: var(--accent);
+  color: var(--bg-color);
 }
 
 .refresh-btn {
-    background: var(--accent);
-    color: var(--text);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s ease;
+  background: var(--accent);
+  color: var(--text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
 }
 
 .refresh-btn:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 .username-display {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background-color: var(--bg-secondary);
-    border-radius: 4px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-left: 1rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-left: 1rem;
 }
 
 .username-display span {
-    font-weight: 500;
-    color: var(--text-primary);
-    margin-left: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-left: 0.5rem;
 }
 
 .panel-section {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .panel-section h2 {
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1.5rem;
-    border-radius: 8px;
-    text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
 }
 
 .stat-card h3 {
-    color: var(--text);
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    opacity: 0.8;
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
 }
 
 .stat-value {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--accent);
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent);
 }
 
 .management-controls {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .control-group {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .control-group label {
-    color: var(--text);
-    opacity: 0.8;
+  color: var(--text);
+  opacity: 0.8;
 }
 
 .control-group select,
 .control-group input {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--accent);
-    color: var(--text);
-    padding: 0.5rem;
-    border-radius: 6px;
-    min-width: 200px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  padding: 0.5rem;
+  border-radius: 6px;
+  min-width: 200px;
 }
 
 .projects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .project-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .project-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .project-emoji {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .project-name {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .project-stats {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    color: #a0aec0;
-    font-size: 0.9rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  color: #a0aec0;
+  font-size: 0.9rem;
 }
 
 .project-stats span {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .project-actions {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .action-btn {
-    background: var(--accent);
-    color: var(--text);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  background: var(--accent);
+  color: var(--text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .action-btn:hover {
-    background: #4CAF50;
+  background: #4caf50;
 }
 
 .no-stats {
-    color: #718096;
-    font-style: italic;
+  color: #718096;
+  font-style: italic;
 }
 
 .codepen-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 /* Modal styles */
 .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
 .modal-content {
-    position: relative;
-    background-color: #1a202c;
-    margin: 10% auto;
-    padding: 2rem;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background-color: #1a202c;
+  margin: 10% auto;
+  padding: 2rem;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .modal-content h3 {
-    margin-top: 0;
-    color: #4299e1;
-    font-size: 1.5rem;
+  margin-top: 0;
+  color: #4299e1;
+  font-size: 1.5rem;
 }
 
 .modal-content h4 {
-    color: #a0aec0;
-    margin: 1rem 0 0.5rem;
+  color: #a0aec0;
+  margin: 1rem 0 0.5rem;
 }
 
 .project-details {
-    color: #e2e8f0;
+  color: #e2e8f0;
 }
 
 .project-details p {
-    margin: 0.5rem 0;
+  margin: 0.5rem 0;
 }
 
 .project-details ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
 }
 
 .project-details li {
-    padding: 0.25rem 0;
-    border-bottom: 1px solid #2d3748;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #2d3748;
 }
 
 .project-details li:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    color: #a0aec0;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: color 0.2s;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #a0aec0;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .close:hover {
-    color: #e2e8f0;
+  color: #e2e8f0;
 }
 
 @media (max-width: 768px) {
-    .control-panel {
-        padding: 1rem;
-    }
+  .control-panel {
+    padding: 1rem;
+  }
 
-    .management-controls {
-        flex-direction: column;
-    }
+  .management-controls {
+    flex-direction: column;
+  }
 
-    .control-group {
-        width: 100%;
-    }
+  .control-group {
+    width: 100%;
+  }
 
-    .control-group select,
-    .control-group input {
-        width: 100%;
-    }
+  .control-group select,
+  .control-group input {
+    width: 100%;
+  }
 
-    .project-item {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-    }
+  .project-item {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
 
-    .project-stats {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
+  .project-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 
-    .modal-content {
-        width: 95%;
-        margin: 5% auto;
-        padding: 1.5rem;
-    }
+  .modal-content {
+    width: 95%;
+    margin: 5% auto;
+    padding: 1.5rem;
+  }
 
-    .control-nav {
-        flex-direction: column;
-        gap: 1rem;
-    }
+  .control-nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
 
-    .nav-left,
-    .nav-right {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
+  .nav-left,
+  .nav-right {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-    .nav-link {
-        font-size: 0.9rem;
-        padding: 0.4rem 0.8rem;
-    }
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
 }
 
 /* Toast Notification System */
 .toast-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .toast {
-    background: #2d3748;
-    color: #e2e8f0;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    min-width: 300px;
-    max-width: 400px;
-    animation: slideIn 0.3s ease-out;
-    border-left: 4px solid #4299e1;
+  background: #2d3748;
+  color: #e2e8f0;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 300px;
+  max-width: 400px;
+  animation: slideIn 0.3s ease-out;
+  border-left: 4px solid #4299e1;
 }
 
 .toast.success {
-    border-left-color: #48bb78;
+  border-left-color: #48bb78;
 }
 
 .toast.error {
-    border-left-color: #f56565;
+  border-left-color: #f56565;
 }
 
 .toast.warning {
-    border-left-color: #ed8936;
+  border-left-color: #ed8936;
 }
 
 .toast-icon {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .toast-message {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .toast-close {
-    background: none;
-    border: none;
-    color: #a0aec0;
-    cursor: pointer;
-    padding: 0.25rem;
-    font-size: 1.25rem;
-    line-height: 1;
+  background: none;
+  border: none;
+  color: #a0aec0;
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  line-height: 1;
 }
 
 .toast-close:hover {
-    color: #e2e8f0;
+  color: #e2e8f0;
 }
 
 @keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideOut {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
 
-    to {
-        transform: translateX(100%);
-        opacity: 0;
-    }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
 
 .toast.hiding {
-    animation: slideOut 0.3s ease-in forwards;
+  animation: slideOut 0.3s ease-in forwards;
 }
 
 @media (max-width: 768px) {
-    .toast-container {
-        left: 20px;
-        right: 20px;
-    }
+  .toast-container {
+    left: 20px;
+    right: 20px;
+  }
 
-    .toast {
-        min-width: 0;
-        width: 100%;
-    }
+  .toast {
+    min-width: 0;
+    width: 100%;
+  }
 }
 
 /* Admin Actions */
 .admin-actions {
-    display: flex;
-    gap: 1rem;
-    margin: 1rem 0;
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
 .action-btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    background: var(--accent-color);
-    color: var(--bg-color);
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--accent-color);
+  color: var(--bg-color);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .action-btn:hover {
-    background: var(--accent-hover);
-    transform: translateY(-1px);
+  background: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
 .action-btn.danger {
-    background: #dc3545;
+  background: #dc3545;
 }
 
 .action-btn.danger:hover {
-    background: #c82333;
+  background: #c82333;
 }
 
 .action-btn.warning {
-    background: #ffc107;
-    color: #000;
+  background: #ffc107;
+  color: #000;
 }
 
 .action-btn.warning:hover {
-    background: #e0a800;
+  background: #e0a800;
 }
 
 /* Status Grid */
 .status-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
 .status-card {
-    background: var(--card-bg);
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .status-card h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1rem;
-    color: var(--text-secondary);
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
 }
 
 .status-value {
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
 /* Configuration Grid */
 .config-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 1rem 0;
 }
 
 .config-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .config-group label {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
 .config-group input,
 .config-group select {
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background: var(--input-bg);
-    color: var(--text-primary);
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--text-primary);
 }
 
 .config-group button {
-    align-self: flex-start;
+  align-self: flex-start;
 }
 
 /* Log Viewer */
 .log-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .log-viewer {
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 1rem;
-    max-height: 400px;
-    overflow-y: auto;
-    font-family: monospace;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+  font-family: monospace;
 }
 
 .log-entry {
-    display: flex;
-    gap: 1rem;
-    padding: 0.5rem;
-    border-bottom: 1px solid var(--border-color);
-    font-size: 0.9rem;
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.9rem;
 }
 
 .log-entry:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .log-timestamp {
-    color: var(--text-secondary);
-    min-width: 150px;
+  color: var(--text-secondary);
+  min-width: 150px;
 }
 
 .log-level {
-    font-weight: 500;
-    min-width: 80px;
+  font-weight: 500;
+  min-width: 80px;
 }
 
 .log-entry.error .log-level {
-    color: #dc3545;
+  color: #dc3545;
 }
 
 .log-entry.warn .log-level {
-    color: #ffc107;
+  color: #ffc107;
 }
 
 .log-entry.info .log-level {
-    color: #17a2b8;
+  color: #17a2b8;
 }
 
 .log-message {
-    flex: 1;
-    white-space: pre-wrap;
-    word-break: break-word;
+  flex: 1;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 /* Project Management */
 .management-controls {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .control-group {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .control-group label {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
 .control-group select {
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background: var(--input-bg);
-    color: var(--text-primary);
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--text-primary);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .status-grid,
+  .config-grid {
+    grid-template-columns: 1fr;
+  }
 
-    .status-grid,
-    .config-grid {
-        grid-template-columns: 1fr;
-    }
+  .admin-actions {
+    flex-direction: column;
+  }
 
-    .admin-actions {
-        flex-direction: column;
-    }
+  .management-controls {
+    flex-direction: column;
+  }
 
-    .management-controls {
-        flex-direction: column;
-    }
+  .log-entry {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
 
-    .log-entry {
-        flex-direction: column;
-        gap: 0.25rem;
-    }
+  .log-timestamp {
+    min-width: auto;
+  }
 
-    .log-timestamp {
-        min-width: auto;
-    }
-
-    .log-level {
-        min-width: auto;
-    }
+  .log-level {
+    min-width: auto;
+  }
 }
 
 .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .file-type-shield {
-    display: inline-block;
-    background: var(--card-bg);
-    border: 1px solid var(--accent);
-    color: var(--text);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    margin: 0.25rem;
-    font-family: monospace;
-    cursor: help;
+  display: inline-block;
+  background: var(--card-bg);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin: 0.25rem;
+  font-family: monospace;
+  cursor: help;
 }
 
 .file-type-shield:hover {
-    background: var(--accent);
-    color: var(--bg-color);
+  background: var(--accent);
+  color: var(--bg-color);
 }
 
 /* Checkout Controls */
 .checkout-controls {
-    margin-top: 1.5rem;
-    padding: 1.5rem;
-    background: var(--card-bg);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
 }
 
 .checkout-controls h3 {
-    margin: 0 0 1rem 0;
-    color: var(--text-color);
-    font-size: 1.1rem;
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+  font-size: 1.1rem;
 }
 
 .checkout-form {
-    display: grid;
-    gap: 1rem;
+  display: grid;
+  gap: 1rem;
 }
 
 .checkout-form .form-group {
-    display: grid;
-    gap: 0.5rem;
+  display: grid;
+  gap: 0.5rem;
 }
 
 .checkout-form label {
-    color: var(--text-color);
-    font-size: 0.9rem;
+  color: var(--text-color);
+  font-size: 0.9rem;
 }
 
 .checkout-form input,
 .checkout-form select {
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background: var(--input-bg);
-    color: var(--text-color);
-    font-size: 0.9rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: 0.9rem;
 }
 
 .checkout-form input:focus,
 .checkout-form select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.2);
-    outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.2);
+  outline: none;
 }
 
 .checkout-form button {
-    margin-top: 0.5rem;
-    padding: 0.75rem;
-    font-size: 0.9rem;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.9rem;
 }
 
 /* Responsive adjustments for checkout controls */
 @media (max-width: 768px) {
-    .checkout-form {
-        grid-template-columns: 1fr;
-    }
+  .checkout-form {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Git Status */
 .git-status {
-    margin: 1.5rem 0;
-    padding: 1rem;
-    background: var(--card-bg);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
 }
 
 .git-status h3 {
-    margin: 0 0 0.75rem 0;
-    color: var(--text-color);
-    font-size: 1.1rem;
+  margin: 0 0 0.75rem 0;
+  color: var(--text-color);
+  font-size: 1.1rem;
 }
 
 .status-success {
-    color: #48bb78;
-    font-weight: 500;
+  color: #48bb78;
+  font-weight: 500;
 }
 
 .status-error {
-    color: #f56565;
-    font-weight: 500;
+  color: #f56565;
+  font-weight: 500;
 }
 
 .git-user-info {
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-    font-size: 0.9rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
 
 .git-user-info div {
-    margin: 0.25rem 0;
-    color: var(--text-secondary);
+  margin: 0.25rem 0;
+  color: var(--text-secondary);
 }
 
 .git-error {
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    background: rgba(245, 101, 101, 0.1);
-    border-radius: 4px;
-    color: #f56565;
-    font-size: 0.9rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(245, 101, 101, 0.1);
+  border-radius: 4px;
+  color: #f56565;
+  font-size: 0.9rem;
 }
 
 /* Form Help Text */
 .form-help {
-    display: block;
-    margin-top: 0.25rem;
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    font-style: italic;
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-style: italic;
 }
 
 /* Custom Path Input */
 #customPath {
-    font-family: monospace;
+  font-family: monospace;
 }
 
 /* Commit Message Input */
 #commitMessage {
-    font-family: inherit;
+  font-family: inherit;
 }
 
 /* Form Group Spacing */
 .checkout-form .form-group {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .checkout-form .form-group:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 /* Placeholder Styling */
 .checkout-form input::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.7;
+  color: var(--text-secondary);
+  opacity: 0.7;
 }
 
 /* Git Configuration Styles */
 .git-config-info {
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 1rem;
-    margin-top: 0.5rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 0.5rem;
 }
 
 .git-user-info {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
 }
 
 .git-user-info div {
-    margin: 0.25rem 0;
+  margin: 0.25rem 0;
 }
 
 .git-error {
-    margin-top: 0.5rem;
-    color: var(--error);
-    font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: var(--error);
+  font-size: 0.9rem;
 }
 
 .git-help {
-    margin-top: 0.5rem;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
 .git-commands {
-    background: var(--bg-secondary);
-    padding: 0.75rem;
-    border-radius: 4px;
-    margin-top: 0.5rem;
-    font-family: monospace;
-    font-size: 0.9rem;
-    color: var(--text);
-    white-space: pre-wrap;
-    word-break: break-all;
+  background: var(--bg-secondary);
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .git-config-actions {
-    margin-top: 1rem;
-    display: flex;
-    gap: 0.5rem;
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .git-config-actions .action-btn {
-    background: var(--bg-secondary);
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
+  background: var(--bg-secondary);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
 }
 
 .git-config-actions .action-btn:hover {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
 }
 
 /* Git Management Styles */
 .git-status {
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .git-config-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .git-user-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .git-error {
-    color: var(--error);
-    margin-top: 1rem;
+  color: var(--error);
+  margin-top: 1rem;
 }
 
 .git-help {
-    color: var(--text-secondary);
-    margin: 1rem 0;
+  color: var(--text-secondary);
+  margin: 1rem 0;
 }
 
 .git-commands {
-    background: var(--bg-primary);
-    padding: 1rem;
-    border-radius: 4px;
-    font-family: monospace;
-    white-space: pre-wrap;
+  background: var(--bg-primary);
+  padding: 1rem;
+  border-radius: 4px;
+  font-family: monospace;
+  white-space: pre-wrap;
 }
 
 .repo-status {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .status-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .status-card {
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .status-card h3 {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 .status-value {
-    font-size: 1.1rem;
-    font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .workflow-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .workflow-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .workflow-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .workflow-item {
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .workflow-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .workflow-type {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
 .workflow-title {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .workflow-status {
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .workflow-status.success {
-    background: var(--success-bg);
-    color: var(--success);
+  background: var(--success-bg);
+  color: var(--success);
 }
 
 .workflow-status.pending {
-    background: var(--warning-bg);
-    color: var(--warning);
+  background: var(--warning-bg);
+  color: var(--warning);
 }
 
 .workflow-status.error {
-    background: var(--error-bg);
-    color: var(--error);
+  background: var(--error-bg);
+  color: var(--error);
 }
 
 .gitlab-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .control-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .control-group label {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
 .control-group input {
-    padding: 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    font-size: 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
 }
 
 .control-group input:focus {
-    border-color: var(--accent);
-    outline: none;
-    box-shadow: 0 0 0 2px var(--accent-bg);
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-bg);
 }
 
 .gitlab-actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .activity-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .status-grid {
-        grid-template-columns: 1fr;
-    }
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
 
-    .workflow-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .workflow-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .workflow-actions {
-        width: 100%;
-    }
+  .workflow-actions {
+    width: 100%;
+  }
 
-    .gitlab-actions {
-        flex-direction: column;
-    }
+  .gitlab-actions {
+    flex-direction: column;
+  }
 }

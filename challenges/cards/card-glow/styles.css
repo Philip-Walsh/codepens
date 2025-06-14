@@ -1,21 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
-
-  --font-family: "Noto Sans", serif;
+  --font-family: 'Noto Sans', serif;
   --glow-color: #00f0ff;
-	--glow-color-rgb:0, 240, 255;
+  --glow-color-rgb: 0, 240, 255;
   --bg-neon-dark: #0d0d0d;
   --card-color: #111;
-	--squishy-font-size: 
-  --font-size: clamp(1rem, 2vw, 2rem);
-	
-	--neon:0 4px 30px rgba(0, 0, 0, 0.1),
-    0 0 5px var(--glow-color),
-    0 0 10px var(--glow-color),
-    0 0 20px var(--glow-color),
-    0 0 40px #0ff,
-    inset 0 0 1rem 0 rgba(var(--glow-color-rgb),0.2);
-	--metal-bg:url('https://www.transparenttextures.com/patterns/brushed-alum-dark.png');
+  --squishy-font-size: --font-size: clamp(1rem, 2vw, 2rem);
+
+  --neon:
+    0 4px 30px rgba(0, 0, 0, 0.1), 0 0 5px var(--glow-color), 0 0 10px var(--glow-color),
+    0 0 20px var(--glow-color), 0 0 40px #0ff, inset 0 0 1rem 0 rgba(var(--glow-color-rgb), 0.2);
+  --metal-bg: url('https://www.transparenttextures.com/patterns/brushed-alum-dark.png');
 }
 
 .card {
@@ -23,177 +18,178 @@
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  font-variation-settings: "wdth" 100;
+  font-variation-settings: 'wdth' 100;
   font-size: var(--squishy-font-size);
-	
-	width: 30em;
-	aspect-ratio: 2/1;
-	padding: 4rem 2rem;
-	border-radius:.5rem;
-	background-color: var(--card-color);
-	text-align: center;
-	opacity: 0;
-	transform: translateX(100%);
-	transition: transform 1s ease, opacity 0.6s ease;
-	position: absolute;
-	z-index: 0;
-	
-	background-image:var(--metal-bg);
-	color: var(--glow-color);
-  box-shadow:var(--neon);
-backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);
-border: 1px solid rgba(255, 255, 255, 0.3);
+
+  width: 30em;
+  aspect-ratio: 2/1;
+  padding: 4rem 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--card-color);
+  text-align: center;
+  opacity: 0;
+  transform: translateX(100%);
+  transition:
+    transform 1s ease,
+    opacity 0.6s ease;
+  position: absolute;
+  z-index: 0;
+
+  background-image: var(--metal-bg);
+  color: var(--glow-color);
+  box-shadow: var(--neon);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-	margin: 0;
-	padding: 0;
-	background-color: #0e0e0e;
-	color: #fff;
-	font-family: sans-serif;
-	height: 100vh;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	background-image:
-		radial-gradient(circle at center, rgba(0, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.8) 80%),
-		url(https://www.transparenttextures.com/patterns/light-wool.png);
+  margin: 0;
+  padding: 0;
+  background-color: #0e0e0e;
+  color: #fff;
+  font-family: sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    radial-gradient(circle at center, rgba(0, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.8) 80%),
+    url(https://www.transparenttextures.com/patterns/light-wool.png);
 }
 
 #card-container {
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
-	display: flex;
-	place-items: center;
-	place-content: center;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  place-items: center;
+  place-content: center;
 }
 
-
-
 .card.show {
-	opacity: 1;
-	transform: translateX(0);
-	z-index: 1;
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 1;
 }
 
 /* Exiting cards */
 .card.exit-left {
-	animation: exit-left 1s ease forwards;
+  animation: exit-left 1s ease forwards;
 }
 
 .card.exit-right {
-	animation: exit-right 1s ease forwards;
+  animation: exit-right 1s ease forwards;
 }
 
 /* Incoming from left (zoom in look) */
 .card.enter-left {
-	transform: scale(0.8) translateX(-60vw);
-	opacity: 0;
-	z-index: 1;
+  transform: scale(0.8) translateX(-60vw);
+  opacity: 0;
+  z-index: 1;
 }
 .card.enter-left.show {
-	transform: scale(1) translateX(0);
-	opacity: 1;
-	transition: transform 1s ease, opacity 0.6s ease;
+  transform: scale(1) translateX(0);
+  opacity: 1;
+  transition:
+    transform 1s ease,
+    opacity 0.6s ease;
 }
 
 /* Animate out to left */
 @keyframes exit-left {
-	0% {
-		transform: translateX(0);
-		opacity: 1;
-	}
-	100% {
-		transform: translateX(-60vw);
-		opacity: 0;
-	}
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-60vw);
+    opacity: 0;
+  }
 }
 
 /* Animate out to right */
 @keyframes exit-right {
-	0% {
-		transform: translateX(0);
-		opacity: 1;
-	}
-	100% {
-		transform: translateX(60vw);
-		opacity: 0;
-	}
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(60vw);
+    opacity: 0;
+  }
 }
 
-
 .answer {
-/* 	background-color: #000; */
-/* 	color: transparent; */
-	
-	margin-top: 2rem;
-	cursor: pointer;
-	user-select: none;
-	transition: color 0.3s ease;
-	padding: 1em;
-	position: relative;
-	overflow: hidden;
+  /* 	background-color: #000; */
+  /* 	color: transparent; */
+
+  margin-top: 2rem;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease;
+  padding: 1em;
+  position: relative;
+  overflow: hidden;
 }
 
 .answer::before {
-	content: "👆";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: #222;
-	color: #fff;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-weight: bold;
-	animation: wiggle 0.4s ease infinite alternate;
-	pointer-events: none;
-	transition: transform 0.6s ease, opacity 0.4s ease;	
-	background-image:var(--metal-bg);
+  content: '👆';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  animation: wiggle 0.4s ease infinite alternate;
+  pointer-events: none;
+  transition:
+    transform 0.6s ease,
+    opacity 0.4s ease;
+  background-image: var(--metal-bg);
 
-	filter:brightness(120%);
+  filter: brightness(120%);
 }
 
 /* Wiggle keyframes */
 @keyframes wiggle {
-	from {
-		transform: rotate(-1deg);
-	}
-	to {
-		transform: rotate(1deg);
-	}
+  from {
+    transform: rotate(-1deg);
+  }
+  to {
+    transform: rotate(1deg);
+  }
 }
 
 /* On reveal, drop the cover */
 .answer.revealed::before {
-	animation: reveal 2s ease-out forwards;
+  animation: reveal 2s ease-out forwards;
 }
 @keyframes reveal {
-
-	100% {
-		opacity: 0;
-		transform: translateY(100vh);
-		display: none;
-	}
+  100% {
+    opacity: 0;
+    transform: translateY(100vh);
+    display: none;
+  }
 }
 
-
 .nav-buttons {
-	position: absolute;
-	bottom: 2rem;
-	display: flex;
-	gap: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  display: flex;
+  gap: 2rem;
 }
 
 button {
@@ -214,7 +210,9 @@ button {
 
 button:active {
   animation: gooBounce 500ms cubic-bezier(0.25, 1.5, 0.5, 1) forwards;
-  box-shadow: 0 0 20px #0ff, inset 0 0 0.5rem #0ff;
+  box-shadow:
+    0 0 20px #0ff,
+    inset 0 0 0.5rem #0ff;
 }
 
 button:focus {
@@ -224,7 +222,9 @@ button:focus {
 @keyframes gooBounce {
   0% {
     transform: scale(0.92) translateY(2px);
-    box-shadow: 0 0 10px #0ff, inset 0 0 0.3rem var(--glow-color);
+    box-shadow:
+      0 0 10px #0ff,
+      inset 0 0 0.3rem var(--glow-color);
   }
   40% {
     transform: scale(1.08) translateY(-1px);

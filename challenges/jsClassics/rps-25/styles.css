@@ -1,30 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Nerko+One&family=Noto+Color+Emoji&display=swap');
 body {
-	
-	background: radial-gradient(
-		rgb(65, 176, 110) 0%,
-		rgb(255, 245, 224) 5%,
-		rgb(141, 236, 180) 50%,
-		rgb(65, 176, 110) 100%
-	);
+  background: radial-gradient(
+    rgb(65, 176, 110) 0%,
+    rgb(255, 245, 224) 5%,
+    rgb(141, 236, 180) 50%,
+    rgb(65, 176, 110) 100%
+  );
 }
 main {
   display: flex;
-	flex-direction:column;
-	place-content:center;
-  font-family: "Nerko One", cursive;
+  flex-direction: column;
+  place-content: center;
+  font-family: 'Nerko One', cursive;
   font-weight: 200;
   font-style: normal;
-	
 }
 
 .project p {
-	font-size:2em;
-	max-width:30em;
+  font-size: 2em;
+  max-width: 30em;
 }
 .card {
   margin: 50px auto;
-	width: fit-content;
+  width: fit-content;
 }
 
 .front,
@@ -42,9 +40,8 @@ main {
 
 h1 {
   text-align: center;
-  padding-bottom: .5em;
+  padding-bottom: 0.5em;
 }
-
 
 .project ol {
   list-style: none;
@@ -64,10 +61,9 @@ h1 {
   font-size: 2em;
 }
 
-
 #rps-game #game {
   height: fit-content;
-  padding: .5em;
+  padding: 0.5em;
 }
 
 #rules {
@@ -77,25 +73,25 @@ h1 {
   align-items: baseline;
 }
 
-#rules  h2 {
-	font-size: 4em;
+#rules h2 {
+  font-size: 4em;
 }
 
 #rules span {
   display: flex;
-  margin: .2em;
-  margin-top: .5em;
+  margin: 0.2em;
+  margin-top: 0.5em;
 }
 
 #rules span p {
-  padding-right: .1em;
+  padding-right: 0.1em;
   text-transform: capitalize;
   white-space: pre-line;
 }
 
 button {
-	font-size:1.5em;
-  font-family: "Nerko One", cursive;
+  font-size: 1.5em;
+  font-family: 'Nerko One', cursive;
 }
 
 #game-buttons {
@@ -103,28 +99,27 @@ button {
   flex-direction: row;
   justify-content: space-around;
   font-size: 1.5em;
-	gap:.5em;
-	padding:.5em;
+  gap: 0.5em;
+  padding: 0.5em;
 }
 #game-buttons button {
-	background:#41B06E;
+  background: #41b06e;
 }
 #game section button {
-  padding: .1em;
-	margin:.05em;
-	border-radius:.1em;
-	width: 2em;
-	background:#41B06E;
+  padding: 0.1em;
+  margin: 0.05em;
+  border-radius: 0.1em;
+  width: 2em;
+  background: #41b06e;
 }
-#game-buttons button:hover, 
+#game-buttons button:hover,
 #game section button:hover {
-	background: #FFF5E0;
+  background: #fff5e0;
 }
 
 #rounds {
   display: flex;
   flex-direction: row;
-
 }
 
 #game-buttons button {
@@ -150,20 +145,22 @@ button {
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
-	max-width:30em;
+  max-width: 30em;
 }
 
-
 #info {
-	--color:#674188;
-	--highlight-color:rgba(103, 65, 136, .7);
-  font-family: "Nerko One", cursive;
-	position: sticky;
-	bottom: 10px;
-	left: 0px;
-	display: flex;
-	flex-direction: column;
-	color: var(--color);
-	text-shadow: 0 0 7px var(--highlight-color), 0 0 10px var(--highlight-color), 0 0 21px var(--highlight-color);
-	font-size: 1.5em;
+  --color: #674188;
+  --highlight-color: rgba(103, 65, 136, 0.7);
+  font-family: 'Nerko One', cursive;
+  position: sticky;
+  bottom: 10px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  color: var(--color);
+  text-shadow:
+    0 0 7px var(--highlight-color),
+    0 0 10px var(--highlight-color),
+    0 0 21px var(--highlight-color);
+  font-size: 1.5em;
 }

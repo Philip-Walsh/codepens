@@ -4,7 +4,7 @@ const CONFIG = {
     INFO: 'info',
     SUCCESS: 'success',
     WARNING: 'warning',
-    ERROR: 'error'
+    ERROR: 'error',
   },
   TOAST_DURATION: 5000,
   TOAST_DELAY: 700,
@@ -13,15 +13,15 @@ const CONFIG = {
   MESSAGES_PATH: 'messages.json',
   SNACKBAR_DURATION: 4000,
   SNACKBAR_DELAY: 500,
-  MAX_SNACKBARS: 1
+  MAX_SNACKBARS: 1,
 };
 
 // Emoji mapping with accessibility labels
 const EMOJI_MAP = {
-  info: { emoji: "🌊", label: "Information" },
-  success: { emoji: "🏖️", label: "Success" },
-  warning: { emoji: "☀️", label: "Warning" },
-  error: { emoji: "🌅", label: "Error" }
+  info: { emoji: '🌊', label: 'Information' },
+  success: { emoji: '🏖️', label: 'Success' },
+  warning: { emoji: '☀️', label: 'Warning' },
+  error: { emoji: '🌅', label: 'Error' },
 };
 
 // Create emoji span with accessibility
@@ -31,7 +31,7 @@ function createEmojiSpan(type) {
   span.setAttribute('role', 'img');
   span.setAttribute('aria-label', EMOJI_MAP[type].label);
   span.style.fontFamily = "'Noto Emoji', sans-serif";
-  span.style.fontWeight = "700";
+  span.style.fontWeight = '700';
   span.textContent = EMOJI_MAP[type].emoji;
   return span;
 }
@@ -39,14 +39,14 @@ function createEmojiSpan(type) {
 // Toast Manager Class
 class ToastManager {
   constructor() {
-    this.container = document.getElementById("toast-container");
+    this.container = document.getElementById('toast-container');
     this.activeToasts = new Set();
     this.queue = [];
     this.isProcessingQueue = false;
     this.messages = null;
 
     if (!this.container) {
-      console.error("Toast container not found!");
+      console.error('Toast container not found!');
       return;
     }
 
@@ -85,14 +85,14 @@ class ToastManager {
     }
 
     // Add keyboard shortcut (Alt + T) for showing random toast
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
       if (e.altKey && e.key.toLowerCase() === 't') {
         this.showRandomToast();
       }
     });
 
     // Add keyboard shortcut (Alt + C) for clearing all toasts
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
       if (e.altKey && e.key.toLowerCase() === 'c') {
         this.clearAllToasts();
       }
@@ -100,7 +100,7 @@ class ToastManager {
   }
 
   createToastElement(type, message) {
-    const toast = document.createElement("div");
+    const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.setAttribute('role', 'alert');
     toast.setAttribute('aria-live', 'polite');
@@ -108,13 +108,13 @@ class ToastManager {
     const emoji = createEmojiSpan(type);
     toast.appendChild(emoji);
 
-    const messageDiv = document.createElement("div");
-    messageDiv.className = "message";
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message';
     messageDiv.textContent = message;
 
-    const closeButton = document.createElement("button");
-    closeButton.className = "close";
-    closeButton.textContent = "✖";
+    const closeButton = document.createElement('button');
+    closeButton.className = 'close';
+    closeButton.textContent = '✖';
     closeButton.setAttribute('aria-label', 'Close notification');
     closeButton.addEventListener('click', () => this.removeToast(toast));
 
@@ -218,14 +218,14 @@ class ToastManager {
 // Snackbar Manager Class
 class SnackbarManager {
   constructor() {
-    this.container = document.getElementById("snackbar-container");
+    this.container = document.getElementById('snackbar-container');
     this.activeSnackbars = new Set();
     this.queue = [];
     this.isProcessingQueue = false;
     this.messages = null;
 
     if (!this.container) {
-      console.error("Snackbar container not found!");
+      console.error('Snackbar container not found!');
       return;
     }
 
@@ -263,7 +263,7 @@ class SnackbarManager {
     }
 
     // Add keyboard shortcut (Alt + S) for showing random snackbar
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
       if (e.altKey && e.key.toLowerCase() === 's') {
         this.showRandomSnackbar();
       }
@@ -271,7 +271,7 @@ class SnackbarManager {
   }
 
   createSnackbarElement(type, message) {
-    const snackbar = document.createElement("div");
+    const snackbar = document.createElement('div');
     snackbar.className = `snackbar ${type}`;
     snackbar.setAttribute('role', 'alert');
     snackbar.setAttribute('aria-live', 'polite');
@@ -279,13 +279,13 @@ class SnackbarManager {
     const emoji = createEmojiSpan(type);
     snackbar.appendChild(emoji);
 
-    const messageDiv = document.createElement("div");
-    messageDiv.className = "message";
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message';
     messageDiv.textContent = message;
 
-    const actionButton = document.createElement("button");
-    actionButton.className = "action";
-    actionButton.textContent = "Dismiss";
+    const actionButton = document.createElement('button');
+    actionButton.className = 'action';
+    actionButton.textContent = 'Dismiss';
     actionButton.setAttribute('aria-label', 'Dismiss notification');
     actionButton.addEventListener('click', () => this.removeSnackbar(snackbar));
 
@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
     emojiSpan.setAttribute('role', 'img');
     emojiSpan.setAttribute('aria-label', label);
     emojiSpan.style.fontFamily = "'Noto Emoji', sans-serif";
-    emojiSpan.style.fontWeight = "700";
+    emojiSpan.style.fontWeight = '700';
     emojiSpan.textContent = emoji;
 
     header.textContent = '';
@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
     emojiSpan.setAttribute('role', 'img');
     emojiSpan.setAttribute('aria-label', label);
     emojiSpan.style.fontFamily = "'Noto Emoji', sans-serif";
-    emojiSpan.style.fontWeight = "700";
+    emojiSpan.style.fontWeight = '700';
     emojiSpan.textContent = emoji;
 
     item.textContent = '';

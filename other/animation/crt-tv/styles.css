@@ -1,6 +1,6 @@
 :root {
   --inch-w: 7;
-  --convert-px-inch: 100px; /* actual is 300px */ 
+  --convert-px-inch: 100px; /* actual is 300px */
   --aspect-ratio: 4 / 3;
 }
 
@@ -12,12 +12,11 @@ body {
 }
 
 #tv {
-  width:100px;
+  width: 100px;
   width: calc(var(--inch-w) * var(--convert-px-inch) * 1.1);
   aspect-ratio: var(--aspect-ratio);
-/*   background-color:grey; */
+  /*   background-color:grey; */
 }
-
 
 #screen-behind {
   z-index: 0;
@@ -44,13 +43,15 @@ body {
     rgba(255, 255, 255, 0.1) 1px,
     rgba(0, 0, 0, 0.1) 2px
   );
-  animation: crt-flicker 0.08s infinite, crt-scan 0.1s linear infinite;
+  animation:
+    crt-flicker 0.08s infinite,
+    crt-scan 0.1s linear infinite;
   box-shadow: 0 0 0 white;
 }
 
-
 @keyframes crt-flicker {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.85;
   }
   50% {

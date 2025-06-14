@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Syne+Mono&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Syne+Mono&display=swap');
 
 html {
   font-size: 16px;
@@ -12,11 +12,11 @@ body {
   place-content: center;
   min-height: 100vh;
   overflow: hidden;
-  font-family: "Major Mono Display", monospace;
+  font-family: 'Major Mono Display', monospace;
   font-weight: 400;
   font-style: normal;
 
-  font-family: "Syne Mono", monospace;
+  font-family: 'Syne Mono', monospace;
 }
 .face {
   --bg: radial-gradient(circle, rgba(255, 165, 93, 1), rgba(167, 101, 69, 1));

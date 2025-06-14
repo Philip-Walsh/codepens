@@ -4,9 +4,7 @@
     "description": "Interactive pickAndChoose project",
     "path": "challenges/pickAndChoose/pickers",
     "category": "Pickandchoose",
-    "technologies": [
-      "Canvas"
-    ],
+    "technologies": ["Canvas"],
     "modified": "2025-03-01 14:54:59.768805",
     "hash": "676f922dfdf287bd622ff45890e7ac32"
   },
@@ -51,9 +49,7 @@
     "description": "SquircleNFT - Premium Digital Art Marketplace",
     "path": "challenges/ShapesAndLines/squircle-ui",
     "category": "Shapesandlines",
-    "technologies": [
-      "Squircle UI"
-    ],
+    "technologies": ["Squircle UI"],
     "modified": "2025-06-06 19:20:52.834135",
     "hash": "3c8853394125a006cf51189dc7e6f20b"
   },
@@ -62,9 +58,7 @@
     "description": "Interactive squircle design with animated effects",
     "path": "challenges/ShapesAndLines/squircle",
     "category": "Shapesandlines",
-    "technologies": [
-      "Squircle UI"
-    ],
+    "technologies": ["Squircle UI"],
     "modified": "2025-06-06 18:14:39.350794",
     "hash": "51d35b94166ebbebcce65d3b4534bd15"
   },
@@ -73,9 +67,7 @@
     "description": "Interactive bugs project",
     "path": "challenges/bugs/errors",
     "category": "Bugs",
-    "technologies": [
-      "React"
-    ],
+    "technologies": ["React"],
     "modified": "2025-03-11 16:32:20.192808",
     "hash": "af28bf2fb5a78ddd518888b48ea975a9"
   },
@@ -93,9 +85,7 @@
     "description": "Interactive puzzles project",
     "path": "challenges/puzzles/maze-puzzle",
     "category": "Puzzles",
-    "technologies": [
-      "Canvas"
-    ],
+    "technologies": ["Canvas"],
     "modified": "2025-02-01 08:29:52.490119",
     "hash": "38a9bff1c4f9012a27a2a66d7bc71bd2"
   },
@@ -122,9 +112,7 @@
     "description": "Interactive ranges project",
     "path": "challenges/ranges/a-range-of-choices",
     "category": "Ranges",
-    "technologies": [
-      "React"
-    ],
+    "technologies": ["React"],
     "modified": "2025-05-10 00:40:43.488940",
     "hash": "afbcbe8a86f74ad859374ed359296bf3"
   },
@@ -133,10 +121,7 @@
     "description": "Interactive Korean BBQ experience with vegan options",
     "path": "challenges/food/from-the-grill",
     "category": "Food",
-    "technologies": [
-      "jQuery",
-      "React"
-    ],
+    "technologies": ["jQuery", "React"],
     "modified": "2025-05-10 02:08:33.940697",
     "hash": "25651cac2c74aa86d5acde424167fc35"
   },
@@ -154,9 +139,7 @@
     "description": "Interactive food project",
     "path": "challenges/food/sweet-treats",
     "category": "Food",
-    "technologies": [
-      "jQuery"
-    ],
+    "technologies": ["jQuery"],
     "modified": "2025-05-30 18:37:56.890374",
     "hash": "3f106b014e5667059497db6dfe5219b6"
   },
@@ -174,9 +157,7 @@
     "description": "Interactive fractals project",
     "path": "challenges/fractals/wild-fractals",
     "category": "Fractals",
-    "technologies": [
-      "Canvas"
-    ],
+    "technologies": ["Canvas"],
     "modified": "2025-02-01 08:29:52.490119",
     "hash": "d4b4328c3d82fac10f5ecb078113c37e"
   },
@@ -194,9 +175,7 @@
     "description": "Interactive experiments project",
     "path": "other/slide",
     "category": "Experiments",
-    "technologies": [
-      "jQuery"
-    ],
+    "technologies": ["jQuery"],
     "modified": "2025-06-10 20:57:28.670330",
     "hash": "98a26ba852ecde0477dd8625d0bf8629"
   },
@@ -250,9 +229,7 @@
     "description": "Interactive ShapesAndLines project",
     "path": "challenges/ShapesAndLines/squiggles",
     "category": "Shapesandlines",
-    "technologies": [
-      "Canvas"
-    ],
+    "technologies": ["Canvas"],
     "modified": "2025-06-10 22:36:02.500330",
     "hash": "059baffef9b9ad7a5e34eb5d81c144ac"
   },
@@ -261,9 +238,7 @@
     "description": "Interactive squiggles animation with modern design",
     "path": "challenges/ShapesAndLines/squiggles-v2",
     "category": "Shapesandlines",
-    "technologies": [
-      "Canvas"
-    ],
+    "technologies": ["Canvas"],
     "modified": "2025-06-13 20:55:52.651140",
     "hash": "d9f801dc4c9a2f42b7cf1781f673e9f8"
   },
@@ -281,9 +256,7 @@
     "description": "SVG-based squiggle animations",
     "path": "challenges/ShapesAndLines/squiggles-svg",
     "category": "Shapesandlines",
-    "technologies": [
-      "Canvas"
-    ],
+    "technologies": ["Canvas"],
     "modified": "2025-06-13 20:47:54.274726",
     "hash": "c93a3e3b6c7dca62270a3a8c61b7eb4f"
   },
@@ -301,9 +274,7 @@
     "description": "Interactive experiments project",
     "path": "other/games/game-ts",
     "category": "Experiments",
-    "technologies": [
-      "Canvas"
-    ],
+    "technologies": ["Canvas"],
     "modified": "2025-02-01 08:29:52.501119",
     "hash": "25eaab1b6841194351deae5c1fd65428"
   },
@@ -312,9 +283,7 @@
     "description": "Interactive experiments project",
     "path": "other/games/game-base",
     "category": "Experiments",
-    "technologies": [
-      "Canvas"
-    ],
+    "technologies": ["Canvas"],
     "modified": "2025-02-01 08:29:52.501119",
     "hash": "3203868923fa2a323799b1219950bb40"
   },
@@ -359,9 +328,7 @@
     "description": "Interactive experiments project",
     "path": "other/experimental/cat-tv",
     "category": "Experiments",
-    "technologies": [
-      "Canvas"
-    ],
+    "technologies": ["Canvas"],
     "modified": "2025-05-25 21:56:06.605257",
     "hash": "76ab87ed3376a4e54d5421bc646486fa"
   },
@@ -379,9 +346,7 @@
     "description": "Interactive experiments project",
     "path": "other/experimental/roomba",
     "category": "Experiments",
-    "technologies": [
-      "Canvas"
-    ],
+    "technologies": ["Canvas"],
     "modified": "2025-02-01 08:29:52.435119",
     "hash": "c3f34dd6d9251f7c306558eb1596a99e"
   },

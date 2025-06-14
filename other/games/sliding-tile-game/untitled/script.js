@@ -9,7 +9,7 @@ let gameState = {
   debug: false,
   img: new Image(),
   baseColor: '#4c566a',
-  timerActive: false
+  timerActive: false,
 };
 
 // DOM elements
@@ -26,7 +26,7 @@ const elements = {
   winMoves: document.getElementById('win-moves'),
   shareX: document.getElementById('share-x'),
   shareBluesky: document.getElementById('share-bluesky'),
-  newGameButton: document.getElementById('new-game-button')
+  newGameButton: document.getElementById('new-game-button'),
 };
 
 // Initialize game
@@ -39,7 +39,7 @@ function initGame() {
   elements.newGameButton.addEventListener('click', startNewGame);
   elements.shareX.addEventListener('click', shareToX);
   elements.shareBluesky.addEventListener('click', shareToBluesky);
-  
+
   // Start first game
   startNewGame();
 }
@@ -51,27 +51,27 @@ function startNewGame() {
   gameState.startTime = new Date();
   gameState.board = [];
   gameState.timerActive = false;
-  
+
   // Update move count display
   elements.moveCount.textContent = '0';
-  
+
   // Hide win screen
   elements.winScreen.classList.remove('active');
-  
+
   // Reset timer
   clearInterval(gameState.timerInterval);
   elements.timer.textContent = '00:00';
-  
+
   // Generate board
   for (let i = 0; i < gameState.size * gameState.size - 1; i++) {
     gameState.board.push(i + 1);
   }
   shuffle(gameState.board);
   gameState.board.push(null);
-  
+
   // Set image source
   gameState.img.src = `https://picsum.photos/seed/${Math.random()}/400`;
-  
+
   // Load image
   loadImage();
 }
@@ -80,14 +80,14 @@ function loadImage() {
   if (elements.container) {
     elements.container.classList.add('loading');
   }
-  
+
   gameState.img.onload = () => {
     if (elements.container) {
       elements.container.classList.remove('loading');
       drawBoard();
     }
   };
-  
+
   gameState.img.onerror = () => {
     console.error('Failed to load image, using fallback');
     gameState.img.src = 'https://via.placeholder.com/400';
@@ -101,21 +101,21 @@ function loadImage() {
 // Game Logic
 function drawBoard() {
   if (!elements.container) return;
-  
+
   elements.container.innerHTML = '';
   elements.container.style.gridTemplateColumns = `repeat(${gameState.size}, 1fr)`;
   elements.container.style.gridTemplateRows = `repeat(${gameState.size}, 1fr)`;
-  
+
   gameState.board.forEach((num, idx) => {
     const tile = document.createElement('div');
     tile.className = 'tile';
-    
+
     if (num === null) {
       tile.classList.add('empty');
     } else {
       const row = Math.floor((num - 1) / gameState.size);
       const col = (num - 1) % gameState.size;
-      
+
       if (gameState.img.complete) {
         tile.style.backgroundImage = `url(${gameState.img.src})`;
         tile.style.backgroundPosition = `${(-col * 100) / (gameState.size - 1)}% ${
@@ -134,7 +134,7 @@ function drawBoard() {
         tile.appendChild(numberOverlay);
       }
     }
-    
+
     tile.addEventListener('click', () => handleMove(idx));
     elements.container.appendChild(tile);
   });
@@ -153,7 +153,7 @@ function handleMove(clickedIndex) {
 
     [gameState.board[clickedIndex], gameState.board[emptyIndex]] = [
       gameState.board[emptyIndex],
-      gameState.board[clickedIndex]
+      gameState.board[clickedIndex],
     ];
 
     setTimeout(() => {
@@ -176,11 +176,11 @@ function checkWin() {
 function showWin() {
   clearInterval(gameState.timerInterval);
   gameState.solvedImages++;
-  
+
   // Update win screen stats
   elements.winTime.textContent = formatTime(Math.floor((new Date() - gameState.startTime) / 1000));
   elements.winMoves.textContent = gameState.moveCount;
-  
+
   // Show win screen
   elements.winScreen.classList.add('active');
 }
@@ -188,7 +188,7 @@ function showWin() {
 // Timer functions
 function toggleTimer() {
   gameState.timerActive = !gameState.timerActive;
-  
+
   if (gameState.timerActive) {
     startTimer();
   } else {
