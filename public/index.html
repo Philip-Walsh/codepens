@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌟 Project Portfolio - Interactive Creations</title>
     <style>
+        
         :root {
             --primary: #3b82f6;
             --secondary: #22c55e;
@@ -92,6 +93,61 @@
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+            background: var(--glass-background);
+            border-radius: calc(var(--squircle-factor) * 100px);
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--glass-background);
+            transition: background-color 0.3s ease;
+        }
+        
+        .section-header:hover {
+            background: var(--surface-hover);
+        }
+        
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        
+        .section.expanded .section-content {
+            max-height: 5000px;
+        }
+        
+        .section-arrow {
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+            font-size: 1.5rem;
+        }
+        
+        .section.expanded .section-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .categories-wrapper {
+            padding: 0 1.5rem 1.5rem;
         }
         
         .category {
@@ -192,7 +248,8 @@
             .projects-grid { grid-template-columns: 1fr; }
             .stats { flex-direction: column; align-items: center; }
         }
-        </style>
+        
+    </style>
 </head>
 <body>
     <div class="container">
@@ -201,11 +258,11 @@
             <p class="subtitle">A collection of creative coding experiments and challenges</p>
             <div class="stats">
                 <div class="stat">
-                    <div class="stat-value">29</div>
+                    <div class="stat-value">36</div>
                     <div class="stat-label">Projects</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value">11</div>
+                    <div class="stat-value">16</div>
                     <div class="stat-label">Categories</div>
                 </div>
                 <div class="stat">
@@ -216,441 +273,665 @@
         </div>
         
         <div class="content">
-            
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🚀</span>
-                    <span>Bugs</span>
-                    <span>(2)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">Sierpinski Fractal</h3>
-                    <p class="project-description">Interactive bugs project</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">React</span>
-                    </div>
-                    <a href="/challenges/bugs/errors" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
+
+            <div class="section" data-section="challenges">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>🏆 Challenges</span>
+                        <span>(23)</span>
+                    </h2>
+                    <span class="section-arrow">▼</span>
                 </div>
-                <div class="project-card">
-                    <h3 class="project-title">Untitled</h3>
-                    <p class="project-description">Interactive bugs project</p>
-                    <div class="project-technologies">
-                        
+                <div class="section-content">
+                    <div class="categories-wrapper">
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🚀</span>
+                                <span>Bugs</span>
+                                <span>(2)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Glitches</h3>
+                                    <p class="project-description">Interactive bugs project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/bugs/glitches" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Sierpinski Fractal</h3>
+                                    <p class="project-description">Interactive bugs project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">React</span>
+                                    </div>
+                                    <a href="/challenges/bugs/errors" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🚀</span>
+                                <span>Cards</span>
+                                <span>(1)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Card Glow</h3>
+                                    <p class="project-description">Interactive cards project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/cards/card-glow" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🚀</span>
+                                <span>Food</span>
+                                <span>(3)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">BBQ Grill Master</h3>
+                                    <p class="project-description">Interactive Korean BBQ experience with vegan options</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">jQuery</span><span class="tech-tag">React</span>
+                                    </div>
+                                    <a href="/challenges/food/from-the-grill" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Sweet Treats</h3>
+                                    <p class="project-description">Interactive food project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">jQuery</span>
+                                    </div>
+                                    <a href="/challenges/food/sweet-treats" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Toasts & Snackbars</h3>
+                                    <p class="project-description">Interactive food project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/food/toasts-&-snackbars" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🚀</span>
+                                <span>Fractals</span>
+                                <span>(2)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Sierpinski Fractal</h3>
+                                    <p class="project-description">Interactive fractals project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/fractals/sierpinski-fractal" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Wild Fractals</h3>
+                                    <p class="project-description">Interactive fractals project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="/challenges/fractals/wild-fractals" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🚀</span>
+                                <span>Jsclassics</span>
+                                <span>(3)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Cryptid Curiosity</h3>
+                                    <p class="project-description">Interactive jsClassics project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/jsClassics/cryptid-curiosity" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">RPS-25🔫🐉🌙</h3>
+                                    <p class="project-description">Interactive jsClassics project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/jsClassics/rps-25" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">timer</h3>
+                                    <p class="project-description">Interactive jsClassics project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/jsClassics/timer" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🚀</span>
+                                <span>Letsscroll</span>
+                                <span>(1)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Aliens Among Us</h3>
+                                    <p class="project-description">Interactive letsScroll project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/letsScroll/aliens-among-us" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🚀</span>
+                                <span>Pickandchoose</span>
+                                <span>(1)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Pickers</h3>
+                                    <p class="project-description">Interactive pickAndChoose project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="/challenges/pickAndChoose/pickers" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🚀</span>
+                                <span>Puzzles</span>
+                                <span>(3)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Document</h3>
+                                    <p class="project-description">Interactive puzzles project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="/challenges/puzzles/maze-puzzle" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Document</h3>
+                                    <p class="project-description">Interactive puzzles project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/puzzles/puzzle-pieces" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Document</h3>
+                                    <p class="project-description">Interactive puzzles project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/puzzles/word-puzzle" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🚀</span>
+                                <span>Ranges</span>
+                                <span>(1)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">A Range of Choices</h3>
+                                    <p class="project-description">Interactive ranges project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">React</span>
+                                    </div>
+                                    <a href="/challenges/ranges/a-range-of-choices" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🚀</span>
+                                <span>Shapesandlines</span>
+                                <span>(6)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Audio Squiggle</h3>
+                                    <p class="project-description">Interactive ShapesAndLines project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/challenges/ShapesAndLines/audio-squiggle" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Modern Squiggles</h3>
+                                    <p class="project-description">Interactive squiggles animation with modern design</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="/challenges/ShapesAndLines/squiggles-v2" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">SVG Squiggles</h3>
+                                    <p class="project-description">SVG-based squiggle animations</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="/challenges/ShapesAndLines/squiggles-svg" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Squiggles</h3>
+                                    <p class="project-description">Interactive ShapesAndLines project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="/challenges/ShapesAndLines/squiggles" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Squircle</h3>
+                                    <p class="project-description">Interactive squircle design with animated effects</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Squircle UI</span>
+                                    </div>
+                                    <a href="/challenges/ShapesAndLines/squircle" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">SquircleNFT | Premium Digital Art Marketplace</h3>
+                                    <p class="project-description">SquircleNFT - Premium Digital Art Marketplace</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Squircle UI</span>
+                                    </div>
+                                    <a href="/challenges/ShapesAndLines/squircle-ui" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
-                    <a href="/challenges/bugs/glitches" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
                 </div>
             </div>
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🚀</span>
-                    <span>Cards</span>
-                    <span>(1)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">Card Glow</h3>
-                    <p class="project-description">Interactive cards project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/challenges/cards/card-glow" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
+
+            <div class="section" data-section="other">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>🔬 Other Projects</span>
+                        <span>(13)</span>
+                    </h2>
+                    <span class="section-arrow">▼</span>
                 </div>
+                <div class="section-content">
+                    <div class="categories-wrapper">
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🔬</span>
+                                <span>3D</span>
+                                <span>(1)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Trihedral Vertex</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/other/3d/trihedral-vertex" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🔬</span>
+                                <span>Animation</span>
+                                <span>(2)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">CRT TV animation</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/other/animation/crt-tv" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">face 😆</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/other/animation/face" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🔬</span>
+                                <span>Experimental</span>
+                                <span>(5)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Calendar</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/other/experimental/calendar" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Cat TV</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="/other/experimental/cat-tv" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Pickers</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/other/experimental/timeCont" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Roomba 🤖🧹</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="/other/experimental/roomba" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">noise mixer</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/other/experimental/noise-mixer" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🔬</span>
+                                <span>Experiments</span>
+                                <span>(1)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Floating Garden - Zen Puzzle</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">jQuery</span>
+                                    </div>
+                                    <a href="/other/slide" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🔬</span>
+                                <span>Games</span>
+                                <span>(2)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">GAME-BASE</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="/other/games/game-ts" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">GAME-BASE</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        <span class="tech-tag">Canvas</span>
+                                    </div>
+                                    <a href="/other/games/game-base" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <h2 class="category-title">
+                                <span>🔬</span>
+                                <span>Ui</span>
+                                <span>(2)</span>
+                            </h2>
+                            <div class="projects-grid">
+
+                                <div class="project-card">
+                                    <h3 class="project-title">Les Spaghettis de Maman</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/other/ui/les-spaghettis-de-maman" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                                <div class="project-card">
+                                    <h3 class="project-title">NGO Nav</h3>
+                                    <p class="project-description">Interactive experiments project</p>
+                                    <div class="project-technologies">
+                                        
+                                    </div>
+                                    <a href="/other/ui/ngo-nav" class="project-link">
+                                        <span>View Project</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🧪</span>
-                    <span>Experiments</span>
-                    <span>(6)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">Floating Garden - Zen Puzzle</h3>
-                    <p class="project-description">Interactive experiments project</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">jQuery</span>
-                    </div>
-                    <a href="/other/slide" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">NGO Nav</h3>
-                    <p class="project-description">Interactive experiments project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/other/ngo-nav" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Pickers</h3>
-                    <p class="project-description">Interactive experiments project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/other/timeCont" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Room Iso</h3>
-                    <p class="project-description">Interactive experiments project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/other/room-iso" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Trihedral Vertex</h3>
-                    <p class="project-description">Interactive experiments project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/other/trihedral-vertex" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">noise mixer</h3>
-                    <p class="project-description">Interactive experiments project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/other/noise-mixer" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                </div>
-            </div>
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🚀</span>
-                    <span>Food</span>
-                    <span>(3)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">BBQ Grill Master</h3>
-                    <p class="project-description">Interactive Korean BBQ experience with vegan options</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">jQuery</span><span class="tech-tag">React</span>
-                    </div>
-                    <a href="/challenges/food/from-the-grill" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Sweet Treats</h3>
-                    <p class="project-description">Interactive food project</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">jQuery</span>
-                    </div>
-                    <a href="/challenges/food/sweet-treats" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Toasts & Snackbars</h3>
-                    <p class="project-description">Interactive food project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/challenges/food/toasts-&-snackbars" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                </div>
-            </div>
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🚀</span>
-                    <span>Fractals</span>
-                    <span>(2)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">Sierpinski Fractal</h3>
-                    <p class="project-description">Interactive fractals project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/challenges/fractals/sierpinski-fractal" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Wild Fractals</h3>
-                    <p class="project-description">Interactive fractals project</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Canvas</span>
-                    </div>
-                    <a href="/challenges/fractals/wild-fractals" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                </div>
-            </div>
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🚀</span>
-                    <span>Jsclassics</span>
-                    <span>(3)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">Cryptid Curiosity</h3>
-                    <p class="project-description">Interactive jsClassics project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/challenges/jsClassics/cryptid-curiosity" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">RPS-25🔫🐉🌙</h3>
-                    <p class="project-description">Interactive jsClassics project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/challenges/jsClassics/rps-25" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">timer</h3>
-                    <p class="project-description">Interactive jsClassics project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/challenges/jsClassics/timer" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                </div>
-            </div>
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🚀</span>
-                    <span>Letsscroll</span>
-                    <span>(1)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">Aliens Among Us</h3>
-                    <p class="project-description">Interactive letsScroll project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/challenges/letsScroll/aliens-among-us" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                </div>
-            </div>
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🚀</span>
-                    <span>Pickandchoose</span>
-                    <span>(1)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">Pickers</h3>
-                    <p class="project-description">Interactive pickAndChoose project</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Canvas</span>
-                    </div>
-                    <a href="/challenges/pickAndChoose/pickers" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                </div>
-            </div>
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🚀</span>
-                    <span>Puzzles</span>
-                    <span>(3)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">Document</h3>
-                    <p class="project-description">Interactive puzzles project</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Canvas</span>
-                    </div>
-                    <a href="/challenges/puzzles/maze-puzzle" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Document</h3>
-                    <p class="project-description">Interactive puzzles project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/challenges/puzzles/puzzle-pieces" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Document</h3>
-                    <p class="project-description">Interactive puzzles project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/challenges/puzzles/word-puzzle" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                </div>
-            </div>
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🚀</span>
-                    <span>Ranges</span>
-                    <span>(1)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">A Range of Choices</h3>
-                    <p class="project-description">Interactive ranges project</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">React</span>
-                    </div>
-                    <a href="/challenges/ranges/a-range-of-choices" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                </div>
-            </div>
-            <div class="category">
-                <h2 class="category-title">
-                    <span>🚀</span>
-                    <span>Shapesandlines</span>
-                    <span>(6)</span>
-                </h2>
-                <div class="projects-grid">
-                    
-                <div class="project-card">
-                    <h3 class="project-title">Audio Squiggle</h3>
-                    <p class="project-description">Interactive ShapesAndLines project</p>
-                    <div class="project-technologies">
-                        
-                    </div>
-                    <a href="/challenges/ShapesAndLines/audio-squiggle" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Modern Squiggles</h3>
-                    <p class="project-description">Interactive squiggles animation with modern design</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Canvas</span>
-                    </div>
-                    <a href="/challenges/ShapesAndLines/squiggles-v2" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">SVG Squiggles</h3>
-                    <p class="project-description">SVG-based squiggle animations</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Canvas</span>
-                    </div>
-                    <a href="/challenges/ShapesAndLines/squiggles-svg" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Squiggles</h3>
-                    <p class="project-description">Interactive ShapesAndLines project</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Canvas</span>
-                    </div>
-                    <a href="/challenges/ShapesAndLines/squiggles" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Squircle</h3>
-                    <p class="project-description">Interactive squircle design with animated effects</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Squircle UI</span>
-                    </div>
-                    <a href="/challenges/ShapesAndLines/squircle" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">SquircleNFT | Premium Digital Art Marketplace</h3>
-                    <p class="project-description">SquircleNFT - Premium Digital Art Marketplace</p>
-                    <div class="project-technologies">
-                        <span class="tech-tag">Squircle UI</span>
-                    </div>
-                    <a href="/challenges/ShapesAndLines/squircle-ui" class="project-link">
-                        <span>View Project</span>
-                        <span>→</span>
-                    </a>
-                </div>
-                </div>
-            </div>
+
         </div>
         
         <div class="last-updated">
-            Last updated: June 14, 2025 at 09:23 AM
+            Last updated: June 14, 2025 at 10:13 AM
         </div>
     </div>
+    <script>
+        
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.section-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        const section = header.parentElement;
+                        section.classList.toggle('expanded');
+                    });
+                });
+                
+                // Expand the Challenges section by default
+                document.querySelector('.section[data-section="challenges"]').classList.add('expanded');
+            });
+        
+    </script>
 </body>
 </html>

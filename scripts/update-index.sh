@@ -1,14 +1,17 @@
 #!/bin/bash
 
-# Simple script to update the project index
+# Script to update the project index
 # Usage: 
 #   ./update-index.sh         - Build once
 #   ./update-index.sh watch   - Watch for changes and rebuild
 
+# Ensure we're in the project root
+cd "$(dirname "$0")/.."
+
 if [ "$1" = "watch" ]; then
     echo "👀 Starting watch mode..."
-    python3 build-index.py --watch
+    python3 scripts/build-index.py --watch
 else
     echo "🏗️  Building project index..."
-    python3 build-index.py
+    python3 scripts/build-index.py
 fi 

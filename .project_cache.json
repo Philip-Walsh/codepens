@@ -80,13 +80,13 @@
     "hash": "af28bf2fb5a78ddd518888b48ea975a9"
   },
   "challenges/bugs/glitches": {
-    "title": "Untitled",
+    "title": "Glitches",
     "description": "Interactive bugs project",
     "path": "challenges/bugs/glitches",
     "category": "Bugs",
     "technologies": [],
-    "modified": "2025-03-22 15:16:53.245985",
-    "hash": "c13743c9d40aefbcc2ee6c47d30ff36f"
+    "modified": "2025-06-14 10:13:24.906813",
+    "hash": "64d2857ce71517d85a3f405dfd2925f0"
   },
   "challenges/puzzles/maze-puzzle": {
     "title": "Document",
@@ -286,5 +286,121 @@
     ],
     "modified": "2025-06-13 20:47:54.274726",
     "hash": "c93a3e3b6c7dca62270a3a8c61b7eb4f"
+  },
+  "other/3d/trihedral-vertex": {
+    "title": "Trihedral Vertex",
+    "description": "Interactive experiments project",
+    "path": "other/3d/trihedral-vertex",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-04-20 11:02:45.470778",
+    "hash": "c46ad7f26a1fc2bb0bc7c77ce73c26cc"
+  },
+  "other/games/game-ts": {
+    "title": "GAME-BASE",
+    "description": "Interactive experiments project",
+    "path": "other/games/game-ts",
+    "category": "Experiments",
+    "technologies": [
+      "Canvas"
+    ],
+    "modified": "2025-02-01 08:29:52.501119",
+    "hash": "25eaab1b6841194351deae5c1fd65428"
+  },
+  "other/games/game-base": {
+    "title": "GAME-BASE",
+    "description": "Interactive experiments project",
+    "path": "other/games/game-base",
+    "category": "Experiments",
+    "technologies": [
+      "Canvas"
+    ],
+    "modified": "2025-02-01 08:29:52.501119",
+    "hash": "3203868923fa2a323799b1219950bb40"
+  },
+  "other/ui/ngo-nav": {
+    "title": "NGO Nav",
+    "description": "Interactive experiments project",
+    "path": "other/ui/ngo-nav",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-02-19 19:39:42.848216",
+    "hash": "5cbccb4e74e305b8012c322252ee00ec"
+  },
+  "other/ui/les-spaghettis-de-maman": {
+    "title": "Les Spaghettis de Maman",
+    "description": "Interactive experiments project",
+    "path": "other/ui/les-spaghettis-de-maman",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-05-09 21:26:30.811180",
+    "hash": "3de6103c29fd2e2c3886c5799b0214ed"
+  },
+  "other/experimental/calendar": {
+    "title": "Calendar",
+    "description": "Interactive experiments project",
+    "path": "other/experimental/calendar",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-06-08 19:43:16.123061",
+    "hash": "30890ed389f4ed05af55cd48d025d784"
+  },
+  "other/experimental/timeCont": {
+    "title": "Pickers",
+    "description": "Interactive experiments project",
+    "path": "other/experimental/timeCont",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-04-20 11:02:19.100622",
+    "hash": "e96d52e287146cf2f5dbc3757221dd09"
+  },
+  "other/experimental/cat-tv": {
+    "title": "Cat TV",
+    "description": "Interactive experiments project",
+    "path": "other/experimental/cat-tv",
+    "category": "Experiments",
+    "technologies": [
+      "Canvas"
+    ],
+    "modified": "2025-05-25 21:56:06.605257",
+    "hash": "76ab87ed3376a4e54d5421bc646486fa"
+  },
+  "other/experimental/noise-mixer": {
+    "title": "noise mixer",
+    "description": "Interactive experiments project",
+    "path": "other/experimental/noise-mixer",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-02-01 08:29:53.150119",
+    "hash": "eed8b6a7a35e9ce3629b4141098d99f8"
+  },
+  "other/experimental/roomba": {
+    "title": "Roomba \ud83e\udd16\ud83e\uddf9",
+    "description": "Interactive experiments project",
+    "path": "other/experimental/roomba",
+    "category": "Experiments",
+    "technologies": [
+      "Canvas"
+    ],
+    "modified": "2025-02-01 08:29:52.435119",
+    "hash": "c3f34dd6d9251f7c306558eb1596a99e"
+  },
+  "other/animation/face": {
+    "title": "face \ud83d\ude06",
+    "description": "Interactive experiments project",
+    "path": "other/animation/face",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-06-14 09:21:23.583290",
+    "hash": "39eca03c51d06a4f109fa40a40f736ab"
+  },
+  "other/animation/crt-tv": {
+    "title": "CRT TV animation",
+    "description": "Interactive experiments project",
+    "path": "other/animation/crt-tv",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-02-01 08:29:52.435119",
+    "hash": "b4b09ac229fbdc68949f41a1c63f195f"
   }
 }
