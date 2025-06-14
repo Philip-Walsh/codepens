@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Syne+Mono&display=swap");
+
+html {
+  font-size: 16px;
+  font-size: 4em;
+  background: linear-gradient(#ffa55d, #ffdf88);
+  color: rgba(0, 0, 0, 0.7);
+}
+body {
+  display: flex;
+  place-items: center;
+  place-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: "Major Mono Display", monospace;
+  font-weight: 400;
+  font-style: normal;
+
+  font-family: "Syne Mono", monospace;
+}
+.face {
+  --bg: radial-gradient(circle, rgba(255, 165, 93, 1), rgba(167, 101, 69, 1));
+  --size: 2em;
+  width: var(--size);
+  height: var(--size);
+
+  background-size: calc(var(--size) * 4) calc(var(--size) * 4);
+  display: flex;
+  place-items: center;
+  place-content: center;
+  border-radius: 50%;
+  transform: rotate(90deg);
+  background: #ffdf88;
+  background-image: var(--bg);
+  animation: move 3s infinite ease-in-out;
+}
+.eyes,
+.mouth {
+  animation: grow 3s infinite ease-in-out;
+  transition: all 1s;
+}
+@keyframes move {
+  0%,
+  100% {
+    transform: rotate(86deg) translateY(0.1em);
+  }
+
+  50% {
+    transform: rotate(95deg) translateY(-0.1em);
+    /*     background-size: calc(var(--size) * 2) calc(var(--size) * 2); */
+    background-position: 0.1rem 0.1rem;
+  }
+}
+@keyframes grow {
+  50% {
+    font-size: 1.1em;
+  }
+}

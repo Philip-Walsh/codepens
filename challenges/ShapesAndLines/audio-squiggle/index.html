@@ -5,64 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Squiggle</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
-        <svg id="squiggle-svg" viewBox="0 0 10  400 10">
-            <defs>
-                <linearGradient id="squiggle-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="var(--squiggle-color)" />
-                    <stop offset="100%" stop-color="var(--squiggle-color)" />
-                </linearGradient>
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="0.5" result="coloredBlur" />
-                    <feMerge>
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
-            <path id="squiggle-path" class="squiggle-path" d="M0,10 Q25,5 50,10 T100,10" />
-        </svg>
+    <svg id="squiggle-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
+        <defs>
+            <filter id="glow">
+                <feGaussianBlur stdDeviation="5" result="coloredBlur" />
+                <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
+        </defs>
+        <path id="squiggle-path" d="" />
+    </svg>
 
-        <div class="speech-bubble">
-            <p>Click to Play</p>
+    <button class="menu-toggle" id="menu-toggle">⚙️</button>
+
+    <div class="settings-menu">
+        <button class="close-menu">×</button>
+        <div class="pattern-selector"></div>
+        <div class="settings-group">
+            <label for="bg-color">Background Color</label>
+            <input type="color" id="bg-color" value="#1a1a1a">
         </div>
-
-        <button id="menu-toggle" class="menu-toggle" aria-label="Toggle settings menu">
-            <i class="ri-settings-3-line"></i>
-        </button>
-
-        <div class="settings-menu">
-            <div class="menu-header">
-                <h3>Settings</h3>
-                <button class="close-menu" aria-label="Close settings menu">
-                    <i class="ri-close-line"></i>
-                </button>
-            </div>
-            <div class="menu-content">
-                <div class="setting-group">
-                    <label for="bg-color">Background Color</label>
-                    <input type="color" id="bg-color" value="#1a1a1a">
-                </div>
-                <div class="setting-group">
-                    <label for="squiggle-color">Squiggle Color</label>
-                    <input type="color" id="squiggle-color" value="#00ff88">
-                </div>
-                <div class="setting-group">
-                    <label for="glow-intensity">Glow Intensity</label>
-                    <input type="range" id="glow-intensity" min="0" max="5" step="0.1" value="0.5">
-                </div>
-                <div class="setting-group">
-                    <label for="audio-file">Audio File</label>
-                    <input type="file" id="audio-file" accept="audio/*">
-                </div>
-            </div>
+        <div class="settings-group">
+            <label for="squiggle-color">Squiggle Color</label>
+            <input type="color" id="squiggle-color" value="#00ff00">
+        </div>
+        <div class="settings-group">
+            <label for="glow-intensity">Glow Intensity</label>
+            <input type="range" id="glow-intensity" min="0" max="20" value="10">
+        </div>
+        <div class="settings-group">
+            <label for="custom-url">Custom Audio URL</label>
+            <input type="text" id="custom-url" placeholder="Enter audio URL">
+            <button class="custom-btn" id="play-custom">Play Custom Audio</button>
         </div>
     </div>
+
+    <div class="speech-bubble">
+        Click anywhere to start audio
+    </div>
+
     <script src="script.js"></script>
 </body>
 

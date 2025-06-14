@@ -250,8 +250,41 @@
     "description": "Interactive ShapesAndLines project",
     "path": "challenges/ShapesAndLines/squiggles",
     "category": "Shapesandlines",
+    "technologies": [
+      "Canvas"
+    ],
+    "modified": "2025-06-10 22:36:02.500330",
+    "hash": "059baffef9b9ad7a5e34eb5d81c144ac"
+  },
+  "challenges/ShapesAndLines/squiggles-v2": {
+    "title": "Modern Squiggles",
+    "description": "Interactive squiggles animation with modern design",
+    "path": "challenges/ShapesAndLines/squiggles-v2",
+    "category": "Shapesandlines",
+    "technologies": [
+      "Canvas"
+    ],
+    "modified": "2025-06-13 20:55:52.651140",
+    "hash": "d9f801dc4c9a2f42b7cf1781f673e9f8"
+  },
+  "challenges/ShapesAndLines/audio-squiggle": {
+    "title": "Audio Squiggle",
+    "description": "Interactive ShapesAndLines project",
+    "path": "challenges/ShapesAndLines/audio-squiggle",
+    "category": "Shapesandlines",
     "technologies": [],
-    "modified": "2025-06-10 21:01:52.660028",
-    "hash": "c073441abdb3c9044e245336888dd647"
+    "modified": "2025-06-13 23:18:29.903275",
+    "hash": "9d8887db07359451aa43f9eaba307385"
+  },
+  "challenges/ShapesAndLines/squiggles-svg": {
+    "title": "SVG Squiggles",
+    "description": "SVG-based squiggle animations",
+    "path": "challenges/ShapesAndLines/squiggles-svg",
+    "category": "Shapesandlines",
+    "technologies": [
+      "Canvas"
+    ],
+    "modified": "2025-06-13 20:47:54.274726",
+    "hash": "c93a3e3b6c7dca62270a3a8c61b7eb4f"
   }
 }
