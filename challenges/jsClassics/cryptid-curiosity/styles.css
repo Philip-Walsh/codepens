@@ -19,7 +19,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-image: url("https://raw.githubusercontent.com/Philip-Walsh/codepens/main/svg/question_mark.svg");
+	background-image: url("https://raw.githubusercontent.com/Philip-Walsh/codepens/main/assets/mystery/question_mark.svg");
 	background-size: 200px 200px;
 	background-repeat: repeat;
 	background-position: center;
@@ -37,9 +37,11 @@ article {
 	width: 46em;
 	animation: fadeIn 0.5s ease-in-out;
 }
+
 #quiz {
 	animation: fadeIn 0.5s ease-in-out;
 }
+
 h1 {
 	font-size: 3rem;
 	text-shadow: 0 0 10px var(--highlight);
@@ -48,6 +50,7 @@ h1 {
 p {
 	font-size: 1.2rem;
 }
+
 article p {
 	font-size: 1.5rem;
 	color: var(--white);
@@ -71,6 +74,7 @@ fieldset,
 	margin: 10px 0;
 	padding: 10px;
 }
+
 .success,
 .failure {
 	font-weight: bold;
@@ -80,6 +84,7 @@ fieldset,
 	font-size: 5rem;
 	animation: scaleUp 0.5s ease-in-out forwards;
 }
+
 .success {
 	color: var(--white);
 	background-color: var(--highlight);
@@ -192,21 +197,25 @@ progress::-moz-progress-bar {
 	border-radius: 10px;
 	transition: width 0.5s ease-in-out;
 }
+
 @keyframes fadeIn {
 	0% {
 		opacity: 0;
 		transform: translateY(-10px);
 	}
+
 	100% {
 		opacity: 1;
 		transform: translateY(0);
 	}
 }
+
 @keyframes scaleUp {
 	0% {
 		transform: scale(0.5);
 		opacity: 0;
 	}
+
 	100% {
 		transform: scale(1);
 		opacity: 1;
