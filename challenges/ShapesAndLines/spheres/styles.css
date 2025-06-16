@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Syne+Mono&display=swap");
+
+* {
+  transition: all 1s;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-1-rgb: 254, 243, 226;
+  --color-2-rgb: 243, 198, 35;
+  --color-3-rgb: 255, 178, 44;
+  --color-4-rgb: 250, 129, 47;
+  --default-opacity: 0.4;
+
+  --core-color: rgba(var(--color-2-rgb), 0.2);
+  --glow-start: rgba(var(--color-3-rgb), 0.3);
+  --glow-mid: rgba(var(--color-3-rgb), 0.6);
+  --glow-end: rgba(var(--color-4-rgb), 0.2);
+  --bg-img: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+}
+
+body {
+  font-family: "Syne Mono", monospace;
+
+  background: black;
+  display: flex;
+  place-items: center;
+  place-content: center;
+  min-height: 100vh;
+
+  perspective: 1000px;
+  box-shadow: inset 0 0 1em rgba(var(--color-1-rgb), 0.4),
+    inset 0 0 2em rgba(var(--color-2-rgb), 0.3),
+    inset 0 0 3em rgba(var(--color-3-rgb), 0.2),
+    inset 0 0 10em rgba(var(--color-4-rgb), 0.1);
+  background-image: repeating-linear-gradient(45deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(var(--color-1-rgb), 0.1) 2px,
+      transparent 2px,
+      transparent 20px),
+    var(--bg-img);
+  background-size: 100% 100%,
+    /* stripes */
+    400px 400px;
+  /* star pattern */
+
+  background-repeat: repeat;
+  background-position: center center;
+  animation: starDrift 60s linear infinite;
+}
+
+.sphere {
+  position: relative;
+  width: 180px;
+  height: 190px;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: rotate 10s linear infinite;
+  perspective: 1000px;
+}
+
+.sphere::before {
+  --offset: 5px;
+  --shadow-color: rgba(241, 235, 242, 0.9);
+  content: var(--face, "ʘ╭╮ʘ");
+  color: rgba(205, 56, 213, 0.7);
+  text-shadow: var(--offset) var(--offset) var(--offset) var(--shadow-color),
+    -var(--offset) -var(--offset) var(--offset) var(--shadow-color),
+    var(--offset) -var(--offset) var(--offset) var(--shadow-color),
+    -var(--offset) var(--offset) var(--offset) var(--shadow-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 50%;
+  animation: counter-rotate 10s linear infinite;
+  transform-style: preserve-3d;
+  transform: translateZ(200px);
+  will-change: transform;
+}
+
+@keyframes counter-rotate {
+
+  0%,
+  100% {
+    transform: translateZ(150px) rotateX(-15deg) rotateY(0deg);
+  }
+
+  25% {
+    transform: translateZ(-30px) rotateX(0deg) rotateY(-80deg);
+  }
+
+  50% {
+    transform: translateZ(-200px) rotateX(15deg) rotateY(-180deg);
+  }
+
+  75% {
+    transform: translateZ(90px) rotateX(0deg) rotateY(-270deg);
+  }
+
+  100% {
+    transform: translateZ(0px) rotateX(-15deg) rotateY(-320deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateX(15deg) rotateY(0deg);
+  }
+
+  25% {
+    transform: rotateX(0deg) rotateY(90deg);
+  }
+
+  50% {
+    transform: rotateX(-15deg) rotateY(180deg);
+  }
+
+  75% {
+    transform: rotateX(0deg) rotateY(270deg);
+  }
+
+  100% {
+    transform: rotateX(15deg) rotateY(360deg);
+  }
+}
+
+@keyframes starDrift {
+  0% {
+    background-position: center center;
+  }
+
+  100% {
+    background-position: center 1000px;
+  }
+}
+
+.circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--core-color), var(--glow-mid));
+  animation: pulse 4s cubic-bezier(0.6, 0.05, 0.3, 0.95) infinite;
+  filter: drop-shadow(0 0 10px var(--glow-mid));
+}
+
+/* Smooth fiery pulse glow */
+@keyframes pulse {
+
+  0%,
+  100% {
+    background: radial-gradient(circle, var(--core-color), var(--glow-mid));
+    filter: drop-shadow(0 0 40px var(--glow-mid));
+    opacity: 0.7;
+  }
+
+  40% {
+    background: radial-gradient(circle, var(--core-color), var(--glow-end));
+    filter: drop-shadow(0 0 30px var(--glow-end));
+    opacity: 0.8;
+  }
+
+  50% {
+    background: radial-gradient(circle, var(--core-color), var(--glow-start));
+    filter: drop-shadow(0 0 50px var(--glow-start));
+    opacity: 0.5;
+  }
+}

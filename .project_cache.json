@@ -429,5 +429,23 @@
     "technologies": [],
     "modified": "2025-06-16 17:31:52.610835",
     "hash": "8548aa47f4d0124cf115b71c10653d0e"
+  },
+  "challenges/ShapesAndLines/the-3d-body-problem": {
+    "title": "3-Body Problem Simulation",
+    "description": "Interactive ShapesAndLines project",
+    "path": "challenges/ShapesAndLines/the-3d-body-problem",
+    "category": "Shapesandlines",
+    "technologies": [],
+    "modified": "2025-06-16 17:53:57.698412",
+    "hash": "8e88b2fcc945b0656e47fe1aa7f2a9d5"
+  },
+  "challenges/ShapesAndLines/spheres": {
+    "title": "Spheres",
+    "description": "Interactive ShapesAndLines project",
+    "path": "challenges/ShapesAndLines/spheres",
+    "category": "Shapesandlines",
+    "technologies": [],
+    "modified": "2025-06-16 19:45:29.923494",
+    "hash": "d6548cf483c77825f8759aecff2957d9"
   }
 }

@@ -1,41 +1,204 @@
-body {
-  background: black;
-  display: flex;
-  place-items: center;
-  place-content: center;
-  min-height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css');
+
+:root {
+  --sun-core: #ffd700;
+  --sun-surface: #ff4500;
+  --sun-glow: rgba(255, 69, 0, 0.3);
+  --background: #000;
+  --text: #fff;
+  --speed: 5s;
 }
 
-.sphere {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.universe-container {
   position: relative;
+  width: 100vw;
+  height: 100vh;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 2rem;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, var(--sun-core), var(--sun-surface));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.controls {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  z-index: 10;
+}
+
+.sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 200px;
   height: 200px;
   transform-style: preserve-3d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-.circle {
+.sun-core {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  border: 2px solid white;
+  background: radial-gradient(circle at center, var(--sun-core), var(--sun-surface));
   border-radius: 50%;
-  transform: rotateX(90deg);
-  /*   opacity: 0.1; */
+  box-shadow:
+    0 0 50px var(--sun-glow),
+    0 0 100px var(--sun-glow);
 }
 
-@keyframes rotate {
+.sun-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  box-shadow: 0 0 20px var(--sun-glow);
+}
+
+.planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  animation: orbit var(--speed) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.planet::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--distance);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%) rotateX(90deg);
+}
+
+.star {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle 2s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes orbit {
   from {
-    transform: rotateY(0deg) rotateX(60deg);
+    transform: rotateY(0deg) translateX(var(--distance)) rotateY(0deg);
   }
 
   to {
-    transform: rotateY(360deg) rotateX(60deg);
+    transform: rotateY(360deg) translateX(var(--distance)) rotateY(-360deg);
   }
 }
 
-.sphere {
-  animation: rotate 5s linear infinite;
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-group label {
+  font-size: 0.9rem;
+  color: var(--sun-core);
+}
+
+input[type="range"] {
+  width: 150px;
+  height: 4px;
+  background: var(--sun-surface);
+  border-radius: 2px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--sun-core);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  box-shadow: 0 0 10px var(--sun-glow);
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--sun-core);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px var(--sun-glow);
 }

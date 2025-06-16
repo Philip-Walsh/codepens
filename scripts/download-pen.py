@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import cloudscraper
 import html
 import argparse
-# Usage : python scripts/download-pen.py "https://codepen.io/Philip-Walsh/pen/xbxRwYY" "challenges/shapesAndLines"
+# Usage : python scripts/download-pen.py "https://codepen.io/Philip-Walsh/pen/LEVBzeQ" "challenges/ShapesAndLines"
 
 
 def main(url, folder):

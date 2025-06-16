@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+    --background: #000;
+    --text: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+    overflow: hidden;
+    perspective: 2000px;
+}
+
+.universe-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    transform: rotateX(60deg) rotateZ(45deg);
+    background: radial-gradient(circle at center, #000 0%, #001 100%);
+    transition: transform 0.5s ease-out;
+}
+
+.sphere {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+.circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+.particle {
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    width: var(--size);
+    height: var(--size);
+    background: #fff;
+    border-radius: 50%;
+    animation: particleFloat 3s ease-in-out infinite;
+    animation-delay: var(--delay);
+    opacity: 0.5;
+    will-change: transform, opacity;
+}
+
+@keyframes particleFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.2;
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.5);
+        opacity: 0.8;
+    }
+}
+
+/* Add gravitational effects */
+.sphere::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--orbit-radius) * 2);
+    height: calc(var(--orbit-radius) * 2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotateX(90deg);
+    pointer-events: none;
+    animation: orbitPulse 4s ease-in-out infinite;
+}
+
+@keyframes orbitPulse {
+
+    0%,
+    100% {
+        opacity: 0.1;
+        transform: translate(-50%, -50%) rotateX(90deg) scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) rotateX(90deg) scale(1.1);
+    }
+}
+
+/* Add trail effect */
+.sphere::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, var(--sphere-color)22, transparent 70%);
+    transform: translate(-50%, -50%);
+    filter: blur(10px);
+    animation: trailPulse 2s ease-in-out infinite;
+}
+
+@keyframes trailPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+/* Add scene movement */
+.universe-container {
+    animation: sceneFloat 30s ease-in-out infinite;
+}
+
+@keyframes sceneFloat {
+
+    0%,
+    100% {
+        transform: rotateX(60deg) rotateZ(45deg) translateY(0);
+    }
+
+    50% {
+        transform: rotateX(60deg) rotateZ(45deg) translateY(-30px);
+    }
+}
