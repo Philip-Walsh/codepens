@@ -1,31 +1,11 @@
-/* :root {
-  --w:15rem;
-  --h:25rem;
-  --br:2rem;
-}
-#lamp {
-  width:var(--w);
-  height:var(--h);
-  border:2px solid blue;
-  border-radius:var(--br);
-  position:relative;
-}
-#lamp #base {
-  border:2px solid green;
-  position:absolute;
-  bottom:0;
-  width:var(--w);
-  height:calc(var(--h)/4);
-  border-radius:0 0 var(--br) var(--br);
-  
-} */
 body {
-  background:black;
-  display:flex;
-  place-items:center;
-  place-content:center;
-  min-height:100vh;
+  background: black;
+  display: flex;
+  place-items: center;
+  place-content: center;
+  min-height: 100vh;
 }
+
 .sphere {
   position: relative;
   width: 200px;
@@ -43,13 +23,14 @@ body {
   border: 2px solid white;
   border-radius: 50%;
   transform: rotateX(90deg);
-/*   opacity: 0.1; */
+  /*   opacity: 0.1; */
 }
 
 @keyframes rotate {
   from {
     transform: rotateY(0deg) rotateX(60deg);
   }
+
   to {
     transform: rotateY(360deg) rotateX(60deg);
   }
