@@ -1,116 +1,182 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const sphere = document.createElement('div');
-  sphere.className = 'sphere';
-  document.body.appendChild(sphere);
+  const sphere = document.querySelector('.sphere');
+  const spaceLayer = document.querySelector('.space');
+  const leftEye = document.querySelector('.left-eye');
+  const rightEye = document.querySelector('.right-eye');
+  const mouth = document.querySelector('.mouth');
 
-  const layers = 50;
+  // Set initial face
+  leftEye.textContent = "ʘ";
+  rightEye.textContent = "ʘ";
+  mouth.textContent = "╭╮";
+
+  // Add layers to sphere
+  const layers = 35;
   const radius = 90;
 
   for (let i = 0; i < layers; i++) {
-    const circle = document.createElement('div');
-    circle.className = 'circle';
+    const layer = document.createElement('div');
+    layer.className = 'circle';
 
     const normalized = (i / (layers - 1)) * 2 - 1;
     const size = Math.sqrt(1 - normalized ** 2) * 100;
     const depth = normalized * radius;
 
-    circle.style.width = `${size}%`;
-    circle.style.height = `${size}%`;
-    // circle.style.opacity = 0.2 + (i / layers) * 0.8;
-    circle.style.transform = `rotateX(60deg) translateZ(${depth}px)`;
+    layer.style.width = `${size}%`;
+    layer.style.height = `${size}%`;
+    layer.style.transform = `rotateX(20deg) rotateZ(-25deg) translateZ(${depth}px)`;
 
-    sphere.appendChild(circle);
+    sphere.appendChild(layer);
   }
 
-  FaceAnimator.init();
+  // Planet configurations
+  const planets = [
+    {
+      distance: 250,
+      size: 40,
+      layers: 35,
+      color: 'rgba(169, 169, 169, 0.8)',
+      rotationSpeed: 100
+    },
+    {
+      distance: 350,
+      size: 35,
+      layers: 35,
+      color: 'rgba(255, 165, 0, 0.8)',
+      rotationSpeed: 80
+    },
+    {
+      distance: 450,
+      size: 30,
+      layers: 35,
+      color: 'rgba(0, 191, 255, 0.8)',
+      rotationSpeed: 60
+    }
+  ];
 
-  FaceAnimator.on('blink', () => console.log('Blinked!'));
-  FaceAnimator.on('mouthChange', () => console.log('Mouth changed!'));
-});
+  // Create planets
+  const createPlanet = (config) => {
+    const planet = document.createElement('div');
+    planet.className = 'planet-sphere';
 
-const FaceAnimator = (() => {
-  let faceEl;
-  const eyeOptions = ['°', ' ͡°', 'ʘ', '≖', '✖', 'ǒ', '●', '◕', '◔', 'ಠ', '✷', '•ิ', '•'];
-  const mouthOptions = ['ʖ', '‿', '□', '╭╮', '@', 'へ', '◇', 'ɷ', '•'];
+    // Set planet properties
+    planet.style.setProperty('--planet-distance', `${config.distance}px`);
+    planet.style.setProperty('--planet-size', `${config.size}px`);
+    planet.style.setProperty('--planet-color', config.color);
+    planet.style.animation = `counter-rotate ${config.rotationSpeed}s linear infinite`;
 
-  const sleep = ms => new Promise(res => setTimeout(res, ms));
-  const randomBetween = (min, max) => Math.random() * (max - min) + min;
-  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+    // Add planet layers
+    const planetRadius = config.size / 2;
+    for (let j = 0; j < config.layers; j++) {
+      const planetLayer = document.createElement('div');
+      planetLayer.className = 'planet-layer';
+      const normalized = (j / (config.layers - 1)) * 2 - 1;
+      const size = Math.sqrt(1 - normalized ** 2) * 100;
+      const depth = normalized * planetRadius;
 
-  const events = new Map();
-  const on = (event, fn) => {
-    if (!events.has(event)) events.set(event, []);
-    events.get(event).push(fn);
+      planetLayer.style.width = `${size}%`;
+      planetLayer.style.height = `${size}%`;
+      planetLayer.style.setProperty('--layer-depth', `${depth}px`);
+      planet.appendChild(planetLayer);
+    }
+
+    return planet;
   };
-  const emit = (event, data) => {
-    (events.get(event) || []).forEach(fn => fn(data));
-  };
-  let currentLeftEye = pick(eyeOptions);
-  let currentRightEye = currentLeftEye;
-  let currentMouth = pick(mouthOptions);
 
-  const updateFaceUI = () => {
-    const face = `${currentLeftEye}${currentMouth}${currentRightEye}`;
-    faceEl.style.setProperty('--face', `"${face}"`);
-  };
+  // Create and add planets
+  planets.forEach(config => {
+    const planet = createPlanet(config);
+    spaceLayer.appendChild(planet);
+  });
 
-  const blinkEmitter = async () => {
-    while (true) {
-      await sleep(randomBetween(3000, 6000));
-      emit('blink');
+  // Add gradient to space plane
+  spaceLayer.style.background = `
+    radial-gradient(circle at center,
+      rgba(68, 68, 68, 0.8) 0%,
+      rgba(68, 68, 68, 0.4) 30%,
+      rgba(68, 68, 68, 0.2) 60%,
+      rgba(68, 68, 68, 0) 100%
+    ),
+    repeating-radial-gradient(circle,
+      #444 0px,
+      #444 1px,
+      transparent 1px,
+      transparent 60px
+    )
+  `;
 
-      const prevLeft = currentLeftEye;
-      const prevRight = currentRightEye;
-      currentLeftEye = '|';
-      currentRightEye = '|';
-      updateFaceUI();
-      await sleep(120);
+  // Face Animator
+  class FaceAnimator {
+    constructor() {
+      this.events = {};
+      this.eyeOptions = ['°', ' ͡°', 'ʘ', '≖', '✖', 'ǒ', '●', '◕', '◔', 'ಠ', '✷', '•ิ', '•'];
+      this.mouthOptions = ['‿', '╭╮', 'ɷ', '•'];
+      this.currentLeftEye = 'ʘ';
+      this.currentRightEye = 'ʘ';
+      this.currentMouth = '╭╮';
+      this.init();
+    }
 
-      if (Math.random() < 0.02) {
-        currentLeftEye = pick(eyeOptions);
-        currentRightEye = pick(eyeOptions);
-      } else {
-        const eye = pick(eyeOptions);
-        currentLeftEye = currentRightEye = eye;
+    init() {
+      this.startBlinking();
+      this.startMouthChanges();
+      this.startEyeChanges();
+    }
+
+    on(event, callback) {
+      if (!this.events[event]) {
+        this.events[event] = [];
       }
-      updateFaceUI();
+      this.events[event].push(callback);
     }
-  };
 
-  const mouthEmitter = async () => {
-    while (true) {
-      await sleep(randomBetween(4000, 8000));
-      emit('mouthChange');
-
-      const shuffle = Math.random() < 0.5;
-      currentMouth = shuffle ? pick(mouthOptions) : currentMouth === 'D' ? 'O' : 'D';
-      updateFaceUI();
+    emit(event, data) {
+      if (this.events[event]) {
+        this.events[event].forEach(callback => callback(data));
+      }
     }
-  };
 
-  const obj = {
-    init: () => {
-      faceEl = document.querySelector('.sphere');
-      faceEl.classList.add('face');
-      updateFaceUI();
-      blinkEmitter();
-      mouthEmitter();
-    },
-    on,
-    get face() {
-      return {
-        leftEye: currentLeftEye,
-        rightEye: currentRightEye,
-        mouth: currentMouth,
-      };
-    },
-    set face({ leftEye, rightEye, mouth }) {
-      if (leftEye) currentLeftEye = leftEye;
-      if (rightEye) currentRightEye = rightEye;
-      if (mouth) currentMouth = mouth;
-      updateFaceUI();
-    },
-  };
+    updateFace() {
+      leftEye.textContent = this.currentLeftEye;
+      rightEye.textContent = this.currentRightEye;
+      mouth.textContent = this.currentMouth;
+    }
 
-  return obj;
-})();
+    startBlinking() {
+      setInterval(() => {
+        this.emit('blink');
+      }, 3000);
+    }
+
+    startMouthChanges() {
+      setInterval(() => {
+        this.emit('mouthChange');
+      }, 2000);
+    }
+
+    startEyeChanges() {
+      setInterval(() => {
+        if (Math.random() < 0.01) {
+          this.currentLeftEye = this.eyeOptions[Math.floor(Math.random() * this.eyeOptions.length)];
+          this.currentRightEye = this.currentLeftEye;
+          this.updateFace();
+        }
+      }, 1000);
+    }
+  }
+
+  // Initialize FaceAnimator
+  const faceAnimator = new FaceAnimator();
+  faceAnimator.on('blink', () => {
+    leftEye.textContent = "-";
+    rightEye.textContent = "-";
+    setTimeout(() => {
+      leftEye.textContent = faceAnimator.currentLeftEye;
+      rightEye.textContent = faceAnimator.currentRightEye;
+    }, 200);
+  });
+  faceAnimator.on('mouthChange', () => {
+    faceAnimator.currentMouth = faceAnimator.mouthOptions[Math.floor(Math.random() * faceAnimator.mouthOptions.length)];
+    mouth.textContent = faceAnimator.currentMouth;
+  });
+});

@@ -144,6 +144,7 @@ class ProjectIndexBuilder:
         
         .section.expanded .section-content {
             max-height: 5000px;
+            min-height: fit-content;
         }
         
         .section-arrow {
