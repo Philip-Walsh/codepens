@@ -5,7 +5,8 @@ from bs4 import BeautifulSoup
 import cloudscraper
 import html
 import argparse
-# Usage : python download-pen.py "https://codepen.io/Philip-Walsh/pen/JooPZZL" "challenges/cards"
+# Usage : python scripts/download-pen.py "https://codepen.io/Philip-Walsh/pen/xbxRwYY" "challenges/shapesAndLines"
+
 
 def main(url, folder):
     install_and_check('bs4')
