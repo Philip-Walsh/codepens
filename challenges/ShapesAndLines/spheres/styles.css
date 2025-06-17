@@ -79,14 +79,10 @@ body {
     transform: rotateX(70deg) rotateY(20deg)
       rotateZ(0deg);
   }
-
   25% {
     transform: rotateX(70deg) rotateY(20deg)
       rotateZ(180deg);
-    --planet-scale: 2.1
-      /*  Doesn't work  how to do*/;
   }
-
   100% {
     transform: rotateX(70deg) rotateY(20deg)
       rotateZ(360deg);
@@ -128,61 +124,51 @@ body {
   transform-style: preserve-3d;
 }
 
-/* .planet-sphere {
-  position: absolute;
-  width: var(--planet-size, 40px);
-  height: var(--planet-size, 40px);
-  transform-style: preserve-3d;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) translateX(var(--planet-distance, 250px));
-}
-
-.planet-layer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--planet-color, rgba(169, 169, 169, 0.8)), transparent);
-  transform-style: preserve-3d;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) translateZ(var(--layer-depth, 0px));
-} */
-
 .planet {
   position: absolute;
-  font-size: 3rem;
+  transform-style: preserve-3d;
   left: 50%;
   top: 50%;
-  z-index: 1000;
+  z-index: 900;
+}
+
+.planet .circle {
+  background: var(--planet-color);
+  animation: none;
+  filter: none;
+  opacity: 0.9;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
   transform-style: preserve-3d;
 }
 
-.planet-1 {
-  --distance: 200px;
-  --angle: 0deg;
-  --planet-filter: hue-rotate(120deg)
-    saturate(1.5) brightness(1.2);
-  transform: translate(-50%, -50%) rotateX(90deg)
-    rotateZ(90deg) translateZ(0)
-    translateX(var(--distance));
-  filter: var(--planet-filter);
-  animation: orbit 5s linear infinite reverse;
+.planet.mars {
+  transform: translate(-50%, -50%)
+    translateX(200px) translateY(-50px)
+    translateZ(30px) rotateX(20deg);
+}
+
+.planet.earth {
+  transform: translate(-50%, -50%)
+    translateX(300px) translateY(80px)
+    translateZ(-20px) rotateX(20deg);
+}
+
+.planet.mercury {
+  transform: translate(-50%, -50%)
+    translateX(250px) translateY(-100px)
+    translateZ(50px) rotateX(20deg);
 }
 
 @keyframes orbit {
   from {
     transform: translate(-50%, -50%) rotate(0deg)
-      rotateX(20deg) rotateZ(-25deg) translateZ(0)
+      rotateX(90deg) rotateZ(90deg) translateZ(0)
       translateX(var(--distance));
   }
-
   to {
     transform: translate(-50%, -50%)
-      rotate(360deg) rotateX(20deg)
-      rotateZ(-25deg) translateZ(0)
-      translateX(var(--distance));
+      rotate(360deg) rotateX(90deg) rotateZ(90deg)
+      translateZ(0) translateX(var(--distance));
   }
 }
 
