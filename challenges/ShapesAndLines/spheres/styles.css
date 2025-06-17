@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Syne+Mono&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Syne+Mono&display=swap');
 
 * {
-  transition: all .1s;
+  transition: all 0.1s;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -18,7 +18,7 @@
   --glow-start: rgba(var(--color-3-rgb), 0.3);
   --glow-mid: rgba(var(--color-3-rgb), 0.6);
   --glow-end: rgba(var(--color-4-rgb), 0.2);
-  --bg-img: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+  --bg-img: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
 }
 
 html {
@@ -28,7 +28,7 @@ html {
 }
 
 body {
-  font-family: "Syne Mono", monospace;
+  font-family: 'Syne Mono', monospace;
   background: black;
   display: flex;
   place-items: center;
@@ -37,47 +37,25 @@ body {
   min-width: 100vw;
   overflow: hidden;
   perspective: 1000px;
-  box-shadow: inset 0 0 1em rgba(var(--color-1-rgb), 0.4),
+  box-shadow:
+    inset 0 0 1em rgba(var(--color-1-rgb), 0.4),
     inset 0 0 2em rgba(var(--color-2-rgb), 0.3),
     inset 0 0 3em rgba(var(--color-3-rgb), 0.2),
     inset 0 0 10em rgba(var(--color-4-rgb), 0.1);
-  background-image: repeating-linear-gradient(45deg,
-      rgba(255, 255, 255, 0.05) 0px,
-      rgba(var(--color-1-rgb), 0.1) 2px,
-      transparent 2px,
-      transparent 20px);
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(var(--color-1-rgb), 0.1) 2px,
+    transparent 2px,
+    transparent 20px
+  );
   background-image: var(--bg-img);
-  background-size: 100% 100%, 400px 400px;
+  background-size:
+    100% 100%,
+    400px 400px;
   background-repeat: repeat;
   background-position: center center;
-  animation: starDrift 60s linear infinite;
-}
-
-.face-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  pointer-events: none;
-}
-
-.face {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 4rem;
-  color: rgba(var(--color-1-rgb), 0.7);
-  animation: counter-rotate 100s linear infinite;
-}
-
-.left-eye,
-.right-eye,
-.mouth {
-  display: inline-block;
-  min-width: 1em;
-  text-align: center;
+  animation: starDrift 200s linear infinite;
 }
 
 .sphere {
@@ -88,27 +66,69 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: rotate 100s linear infinite;
   perspective: 1000px;
-  transform: rotateX(20deg) rotateZ(-25deg);
+  will-change: transform;
+
+  transform: rotateX(160deg) rotateZ(80deg)
+    rotateY(90deg);
+  animation: rotate 10s linear infinite reverse;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateX(70deg) rotateY(20deg)
+      rotateZ(0deg);
+  }
+
+  25% {
+    transform: rotateX(70deg) rotateY(20deg)
+      rotateZ(180deg);
+    --planet-scale: 2.1
+      /*  Doesn't work  how to do*/;
+  }
+
+  100% {
+    transform: rotateX(70deg) rotateY(20deg)
+      rotateZ(360deg);
+  }
 }
 
 .space {
+  --band-1: rgba(68, 68, 68, 0.2);
+  --stripe-a-rgb: 68, 68, 68;
   position: absolute;
   width: 1000%;
   height: 1000%;
-  background: repeating-radial-gradient(circle,
+  background: repeating-radial-gradient(
+    circle,
+    var(--band-1) 0px,
+    var(--band-1) 1px,
+    transparent 1px,
+    transparent 60px
+  );
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(var(--stripe-a-rgb), 0.8) 0%,
+      rgba(var(--stripe-a-rgb), 0.4) 30%,
+      rgba(var(--stripe-a-rgb), 0.2) 60%,
+      rgba(var(--stripe-a-rgb), 0) 100%
+    ),
+    repeating-radial-gradient(
+      circle,
       #444 0px,
       #444 1px,
       transparent 1px,
-      transparent 60px);
-  background-color: #111;
-  transform: rotateX(90deg);
-  opacity: .5;
+      transparent 60px
+    );
+  border-radius: 50%;
+  /* background: red !important; */
+  transform: translateZ(-20px);
+  opacity: 0.5;
   transform-style: preserve-3d;
 }
 
-.planet-sphere {
+/* .planet-sphere {
   position: absolute;
   width: var(--planet-size, 40px);
   height: var(--planet-size, 40px);
@@ -128,7 +148,7 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) translateZ(var(--layer-depth, 0px));
-}
+} */
 
 .planet {
   position: absolute;
@@ -142,65 +162,28 @@ body {
 .planet-1 {
   --distance: 200px;
   --angle: 0deg;
-  transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance));
-  filter: hue-rotate(120deg) saturate(1.5) brightness(1.2);
-  animation: orbit1 120s linear infinite;
+  --planet-filter: hue-rotate(120deg)
+    saturate(1.5) brightness(1.2);
+  transform: translate(-50%, -50%) rotateX(90deg)
+    rotateZ(90deg) translateZ(0)
+    translateX(var(--distance));
+  filter: var(--planet-filter);
+  animation: orbit 5s linear infinite reverse;
 }
 
-.planet-2 {
-  --distance: 250px;
-  --angle: 45deg;
-  transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance));
-  filter: hue-rotate(30deg) saturate(1.2) brightness(1.1);
-  animation: orbit2 100s linear infinite;
-}
+@keyframes orbit {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg)
+      rotateX(20deg) rotateZ(-25deg) translateZ(0)
+      translateX(var(--distance));
+  }
 
-.planet-3 {
-  --distance: 300px;
-  --angle: 90deg;
-  transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance));
-  filter: hue-rotate(200deg) saturate(1.3) brightness(0.9);
-  animation: orbit3 80s linear infinite;
-}
-
-.planet-4 {
-  --distance: 350px;
-  --angle: 135deg;
-  transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance));
-  filter: hue-rotate(150deg) saturate(1.4) brightness(1.3);
-  animation: orbit4 90s linear infinite;
-}
-
-.planet-5 {
-  --distance: 400px;
-  --angle: 180deg;
-  transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance));
-  filter: hue-rotate(60deg) saturate(1.1) brightness(1.2);
-  animation: orbit5 110s linear infinite;
-}
-
-.planet-6 {
-  --distance: 450px;
-  --angle: 225deg;
-  transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance));
-  filter: hue-rotate(90deg) saturate(1.3) brightness(1.1);
-  animation: orbit6 95s linear infinite;
-}
-
-.planet-7 {
-  --distance: 500px;
-  --angle: 270deg;
-  transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance));
-  filter: hue-rotate(180deg) saturate(1.2) brightness(0.8);
-  animation: orbit7 85s linear infinite;
-}
-
-.planet-8 {
-  --distance: 550px;
-  --angle: 315deg;
-  transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance));
-  filter: hue-rotate(240deg) saturate(1.4) brightness(1.0);
-  animation: orbit8 105s linear infinite;
+  to {
+    transform: translate(-50%, -50%)
+      rotate(360deg) rotateX(20deg)
+      rotateZ(-25deg) translateZ(0)
+      translateX(var(--distance));
+  }
 }
 
 .sphere::after {
@@ -208,27 +191,33 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  /* background-image: radial-gradient(circle, rgba(205, 56, 213, 0.2), rgba(205, 56, 213, 0.0)); */
   z-index: -1;
 }
 
 @keyframes counter-rotate {
   0% {
-    transform: translate(-50%, -50%) translateX(var(--distance)) rotateX(90deg) rotateY(0deg);
+    transform: rotateY(0deg) rotateX(-20deg)
+      rotateZ(25deg);
+  }
+
+  25% {
+    transform: rotateY(-90deg) rotateX(-25deg)
+      rotateZ(20deg);
+  }
+
+  50% {
+    transform: rotateY(-180deg) rotateX(-20deg)
+      rotateZ(15deg);
+  }
+
+  75% {
+    transform: rotateY(-270deg) rotateX(-15deg)
+      rotateZ(20deg);
   }
 
   100% {
-    transform: translate(-50%, -50%) translateX(var(--distance)) rotateX(90deg) rotateY(-360deg);
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotateX(20deg) rotateZ(-25deg) rotateY(0deg);
-  }
-
-  to {
-    transform: rotateX(20deg) rotateZ(-25deg) rotateY(360deg);
+    transform: rotateY(-360deg) rotateX(-20deg)
+      rotateZ(25deg) scale(2);
   }
 }
 
@@ -242,129 +231,109 @@ body {
   }
 }
 
-@keyframes orbit1 {
-  from {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(0deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(360deg);
-  }
-}
-
-@keyframes orbit2 {
-  from {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(45deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(405deg);
-  }
-}
-
-@keyframes orbit3 {
-  from {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(90deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(450deg);
-  }
-}
-
-@keyframes orbit4 {
-  from {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(135deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(495deg);
-  }
-}
-
-@keyframes orbit5 {
-  from {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(180deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(540deg);
-  }
-}
-
-@keyframes orbit6 {
-  from {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(225deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(585deg);
-  }
-}
-
-@keyframes orbit7 {
-  from {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(270deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(630deg);
-  }
-}
-
-@keyframes orbit8 {
-  from {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(315deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-25deg) translateZ(0) translateX(var(--distance)) rotate(675deg);
-  }
-}
-
 .circle {
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--core-color), var(--glow-mid));
-  animation: pulse 20s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  background: radial-gradient(
+    circle,
+    var(--core-color),
+    var(--glow-mid)
+  );
+  animation: pulse 20s
+    cubic-bezier(0.4, 0, 0.2, 1) infinite;
   filter: drop-shadow(0 0 10px var(--glow-mid));
 }
 
 /* Smooth fiery pulse glow */
 @keyframes pulse {
-
   0%,
   100% {
-    background: radial-gradient(circle,
-        rgba(255, 140, 0, 0.3),
-        rgba(255, 69, 0, 0.2));
-    filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.3));
+    background: radial-gradient(
+      circle,
+      rgba(255, 140, 0, 0.3),
+      rgba(255, 69, 0, 0.2)
+    );
+    filter: drop-shadow(
+      0 0 20px rgba(255, 140, 0, 0.3)
+    );
     opacity: 0.6;
   }
 
   25% {
-    background: radial-gradient(circle,
-        rgba(255, 140, 0, 0.4),
-        rgba(255, 69, 0, 0.3));
-    filter: drop-shadow(0 0 30px rgba(255, 140, 0, 0.4));
+    background: radial-gradient(
+      circle,
+      rgba(255, 140, 0, 0.4),
+      rgba(255, 69, 0, 0.3)
+    );
+    filter: drop-shadow(
+      0 0 30px rgba(255, 140, 0, 0.4)
+    );
     opacity: 0.7;
   }
 
   50% {
-    background: radial-gradient(circle,
-        rgba(255, 140, 0, 0.2),
-        rgba(255, 69, 0, 0.1));
-    filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.2));
+    background: radial-gradient(
+      circle,
+      rgba(255, 140, 0, 0.2),
+      rgba(255, 69, 0, 0.1)
+    );
+    filter: drop-shadow(
+      0 0 15px rgba(255, 140, 0, 0.2)
+    );
     opacity: 0.5;
   }
 
   75% {
-    background: radial-gradient(circle,
-        rgba(255, 140, 0, 0.35),
-        rgba(255, 69, 0, 0.25));
-    filter: drop-shadow(0 0 25px rgba(255, 140, 0, 0.35));
+    background: radial-gradient(
+      circle,
+      rgba(255, 140, 0, 0.35),
+      rgba(255, 69, 0, 0.25)
+    );
+    filter: drop-shadow(
+      0 0 25px rgba(255, 140, 0, 0.35)
+    );
     opacity: 0.65;
   }
+}
+
+/*
+        ಠ‿ಠ
+*/
+
+.face {
+  --_size: 180px;
+  --_pad: 25px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--_size);
+  height: var(--_size);
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; */
+  font-size: 4rem;
+  color: rgba(var(--color-1-rgb), 0.7);
+  color: rgb(30, 20, 12);
+  z-index: 1000;
+}
+.face span {
+  position: absolute;
+}
+
+.eye-left {
+  top: var(--_pad);
+  left: var(--_pad);
+}
+.eye-right {
+  top: var(--_pad);
+  right: var(--_pad);
+}
+.mouth {
+  bottom: 0;
+  left: calc(var(--_size) / 2);
+  transform: translate(-50%, -50%);
 }

@@ -1,82 +1,86 @@
-const sphere = document.querySelector('.sphere');
-const spaceLayer = document.querySelector('.space');
-const face = document.querySelector('.face');
+let _mouth = '‿';
+let _eye = 'ಠ'; //≖
+let _eyeShut = '─';
+let _blinkTime = 65;
+let _blinkFreq = 1000;
+let faceElement;
+const getElem = elem => document.querySelector(elem);
 
-// Set initial face
-face.textContent = "ʘ╭╮ʘ";
-
-// Add layers to sphere
-const layers = 35;
-const radius = 90;
-
-for (let i = 0; i < layers; i++) {
-  const layer = document.createElement('div');
-  layer.className = 'circle';
-
-  const normalized = (i / (layers - 1)) * 2 - 1;
-  const size = Math.sqrt(1 - normalized ** 2) * 100;
-  const depth = normalized * radius;
-
-  layer.style.width = `${size}%`;
-  layer.style.height = `${size}%`;
-  layer.style.transform = `rotateX(20deg) rotateZ(-25deg) translateZ(${depth}px)`;
-
-  sphere.appendChild(layer);
+function updateFace(mouth = _mouth, eye = _eye) {
+  faceElement.eyeLeft.textContent = eye;
+  faceElement.eyeRight.textContent = eye;
+  faceElement.mouth.textContent = mouth;
 }
 
-// Add radial gradient background to space layer
-spaceLayer.style.background = `
-  radial-gradient(circle at center,
-    rgba(68, 68, 68, 0.8) 0%,
-    rgba(68, 68, 68, 0.4) 30%,
-    rgba(68, 68, 68, 0.2) 60%,
-    rgba(68, 68, 68, 0) 100%
-  ),
-  repeating-radial-gradient(circle,
-    #444 0px,
-    #444 1px,
-    transparent 1px,
-    transparent 60px
-  )
-`;
+function addLayersToSphere(container, layerCount = 35, radius = 90) {
+  for (let i = 0; i < layerCount; i++) {
+    const layer = document.createElement('div');
+    const normalized = (i / (layerCount - 1)) * 2 - 1;
+    const size = Math.sqrt(1 - normalized ** 2) * 100;
+    const depth = normalized * radius;
 
-// Face animation
+    layer.className = 'circle';
+    layer.style.width = `${size}%`;
+    layer.style.height = `${size}%`;
+    layer.style.transform = `rotateX(20deg) rotateZ(-25deg) translateZ(${depth}px)`;
+
+    container.appendChild(layer);
+  }
+}
+
 class FaceAnimator {
   constructor() {
-    this.face = face;
-    this.leftEye = face.querySelector('.left-eye');
-    this.rightEye = face.querySelector('.right-eye');
-    this.mouth = face.querySelector('.mouth');
-    this.isBlinking = false;
-    this.mouths = ['╭╮', '╭‿╮', '╭︿╮', '╭ω╮'];
+    this.mouthStates = ['•', '‿', '‿', '‿'];
     this.currentMouthIndex = 0;
-    this.setupEventListeners();
+    this.isBlinking = false;
+    this.init();
   }
 
-  setupEventListeners() {
-    // Blink every 2-4 seconds
-    setInterval(() => this.blink(), Math.random() * 2000 + 2000);
-    // Change mouth every 3-5 seconds
-    setInterval(() => this.changeMouth(), Math.random() * 2000 + 3000);
+  init() {
+    updateFace();
+    this.startBlinking();
+    this.startMouthAnimation();
   }
 
-  blink() {
+  async blink() {
     if (this.isBlinking) return;
     this.isBlinking = true;
-    this.leftEye.textContent = '−';
-    this.rightEye.textContent = '−';
-    setTimeout(() => {
-      this.leftEye.textContent = 'ʘ';
-      this.rightEye.textContent = 'ʘ';
-      this.isBlinking = false;
-    }, 150);
+
+    updateFace(_mouth, _eyeShut);
+    await new Promise(r => setTimeout(r, _blinkTime));
+
+    updateFace(_mouth, _eye);
+    this.isBlinking = false;
   }
 
-  changeMouth() {
-    this.currentMouthIndex = (this.currentMouthIndex + 1) % this.mouths.length;
-    this.mouth.textContent = this.mouths[this.currentMouthIndex];
+  startBlinking() {
+    setInterval(() => {
+      if (Math.random() < 0.3) this.blink();
+    }, _blinkFreq);
+  }
+
+  startMouthAnimation() {
+    setInterval(() => {
+      _mouth =
+        this.mouthStates[
+          (this.currentMouthIndex + 1) % this.mouthStates.length
+        ];
+      updateFace();
+    }, 3000);
   }
 }
 
-// Initialize face animator
-new FaceAnimator();
+function init() {
+  const sphere = getElem('.sphere');
+  faceElement = {
+    eyeLeft: getElem('.eye-left'),
+    eyeRight: getElem('.eye-right'),
+    mouth: getElem('.mouth'),
+  };
+  if (faceElement) updateFace();
+  if (sphere) addLayersToSphere(sphere);
+
+  new FaceAnimator();
+}
+
+document.addEventListener('DOMContentLoaded', init);
