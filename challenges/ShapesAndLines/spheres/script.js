@@ -45,7 +45,7 @@ function createSun(container, options = {}) {
 
 function createPlanet(container, options = {}) {
   const {
-    layerCount = 25,
+    layerCount = 5,
     radius = 30,
     distance = 250,
     color = 'rgba(169, 169, 169, 0.8)',
@@ -140,17 +140,17 @@ function init() {
 
     // Create planets
     createPlanet(container, {
-      layerCount: 25,
+      layerCount: 19,
       radius: 30,
-      distance: 200,
+      distance: 2700,
       color: 'rgba(231, 76, 60, 0.8)', // Mars-like
       className: 'planet mars',
-      size: 30
+      size: 50
     });
 
     createPlanet(container, {
-      layerCount: 25,
-      radius: 35,
+      layerCount: 15,
+      radius: 15,
       distance: 300,
       color: 'rgba(52, 152, 219, 0.8)', // Earth-like
       className: 'planet earth',
@@ -158,8 +158,8 @@ function init() {
     });
 
     createPlanet(container, {
-      layerCount: 25,
-      radius: 25,
+      layerCount: 15,
+      radius: 15,
       distance: 250,
       color: 'rgba(230, 126, 34, 0.8)', // Mercury-like
       className: 'planet mercury',
