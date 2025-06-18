@@ -1,45 +1,95 @@
-# CodePen Playground 🎨💡
+# Amazon Q Developer Command Line MCP Configuration
 
-Welcome to my creative coding journey! This repository showcases my solutions to weekly CodePen challenges and other creative experiments. I'm on track to complete every weekly challenge for 2025! 🚀
+This guide explains how to configure Model Context Protocol (MCP) servers for Amazon Q Developer in the command line.
 
-## 🌟 Featured Projects
+## What is MCP?
 
-### Weekly Challenges 2025
+The Model Context Protocol (MCP) is an open standard that enables AI assistants to interact with external tools and services. Amazon Q Developer CLI supports MCP, allowing you to extend Q's capabilities by connecting it to custom tools and services.
 
-- **JavaScript Classics** 🎮
+## Configuration File Locations
 
-  - [Cryptid Curiosity 🌕](https://codepen.io/Philip-Walsh/pen/Baggzgr)
-  - [Rock-Paper-Scissors-25 ✋✊🖖](https://codepen.io/Philip-Walsh/pen/RwzevxJ)
-  - [Flip-clock Timer ⏱️](https://codepen.io/Philip-Walsh/pen/gONJYdM)
+MCP client configuration in Amazon Q Developer is stored in JSON format, in a file named `mcp.json`. There are two levels of configuration:
 
-- **Fractals** 🌀
+1. **Global Configuration**: `~/.aws/amazonq/mcp.json` - Applies to all workspaces
+2. **Workspace Configuration**: `.amazonq/mcp.json` - Specific to the current workspace
 
-  - [Sierpinski Fractal](https://codepen.io/Philip-Walsh/pen/LYKebJW)
-  - [Wild Fractals](https://codepen.io/Philip-Walsh/pen/mdZpOoL)
+## Configuration File Structure
 
-- **Puzzles** 🧩
+The MCP configuration file uses a JSON format with the following structure:
 
-  - [Maze Puzzle](https://codepen.io/Philip-Walsh/pen/QWXNaax)
-  - [Puzzle Pieces](https://codepen.io/Philip-Walsh/pen/mdZPLZB)
-  - [Guess the Word](https://codepen.io/Philip-Walsh/pen/ExBKoPM)
+```json
+{
+  "mcpServers": {
+    "server-name": {
+      "command": "command-to-run",
+      "args": ["arg1", "arg2"],
+      "env": {
+        "ENV_VAR1": "value1",
+        "ENV_VAR2": "value2"
+      },
+      "timeout": 60000
+    }
+  }
+}
+```
 
-- **Let's Scroll!** 📜
-  - [Scrolling Ad](https://codepen.io/Philip-Walsh/pen/ExzzEVb)
-  - [Aliens Among Us](https://codepen.io/Philip-Walsh/pen/oNKvJNv)
+## Command Line Configuration
 
-## 🎯 Project Goals
+You can manage MCP servers using the following commands:
 
-- Complete every weekly CodePen challenge for 2025
-- Create beautiful, interactive UI experiences
-- Share knowledge and inspire others
-- Build a collection of reusable components
+### Add a Server
 
-## 🛠️ Development
+```bash
+q mcp add --name "server-name" \
+          --command "command-to-run" \
+          --env "KEY1=value1,KEY2=value2" \
+          --scope global \
+          --timeout 60000
+```
 
-For information about the development workflow, scripts, and local setup, please see [DEVELOPMENT.md](DEVELOPMENT.md).
+### Remove a Server
 
-## 📊 Project Stats
+```bash
+q mcp remove --name "server-name" --scope global
+```
 
-- Total Projects: 29
-- Categories: 11
-- Technologies: 4
+### List Servers
+
+```bash
+q mcp list [global|workspace]
+```
+
+### Import Configuration
+
+```bash
+q mcp import --file config.json [global|workspace]
+```
+
+### Check Server Status
+
+```bash
+q mcp status --name "server-name"
+```
+
+## Examples
+
+See the included example files:
+- `mcp-config-example.json`: Example MCP configuration file
+- `add-mcp-server.sh`: Script demonstrating how to add MCP servers
+- `import-mcp-config.sh`: Script demonstrating how to import MCP configuration
+
+## Best Practices
+
+1. Use descriptive names for your MCP servers
+2. Use global configuration for servers you want to use across all projects
+3. Use workspace-specific configuration for project-specific servers
+4. Adjust timeout values based on the expected response time of each server
+5. Regularly check for updates to your MCP servers
+
+## Security Considerations
+
+- MCP servers execute with your user permissions
+- Be careful with servers that might expose sensitive information
+- Consider disabling servers when not needed
+- Don't use servers to run commands that could modify your system without your knowledge
+- Never include credentials directly in your MCP configuration files

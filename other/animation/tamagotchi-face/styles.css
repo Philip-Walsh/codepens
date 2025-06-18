@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Syne+Mono&display=swap');
+
+html {
+  font-size: 16px;
+  background: linear-gradient(#ffa55d, #ffdf88);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+body {
+  display: flex;
+  place-items: center;
+  place-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: 'Syne Mono', monospace;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.face {
+  --bg: radial-gradient(circle, rgba(255, 165, 93, 1), rgba(167, 101, 69, 1));
+  --size: 8em;
+  width: var(--size);
+  height: var(--size);
+  font-size: 4em;
+
+  background-size: calc(var(--size) * 4) calc(var(--size) * 4);
+  display: flex;
+  place-items: center;
+  place-content: center;
+  border-radius: 50%;
+  transform: rotate(90deg);
+  background: #ffdf88;
+  background-image: var(--bg);
+  transition: transform 0.5s ease-in-out;
+}
+
+.face.happy {
+  animation: bounce 1s infinite ease-in-out;
+}
+
+.face.sad {
+  animation: droop 3s infinite ease-in-out;
+}
+
+.eyes,
+.mouth {
+  transition: all 0.3s ease-in-out;
+}
+
+.controls {
+  transform: translateY(1rem);
+  display: flex;
+  gap: 1rem;
+}
+
+button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+#makeHappy {
+  background: #7cba3d;
+  color: white;
+}
+
+#makeSad {
+  background: #5c7a9c;
+  color: white;
+}
+
+button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: rotate(90deg) translateY(0);
+  }
+  50% {
+    transform: rotate(90deg) translateY(-0.5em);
+  }
+}
+
+@keyframes droop {
+  0%, 100% {
+    transform: rotate(90deg) translateY(0);
+  }
+  50% {
+    transform: rotate(85deg) translateY(0.3em);
+  }
+}
