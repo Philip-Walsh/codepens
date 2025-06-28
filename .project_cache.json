@@ -447,5 +447,41 @@
     "technologies": [],
     "modified": "2025-06-17 23:03:45.401273",
     "hash": "ec3821162251ab037265fa6c4e321430"
+  },
+  "other/3d/room-iso": {
+    "title": "Room Iso",
+    "description": "Interactive experiments project",
+    "path": "other/3d/room-iso",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-02-15 12:45:49.102328",
+    "hash": "733701e094a50071a088dc4956f14d1a"
+  },
+  "other/3d/wall-sign": {
+    "title": "Wall Sign",
+    "description": "Interactive experiments project",
+    "path": "other/3d/wall-sign",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-06-28 20:07:37.046151",
+    "hash": "019bf2f438a3273e770d8a18aae44007"
+  },
+  "other/games/word-adventure": {
+    "title": "word adventure \u2694\ufe0f",
+    "description": "Interactive experiments project",
+    "path": "other/games/word-adventure",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-06-28 11:56:29.390645",
+    "hash": "415d5ffb23bfad7c478e028668a8dfe6"
+  },
+  "other/animation/tamagotchi-face": {
+    "title": "Tamagotchi Face \ud83d\ude06",
+    "description": "Interactive experiments project",
+    "path": "other/animation/tamagotchi-face",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-06-18 03:16:17.378158",
+    "hash": "1230723a69d6fdd34bca5a3bbce2a542"
   }
 }

@@ -1,0 +1,302 @@
+:root {
+  --primary-col: #001f3f;
+  --secondary-col: #3a6d8c;
+  --tertiary-col: #6a9ab0;
+  --debug: 2px solid;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  perspective: 1000px;
+  display: grid;
+  grid-template-areas:
+    'header .'
+    'hero .'
+    'nav nav'
+    'main main'
+    'footer .';
+  grid-template-rows: auto 0.7fr 4em 1fr auto;
+  grid-template-columns: 1fr 17rem;
+
+  min-height: 100vh;
+  height: auto;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  transform-style: preserve-3d;
+  background: url(https://images.pexels.com/photos/19193838/pexels-photo-19193838.jpeg)
+    no-repeat center center / cover;
+  backdrop-filter: blur(2px) hue-rotate(178deg);
+  -webkit-backdrop-filter: blur(2px)
+    hue-rotate(178deg);
+  /* https://images.unsplash.com/photo-1645895141453-3097277bd53b?q=80&w=536&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D */
+  /* https://images.pexels.com/photos/19193838/pexels-photo-19193838.jpeg */
+  /* background: url(https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80) */
+  /* https://unsplash.com/photos/building-lights-photography-r7YZXv5f5cc */
+  border: var(--debug) olivedrab;
+}
+
+#hero {
+  grid-area: hero;
+  position: relative;
+  border: var(--debug) rgb(101, 35, 142);
+}
+header {
+  grid-area: header;
+  position: relative;
+  border: var(--debug) red;
+  padding: 3rem 0;
+}
+nav {
+  grid-area: nav;
+  position: relative;
+  border: var(--debug) orangered;
+}
+main {
+  grid-area: main;
+  position: relative;
+  border: var(--debug) yellow;
+  height: fit-content;
+  display: flex;
+  flex-wrap: nowrap;
+  max-width: 90vw;
+}
+footer {
+  grid-area: footer;
+  position: relative;
+  border: var(--debug) greenyellow;
+}
+
+/* body > aside {
+  z-index: -2;
+  width: 100vw;
+  position: absolute;
+  border: var(--debug) blue;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  height: 100%;
+  background-color: #001f3f;
+  background: url(https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80);
+} */
+/* WALL 🧱 */
+#wall {
+  pointer-events: none;
+  perspective: 1000px;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20rem;
+  height: 200vh; /* Tall enough to hide top and bottom */
+  transform-origin: left center;
+  transform: rotateY(-45deg) translateX(20%);
+  background-color: rgba(0, 0, 0, 1);
+  background: #174e5c;
+  background-blend-mode: hard-light;
+  background:
+    url(https://www.transparenttextures.com/patterns/brick-wall-dark.png),
+    url(https://www.transparenttextures.com/patterns/brick-wall-dark.png),
+    linear-gradient(
+      180deg,
+      rgb(45, 94, 106) 0%,
+      rgba(14, 30, 42, 1) 100%
+    );
+  /* border: var(--debug) indigo; */
+  box-shadow:
+    inset 0 0 1em rgba(137, 173, 183, 0.3),
+    inset 0 0 3em rgba(255, 255, 255, 0.1),
+    inset 0 0 10em rgba(0, 0, 0, 0.8);
+}
+
+#sign {
+  --sign-x-len: 200px;
+  --sign-y-len: 200px;
+  --sign-z-len: 30px;
+  position: absolute;
+  top: 10rem;
+  right: 30%;
+  width: var(--sign-x-len);
+  height: var(--sign-y-len);
+  border: var(--debug) violet;
+  transform: rotateY(45deg);
+  /* border-radius: 0 0 0 2em; */
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  background: #174e5c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  place-items: center;
+}
+#sign span {
+  font-size: 3rem;
+}
+
+#sign::before,
+#sign::after {
+  content: '';
+  position: absolute;
+  background: #6a9ab0;
+  transform-style: preserve-3d;
+  border: var(--debug) violet;
+}
+
+#sign::before {
+  top: 100%;
+  width: 100%;
+  height: var(--sign-z-len);
+  transform-origin: top;
+  transform: rotateX(-90deg);
+  /* border: var(--debug) rgb(21, 165, 76); */
+}
+
+#sign::after {
+  /* top: 0; */
+  width: var(--sign-z-len);
+  height: 100%;
+  transform-origin: left;
+  transform: rotateY(90deg);
+  left: 0px;
+  /* border: var(--debug) rgb(165, 100, 21); */
+}
+
+body > * {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  justify-content: center;
+  align-content: center;
+  place-items: center;
+}
+
+/* 🍉 Article Styling (Non-Card Sections) */
+main article {
+  background: rgba(
+    20,
+    20,
+    20,
+    0.8
+  ); /* Dark background with subtle transparency */
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.3);
+  color: #e4e4e4;
+  text-align: left;
+  backdrop-filter: blur(
+    4px
+  ); /* Subtle background blur */
+  -webkit-backdrop-filter: blur(4px);
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+  margin-bottom: 2rem; /* Add space between articles */
+}
+
+/* 🍎 Article Hover Effect */
+main article:hover {
+  transform: translateY(-5px) scale(1.02); /* Slight hover lift */
+  background: rgba(
+    20,
+    20,
+    20,
+    0.9
+  ); /* Darken background slightly on hover */
+}
+
+/* 🍊 Article Headings */
+main article h2 {
+  color: #cde7f0; /* Cyan-like color for headings */
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px; /* Adds subtle spacing between letters */
+}
+
+/* 🍋 Article Paragraphs */
+main article p {
+  color: #b0b0b0; /* Lighter gray for readability */
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* 🍍 Card Section Styling */
+.card-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+/* 🍎 Card Styling */
+main .card {
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 300px;
+  max-width: 90%;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #d4d4d4;
+  text-align: left;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+main .card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* 🍍 Card Headings */
+main .card h2 {
+  color: #cde7f0;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+/* 🍎 Card Paragraphs */
+main .card p {
+  color: #b0b0b0;
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+/* 🍊 Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  main {
+    padding: 1.5rem;
+  }
+
+  .card-section {
+    justify-content: flex-start;
+  }
+
+  main .card {
+    width: 100%;
+    max-width: none;
+  }
+
+  main article {
+    width: 100%;
+    max-width: none;
+    padding: 1.5rem;
+  }
+}
