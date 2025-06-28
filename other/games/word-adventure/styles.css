@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+  --bg-color: #1e1c1a;
+  --card-bg: rgba(40, 38, 34, 0.85);
+  --accent: #7fbc68;
+  --accent-soft: #a6d89f;
+  --text-main: #f5f3ee;
+  --text-muted: #c0b9ae;
+  --danger: #bc5b40;
+  --success: #88c06b;
+  --radius: 0.75rem;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+}
+
+body {
+  background: var(--bg-color);
+  background: url('https://www.transparenttextures.com/patterns/rocky-wall.png') repeat, var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: var(--space-sm);
+}
+
+h1, h2, h3 {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  margin-bottom: var(--space-sm);
+  max-width: 90%;
+  text-align: center;
+  word-wrap: break-word;
+}
+.enemy-section > div,
+.question-section {
+  display:flex;
+  flex-direction:column;
+  place-items:center;
+  place-content:center;
+}.menu-screen,
+.battle-screen,
+.game-over {
+  background: rgba(55, 55, 55, 0.05); /* lighter tint for glass feel */
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  margin: var(--space-xs);
+  width: 95%;
+  max-width: 1000px;
+
+  /* Backdrop Blur for Glass Effect */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  /* Outer Glow & Soft Shadow */
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.3), /* deep shadow */
+    0 0 30px rgba(255, 255, 255, 0.05), /* soft glow */
+    inset 0 1px 2px rgba(255, 255, 255, 0.2), /* subtle top highlight */
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2); /* inner shadow for depth */
+
+  /* Edge Light (rim light) with border */
+  border: 1px solid rgba(55, 55, 55, 0.15);
+
+  /* Flex Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  word-wrap: break-word;
+
+  /* Optional: Layered pseudo-element for extra lighting */
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-screen::before,
+.battle-screen::before,
+.game-over::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.15), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.world-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: .5em;
+  margin: .5em;
+  box-shadow: 0 0 8px #00000055;
+  backdrop-filter: blur(5px);
+/*   width: 95%; */
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+/*   gap: var(--space-sm); */
+  word-wrap: break-word;
+  
+}
+.answer-group {
+  display:flex;
+  flex-wrap:wrap-reverse;
+  gap:.5em;
+  
+}
+
+.answer-group button {
+  font-size:1.6em !important;
+  flex:1;
+  
+}
+.world-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 12px #7fbc6855;
+}
+.world-select,
+.world-select > div {
+  display:flex;
+  flex-wrap:wrap;
+  place-items:center;
+  place-content:center;
+}
+
+.world-select > div:last-of-type {
+  flex:2;
+  
+/*   border: 2px solid red; */
+  display: flex;
+/*   flex-direction: column; */
+  place-items:center;
+  place-content:center;
+  flex-wrap:wrap;
+}
+.world-select > div:last-of-type + button {
+  display:block;
+  border: 2px solid red;
+  flex:2;
+  width:200%;
+  
+  
+}
+.world-select > div:last-of-type h3 {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.world-select > div:last-of-type button {
+  width: 40%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+button {
+  padding: var(--space-xs) var(--space-sm);
+  
+}
+button, .world-card {
+  background: var(--accent);
+  color: var(--bg-color);
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  font-family: 'Inter', sans-serif;
+/*   flex: 1 1 150px; */
+/*   font-size:1.5em; */
+
+  background: rgba(55, 55, 55, 0.3); /* lighter tint for glass feel */
+  border-radius: var(--radius);
+/*   padding: var(--space-xs); */
+/*   margin: var(--space-xs); */
+
+  /* Backdrop Blur for Glass Effect */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(2px);
+
+  /* Outer Glow & Soft Shadow */
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.3), /* deep shadow */
+    0 0 30px rgba(255, 255, 255, 0.05), /* soft glow */
+    inset 0 1px 2px rgba(255, 255, 255, 0.2), /* subtle top highlight */
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2); /* inner shadow for depth */
+
+  /* Edge Light (rim light) with border */
+  border: 1px solid rgba(55, 55, 55, 0.15);
+
+  /* Flex Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  word-wrap: break-word;
+
+  
+}
+.game-section button {
+  height:20px !important;
+}
+button:hover {
+  background: var(--accent-soft);
+  transform: scale(1.03);
+}
+.action {
+  flex-wrap:nowrap;
+  background: var(--accent);
+  transform: scale(1.03);
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  justify-content: center;
+  width: 100%;
+}
+
+.stats-bar, .enemy-bar, .exp-bar {
+  width: 100%;
+  height: 1rem;
+  background: #2a2826;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: var(--space-xs) 0;
+  display:flex;
+  place-items:center;
+  place-content:center;
+}
+
+.stats-bar-inner, .enemy-bar-inner, .exp-bar-inner {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.enemy-bar-inner {
+  background: var(--danger);
+}
+
+.exp-bar-inner {
+  background: var(--success);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md);
+  gap: var(--space-sm);
+  max-width: 1400px;
+  width: 95%;
+}
+
+@media (min-width: 600px) {
+  .container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding: var(--space-lg);
+  }
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: none; /* Hides scrollbar */
+  transition:all 1s ease-in-out;
+}
+
+/* For WebKit-based browsers (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+  display: none; /* Hides scrollbar */
+}
