@@ -118,7 +118,7 @@ footer {
   --sign-y-len: 200px;
   --sign-z-len: 30px;
   position: absolute;
-  top: 10rem;
+  /* top: 10rem; */
   right: 30%;
   width: var(--sign-x-len);
   height: var(--sign-y-len);
@@ -174,129 +174,59 @@ body > * {
   place-items: center;
 }
 
-/* 🍉 Article Styling (Non-Card Sections) */
-main article {
-  background: rgba(
-    20,
-    20,
-    20,
-    0.8
-  ); /* Dark background with subtle transparency */
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(255, 255, 255, 0.1),
-    inset 0 1px 2px rgba(255, 255, 255, 0.1),
-    inset 0 -2px 6px rgba(0, 0, 0, 0.3);
-  color: #e4e4e4;
-  text-align: left;
-  backdrop-filter: blur(
-    4px
-  ); /* Subtle background blur */
-  -webkit-backdrop-filter: blur(4px);
-  transition:
-    transform 0.3s ease,
-    background 0.3s ease;
-  margin-bottom: 2rem; /* Add space between articles */
-}
-
-/* 🍎 Article Hover Effect */
-main article:hover {
-  transform: translateY(-5px) scale(1.02); /* Slight hover lift */
-  background: rgba(
-    20,
-    20,
-    20,
-    0.9
-  ); /* Darken background slightly on hover */
-}
-
-/* 🍊 Article Headings */
-main article h2 {
-  color: #cde7f0; /* Cyan-like color for headings */
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  letter-spacing: 1px; /* Adds subtle spacing between letters */
-}
-
-/* 🍋 Article Paragraphs */
-main article p {
-  color: #b0b0b0; /* Lighter gray for readability */
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-/* 🍍 Card Section Styling */
-.card-section {
+/* 🍎 */
+main {
+  grid-area: main;
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
-  width: 100%;
+  padding: 2rem;
+  border: var(--debug) yellow;
+  /* backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px); */
 }
 
-/* 🍎 Card Styling */
 main .card {
-  background: rgba(20, 20, 20, 0.8);
+  background: rgba(20, 20, 20, 0.4);
   border-radius: 1rem;
   padding: 2rem;
   width: 300px;
   max-width: 90%;
   box-shadow:
     0 4px 20px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(255, 255, 255, 0.1),
+    0 0 20px rgba(255, 255, 255, 0.05),
     inset 0 1px 2px rgba(255, 255, 255, 0.1),
     inset 0 -2px 6px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   color: #d4d4d4;
   text-align: left;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: transform 0.3s ease;
 }
 
 main .card:hover {
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.6);
+  transform: translateY(-5px) scale(1.02);
 }
 
-/* 🍍 Card Headings */
 main .card h2 {
   color: #cde7f0;
   font-size: 1.6rem;
   margin-bottom: 0.5rem;
 }
 
-/* 🍎 Card Paragraphs */
 main .card p {
   color: #b0b0b0;
   font-size: 1rem;
   line-height: 1.4;
-  margin-bottom: 1rem;
 }
 
-/* 🍊 Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  main {
-    padding: 1.5rem;
-  }
-
-  .card-section {
-    justify-content: flex-start;
-  }
-
-  main .card {
-    width: 100%;
-    max-width: none;
-  }
-
-  main article {
-    width: 100%;
-    max-width: none;
-    padding: 1.5rem;
-  }
+.card-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
 }
