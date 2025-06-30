@@ -1,95 +1,191 @@
-# Amazon Q Developer Command Line MCP Configuration
+# 🎨 Philip-Walsh Codepens
 
-This guide explains how to configure Model Context Protocol (MCP) servers for Amazon Q Developer in the command line.
+A collection of interactive coding challenges, experiments, and demos. This repository showcases creative programming projects ranging from 3D visualizations to games and UI experiments.
 
-## What is MCP?
-
-The Model Context Protocol (MCP) is an open standard that enables AI assistants to interact with external tools and services. Amazon Q Developer CLI supports MCP, allowing you to extend Q's capabilities by connecting it to custom tools and services.
-
-## Configuration File Locations
-
-MCP client configuration in Amazon Q Developer is stored in JSON format, in a file named `mcp.json`. There are two levels of configuration:
-
-1. **Global Configuration**: `~/.aws/amazonq/mcp.json` - Applies to all workspaces
-2. **Workspace Configuration**: `.amazonq/mcp.json` - Specific to the current workspace
-
-## Configuration File Structure
-
-The MCP configuration file uses a JSON format with the following structure:
-
-```json
-{
-  "mcpServers": {
-    "server-name": {
-      "command": "command-to-run",
-      "args": ["arg1", "arg2"],
-      "env": {
-        "ENV_VAR1": "value1",
-        "ENV_VAR2": "value2"
-      },
-      "timeout": 60000
-    }
-  }
-}
-```
-
-## Command Line Configuration
-
-You can manage MCP servers using the following commands:
-
-### Add a Server
+## 🚀 Quick Start
 
 ```bash
-q mcp add --name "server-name" \
-          --command "command-to-run" \
-          --env "KEY1=value1,KEY2=value2" \
-          --scope global \
-          --timeout 60000
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Or start production server
+npm start
+
+# Build project index
+npm run build
 ```
 
-### Remove a Server
+Visit `http://localhost:3000` to view the project index and browse all available codepens.
+
+## 🐍 Python Scripts & Virtual Environment
+
+This repository includes powerful Python scripts for project management and data analysis:
+
+### Setting up Python Environment
 
 ```bash
-q mcp remove --name "server-name" --scope global
+# Create virtual environment (if not exists)
+python3 -m venv .venv
+
+# Activate virtual environment
+source .venv/bin/activate  # On Linux/Mac
+# or
+.venv\Scripts\activate     # On Windows
+
+# Install Python dependencies
+pip install -r requirements.txt
 ```
 
-### List Servers
+### Available Python Scripts
+
+- **`scripts/build-index.py`** - 🏗️ Main project index builder
+
+  - Automatically scans all projects and generates the beautiful homepage
+  - Supports watch mode for continuous rebuilding
+  - Includes smart caching for fast incremental updates
+
+- **`scripts/download-pen.py`** - 📥 CodePen downloader utility
+
+  - Downloads CodePens for local development
+  - Handles assets and dependencies
+
+- **`scripts/codepen-stats.py`** - 📊 Statistics generator
+
+  - Analyzes project data and generates insights
+  - Tracks technology usage and project metrics
+
+- **`scripts/update-index.sh`** - 🔄 Shell wrapper script
+  - Convenient interface for running the build script
+  - Supports both single build and watch modes
+
+### Python Script Usage
 
 ```bash
-q mcp list [global|workspace]
+# Build project index once
+python3 scripts/build-index.py
+
+# Watch for changes and auto-rebuild
+python3 scripts/build-index.py --watch
+
+# Use the shell wrapper (recommended)
+./scripts/update-index.sh         # Build once
+./scripts/update-index.sh watch   # Watch mode
+
+# Generate project statistics
+python3 scripts/codepen-stats.py
 ```
 
-### Import Configuration
+### Python Dependencies
 
-```bash
-q mcp import --file config.json [global|workspace]
+The project uses these Python packages:
+
+- **`beautifulsoup4`** - HTML parsing and manipulation
+- **`cloudscraper`** - Web scraping with anti-bot protection
+
+## 📁 Project Structure
+
+```
+codepens/
+├── public/
+│   ├── index.html          # Auto-generated project index
+│   ├── challenges/         # Coding challenges and solutions
+│   └── css/               # Shared stylesheets
+├── challenges/            # Challenge source files
+├── other/                 # Experimental projects
+├── assets/               # Shared assets
+├── server/               # Express.js server
+└── scripts/              # Build and utility scripts
 ```
 
-### Check Server Status
+## 🎯 Featured Projects
 
-```bash
-q mcp status --name "server-name"
-```
+Based on recent commits, this repository includes:
 
-## Examples
+- **3D Sign**: Interactive 3D text visualization
+- **City UI**: Modern city-themed user interface
+- **Word Game**: Interactive word-based game
+- **Spheres**: 3D sphere animations and interactions
+- **Planets**: Solar system visualization
+- **Solar Face**: Creative solar-themed visualization
 
-See the included example files:
-- `mcp-config-example.json`: Example MCP configuration file
-- `add-mcp-server.sh`: Script demonstrating how to add MCP servers
-- `import-mcp-config.sh`: Script demonstrating how to import MCP configuration
+## ✨ Features
 
-## Best Practices
+- **🧠 Smart Project Discovery**: Automatically scans and indexes all projects
+- **🎨 Beautiful UI**: Dark theme with glassmorphic cards and modern design
+- **🏷️ Tech Detection**: Automatically detects technologies used (jQuery, React, Canvas, Three.js, etc.)
+- **📊 Live Stats**: Shows project count, categories, and technologies
+- **📱 Responsive**: Works on all devices
+- **⚡ Fast Development**: Hot reload with nodemon
 
-1. Use descriptive names for your MCP servers
-2. Use global configuration for servers you want to use across all projects
-3. Use workspace-specific configuration for project-specific servers
-4. Adjust timeout values based on the expected response time of each server
-5. Regularly check for updates to your MCP servers
+## 🔧 Technology Stack
 
-## Security Considerations
+- **Frontend**: HTML5, CSS3, JavaScript, jQuery
+- **Backend**: Node.js, Express.js
+- **Build Tools**: Custom build scripts, automated linting
+- **Graphics**: Canvas, WebGL, Three.js
+- **Styling**: Modern CSS with glassmorphism effects
 
-- MCP servers execute with your user permissions
-- Be careful with servers that might expose sensitive information
-- Consider disabling servers when not needed
-- Don't use servers to run commands that could modify your system without your knowledge
-- Never include credentials directly in your MCP configuration files
+## 🛠️ Development
+
+### Available Scripts
+
+- `npm run dev` - Start development server with auto-reload
+- `npm run build` - Build project index
+- `npm run lint` - Run all linters (JS, CSS, HTML, Python, Markdown)
+- `npm run format` - Format code with Prettier
+- `npm run lint:fix` - Fix linting issues automatically
+
+### Project Index Builder
+
+The repository includes an automated project index builder that:
+
+1. **Scans** all project folders for `index.html` files
+2. **Extracts** metadata (title, description, technologies)
+3. **Categorizes** projects based on folder structure
+4. **Caches** results for fast rebuilds
+5. **Generates** a beautiful HTML page at `public/index.html`
+
+## 🎨 Creating New Projects
+
+1. Create a new folder in `challenges/` or `other/`
+2. Add an `index.html` file with your project
+3. Run `npm run build` to update the project index
+4. Your project will automatically appear on the home page
+
+## 📝 Code Quality
+
+This project maintains high code quality with:
+
+- **ESLint** for JavaScript linting
+- **Stylelint** for CSS linting
+- **HTMLHint** for HTML validation
+- **Prettier** for code formatting
+- **Markdownlint** for documentation
+- **Husky** for pre-commit hooks
+
+## 🌐 Live Demo
+
+Visit the live demo to explore all projects: [GitHub Pages](https://philip-walsh.github.io/codepens)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Add your codepen/experiment
+4. Run `npm run lint:fix` to ensure code quality
+5. Submit a pull request
+
+## 📄 License
+
+ISC License - see package.json for details.
+
+## 👨‍💻 Author
+
+**Philip Walsh** - [GitHub](https://github.com/Philip-Walsh)
+
+---
+
+_This repository is a showcase of creative coding experiments and challenges. Each project demonstrates different aspects of web development, from basic HTML/CSS to complex 3D visualizations._

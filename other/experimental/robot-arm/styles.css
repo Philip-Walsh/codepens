@@ -1,0 +1,262 @@
+:root {
+  --arm: #444;
+  --joint: #888;
+  --pincer: #c00;
+  --holder: #0a0;
+  --ball: #0af;
+  --panel-bg: rgba(0, 0, 0, 0.8);
+  --key-bg: #333;
+  --key-active: #0af;
+  --key-text: #fff;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    #0a0a0a 0%,
+    #1a1a1a 100%
+  );
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+svg#arm {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+#ball {
+  cursor: grab;
+}
+
+#ball:active {
+  cursor: grabbing;
+}
+
+#info {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-family: monospace;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  border-radius: 8px;
+  min-width: 320px;
+  backdrop-filter: blur(10px);
+}
+
+#info div {
+  margin: 3px 0;
+  font-size: 13px;
+}
+
+.key-help {
+  font-size: 11px;
+  opacity: 0.9;
+  margin-top: 5px;
+  color: #aaa;
+}
+
+.range-info {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 3px;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.status {
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: bold;
+  color: #30d158;
+  padding: 5px 8px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+#endEffectorPos {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+#controls {
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  z-index: 100;
+}
+
+.control-panel {
+  background: var(--panel-bg);
+  border-radius: 10px;
+  padding: 15px;
+  color: #fff;
+  max-width: 300px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.control-section {
+  margin-bottom: 20px;
+}
+
+.control-section:last-child {
+  margin-bottom: 0;
+}
+
+.control-section h3 {
+  margin: 0 0 10px 0;
+  color: var(--key-active);
+  font-size: 14px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.keyboard-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.keyboard-grid-1col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.keyboard-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.keyboard-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.joint-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.joint-control label {
+  font-size: 11px;
+  color: #ccc;
+  margin-bottom: 5px;
+  text-align: center;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.key-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.key-btn {
+  width: 30px;
+  height: 25px;
+  background: var(--key-bg);
+  border: 1px solid #555;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--key-text);
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.key-btn:hover {
+  background: #444;
+  border-color: #666;
+}
+
+.key-btn.active {
+  background: var(--key-active);
+  border-color: var(--key-active);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(10, 175, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.action-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.action-btn {
+  padding: 8px 12px;
+  background: var(--key-bg);
+  border: 1px solid #555;
+  border-radius: 5px;
+  color: var(--key-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 12px;
+}
+
+.action-btn:hover {
+  background: #444;
+  border-color: #666;
+}
+
+.action-btn:active {
+  background: var(--key-active);
+  border-color: var(--key-active);
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 600px) {
+  .keyboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .key-btn {
+    width: 25px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  .control-panel {
+    max-width: 250px;
+  }
+
+  #info {
+    font-size: 12px;
+  }
+
+  .key-help {
+    font-size: 10px;
+  }
+}

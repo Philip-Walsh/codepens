@@ -458,13 +458,13 @@
     "hash": "733701e094a50071a088dc4956f14d1a"
   },
   "other/3d/wall-sign": {
-    "title": "Wall Sign",
+    "title": "Nothing Matters Today",
     "description": "Interactive experiments project",
     "path": "other/3d/wall-sign",
     "category": "Experiments",
     "technologies": [],
-    "modified": "2025-06-28 20:07:37.046151",
-    "hash": "019bf2f438a3273e770d8a18aae44007"
+    "modified": "2025-06-29 00:24:02.774027",
+    "hash": "51072348da9b9f90a9bbd2a2db0769f2"
   },
   "other/games/word-adventure": {
     "title": "word adventure \u2694\ufe0f",
@@ -483,5 +483,14 @@
     "technologies": [],
     "modified": "2025-06-18 03:16:17.378158",
     "hash": "1230723a69d6fdd34bca5a3bbce2a542"
+  },
+  "other/experimental/robot-arm": {
+    "title": "Robot Arm \ud83e\uddbe",
+    "description": "Interactive experiments project",
+    "path": "other/experimental/robot-arm",
+    "category": "Experiments",
+    "technologies": [],
+    "modified": "2025-07-05 21:34:03.121815",
+    "hash": "d5f3b3e9f1c0dce77b57a2f957e3eb59"
   }
 }
