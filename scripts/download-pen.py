@@ -5,7 +5,8 @@ from bs4 import BeautifulSoup
 import cloudscraper
 import html
 import argparse
-# Usage : python scripts/download-pen.py "https://codepen.io/Philip-Walsh/pen/LEVBzeQ" "challenges/ShapesAndLines"
+# source .venv/bin/activate
+# Usage : python scripts/download-pen.py "https://codepen.io/Philip-Walsh/pen/wBKvarX" "challenges/LetItSlide"
 
 
 def main(url, folder):
