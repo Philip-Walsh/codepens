@@ -189,3 +189,4 @@ ISC License - see package.json for details.
 ---
 
 _This repository is a showcase of creative coding experiments and challenges. Each project demonstrates different aspects of web development, from basic HTML/CSS to complex 3D visualizations._
+
