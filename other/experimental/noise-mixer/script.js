@@ -1,5 +1,5 @@
 const assetDir =
-  'https://github.com/Philip-Walsh/codepens/raw/refs/heads/main/other/noise-mixer/assets/';
+  'https://github.com/Philip-Walsh/codepens/raw/refs/heads/main/assets/audio/';
 const sliders = [
   {
     id: 'river',
