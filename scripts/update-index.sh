@@ -8,6 +8,11 @@
 # Ensure we're in the project root
 cd "$(dirname "$0")/.."
 
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip install -r requirements.txt
+
 if [ "$1" = "watch" ]; then
     echo "👀 Starting watch mode..."
     python3 scripts/build-index.py --watch

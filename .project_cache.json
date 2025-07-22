@@ -489,8 +489,28 @@
     "description": "Interactive experiments project",
     "path": "other/experimental/robot-arm",
     "category": "Experiments",
+    "technologies": [
+      "jQuery"
+    ],
+    "modified": "2025-07-08 13:39:50.170919",
+    "hash": "03e12e2c9d7b394461b676d4611b581b"
+  },
+  "challenges/LetItSlide/slide-show": {
+    "title": "Slide Show",
+    "description": "Interactive LetItSlide project",
+    "path": "challenges/LetItSlide/slide-show",
+    "category": "Letitslide",
     "technologies": [],
-    "modified": "2025-07-05 21:34:03.121815",
-    "hash": "d5f3b3e9f1c0dce77b57a2f957e3eb59"
+    "modified": "2025-07-22 21:50:56.050638",
+    "hash": "d6e950228570818d9855b5ec9135f041"
+  },
+  "challenges/LetItSlide/slide-in-slide-out": {
+    "title": "Slide In Slide Out",
+    "description": "Interactive LetItSlide project",
+    "path": "challenges/LetItSlide/slide-in-slide-out",
+    "category": "Letitslide",
+    "technologies": [],
+    "modified": "2025-07-17 19:51:54.771989",
+    "hash": "70bfd8aa669d1cd3b5b246666a769a93"
   }
 }

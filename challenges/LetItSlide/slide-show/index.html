@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Slideshow Creator</title>
+  <meta name="description" content="Create beautiful, responsive presentations with ease" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>" />
+  <script src="./script.js" defer></script>
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Header with Navigation -->
+    <header class="app-header">
+      <div class="container">
+        <div class="header-content">
+          <div class="brand">
+            <h1>🎬 Slideshow Creator</h1>
+            <p class="tagline">Create beautiful presentations with ease</p>
+          </div>
+          <nav class="header-nav">
+            <button id="help-btn" class="nav-btn" aria-label="Open help">
+              <span>?</span> Help
+            </button>
+            <button id="shortcuts-btn" class="nav-btn" aria-label="View keyboard shortcuts">
+              <span>⌨</span> Shortcuts
+            </button>
+            <button id="themes-btn" class="nav-btn" aria-label="Change theme">
+              <span>🎨</span> Themes
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+      <div class="container">
+        <!-- Control Panel -->
+        <section class="control-panel">
+          <h2 class="sr-only">Slide Controls</h2>
+          <div class="controls">
+            <button id="add-title-slide" class="control-btn">
+              <span class="btn-icon">📄</span>
+              <span class="btn-text">Title Slide</span>
+            </button>
+            <button id="add-text-slide" class="control-btn">
+              <span class="btn-icon">📝</span>
+              <span class="btn-text">Text Slide</span>
+            </button>
+            <button id="add-image-slide" class="control-btn">
+              <span class="btn-icon">🖼️</span>
+              <span class="btn-text">Image Slide</span>
+            </button>
+            <button id="add-question-slide" class="control-btn">
+              <span class="btn-icon">❓</span>
+              <span class="btn-text">Question Slide</span>
+            </button>
+            <button id="add-code-slide" class="control-btn">
+              <span class="btn-icon">💻</span>
+              <span class="btn-text">Code Slide</span>
+            </button>
+            <button id="save-presentation" class="control-btn">
+              <span class="btn-icon">💾</span>
+              <span class="btn-text">Save</span>
+            </button>
+            <button id="load-presentation" class="control-btn">
+              <span class="btn-icon">📁</span>
+              <span class="btn-text">Load</span>
+            </button>
+            <button id="start-presentation" class="control-btn primary">
+              <span class="btn-icon">▶️</span>
+              <span class="btn-text">Present</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Settings Panel -->
+        <section class="settings-panel">
+          <h2>Presentation Settings</h2>
+          <div class="settings-grid">
+            <div class="aspect-ratio-controls">
+              <label for="aspect-ratio">Aspect Ratio:</label>
+              <select id="aspect-ratio">
+                <option value="16/9">16:9 (Widescreen)</option>
+                <option value="4/3">4:3 (Standard)</option>
+                <option value="21/9">21:9 (Ultrawide)</option>
+              </select>
+            </div>
+            <div class="view-controls">
+              <label>View Mode:</label>
+              <div class="toggle-group">
+                <button id="grid-view" class="toggle-btn active" aria-label="Grid view">
+                  <span>⊞</span> Grid
+                </button>
+                <button id="list-view" class="toggle-btn" aria-label="List view">
+                  <span>☰</span> List
+                </button>
+                <button id="thumbnail-view" class="toggle-btn" aria-label="Thumbnail view">
+                  <span>🖼</span> Thumbnails
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide Editor Form -->
+        <div id="slide-form-container" class="slide-form hidden"></div>
+
+        <!-- Slide Presentation Area -->
+        <section class="presentation-section">
+          <h2 class="sr-only">Your Slides</h2>
+          <div class="presentation-header">
+            <div class="slide-count">
+              <span id="slide-counter">0 slides</span>
+            </div>
+            <div class="presentation-actions">
+              <button id="clear-all" class="action-btn danger" aria-label="Clear all slides">
+                <span>🗑️</span> Clear All
+              </button>
+              <button id="duplicate-slide" class="action-btn" aria-label="Duplicate selected slide" disabled>
+                <span>📋</span> Duplicate
+              </button>
+            </div>
+          </div>
+          <div id="presentation" class="slides-container"></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal hidden" aria-labelledby="help-title" role="dialog">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2 id="help-title">📖 Getting Started</h2>
+          <button class="modal-close" aria-label="Close help">×</button>
+        </header>
+        <div class="modal-body">
+          <div class="help-tabs">
+            <button class="help-tab active" data-tab="basics">Basics</button>
+            <button class="help-tab" data-tab="slides">Slide Types</button>
+            <button class="help-tab" data-tab="presenting">Presenting</button>
+            <button class="help-tab" data-tab="tips">Tips</button>
+          </div>
+          <div class="help-content">
+            <div id="basics-content" class="help-panel active">
+              <h3>🚀 Quick Start</h3>
+              <ol>
+                <li><strong>Create slides</strong> - Click any of the slide type buttons above</li>
+                <li><strong>Edit slides</strong> - Hover over a slide and click "Edit"</li>
+                <li><strong>Reorder slides</strong> - Drag and drop slides to reorder them</li>
+                <li><strong>Present</strong> - Click the "Present" button to start your slideshow</li>
+                <li><strong>Save</strong> - Save your presentation to local storage</li>
+              </ol>
+
+              <h3>🎯 Key Features</h3>
+              <ul>
+                <li><strong>Responsive Design</strong> - Works on all devices</li>
+                <li><strong>Multiple Slide Types</strong> - Title, text, image, question, and code slides</li>
+                <li><strong>Auto-play</strong> - Automatic progression through slides</li>
+                <li><strong>Keyboard Navigation</strong> - Full keyboard support</li>
+                <li><strong>Export Options</strong> - Save and load presentations</li>
+              </ul>
+            </div>
+
+            <div id="slides-content" class="help-panel">
+              <h3>📝 Slide Types</h3>
+              <div class="slide-types">
+                <div class="slide-type">
+                  <h4>📄 Title Slide</h4>
+                  <p>Perfect for introduction slides, section dividers, or title pages. Includes main title and subtitle
+                    fields.</p>
+                </div>
+                <div class="slide-type">
+                  <h4>📝 Text Slide</h4>
+                  <p>For content with bullet points or paragraphs. Great for lists, explanations, and detailed
+                    information.</p>
+                </div>
+                <div class="slide-type">
+                  <h4>🖼️ Image Slide</h4>
+                  <p>Showcase images with optional captions. Supports any web-accessible image URL.</p>
+                </div>
+                <div class="slide-type">
+                  <h4>❓ Question Slide</h4>
+                  <p>Interactive Q&A slides with multiple choice options. Perfect for audience engagement.</p>
+                </div>
+                <div class="slide-type">
+                  <h4>💻 Code Slide</h4>
+                  <p>Display code snippets with syntax highlighting. Specify the programming language for better
+                    formatting.</p>
+                </div>
+              </div>
+            </div>
+
+            <div id="presenting-content" class="help-panel">
+              <h3>🎬 Presentation Mode</h3>
+              <h4>Keyboard Shortcuts</h4>
+              <div class="shortcuts-grid">
+                <div class="shortcut"><kbd>→</kbd> <kbd>Space</kbd> Next slide</div>
+                <div class="shortcut"><kbd>←</kbd> Previous slide</div>
+                <div class="shortcut"><kbd>Esc</kbd> Exit presentation</div>
+                <div class="shortcut"><kbd>F</kbd> Fullscreen</div>
+              </div>
+
+              <h4>Controls</h4>
+              <ul>
+                <li><strong>Auto Play</strong> - Automatically advance slides every 3 seconds</li>
+                <li><strong>Navigation</strong> - Previous/Next buttons for manual control</li>
+                <li><strong>Counter</strong> - Shows current slide position</li>
+                <li><strong>Exit</strong> - Return to edit mode</li>
+              </ul>
+            </div>
+
+            <div id="tips-content" class="help-panel">
+              <h3>💡 Pro Tips</h3>
+              <div class="tips-list">
+                <div class="tip">
+                  <h4>🎨 Design Tips</h4>
+                  <ul>
+                    <li>Keep text concise - aim for 6-7 words per line</li>
+                    <li>Use high-contrast images for better readability</li>
+                    <li>Limit bullet points to 3-5 per slide</li>
+                    <li>Choose readable fonts and appropriate sizes</li>
+                  </ul>
+                </div>
+                <div class="tip">
+                  <h4>🚀 Performance</h4>
+                  <ul>
+                    <li>Optimize images before adding them</li>
+                    <li>Test your presentation on different devices</li>
+                    <li>Save frequently to avoid losing work</li>
+                    <li>Use the thumbnail view for better overview</li>
+                  </ul>
+                </div>
+                <div class="tip">
+                  <h4>📱 Mobile Friendly</h4>
+                  <ul>
+                    <li>The app works great on tablets and phones</li>
+                    <li>Swipe gestures work in presentation mode</li>
+                    <li>Buttons adapt to touch interfaces</li>
+                    <li>Text scales appropriately on small screens</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shortcuts Modal -->
+    <div id="shortcuts-modal" class="modal hidden" aria-labelledby="shortcuts-title" role="dialog">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2 id="shortcuts-title">⌨️ Keyboard Shortcuts</h2>
+          <button class="modal-close" aria-label="Close shortcuts">×</button>
+        </header>
+        <div class="modal-body">
+          <div class="shortcuts-categories">
+            <div class="shortcut-category">
+              <h3>📝 Editing</h3>
+              <div class="shortcuts-list">
+                <div class="shortcut-item">
+                  <kbd>Ctrl</kbd> + <kbd>S</kbd>
+                  <span>Save presentation</span>
+                </div>
+                <div class="shortcut-item">
+                  <kbd>Ctrl</kbd> + <kbd>O</kbd>
+                  <span>Load presentation</span>
+                </div>
+                <div class="shortcut-item">
+                  <kbd>Delete</kbd>
+                  <span>Delete selected slide</span>
+                </div>
+                <div class="shortcut-item">
+                  <kbd>Ctrl</kbd> + <kbd>D</kbd>
+                  <span>Duplicate slide</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="shortcut-category">
+              <h3>🎬 Presenting</h3>
+              <div class="shortcuts-list">
+                <div class="shortcut-item">
+                  <kbd>F5</kbd>
+                  <span>Start presentation</span>
+                </div>
+                <div class="shortcut-item">
+                  <kbd>→</kbd> <kbd>Space</kbd>
+                  <span>Next slide</span>
+                </div>
+                <div class="shortcut-item">
+                  <kbd>←</kbd>
+                  <span>Previous slide</span>
+                </div>
+                <div class="shortcut-item">
+                  <kbd>Esc</kbd>
+                  <span>Exit presentation</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="shortcut-category">
+              <h3>🔧 Navigation</h3>
+              <div class="shortcuts-list">
+                <div class="shortcut-item">
+                  <kbd>?</kbd>
+                  <span>Open help</span>
+                </div>
+                <div class="shortcut-item">
+                  <kbd>1</kbd>-<kbd>5</kbd>
+                  <span>Add slide type</span>
+                </div>
+                <div class="shortcut-item">
+                  <kbd>Tab</kbd>
+                  <span>Navigate interface</span>
+                </div>
+                <div class="shortcut-item">
+                  <kbd>Enter</kbd>
+                  <span>Activate button</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
