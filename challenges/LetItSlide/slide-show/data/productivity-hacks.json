@@ -1,0 +1,100 @@
+{
+    "id": "productivity-hacks",
+    "title": "Productivity Hacks for Busy People",
+    "author": "Efficiency Expert",
+    "description": "Proven strategies to boost your productivity and get more done in less time",
+    "slides": [
+        {
+            "type": "title",
+            "data": {
+                "title": "Productivity Hacks",
+                "author": "Work Smarter, Not Harder"
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "Time Management Fundamentals",
+                "content": "Effective time management is the foundation of productivity.",
+                "bullets": [
+                    "Plan your day the night before",
+                    "Use time-blocking to schedule focused work",
+                    "Batch similar tasks together",
+                    "Set specific deadlines for all tasks",
+                    "Learn to say no to non-essential commitments"
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "The Pomodoro Technique",
+                "content": "Break work into focused 25-minute intervals with short breaks.",
+                "bullets": [
+                    "Work for 25 minutes with complete focus",
+                    "Take a 5-minute break",
+                    "Repeat 3-4 cycles",
+                    "Take a longer 15-30 minute break",
+                    "Track your completed pomodoros"
+                ]
+            }
+        },
+        {
+            "type": "question",
+            "data": {
+                "question": "What is the recommended work interval in the Pomodoro Technique?",
+                "options": [
+                    "15 minutes",
+                    "25 minutes",
+                    "45 minutes",
+                    "60 minutes"
+                ],
+                "answer": "25 minutes is the standard Pomodoro interval, designed to maintain focus while preventing mental fatigue."
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "Digital Organization",
+                "content": "Keep your digital workspace organized to reduce cognitive load.",
+                "bullets": [
+                    "Use a consistent file naming convention",
+                    "Organize emails with folders and filters",
+                    "Keep your desktop clean and minimal",
+                    "Use cloud storage for easy access across devices",
+                    "Regularly clean up downloads and temporary files"
+                ]
+            }
+        },
+        {
+            "type": "image",
+            "data": {
+                "src": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "alt": "Clean, organized workspace with laptop and notebook",
+                "caption": "An organized workspace promotes clear thinking and efficient work"
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "Energy Management",
+                "content": "Managing your energy is as important as managing your time.",
+                "bullets": [
+                    "Identify your peak energy hours",
+                    "Schedule demanding tasks during high-energy periods",
+                    "Take regular breaks to recharge",
+                    "Get adequate sleep (7-9 hours)",
+                    "Exercise regularly to boost overall energy",
+                    "Eat nutritious meals to maintain stable energy"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "data": {
+                "title": "Start Implementing Today!",
+                "author": "Small changes lead to big results"
+            }
+        }
+    ]
+}

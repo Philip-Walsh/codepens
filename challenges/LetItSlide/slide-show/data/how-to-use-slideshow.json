@@ -1,0 +1,149 @@
+{
+    "id": "how-to-use-slideshow",
+    "title": "🎯 How to Use This Slideshow Creator",
+    "author": "Interactive Tutorial",
+    "description": "Learn how to create, edit, and present amazing slideshows with this powerful tool",
+    "slides": [
+        {
+            "type": "title",
+            "data": {
+                "title": "🎯 Welcome to Slideshow Creator!",
+                "author": "Your Interactive Tutorial Starts Now"
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "What You're Watching",
+                "content": "This presentation is running in AUTO-PLAY mode to demonstrate the slideshow features. You can take control anytime!",
+                "bullets": [
+                    "⏸️ Click 'Auto Play' button to pause automatic progression",
+                    "◀️ Use 'Prev' and 'Next' buttons to navigate manually",
+                    "⌨️ Press arrow keys (←/→) for keyboard navigation",
+                    "🚪 Click 'Exit' to return to the editor",
+                    "⌨️ Press ESC key to exit presentation mode"
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "🎨 Creating Your First Slide",
+                "content": "The editor on the left provides multiple slide types for different content needs.",
+                "bullets": [
+                    "📝 Title Slides - Perfect for introductions and section headers",
+                    "📄 Text Slides - Main content with bullet points support",
+                    "🖼️ Image Slides - Visual content with captions",
+                    "❓ Question Slides - Interactive multiple choice questions",
+                    "💻 Code Slides - Syntax-highlighted code examples"
+                ]
+            }
+        },
+        {
+            "type": "image",
+            "data": {
+                "src": "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "alt": "Person creating presentation on laptop",
+                "caption": "The slide editor provides an intuitive interface for creating professional presentations"
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "🔧 Editing Slides",
+                "content": "Once you exit this presentation, you'll be able to edit and create slides in the main interface.",
+                "bullets": [
+                    "➕ Click any 'Add [Type] Slide' button to create new slides",
+                    "✏️ Click 'Edit' button on existing slides to modify them",
+                    "📁 Click 'Duplicate' to copy a slide",
+                    "🗑️ Click 'Delete' to remove unwanted slides",
+                    "⬆️⬇️ Use 'Move Up/Down' to reorder slides"
+                ]
+            }
+        },
+        {
+            "type": "question",
+            "data": {
+                "question": "Which button would you click to create a slide with bullet points?",
+                "options": [
+                    "Add Title Slide",
+                    "Add Text Slide",
+                    "Add Image Slide",
+                    "Add Question Slide"
+                ],
+                "answer": "Add Text Slide is perfect for content with bullet points, paragraphs, and structured text content."
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "🎬 Presentation Mode",
+                "content": "Transform your slides into a full-screen presentation experience.",
+                "bullets": [
+                    "▶️ Click 'Start Presentation' to enter full-screen mode",
+                    "🔄 Toggle 'Auto Play' for hands-free presentation",
+                    "⏱️ Auto-play advances slides every 8 seconds",
+                    "👥 Perfect for demonstrations and self-running displays",
+                    "📱 Works great on all screen sizes"
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "💾 Saving Your Work",
+                "content": "Never lose your presentation with the built-in save and load functionality.",
+                "bullets": [
+                    "💾 'Save Presentation' stores your work in browser storage",
+                    "📂 'Load Presentation' retrieves your saved work",
+                    "🔄 Your work auto-saves as you make changes",
+                    "📋 'Clear All' removes all slides to start fresh",
+                    "⚠️ Remember: Data is saved locally in your browser"
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "📚 Sample Presentations",
+                "content": "Explore the dropdown menu at the top to load pre-made presentations for inspiration.",
+                "bullets": [
+                    "🎓 AI & Machine Learning - Tech education content",
+                    "🌱 Sustainable Living - Environmental awareness",
+                    "📸 Photography Basics - Creative skills tutorial",
+                    "⚡ Productivity Hacks - Efficiency tips and tricks",
+                    "💡 Each sample shows different slide types and techniques"
+                ]
+            }
+        },
+        {
+            "type": "code",
+            "data": {
+                "language": "javascript",
+                "code": "// Pro tip: You can create code slides like this one!\n// Perfect for tutorials, documentation, and technical presentations\n\nfunction createAwesomeSlideshow() {\n  const slides = [];\n  \n  // Add different types of content\n  slides.push({\n    type: 'title',\n    data: { title: 'My Presentation', author: 'Your Name' }\n  });\n  \n  slides.push({\n    type: 'text', \n    data: { \n      title: 'Key Points',\n      content: 'Main message here',\n      bullets: ['Point 1', 'Point 2', 'Point 3']\n    }\n  });\n  \n  return slides;\n}",
+                "caption": "Code slides support syntax highlighting for multiple programming languages"
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "🚀 Ready to Start Creating?",
+                "content": "You now know all the basics! Here's what to do next:",
+                "bullets": [
+                    "🚪 Exit this presentation (click Exit or press ESC)",
+                    "🗑️ Clear the current slides to start fresh",
+                    "➕ Add your first slide using the control buttons",
+                    "✍️ Write your content and see it update in real-time",
+                    "🎬 Start your presentation when you're ready to share!"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "data": {
+                "title": "🎉 Happy Creating!",
+                "author": "Build something amazing"
+            }
+        }
+    ]
+}

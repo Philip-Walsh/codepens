@@ -1,0 +1,264 @@
+{
+    "presentations": [
+        {
+            "id": "slideshow-tutorial",
+            "title": "🎬 Building This Slideshow",
+            "author": "CodePen CSS Challenge",
+            "description": "A fun tutorial about creating this interactive slideshow application",
+            "slides": [
+                {
+                    "type": "title",
+                    "data": {
+                        "title": "🎬 Building This Slideshow",
+                        "author": "CodePen CSS Challenge Tutorial"
+                    }
+                },
+                {
+                    "type": "text",
+                    "data": {
+                        "title": "Welcome to Slideshow Creator!",
+                        "content": "This is a simple yet powerful slideshow application built for the CodePen CSS challenges. Let's explore what makes it special!",
+                        "bullets": [
+                            "Clean, modern interface",
+                            "Multiple slide types",
+                            "Live editing capabilities",
+                            "Beautiful animations"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "data": {
+                        "title": "Features Overview",
+                        "content": "Our slideshow creator includes everything you need to build engaging presentations.",
+                        "bullets": [
+                            "Title slides for introductions",
+                            "Text slides with bullet points",
+                            "Image slides with captions",
+                            "Interactive question slides",
+                            "Code slides with syntax highlighting"
+                        ]
+                    }
+                },
+                {
+                    "type": "image",
+                    "data": {
+                        "src": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                        "alt": "Laptop showing presentation software",
+                        "caption": "Modern presentation tools make content creation easy and enjoyable"
+                    }
+                },
+                {
+                    "type": "question",
+                    "data": {
+                        "question": "What's the best aspect ratio for most presentations?",
+                        "options": [
+                            "16:9 (Widescreen)",
+                            "4:3 (Traditional)",
+                            "1:1 (Square)",
+                            "21:9 (Ultrawide)"
+                        ],
+                        "answer": "16:9 is the most common aspect ratio for modern presentations as it fits well on most screens and projectors."
+                    }
+                },
+                {
+                    "type": "code",
+                    "data": {
+                        "language": "javascript",
+                        "code": "// Creating a new slide is simple!\nfunction addSlide(type, data) {\n  slideData.slides.push({ type, data });\n  renderSlides();\n  selectSlide(slideData.slides.length - 1);\n}\n\n// Each slide type has its own renderer\nclass Slide {\n  getHTML() {\n    return this[this.type + 'Slide'](this.data);\n  }\n}",
+                        "caption": "The slideshow uses a modular approach for different slide types"
+                    }
+                },
+                {
+                    "type": "title",
+                    "data": {
+                        "title": "Start Creating!",
+                        "author": "Your presentation awaits"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "presentation-tips",
+            "title": "Presentation Best Practices",
+            "author": "Professional Speaker Tips",
+            "description": "Learn how to create compelling presentations that engage your audience",
+            "slides": [
+                {
+                    "type": "title",
+                    "data": {
+                        "title": "Presentation Best Practices",
+                        "author": "Engaging Your Audience"
+                    }
+                },
+                {
+                    "type": "text",
+                    "data": {
+                        "title": "Know Your Audience",
+                        "content": "Understanding your audience is the foundation of any great presentation.",
+                        "bullets": [
+                            "Research their background and expertise level",
+                            "Consider their goals and pain points",
+                            "Adapt your language and examples accordingly",
+                            "Anticipate questions they might have"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "data": {
+                        "title": "Structure Your Content",
+                        "content": "A clear structure helps your audience follow your message.",
+                        "bullets": [
+                            "Start with a compelling hook",
+                            "Present 3-5 main points maximum",
+                            "Use transitions between sections",
+                            "End with a memorable conclusion"
+                        ]
+                    }
+                },
+                {
+                    "type": "image",
+                    "data": {
+                        "src": "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                        "alt": "Speaker presenting to an engaged audience",
+                        "caption": "Engaging presentations create connections between speaker and audience"
+                    }
+                },
+                {
+                    "type": "text",
+                    "data": {
+                        "title": "Visual Design Principles",
+                        "content": "Good design supports your message without distracting from it.",
+                        "bullets": [
+                            "Use consistent fonts and colors",
+                            "Limit text on each slide (6 words per line, 6 lines max)",
+                            "Choose high-quality, relevant images",
+                            "Leave plenty of white space"
+                        ]
+                    }
+                },
+                {
+                    "type": "question",
+                    "data": {
+                        "question": "How many main points should you include in a 20-minute presentation?",
+                        "options": [
+                            "1-2 points",
+                            "3-5 points",
+                            "6-8 points",
+                            "10+ points"
+                        ],
+                        "answer": "3-5 main points is ideal for a 20-minute presentation. This gives you enough time to explore each point thoroughly while keeping the audience engaged."
+                    }
+                },
+                {
+                    "type": "text",
+                    "data": {
+                        "title": "Delivery Tips",
+                        "content": "How you present is just as important as what you present.",
+                        "bullets": [
+                            "Practice out loud multiple times",
+                            "Make eye contact with your audience",
+                            "Use gestures to emphasize points",
+                            "Vary your pace and tone",
+                            "Pause for emphasis and questions"
+                        ]
+                    }
+                },
+                {
+                    "type": "title",
+                    "data": {
+                        "title": "Thank You!",
+                        "author": "Questions & Discussion"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "web-development",
+            "title": "Modern Web Development",
+            "author": "Frontend Essentials",
+            "description": "An overview of modern web development tools and practices",
+            "slides": [
+                {
+                    "type": "title",
+                    "data": {
+                        "title": "Modern Web Development",
+                        "author": "Building for the Web in 2024"
+                    }
+                },
+                {
+                    "type": "text",
+                    "data": {
+                        "title": "The Frontend Landscape",
+                        "content": "Web development has evolved rapidly with new tools and frameworks emerging constantly.",
+                        "bullets": [
+                            "React, Vue, and Svelte dominate component-based development",
+                            "TypeScript adds type safety to JavaScript",
+                            "Build tools like Vite provide lightning-fast development",
+                            "CSS has gained powerful new features like Grid and Container Queries"
+                        ]
+                    }
+                },
+                {
+                    "type": "code",
+                    "data": {
+                        "language": "javascript",
+                        "code": "// Modern JavaScript with ES6+ features\nconst fetchData = async (url) => {\n  try {\n    const response = await fetch(url);\n    const data = await response.json();\n    return data;\n  } catch (error) {\n    console.error('Error fetching data:', error);\n    throw error;\n  }\n};\n\n// Using with destructuring and template literals\nconst { users, posts } = await fetchData('/api/content');\nconsole.log(`Found ${users.length} users and ${posts.length} posts`);",
+                        "caption": "Modern JavaScript features make code more readable and maintainable"
+                    }
+                },
+                {
+                    "type": "text",
+                    "data": {
+                        "title": "CSS Modern Features",
+                        "content": "CSS has become incredibly powerful with recent additions.",
+                        "bullets": [
+                            "CSS Grid for complex 2D layouts",
+                            "Flexbox for flexible 1D layouts",
+                            "CSS Custom Properties (variables) for theming",
+                            "Container Queries for truly responsive components",
+                            "CSS Layers for managing specificity"
+                        ]
+                    }
+                },
+                {
+                    "type": "code",
+                    "data": {
+                        "language": "css",
+                        "code": "/* Modern CSS with Grid and Custom Properties */\n:root {\n  --primary-color: #3b82f6;\n  --spacing-unit: clamp(1rem, 2.5vw, 2rem);\n}\n\n.layout {\n  display: grid;\n  grid-template-columns: \n    minmax(200px, 1fr) \n    minmax(0, 3fr) \n    minmax(200px, 1fr);\n  gap: var(--spacing-unit);\n  padding: var(--spacing-unit);\n}\n\n@container sidebar (min-width: 300px) {\n  .widget {\n    display: flex;\n    flex-direction: row;\n  }\n}",
+                        "caption": "CSS Grid and Container Queries enable responsive design without media queries"
+                    }
+                },
+                {
+                    "type": "question",
+                    "data": {
+                        "question": "Which CSS feature allows components to adapt based on their container size rather than viewport size?",
+                        "options": [
+                            "Media Queries",
+                            "Container Queries",
+                            "CSS Grid",
+                            "Flexbox"
+                        ],
+                        "answer": "Container Queries allow components to respond to their container's size, making truly modular responsive components possible."
+                    }
+                },
+                {
+                    "type": "image",
+                    "data": {
+                        "src": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                        "alt": "Code editor showing modern web development",
+                        "caption": "Modern development environments support rapid prototyping and deployment"
+                    }
+                },
+                {
+                    "type": "title",
+                    "data": {
+                        "title": "Happy Coding!",
+                        "author": "Keep building amazing things"
+                    }
+                }
+            ]
+        }
+    ]
+}

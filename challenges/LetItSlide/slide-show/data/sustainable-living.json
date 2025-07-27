@@ -1,0 +1,98 @@
+{
+    "id": "sustainable-living",
+    "title": "Sustainable Living Guide",
+    "author": "Green Planet Initiative",
+    "description": "Practical tips for reducing your environmental impact and living more sustainably",
+    "slides": [
+        {
+            "type": "title",
+            "data": {
+                "title": "Sustainable Living Guide",
+                "author": "Small Changes, Big Impact"
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "Why Sustainability Matters",
+                "content": "Our daily choices have a significant impact on the environment and future generations.",
+                "bullets": [
+                    "Climate change is accelerating",
+                    "Natural resources are becoming scarce",
+                    "Pollution affects air, water, and soil quality",
+                    "Individual actions can make a collective difference"
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "Energy Conservation at Home",
+                "content": "Simple changes in your home can significantly reduce energy consumption.",
+                "bullets": [
+                    "Switch to LED light bulbs",
+                    "Unplug electronics when not in use",
+                    "Use a programmable thermostat",
+                    "Insulate your home properly",
+                    "Choose energy-efficient appliances"
+                ]
+            }
+        },
+        {
+            "type": "image",
+            "data": {
+                "src": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "alt": "Solar panels on a green house roof",
+                "caption": "Renewable energy sources like solar power reduce our carbon footprint"
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "Sustainable Transportation",
+                "content": "How we get around has a major impact on our carbon footprint.",
+                "bullets": [
+                    "Walk or bike for short distances",
+                    "Use public transportation when available",
+                    "Carpool or rideshare for longer trips",
+                    "Work from home when possible",
+                    "Consider electric or hybrid vehicles"
+                ]
+            }
+        },
+        {
+            "type": "question",
+            "data": {
+                "question": "Which transportation method has the lowest carbon footprint?",
+                "options": [
+                    "Driving alone in a gas car",
+                    "Flying",
+                    "Walking or cycling",
+                    "Taking a bus"
+                ],
+                "answer": "Walking or cycling produces zero emissions and is the most sustainable form of transportation for short to medium distances."
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "Waste Reduction Tips",
+                "content": "Reducing waste is one of the most effective ways to live sustainably.",
+                "bullets": [
+                    "Follow the 3 R's: Reduce, Reuse, Recycle",
+                    "Buy products with minimal packaging",
+                    "Use reusable bags, bottles, and containers",
+                    "Compost organic waste",
+                    "Donate or sell items instead of throwing them away"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "data": {
+                "title": "Start Today!",
+                "author": "Every action counts for our planet"
+            }
+        }
+    ]
+}

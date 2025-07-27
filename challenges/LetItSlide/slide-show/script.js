@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', init, false);
-
+let repoPath = 'https://raw.githubusercontent.com/Philip-Walsh/codepens/main/challenges/LetItSlide/slide-show';
 let slideData = {
   title: 'What Makes a Good Presentation',
   author: 'Slide Show Demo',
@@ -681,15 +681,119 @@ function showToast(message, type = 'info') {
     border: 1px solid var(--border);
     box-shadow: var(--shadow-lg);
     z-index: var(--z-toast);
-    animation: slideIn var(--transition-normal) ease-out;
+    opacity: 0;
+    transition: opacity 0.2s ease;
   `;
 
   document.body.appendChild(toast);
 
+  // Simple fade in
+  setTimeout(() => toast.style.opacity = '1', 10);
+
   setTimeout(() => {
-    toast.style.animation = 'slideOut var(--transition-normal) ease-in';
-    setTimeout(() => toast.remove(), 300);
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 200);
   }, 3000);
+}
+
+// Presentation loading and selection
+async function loadPresentationsFromFile() {
+  const presentationFiles = [
+    'how-to-use-slideshow.json',
+    'sample-presentations.json',
+    'ai-machine-learning.json',
+    'sustainable-living.json',
+    'photography-basics.json',
+    'productivity-hacks.json'
+  ];
+
+  const presentations = [];
+
+  for (const filename of presentationFiles) {
+    try {
+      const response = await fetch(`${repoPath}/data/${filename}`);
+      if (response.ok) {
+        const data = await response.json();
+
+        // Handle both individual presentations and the old format with presentations array
+        if (data.presentations) {
+          // Old format - array of presentations
+          presentations.push(...data.presentations);
+        } else if (data.id && data.title && data.slides) {
+          // New format - single presentation
+          presentations.push(data);
+        }
+      }
+    } catch (error) {
+      console.warn(`Could not load ${filename}:`, error);
+    }
+  }
+
+  return presentations;
+}
+
+async function createPresentationSelector() {
+  const presentations = await loadPresentationsFromFile();
+
+  if (presentations.length === 0) {
+    console.warn('No presentations found, using fallback sample data');
+    return;
+  }
+
+  // Create presentation selector in the header
+  const headerContent = document.querySelector('.header-content');
+  if (!headerContent) return;
+
+  // Remove existing selector if present
+  const existingSelector = document.querySelector('.presentation-selector-container');
+  if (existingSelector) {
+    existingSelector.remove();
+  }
+
+  const selectorContainer = document.createElement('div');
+  selectorContainer.className = 'presentation-selector-container';
+  selectorContainer.innerHTML = `
+    <label for="presentation-selector">Sample Presentations:</label>
+    <select id="presentation-selector">
+      <option value="">Choose a presentation...</option>
+      ${presentations.map(p =>
+    `<option value="${p.id}" title="${p.description}">${p.title}</option>`
+  ).join('')}
+    </select>
+  `;
+
+  // Find the tagline element or create placement
+  const tagline = headerContent.querySelector('.tagline');
+  if (tagline) {
+    tagline.parentNode.insertBefore(selectorContainer, tagline.nextSibling);
+  } else {
+    headerContent.appendChild(selectorContainer);
+  }
+
+  // Add event listener
+  const selector = document.getElementById('presentation-selector');
+  selector.addEventListener('change', async (e) => {
+    const presentationId = e.target.value;
+    if (presentationId) {
+      await loadPresentationById(presentationId);
+    }
+  });
+}
+
+async function loadPresentationById(presentationId) {
+  const presentations = await loadPresentationsFromFile();
+  const presentation = presentations.find(p => p.id === presentationId);
+
+  if (presentation) {
+    slideData.title = presentation.title;
+    slideData.author = presentation.author;
+    slideData.slides = presentation.slides || [];
+    selectedSlideIndex = -1;
+    renderSlides();
+    showToast(`Loaded: ${presentation.title}`, 'success');
+  } else {
+    showToast('Presentation not found', 'error');
+  }
 }
 
 // Enhanced keyboard shortcuts
@@ -770,6 +874,9 @@ function startPresentation(autoPlay = false) {
   }
 
   currentSlideIndex = 0;
+
+  // Hide edit controls during presentation
+  hideEditControls();
 
   // Create presentation container
   const presentationMode = document.createElement('div');
@@ -854,24 +961,8 @@ function showPresentationSlide(index) {
   const slide = slideData.slides[index];
   const slideObj = new Slide(slide.type, slide.data);
 
-  // Add exit animation to current slide if it exists
-  if (slideContainer.innerHTML.trim()) {
-    slideContainer.classList.add('slide-exit');
-    setTimeout(() => {
-      slideContainer.innerHTML = slideObj.getSlide();
-      slideContainer.classList.remove('slide-exit');
-      slideContainer.classList.add('slide-enter');
-      setTimeout(() => {
-        slideContainer.classList.remove('slide-enter');
-      }, 300);
-    }, 300);
-  } else {
-    slideContainer.innerHTML = slideObj.getSlide();
-    slideContainer.classList.add('slide-enter');
-    setTimeout(() => {
-      slideContainer.classList.remove('slide-enter');
-    }, 300);
-  }
+  // Simple slide update without problematic animations
+  slideContainer.innerHTML = slideObj.getSlide();
 
   // Update buttons state
   const prevBtn = document.getElementById('prev-slide');
@@ -919,6 +1010,9 @@ function exitPresentation() {
   document.querySelector('.presentation-controls')?.remove();
   document.removeEventListener('keydown', handlePresentationKeydown);
 
+  // Show edit controls again
+  showEditControls();
+
   // Clear auto-play if active
   if (autoPlayInterval) {
     clearInterval(autoPlayInterval);
@@ -955,19 +1049,211 @@ function updateAspectRatio() {
   document.documentElement.style.setProperty('--aspect-ratio', ratio);
 }
 
-function loadSamplePresentation() {
-  // Load the sample presentation data
-  slideData = JSON.parse(JSON.stringify(samplePresentationData));
-  selectedSlideIndex = -1;
-  renderSlides();
+async function loadSamplePresentation() {
+  // Load the first available sample presentation
+  const presentations = await loadPresentationsFromFile();
+  if (presentations.length > 0) {
+    await loadPresentationById(presentations[0].id);
 
-  // Start presentation with auto-play after a short delay
-  setTimeout(() => {
-    startPresentation(true);
-  }, 500);
+    // Start presentation with auto-play after a short delay
+    setTimeout(() => {
+      startPresentation(true);
+    }, 500);
+  } else {
+    // Fallback to hardcoded data if no JSON is available
+    slideData = JSON.parse(JSON.stringify(samplePresentationData));
+    selectedSlideIndex = -1;
+    renderSlides();
+
+    setTimeout(() => {
+      startPresentation(true);
+    }, 500);
+  }
 }
 
-function init() {
+function createBottomNavigation() {
+  // Remove existing bottom nav if present
+  const existingBottomNav = document.querySelector('.bottom-navigation');
+  if (existingBottomNav) {
+    existingBottomNav.remove();
+  }
+
+  const bottomNav = document.createElement('div');
+  bottomNav.className = 'bottom-navigation';
+  bottomNav.innerHTML = `
+    <div class="bottom-nav-content">
+      <!-- Edit Controls Section -->
+      <div class="bottom-nav-section">
+        <h3>Edit Controls</h3>
+        <div class="bottom-nav-buttons">
+          <button id="bottom-add-slide" class="bottom-nav-btn" title="Add Slide">
+            <span>➕</span>
+            <span>Add</span>
+          </button>
+          <button id="bottom-duplicate" class="bottom-nav-btn" title="Duplicate Selected" disabled>
+            <span>📋</span>
+            <span>Duplicate</span>
+          </button>
+          <button id="bottom-clear-all" class="bottom-nav-btn danger" title="Clear All Slides">
+            <span>🗑️</span>
+            <span>Clear All</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- View Controls Section -->
+      <div class="bottom-nav-section">
+        <h3>View Mode</h3>
+        <div class="bottom-nav-toggle-group">
+          <button id="bottom-grid-view" class="bottom-nav-toggle active" data-view="grid">
+            <span>🔳</span>
+            <span>Grid</span>
+          </button>
+          <button id="bottom-list-view" class="bottom-nav-toggle" data-view="list">
+            <span>📋</span>
+            <span>List</span>
+          </button>
+          <button id="bottom-thumbnail-view" class="bottom-nav-toggle" data-view="thumbnail">
+            <span>🖼️</span>
+            <span>Thumbnails</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Slideshow Settings Section -->
+      <div class="bottom-nav-section">
+        <h3>Slideshow Settings</h3>
+        <div class="bottom-nav-controls">
+          <div class="bottom-nav-control">
+            <label for="bottom-aspect-ratio">Aspect Ratio:</label>
+            <select id="bottom-aspect-ratio">
+              <option value="16/9">16:9 (Widescreen)</option>
+              <option value="4/3">4:3 (Traditional)</option>
+              <option value="1/1">1:1 (Square)</option>
+              <option value="21/9">21:9 (Ultrawide)</option>
+            </select>
+          </div>
+          <button id="bottom-present" class="bottom-nav-btn primary" title="Start Presentation">
+            <span>▶️</span>
+            <span>Present</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Toggle Button -->
+      <button id="bottom-nav-toggle" class="bottom-nav-toggle-btn" title="Toggle Bottom Panel">
+        <span>▲</span>
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(bottomNav);
+
+  // Setup event listeners for bottom navigation
+  setupBottomNavigationHandlers();
+}
+
+function setupBottomNavigationHandlers() {
+  // Add slide dropdown menu
+  document.getElementById('bottom-add-slide')?.addEventListener('click', () => {
+    showAddSlideMenu();
+  });
+
+  // Duplicate slide
+  document.getElementById('bottom-duplicate')?.addEventListener('click', duplicateSlide);
+
+  // Clear all slides
+  document.getElementById('bottom-clear-all')?.addEventListener('click', clearAllSlides);
+
+  // View mode toggles
+  document.querySelectorAll('.bottom-nav-toggle[data-view]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.view;
+      setViewMode(mode);
+
+      // Update active button
+      document.querySelectorAll('.bottom-nav-toggle[data-view]').forEach(b =>
+        b.classList.remove('active')
+      );
+      btn.classList.add('active');
+    });
+  });
+
+  // Aspect ratio
+  document.getElementById('bottom-aspect-ratio')?.addEventListener('change', (e) => {
+    document.documentElement.style.setProperty('--aspect-ratio', e.target.value);
+  });
+
+  // Present button
+  document.getElementById('bottom-present')?.addEventListener('click', () =>
+    startPresentation(false)
+  );
+
+  // Toggle panel
+  document.getElementById('bottom-nav-toggle')?.addEventListener('click', () => {
+    const bottomNav = document.querySelector('.bottom-navigation');
+    const toggleBtn = document.getElementById('bottom-nav-toggle');
+
+    bottomNav.classList.toggle('collapsed');
+    toggleBtn.innerHTML = bottomNav.classList.contains('collapsed') ?
+      '<span>▲</span>' : '<span>▼</span>';
+  });
+
+  // Update duplicate button state when slide selection changes
+  const originalSelectSlide = selectSlide;
+  selectSlide = function (index) {
+    originalSelectSlide(index);
+    const duplicateBtn = document.getElementById('bottom-duplicate');
+    if (duplicateBtn) {
+      duplicateBtn.disabled = index === -1;
+    }
+  };
+}
+
+function showAddSlideMenu() {
+  // Create dropdown menu for slide types
+  const menu = document.createElement('div');
+  menu.className = 'add-slide-menu';
+  menu.innerHTML = `
+    <div class="add-slide-menu-content">
+      <button data-type="title">📄 Title Slide</button>
+      <button data-type="text">📝 Text Slide</button>
+      <button data-type="image">🖼️ Image Slide</button>
+      <button data-type="question">❓ Question Slide</button>
+      <button data-type="code">💻 Code Slide</button>
+    </div>
+  `;
+
+  // Position menu above the add button
+  const addBtn = document.getElementById('bottom-add-slide');
+  const rect = addBtn.getBoundingClientRect();
+  menu.style.position = 'fixed';
+  menu.style.bottom = '80px';
+  menu.style.left = rect.left + 'px';
+  menu.style.zIndex = '2000';
+
+  document.body.appendChild(menu);
+
+  // Add event listeners
+  menu.querySelectorAll('button[data-type]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      showAddForm(btn.dataset.type);
+      menu.remove();
+    });
+  });
+
+  // Close menu when clicking outside
+  setTimeout(() => {
+    document.addEventListener('click', function closeMenu(e) {
+      if (!menu.contains(e.target) && e.target !== addBtn) {
+        menu.remove();
+        document.removeEventListener('click', closeMenu);
+      }
+    });
+  }, 100);
+}
+
+async function init() {
   const presentation = document.querySelector('.slides-container');
   if (!presentation) return;
 
@@ -977,8 +1263,14 @@ function init() {
   setupViewModes();
   setupKeyboardShortcuts();
 
+  // Create presentation selector
+  await createPresentationSelector();
+
+  // Create bottom navigation bar
+  createBottomNavigation();
+
   // Auto-start the demo presentation immediately
-  loadSamplePresentation();
+  await loadSamplePresentation();
 
   // Attach event listeners to control buttons
   document
@@ -1036,6 +1328,75 @@ function init() {
 
   // Auto-start demo if URL has ?demo parameter
   if (window.location.search.includes('demo')) {
-    loadSamplePresentation();
+    await loadSamplePresentation();
   }
 }
+
+function hideEditControls() {
+  // Hide bottom navigation
+  const bottomNav = document.querySelector('.bottom-navigation');
+  if (bottomNav) {
+    bottomNav.style.display = 'none';
+  }
+
+  // Hide slide edit buttons
+  document.querySelectorAll('.slide-actions').forEach(actions => {
+    actions.style.display = 'none';
+  });
+
+  // Hide main control panel
+  const controlPanel = document.querySelector('.control-panel');
+  if (controlPanel) {
+    controlPanel.style.display = 'none';
+  }
+
+  // Hide settings panel
+  const settingsPanel = document.querySelector('.settings-panel');
+  if (settingsPanel) {
+    settingsPanel.style.display = 'none';
+  }
+
+  // Hide presentation actions (clear all, duplicate buttons)
+  const presentationActions = document.querySelector('.presentation-actions');
+  if (presentationActions) {
+    presentationActions.style.display = 'none';
+  }
+
+  // Remove padding-bottom from body since bottom nav is hidden
+  document.body.style.paddingBottom = '0';
+}
+
+function showEditControls() {
+  // Show bottom navigation
+  const bottomNav = document.querySelector('.bottom-navigation');
+  if (bottomNav) {
+    bottomNav.style.display = '';
+  }
+
+  // Show slide edit buttons
+  document.querySelectorAll('.slide-actions').forEach(actions => {
+    actions.style.display = '';
+  });
+
+  // Show main control panel
+  const controlPanel = document.querySelector('.control-panel');
+  if (controlPanel) {
+    controlPanel.style.display = '';
+  }
+
+  // Show settings panel
+  const settingsPanel = document.querySelector('.settings-panel');
+  if (settingsPanel) {
+    settingsPanel.style.display = '';
+  }
+
+  // Show presentation actions
+  const presentationActions = document.querySelector('.presentation-actions');
+  if (presentationActions) {
+    presentationActions.style.display = '';
+  }
+
+  // Restore padding-bottom for bottom nav
+  document.body.style.paddingBottom = '120px';
+}
+

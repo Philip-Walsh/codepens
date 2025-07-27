@@ -1,0 +1,76 @@
+{
+    "id": "ai-machine-learning",
+    "title": "AI & Machine Learning Basics",
+    "author": "Tech Education Series",
+    "description": "An introduction to artificial intelligence and machine learning concepts",
+    "slides": [
+        {
+            "type": "title",
+            "data": {
+                "title": "AI & Machine Learning",
+                "author": "Understanding the Future of Technology"
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "What is Artificial Intelligence?",
+                "content": "AI is the simulation of human intelligence in machines programmed to think and learn.",
+                "bullets": [
+                    "Problem-solving and decision making",
+                    "Pattern recognition and learning",
+                    "Natural language processing",
+                    "Computer vision and perception"
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "Types of Machine Learning",
+                "content": "Machine learning can be categorized into three main types based on how algorithms learn.",
+                "bullets": [
+                    "Supervised Learning - learns from labeled data",
+                    "Unsupervised Learning - finds patterns in unlabeled data",
+                    "Reinforcement Learning - learns through trial and error"
+                ]
+            }
+        },
+        {
+            "type": "question",
+            "data": {
+                "question": "Which type of machine learning uses labeled training data?",
+                "options": [
+                    "Unsupervised Learning",
+                    "Supervised Learning",
+                    "Reinforcement Learning",
+                    "Deep Learning"
+                ],
+                "answer": "Supervised Learning uses labeled training data where the algorithm learns from input-output pairs to make predictions on new data."
+            }
+        },
+        {
+            "type": "image",
+            "data": {
+                "src": "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "alt": "AI and machine learning visualization",
+                "caption": "Machine learning algorithms can identify complex patterns in data"
+            }
+        },
+        {
+            "type": "code",
+            "data": {
+                "language": "python",
+                "code": "# Simple machine learning example with scikit-learn\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nimport numpy as np\n\n# Generate sample data\nX = np.random.randn(100, 1)\ny = 2 * X.squeeze() + 1 + np.random.randn(100) * 0.1\n\n# Split data into training and testing sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)\n\n# Create and train the model\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\n# Make predictions\npredictions = model.predict(X_test)\nprint(f'Model score: {model.score(X_test, y_test):.3f}')",
+                "caption": "A simple linear regression example using Python and scikit-learn"
+            }
+        },
+        {
+            "type": "title",
+            "data": {
+                "title": "The Future is Now",
+                "author": "Keep exploring and learning!"
+            }
+        }
+    ]
+}

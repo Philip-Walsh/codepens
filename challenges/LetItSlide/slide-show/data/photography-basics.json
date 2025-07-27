@@ -1,0 +1,92 @@
+{
+    "id": "photography-basics",
+    "title": "Photography Fundamentals",
+    "author": "Creative Arts Workshop",
+    "description": "Learn the essential techniques and principles of great photography",
+    "slides": [
+        {
+            "type": "title",
+            "data": {
+                "title": "Photography Fundamentals",
+                "author": "Capturing the Perfect Shot"
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "The Exposure Triangle",
+                "content": "Understanding the relationship between aperture, shutter speed, and ISO is fundamental to photography.",
+                "bullets": [
+                    "Aperture - controls depth of field",
+                    "Shutter Speed - controls motion blur",
+                    "ISO - controls sensor sensitivity",
+                    "Each setting affects exposure and image quality"
+                ]
+            }
+        },
+        {
+            "type": "image",
+            "data": {
+                "src": "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "alt": "Professional camera with various lenses",
+                "caption": "Modern cameras offer precise control over exposure settings"
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "Composition Techniques",
+                "content": "Good composition can transform an ordinary scene into an extraordinary photograph.",
+                "bullets": [
+                    "Rule of Thirds - place subjects along intersecting lines",
+                    "Leading Lines - guide the viewer's eye through the image",
+                    "Framing - use natural elements to frame your subject",
+                    "Symmetry and Patterns - create visual balance",
+                    "Fill the Frame - get closer to your subject"
+                ]
+            }
+        },
+        {
+            "type": "question",
+            "data": {
+                "question": "What does a lower f-stop number (like f/1.4) create?",
+                "options": [
+                    "Deeper depth of field",
+                    "Shallow depth of field",
+                    "Faster shutter speed",
+                    "Lower ISO sensitivity"
+                ],
+                "answer": "A lower f-stop number creates a shallow depth of field, which blurs the background and makes your subject stand out."
+            }
+        },
+        {
+            "type": "text",
+            "data": {
+                "title": "Lighting Essentials",
+                "content": "Light is the most important element in photography - it can make or break your image.",
+                "bullets": [
+                    "Golden Hour - soft, warm light just after sunrise or before sunset",
+                    "Blue Hour - even, diffused light just after sunset",
+                    "Overcast Days - natural diffusion for portraits",
+                    "Side Lighting - creates depth and dimension",
+                    "Backlighting - creates silhouettes and rim lighting"
+                ]
+            }
+        },
+        {
+            "type": "image",
+            "data": {
+                "src": "https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "alt": "Golden hour landscape photography",
+                "caption": "Golden hour provides the most flattering natural light for photography"
+            }
+        },
+        {
+            "type": "title",
+            "data": {
+                "title": "Keep Shooting!",
+                "author": "Practice makes perfect"
+            }
+        }
+    ]
+}
