@@ -1,206 +1,633 @@
-body {
-	background-color: black;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	margin: 0;
-	overflow: hidden;
-}
-
 :root {
-	--gold1: #f9f295;
-	--gold2: #e0aa3e;
-	--gold3: #faf398;
-	--gold4: #b88a44;
+  /* Gold Palette */
+  --gold-bright: #faf398;
+  --gold-primary: #f9f295;
+  --gold-medium: #e0aa3e;
+  --gold-dark: #b88a44;
+  --gold-deep: #8b6f47;
+
+  /* Paper & Label Colors */
+  --paper-base: #f4f1e8;
+  --paper-tint: #fdf8f0;
+  --paper-shadow: rgba(139, 111, 71, 0.15);
+  --paper-edge: rgba(139, 111, 71, 0.25);
+  --ink-primary: #2d2419;
+  --ink-faded: rgba(45, 36, 25, 0.75);
+  --ink-light: rgba(45, 36, 25, 0.6);
+
+  /* Background Colors */
+  --bg-dark-primary: #0a0a0a;
+  --bg-dark-secondary: #000000;
+  --bg-accent: rgba(224, 170, 62, 0.02);
+
+  /* Accent Colors */
+  --accent-warm: #d4af37;
+  --accent-cool: #4a6741;
+  --accent-earth: #8b4513;
+  --accent-sage: #9caf88;
+
+  /* Bowl Properties */
+  --bowl-size: clamp(180px, 65vw, 420px);
+  --bowl-lip-thickness: max(
+    8px,
+    calc(var(--bowl-size) * 0.05)
+  );
+  --bowl-glass: rgba(255, 255, 255, 0.08);
+  --bowl-rim: #444444;
+
+  /* Paper Textures */
+  --paper-texture: url('https://www.transparenttextures.com/patterns/old-mathematics.png');
+  --paper-overlay: url('https://www.transparenttextures.com/patterns/textured-paper.png');
+  --parchment-texture: url('https://www.transparenttextures.com/patterns/vintage-speckles.png');
+
+  /* Shadows & Effects */
+  --soft-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  --paper-glow: 0 0 20px rgba(244, 241, 232, 0.1);
+  --inner-shadow: inset 0 2px 4px
+    rgba(139, 111, 71, 0.1);
+
+  /* Typography */
+  --paper-font:
+    'Segoe Script', 'Brush Script MT', cursive;
+  --label-font-size: clamp(
+    0.9rem,
+    0.85rem + 0.25vw,
+    1rem
+  );
+  --title-font-size: clamp(
+    1.3rem,
+    1.1rem + 1.2vw,
+    1.8rem
+  );
 }
 
-section {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
+body {
+  background: 
+    /* Main atmosphere */
+    radial-gradient(
+      1400px 700px at 50% 25%,
+      var(--bg-dark-primary) 0%,
+      var(--bg-dark-secondary) 50%,
+      #000000 80%
+    ),
+    /* Warm glow from below */
+      radial-gradient(
+        ellipse 800px 400px at 50% 100%,
+        var(--bg-accent) 0%,
+        transparent 60%
+      ),
+    /* Cool highlight top right */
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(212, 175, 55, 0.02) 0%,
+        transparent 50%
+      ),
+    /* Subtle sage accent */
+      radial-gradient(
+        circle at 20% 30%,
+        rgba(156, 175, 136, 0.008) 0%,
+        transparent 40%
+      );
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
+
+/* Layout container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 32px;
+  padding: calc(16px + env(safe-area-inset-top))
+    16px calc(24px + env(safe-area-inset-bottom));
+}
+
+/* On mobile, prioritize the bowl */
+@media (max-width: 899px) {
+  .container {
+    justify-content: flex-start;
+    padding-top: max(
+      60px,
+      calc(15vh + env(safe-area-inset-top))
+    );
+    gap: 40px;
+  }
+
+  .bowl {
+    /* Ensure bowl is prominent and centered */
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    /* Make sure it's always visible */
+    min-width: 180px;
+    flex-shrink: 0;
+  }
+
+  .label {
+    /* Make label more compact on mobile */
+    max-width: min(90vw, 380px);
+    margin: 0 auto;
+    /* Reduce padding on mobile */
+    padding: 16px 18px 14px;
+    font-size: clamp(
+      0.85rem,
+      0.8rem + 0.3vw,
+      0.95rem
+    );
+
+    /* Less dramatic rotation on mobile */
+    transform: rotate(-0.2deg);
+  }
+
+  /* Ensure bowl fits comfortably in viewport */
+  body {
+    /* Prevent horizontal scroll */
+    overflow-x: hidden;
+  }
+}
+
+@media (min-width: 900px) {
+  .container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 60px;
+    padding: 20px;
+  }
+
+  .bowl {
+    flex-shrink: 0;
+  }
+
+  .label {
+    max-width: min(420px, 40vw);
+    align-self: center;
+  }
+}
+
+/* Removed redundant section styles - using .container now */
+
 h1 {
-	margin-top: 25px;
+  margin-top: 0;
+  margin-bottom: 8px;
 }
 
 /*  */
 
 .bowl {
-	position: relative;
-	width: 300px;
-	height: 300px;
-	background: rgba(255, 255, 255, 0.1);
-	border-radius: 50%;
-	animation: animateRocking 5s ease-in-out infinite;
-	transform-origin: center center;
-	z-index: 30;
+  position: relative;
+  width: var(--bowl-size);
+  height: var(--bowl-size);
+  background: var(--bowl-glass);
+  border-radius: 50%;
+  animation: animateRocking 5s ease-in-out
+    infinite;
+  transform-origin: center center;
+  z-index: 30;
+  will-change: transform;
+  backface-visibility: hidden;
+
+  /* Subtle color reflection */
+  box-shadow:
+    inset 0 0 20px rgba(212, 175, 55, 0.05),
+    0 0 40px rgba(212, 175, 55, 0.08);
 }
 
 @keyframes animateRocking {
-	0%,
-	50%,
-	100% {
-		transform: rotate(0deg);
-	}
-	25% {
-		transform: rotate(-10deg);
-	}
-	75% {
-		transform: rotate(10deg);
-	}
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
 }
 
 .bowl::before {
-	content: "";
-	position: absolute;
-	top: -15px;
-	left: 50%;
-	transform: translate(-50%);
-	width: 40%;
-	height: 40px;
-	border: 15px solid #444;
-	border-radius: 50%;
-	box-shadow: 0 10px rgba(0, 0, 0, 0.2);
+  content: '';
+  position: absolute;
+  top: calc(var(--bowl-lip-thickness) * -1);
+  left: 50%;
+  transform: translate(-50%);
+  width: 40%;
+  height: calc(var(--bowl-lip-thickness) * 2);
+  border: var(--bowl-lip-thickness) solid
+    var(--bowl-rim);
+  border-radius: 50%;
+  box-shadow:
+    0 10px rgba(0, 0, 0, 0.2),
+    inset 0 0 5px rgba(212, 175, 55, 0.1);
 }
 
 .bowl::after {
-	content: "";
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	border-radius: 50%;
-	width: 150px;
-	height: 80px;
-	background: rgba(255, 255, 255, 0.05);
+  content: '';
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  width: calc(var(--bowl-size) * 0.5);
+  height: calc(var(--bowl-size) * 0.22);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .liquid {
-	position: absolute;
-	top: 50%;
-	left: 5px;
-	right: 5px;
-	bottom: 5px;
-	background: linear-gradient(
-		180deg,
-		var(--gold3) 0%,
-		var(--gold1) 20%,
-		var(--gold2) 60%,
-		var(--gold4) 100%
-	);
-	border-bottom-left-radius: 150px;
-	border-bottom-right-radius: 150px;
-	filter: drop-shadow(0 0 50px var(--gold2));
-	transform-origin: top center;
-	animation: keepLevel 5s ease-in-out infinite;
-	overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  background: linear-gradient(
+    180deg,
+    var(--gold-bright) 0%,
+    var(--gold-primary) 20%,
+    var(--gold-medium) 60%,
+    var(--gold-dark) 100%
+  );
+  border-bottom-left-radius: calc(
+    var(--bowl-size) / 2
+  );
+  border-bottom-right-radius: calc(
+    var(--bowl-size) / 2
+  );
+  filter: drop-shadow(
+    0 0 40px var(--gold-medium)
+  );
+  transform-origin: top center;
+  animation: keepLevel 5s ease-in-out infinite;
+  overflow: hidden;
+  will-change: transform;
 }
 
 @keyframes keepLevel {
-	0%,
-	50%,
-	100% {
-		transform: rotate(0deg);
-	}
-	25% {
-		transform: rotate(10deg);
-	} /* opposite to bowl */
-	75% {
-		transform: rotate(-10deg);
-	}
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(10deg);
+  } /* opposite to bowl */
+  75% {
+    transform: rotate(-10deg);
+  }
 }
 
 .liquid::before {
-	content: "";
-	position: absolute;
-	top: -10px;
-	width: 100%;
-	height: 20px;
-	background: var(--gold3);
-	border-radius: 50%;
-	filter: drop-shadow(0 0 30px var(--gold2));
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 100%;
+  height: 20px;
+  background: var(--gold-bright);
+  border-radius: 50%;
+  filter: drop-shadow(
+    0 0 30px var(--gold-medium)
+  );
+}
+
+/* Subtle surface highlight */
+.liquid-surface {
+  position: absolute;
+  top: -6px;
+  left: -10%;
+  width: 120%;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.65) 30%,
+    rgba(212, 175, 55, 0.4) 50%,
+    rgba(255, 255, 255, 0.65) 70%,
+    transparent 100%
+  );
+  filter: blur(0.5px);
+  opacity: 0.75;
+  animation: surfaceShift 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes surfaceShift {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateX(6%);
+    opacity: 0.9;
+  }
 }
 
 /* Glitter Particles */
 .glitter {
-	position: absolute;
-	width: 6px;
-	height: 6px;
-	border-radius: 50%;
-	background: radial-gradient(
-		circle at 30% 30%,
-		#ffffff 0%,
-		var(--gold1, #f9f295) 40%,
-		var(--gold2, #e0aa3e) 100%
-	);
-	box-shadow: 0 0 8px rgba(224, 170, 62, 0.95);
-	pointer-events: none;
-	transform: translateY(0);
-	animation-name: rise;
-	animation-timing-function: cubic-bezier(0.2, 0.9, 0.2, 1);
-	animation-iteration-count: infinite;
-	opacity: 0.95;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ffffff 0%,
+    var(--gold-primary) 40%,
+    var(--gold-medium) 100%
+  );
+  box-shadow: 0 0 8px rgba(224, 170, 62, 0.95);
+  pointer-events: none;
+  transform: translateY(0);
+  animation-name: rise;
+  animation-timing-function: cubic-bezier(
+    0.2,
+    0.9,
+    0.2,
+    1
+  );
+  animation-iteration-count: infinite;
+  opacity: 0.95;
 }
 @keyframes rise {
-	0% {
-		transform: translateY(0) scale(0.6);
-		opacity: 0.9;
-	}
-	70% {
-		opacity: 1;
-	}
-	100% {
-		transform: translateY(-160px) scale(1);
-		opacity: 0;
-	}
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-160px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Tiny sparkles */
+.spark {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 40%,
+    #fff 0%,
+    rgba(255, 255, 255, 0.85) 45%,
+    rgba(224, 170, 62, 0.9) 100%
+  );
+  box-shadow: 0 0 6px rgba(224, 170, 62, 0.85);
+  pointer-events: none;
+  animation-name: sparkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  opacity: 0.9;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0.8;
+    filter: saturate(1);
+  }
+  40% {
+    opacity: 1;
+    filter: saturate(1.05);
+  }
+  100% {
+    transform: translateY(-120px) scale(1);
+    opacity: 0;
+    filter: saturate(1);
+  }
 }
 
 /* Bowl shadow */
 .shadow {
-	position: absolute;
-	bottom: -35px;
-	z-index: -3;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 300px;
-	height: 30px;
-	background: rgba(0, 0, 0, 0.5);
-	border-radius: 50%;
+  position: absolute;
+  bottom: -35px;
+  z-index: -3;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--bowl-size);
+  height: max(
+    24px,
+    calc(var(--bowl-size) * 0.09)
+  );
+  background: radial-gradient(
+    closest-side,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.05) 70%,
+    transparent 100%
+  );
+  border-radius: 50%;
 }
 
 .label {
-	z-index: -3;
-	position: absolute;
-	top: 20px; /* tweak to sit nicely */
-	right: 20px;
-	width: 350px;
-	padding: 15px;
-	background: rgba(255, 248, 240, 0.85);
-	background-image: url("https://www.transparenttextures.com/patterns/notebook.png");
-	border: 1px solid #ccc;
-	font-family: "Segoe Script", "Georgia", serif;
-	font-size: 0.8em;
-	line-height: 1.2em;
-	color: #333;
-	backdrop-filter: blur(2px);
+  position: relative;
+  z-index: 5;
+  width: min(90vw, 420px);
+  padding: 20px 22px 18px;
+
+  /* Multi-layered paper background */
+  background:
+    var(--paper-overlay), var(--paper-texture),
+    linear-gradient(
+      135deg,
+      var(--paper-tint) 0%,
+      var(--paper-base) 100%
+    );
+  background-size:
+    120px 120px,
+    80px 80px,
+    100% 100%;
+  background-blend-mode:
+    multiply, overlay, normal;
+
+  /* Organic paper borders */
+  border: none;
+  border-radius: 3px 8px 5px 2px;
+
+  /* Realistic paper shadows */
+  box-shadow:
+    var(--soft-shadow), var(--paper-glow),
+    var(--inner-shadow);
+
+  /* Typography */
+  font-family: var(--paper-font);
+  font-size: var(--label-font-size);
+  line-height: 1.4;
+  color: var(--ink-primary);
+
+  /* Paper aging effect */
+  filter: sepia(5%) contrast(98%) brightness(102%);
+
+  /* Slight paper curl */
+  transform: rotate(-0.5deg);
+  transform-origin: center center;
 }
 
-/* Fake ruled lines */
+.label h1 {
+  margin: 0 0 8px;
+  font-size: var(--title-font-size);
+  color: var(--ink-primary);
+  text-shadow: 0 1px 2px rgba(139, 111, 71, 0.1);
+  letter-spacing: 0.5px;
+}
+
+.label .meta {
+  color: var(--ink-faded);
+  margin-bottom: 12px;
+  font-style: italic;
+  font-size: 0.92em;
+}
+
+.label .note {
+  font-size: 0.95em;
+  color: var(--ink-primary);
+}
+
+/* Add color accents to specific text */
+.label strong {
+  color: var(--accent-earth);
+  font-weight: 600;
+}
+
+.label .appearance strong {
+  color: var(--accent-warm);
+}
+
+.label li:nth-child(2) strong {
+  color: var(--accent-cool);
+}
+
+.label li:nth-child(3) strong {
+  color: var(--accent-sage);
+}
+
+/* Realistic paper effects */
 .label::before {
-	content: "";
-	position: absolute;
-	top: 20px;
-	left: 5px;
-	right: 5px;
-	bottom: 5px;
-	background-image: linear-gradient(
-		to bottom,
-		transparent 0.95em,
-		#fff 0.95em,
-		transparent 1em
-	);
-	pointer-events: none;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  /* Subtle ruled lines */
+  background-image: 
+    /* Faint horizontal lines */
+    repeating-linear-gradient(
+      transparent 0,
+      transparent 1.3em,
+      var(--paper-edge) 1.3em,
+      var(--paper-edge) 1.35em
+    ),
+    /* Left margin line */
+      linear-gradient(
+        to right,
+        transparent 0,
+        transparent 18px,
+        var(--paper-shadow) 18px,
+        var(--paper-shadow) 19px,
+        transparent 19px
+      );
+
+  opacity: 0.4;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Paper edge wear effect */
+.label::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  background: 
+    /* Subtle aging spots */
+    radial-gradient(
+      ellipse at 80% 20%,
+      var(--accent-earth) 0%,
+      transparent 15%
+    ),
+    radial-gradient(
+      ellipse at 15% 85%,
+      var(--accent-earth) 0%,
+      transparent 12%
+    ),
+    radial-gradient(
+      ellipse at 60% 70%,
+      var(--gold-deep) 0%,
+      transparent 8%
+    ),
+    /* Edge wear */
+      linear-gradient(
+        45deg,
+        transparent 0%,
+        var(--paper-edge) 100%
+      );
+  border-radius: inherit;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Optimize animations for mobile */
+@media (max-width: 480px) {
+  .bowl {
+    /* Slightly reduce animation intensity on very small screens */
+    animation: animateRockingMobile 5s ease-in-out
+      infinite;
+  }
+
+  .liquid {
+    animation: keepLevelMobile 5s ease-in-out
+      infinite;
+  }
+}
+
+@keyframes animateRockingMobile {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-7deg);
+  }
+  75% {
+    transform: rotate(7deg);
+  }
+}
+
+@keyframes keepLevelMobile {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(7deg);
+  }
+  75% {
+    transform: rotate(-7deg);
+  }
+}
+
+/* Motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .bowl,
+  .liquid,
+  .glitter,
+  .spark,
+  .liquid-surface {
+    animation: none !important;
+  }
 }
