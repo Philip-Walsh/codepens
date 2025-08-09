@@ -1,0 +1,206 @@
+body {
+	background-color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	overflow: hidden;
+}
+
+:root {
+	--gold1: #f9f295;
+	--gold2: #e0aa3e;
+	--gold3: #faf398;
+	--gold4: #b88a44;
+}
+
+section {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+h1 {
+	margin-top: 25px;
+}
+
+/*  */
+
+.bowl {
+	position: relative;
+	width: 300px;
+	height: 300px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 50%;
+	animation: animateRocking 5s ease-in-out infinite;
+	transform-origin: center center;
+	z-index: 30;
+}
+
+@keyframes animateRocking {
+	0%,
+	50%,
+	100% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(-10deg);
+	}
+	75% {
+		transform: rotate(10deg);
+	}
+}
+
+.bowl::before {
+	content: "";
+	position: absolute;
+	top: -15px;
+	left: 50%;
+	transform: translate(-50%);
+	width: 40%;
+	height: 40px;
+	border: 15px solid #444;
+	border-radius: 50%;
+	box-shadow: 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.bowl::after {
+	content: "";
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 50%;
+	width: 150px;
+	height: 80px;
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.liquid {
+	position: absolute;
+	top: 50%;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+	background: linear-gradient(
+		180deg,
+		var(--gold3) 0%,
+		var(--gold1) 20%,
+		var(--gold2) 60%,
+		var(--gold4) 100%
+	);
+	border-bottom-left-radius: 150px;
+	border-bottom-right-radius: 150px;
+	filter: drop-shadow(0 0 50px var(--gold2));
+	transform-origin: top center;
+	animation: keepLevel 5s ease-in-out infinite;
+	overflow: hidden;
+}
+
+@keyframes keepLevel {
+	0%,
+	50%,
+	100% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(10deg);
+	} /* opposite to bowl */
+	75% {
+		transform: rotate(-10deg);
+	}
+}
+
+.liquid::before {
+	content: "";
+	position: absolute;
+	top: -10px;
+	width: 100%;
+	height: 20px;
+	background: var(--gold3);
+	border-radius: 50%;
+	filter: drop-shadow(0 0 30px var(--gold2));
+}
+
+/* Glitter Particles */
+.glitter {
+	position: absolute;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: radial-gradient(
+		circle at 30% 30%,
+		#ffffff 0%,
+		var(--gold1, #f9f295) 40%,
+		var(--gold2, #e0aa3e) 100%
+	);
+	box-shadow: 0 0 8px rgba(224, 170, 62, 0.95);
+	pointer-events: none;
+	transform: translateY(0);
+	animation-name: rise;
+	animation-timing-function: cubic-bezier(0.2, 0.9, 0.2, 1);
+	animation-iteration-count: infinite;
+	opacity: 0.95;
+}
+@keyframes rise {
+	0% {
+		transform: translateY(0) scale(0.6);
+		opacity: 0.9;
+	}
+	70% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(-160px) scale(1);
+		opacity: 0;
+	}
+}
+
+/* Bowl shadow */
+.shadow {
+	position: absolute;
+	bottom: -35px;
+	z-index: -3;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	height: 30px;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 50%;
+}
+
+.label {
+	z-index: -3;
+	position: absolute;
+	top: 20px; /* tweak to sit nicely */
+	right: 20px;
+	width: 350px;
+	padding: 15px;
+	background: rgba(255, 248, 240, 0.85);
+	background-image: url("https://www.transparenttextures.com/patterns/notebook.png");
+	border: 1px solid #ccc;
+	font-family: "Segoe Script", "Georgia", serif;
+	font-size: 0.8em;
+	line-height: 1.2em;
+	color: #333;
+	backdrop-filter: blur(2px);
+}
+
+/* Fake ruled lines */
+.label::before {
+	content: "";
+	position: absolute;
+	top: 20px;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+	background-image: linear-gradient(
+		to bottom,
+		transparent 0.95em,
+		#fff 0.95em,
+		transparent 1em
+	);
+	pointer-events: none;
+}
